@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F38CF343-031F-4DF6-A3D9-24EE55B2C065}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ORM</RootNamespace>
+    <AssemblyName>ORM</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FluentNHibernate, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NHibernate, Version=4.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.4.1.1.4000\lib\net40\NHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\Entity.cs" />
+    <Compile Include="Base\IRepository.cs" />
+    <Compile Include="Base\Repository.cs" />
+    <Compile Include="Base\SessionFactory.cs" />
+    <Compile Include="Conventions\MyForeignKeyConvention.cs" />
+    <Compile Include="Conventions\MyIdConvention.cs" />
+    <Compile Include="Conventions\Energy\Entities\Diod.cs" />
+    <Compile Include="Conventions\Energy\Entities\Feeder.cs" />
+    <Compile Include="Conventions\Energy\Entities\PowerConvert.cs" />
+    <Compile Include="Conventions\Energy\Entities\PowerSupplyStation.cs" />
+    <Compile Include="Conventions\Energy\Entities\Resistance.cs" />
+    <Compile Include="Conventions\Energy\Entities\Type_Resistance.cs" />
+    <Compile Include="Conventions\Energy\Entities\Unit.cs" />
+    <Compile Include="Conventions\Energy\Entities\Unit_Name.cs" />
+    <Compile Include="Conventions\Energy\Map\DiodMap.cs" />
+    <Compile Include="Conventions\Energy\Map\FeederMap.cs" />
+    <Compile Include="Conventions\Energy\Map\PowerConvertMap.cs" />
+    <Compile Include="Conventions\Energy\Map\PowerSupplyStationMap.cs" />
+    <Compile Include="Conventions\Energy\Map\ResistanceMap.cs" />
+    <Compile Include="Conventions\Energy\Map\Type_ResistanceMap.cs" />
+    <Compile Include="Conventions\Energy\Map\UnitMap.cs" />
+    <Compile Include="Conventions\Energy\Map\Unit_NameMap.cs" />
+    <Compile Include="Conventions\Energy\Repositories\FeederRepository.cs" />
+    <Compile Include="Conventions\Energy\Repositories\PowerSupplyStationRepository.cs" />
+    <Compile Include="Conventions\Energy\Repositories\ResistanceRepository.cs" />
+    <Compile Include="Conventions\Energy\Repositories\UnitRepository.cs" />
+    <Compile Include="Line\Entities\Color.cs" />
+    <Compile Include="Line\Entities\Line.cs" />
+    <Compile Include="Line\Map\ColorMap.cs" />
+    <Compile Include="Line\Map\LineMap.cs" />
+    <Compile Include="Line\Repositories\LineRepositories.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Stage\" />
+    <Folder Include="Train\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
