@@ -26,6 +26,7 @@ namespace ORM.Base
                 IntegratedSecurity = true
             };
 
+
            
             var configure = MsSqlConfiguration.MsSql2008.ConnectionString(Builder.ConnectionString);
 
