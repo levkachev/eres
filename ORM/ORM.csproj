@@ -35,7 +35,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
+      <HintPath>..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
@@ -64,26 +64,26 @@
     <Compile Include="Base\SessionFactory.cs" />
     <Compile Include="Conventions\MyForeignKeyConvention.cs" />
     <Compile Include="Conventions\MyIdConvention.cs" />
-    <Compile Include="Conventions\Energy\Entities\Diod.cs" />
-    <Compile Include="Conventions\Energy\Entities\Feeder.cs" />
-    <Compile Include="Conventions\Energy\Entities\PowerConvert.cs" />
-    <Compile Include="Conventions\Energy\Entities\PowerSupplyStation.cs" />
-    <Compile Include="Conventions\Energy\Entities\Resistance.cs" />
-    <Compile Include="Conventions\Energy\Entities\Type_Resistance.cs" />
-    <Compile Include="Conventions\Energy\Entities\Unit.cs" />
-    <Compile Include="Conventions\Energy\Entities\Unit_Name.cs" />
-    <Compile Include="Conventions\Energy\Map\DiodMap.cs" />
-    <Compile Include="Conventions\Energy\Map\FeederMap.cs" />
-    <Compile Include="Conventions\Energy\Map\PowerConvertMap.cs" />
-    <Compile Include="Conventions\Energy\Map\PowerSupplyStationMap.cs" />
-    <Compile Include="Conventions\Energy\Map\ResistanceMap.cs" />
-    <Compile Include="Conventions\Energy\Map\Type_ResistanceMap.cs" />
-    <Compile Include="Conventions\Energy\Map\UnitMap.cs" />
-    <Compile Include="Conventions\Energy\Map\Unit_NameMap.cs" />
-    <Compile Include="Conventions\Energy\Repositories\FeederRepository.cs" />
-    <Compile Include="Conventions\Energy\Repositories\PowerSupplyStationRepository.cs" />
-    <Compile Include="Conventions\Energy\Repositories\ResistanceRepository.cs" />
-    <Compile Include="Conventions\Energy\Repositories\UnitRepository.cs" />
+    <Compile Include="Energy\Entities\Diod.cs" />
+    <Compile Include="Energy\Entities\Feeder.cs" />
+    <Compile Include="Energy\Entities\PowerConvert.cs" />
+    <Compile Include="Energy\Entities\PowerSupplyStation.cs" />
+    <Compile Include="Energy\Entities\Resistance.cs" />
+    <Compile Include="Energy\Entities\Type_Resistance.cs" />
+    <Compile Include="Energy\Entities\Unit.cs" />
+    <Compile Include="Energy\Entities\Unit_Name.cs" />
+    <Compile Include="Energy\Map\DiodMap.cs" />
+    <Compile Include="Energy\Map\FeederMap.cs" />
+    <Compile Include="Energy\Map\PowerConvertMap.cs" />
+    <Compile Include="Energy\Map\PowerSupplyStationMap.cs" />
+    <Compile Include="Energy\Map\ResistanceMap.cs" />
+    <Compile Include="Energy\Map\Type_ResistanceMap.cs" />
+    <Compile Include="Energy\Map\UnitMap.cs" />
+    <Compile Include="Energy\Map\Unit_NameMap.cs" />
+    <Compile Include="Energy\Repositories\FeederRepository.cs" />
+    <Compile Include="Energy\Repositories\PowerSupplyStationRepository.cs" />
+    <Compile Include="Energy\Repositories\ResistanceRepository.cs" />
+    <Compile Include="Energy\Repositories\UnitRepository.cs" />
     <Compile Include="Line\Entities\Color.cs" />
     <Compile Include="Line\Entities\Line.cs" />
     <Compile Include="Line\Map\ColorMap.cs" />

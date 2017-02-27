@@ -11,18 +11,16 @@ using System.Reflection;
 
 namespace ORM.Base
 {
-//    public static ConnectionStringSettingsCollection ConnectionStrings { get; }
-
     public static class SessionFactory
     {
         public static ISessionFactory GetSessionFactory()
         {
-            var Prefix = "mssql";
+           
 
             var Builder = new SqlConnectionStringBuilder
             {
-                DataSource = ConfigurationManager.AppSettings[$"{Prefix}DatabaseLocation"],
-                InitialCatalog = ConfigurationManager.AppSettings[$"{Prefix}DatabaseName"],
+                DataSource = ConfigurationManager.AppSettings["DatabaseLocation"],
+                InitialCatalog = ConfigurationManager.AppSettings["DatabaseName"],
                 IntegratedSecurity = true
             };
 

@@ -10,10 +10,10 @@ namespace ORM.Energy.Map
     {
         public PowerSupplyStationMap()
         {
+            Table("Energy.PowerSupplyStation");
             Id(x => x.ID);
             Map(x => x.Name).Length(45).Not.Nullable();
             Map(x => x.Piketag).Not.Nullable();
-            //это предположение
             References(x => x.Line);
         }
 

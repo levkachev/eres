@@ -10,6 +10,7 @@ namespace ORM.Energy.Map
     {
         public Unit_NameMap()
         {
+            Table("Energy.Unit_Name");
             Id(x => x.ID);
             Map(x => x.Name).Length(45).Not.Nullable();
         }

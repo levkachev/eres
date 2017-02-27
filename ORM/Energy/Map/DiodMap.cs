@@ -10,6 +10,7 @@ namespace ORM.Energy.Map
     {
        public DiodMap()
         {
+            Table("Energy.Diod");
             Id(x => x.ID);
             Map(x => x.Name).Length(45).Not.Nullable();
             Map(x => x.Rdmax).Not.Nullable();

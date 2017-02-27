@@ -10,6 +10,7 @@ namespace ORM.Energy.Map
     {
         public PowerConvertMap()
         {
+            Table("Energy.PowerConvert");
             Id(x => x.ID);
             Map(x => x.Name).Length(45).Not.Nullable();
             Map(x => x.Kt).Not.Nullable();

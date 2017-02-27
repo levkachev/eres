@@ -1,6 +1,5 @@
 ﻿using NHibernate;
 using ORM.Base;
-using System.Linq;
 using ORM.Energy.Repositories;
 using System.Collections.Generic;
 using ORM.Energy.Entities;

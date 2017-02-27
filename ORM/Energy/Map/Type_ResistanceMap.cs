@@ -10,6 +10,7 @@ namespace ORM.Energy.Map
     {
         public Type_ResistanceMap()
         {
+            Table("Energy.Type_Resistance");
             Id(x => x.ID);
             Map(x => x.Resistance).Not.Nullable();
             Map(x => x.Type).Length(45).Not.Nullable();

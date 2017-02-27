@@ -10,11 +10,12 @@ namespace ORM.Energy.Map
     {
         public ResistanceMap()
         {
+            Table("Energy.Resistance");
             Id(x => x.ID);
             Map(x => x.Length).Not.Nullable();
             Map(x => x.Square).Not.Nullable();
             Map(x => x.Count).Not.Nullable();
-            //это предположения
+            
             References(x => x.Type_Resistance);
 
             References(x => x.Feeder);

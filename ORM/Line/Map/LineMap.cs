@@ -7,6 +7,7 @@ namespace ORM.Line.Map
     {
         public LineMap()
         {
+            Table("Line.Line");
             Id(x => x.ID);
             Map(x => x.Name).Length(45).Not.Nullable();
             References(x => x.Color);
