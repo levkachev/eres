@@ -1,5 +1,6 @@
 ﻿using System;
 using ORM.Base;
+using ORM.Line.Entities;
 
 
 namespace ORM.Energy.Entities
@@ -22,7 +23,7 @@ namespace ORM.Energy.Entities
         /// <summary>
         /// Линия
         /// </summary>
-        public virtual Line.Entities.Line Line { get; set; }
+        public virtual LineLine Line { get; set; }
        
        
     }

@@ -3,9 +3,9 @@ using ORM.Line.Entities;
 
 namespace ORM.Line.Map
 {
-    public class LineMap : ClassMap<Line.Entities.Line>
+    public class LineLineMap : ClassMap<LineLine>
     {
-        public LineMap()
+        public LineLineMap()
         {
             Table("Line.Line");
             Id(x => x.ID);

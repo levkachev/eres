@@ -7,12 +7,12 @@ namespace ORM.Line.Entities
     /// <summary>
     /// Линия
     /// </summary>
-    public class Line : Entity<Line>
+    public class LineLine : Entity<LineLine>
     {
         /// <summary>
         /// Наименование линии
         /// </summary>
-        public virtual Int32 Name { get; set; }
+        public virtual String Name { get; set; }
 
         /// <summary>
         /// Цвет линии 

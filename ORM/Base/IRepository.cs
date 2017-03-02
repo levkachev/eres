@@ -19,7 +19,7 @@ namespace ORM.Base
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        T GetById(Int32 id);
+        T GetById(Guid id);
         /// <summary>
         /// save the <paramref name="entity"/>
         /// </summary>

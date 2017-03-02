@@ -25,7 +25,7 @@ namespace ORM.Base
             };
 
 
-           
+                       
             var configure = MsSqlConfiguration.MsSql2008.ConnectionString(Builder.ConnectionString);
 
             var configuration = Fluently.Configure()

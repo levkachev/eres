@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using NHibernate;
+//using NHibernate.Mapping;
+using System.Linq;
+using FluentNHibernate.MappingModel.Collections;
 
 namespace ORM.Base
 {
@@ -74,11 +77,12 @@ namespace ORM.Base
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public T GetById(Int32 id)
+        public T GetById(Guid id)
         {
-            return Transact(() => Session.Get<T>(id));
+          return Transact(() => Session.Get<T>(id));
         }
-   
+      
+
         /// <summary>
         /// realization CRUD
         /// </summary>
