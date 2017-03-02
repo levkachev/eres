@@ -4,7 +4,7 @@ using ORM.Base;
 namespace ORM.Train.Entities
 {
     /// <summary>
-    /// параметры поезда
+    /// Параметры поезда
     /// </summary>
     public class АdditionalParameter : Entity<АdditionalParameter>
     {
@@ -44,7 +44,7 @@ namespace ORM.Train.Entities
         public virtual Double Net_Resistence_Pull_Factor { get; set; }
 
         /// <summary>
-        /// коэффициент аэродинамического сопротивления
+        /// Коэффициент аэродинамического сопротивления
         /// </summary>
         public virtual Double Aerodynamic_Drag_Factor { get; set; }
 
