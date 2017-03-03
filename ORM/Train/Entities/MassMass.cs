@@ -1,6 +1,7 @@
 ﻿using System;
 using ORM.Base;
 
+
 namespace ORM.Train.Entities
 {
     /// <summary>

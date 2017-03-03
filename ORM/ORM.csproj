@@ -96,10 +96,15 @@
     <Compile Include="Train\Entities\Train_Name.cs" />
     <Compile Include="Train\Entities\VFI.cs" />
     <Compile Include="Train\Entities\АdditionalParameter.cs" />
+    <Compile Include="Train\Map\MassMassMap.cs" />
+    <Compile Include="Train\Map\Mode_ControlMap.cs" />
+    <Compile Include="Train\Map\Motor_TypeMap.cs" />
+    <Compile Include="Train\Map\Train_NameMap.cs" />
+    <Compile Include="Train\Map\VFIMap.cs" />
+    <Compile Include="Train\Map\АdditionalParameterMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Stage\" />
-    <Folder Include="Train\Map\" />
     <Folder Include="Train\Repositories\" />
   </ItemGroup>
   <ItemGroup>
