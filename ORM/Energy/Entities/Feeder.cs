@@ -32,5 +32,11 @@ namespace ORM.Energy.Entities
         /// Тяговая подстанция
         /// </summary>
         public virtual PowerSupplyStation PSS { get; set; }
+
+        public override String ToString()
+        {
+            return String.Format($"{Resistance}, {Piketag}, {Name}");
+        }
+
     }
 }

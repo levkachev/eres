@@ -18,13 +18,7 @@ namespace ORM.Energy.Repositories
             return GetInstance<PowerSupplyStationRepository>(factory);
         }
 
-        /// public IList<Name> GetPowerSupplyStation()
-        /// {
-        //     return GetAll()
-        //         .Where(b => String.Equals(b.Line.Name, "Калининская" ))
-        //        .Select(x => x.Name)
-        //       .ToList<Name>();
-        //  }
+        
 
         public PowerSupplyStation GetPowerSupplyStation(String PowerSupplyStationName)
         {
@@ -42,21 +36,19 @@ namespace ORM.Energy.Repositories
         {
             return GetById(Id);
         }
-
+      
         public PowerSupplyStation GetByName(String name)
         {
             return GetAll()
                 .Where(pst => pst.Name == name)
                 .SingleOrDefault();
         }
-        //   public IList<String> GetPowerSupplyStation(LineLine lineline)
-        //  {
-        //    return GetAll()
-        //         .Where(p => p.LineLine == lineline.ID);
-        //       .Select(p => p.Name)
-        //      .ToList<String>();
-        // }
-
+       /// <summary>
+       /// Подстанция для выбранной линии по наименованию подстанции
+       /// </summary>
+       /// <param name="line"></param>
+       /// <param name="name"></param>
+       /// <returns></returns>
         public PowerSupplyStation GetPSTbyLine(LineLine line, String name)
         {
             return GetAll()
@@ -65,6 +57,17 @@ namespace ORM.Energy.Repositories
                 .SingleOrDefault();
                
         }
+        /// <summary>
+        /// все подстаниции для выбранной линии
+        /// </summary>
+        /// <param name="line"></param>
+        /// <returns></returns>
+        public IDictionary<String, Double> GetAllPSTbyLine(LineLine line)
+        {
+            return GetAll()
+                .Where(pst => pst.Line == line)
+                .ToDictionary(pst => pst.Name, pst => pst.Piketag);
 
+        }
     }
 }

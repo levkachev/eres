@@ -11,6 +11,6 @@ namespace ORM.Energy.Entities
         /// <summary>
         /// Наименование
         /// </summary>
-        public virtual Int32 Name { get; set; }
+        public virtual String Name { get; set; }
     }
 }

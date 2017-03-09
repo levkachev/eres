@@ -15,12 +15,20 @@ namespace ORM.Energy.Repositories
             return GetInstance<FeederRepository>(factory);
         }
 
-        
-        public IList<String> GetFeeder(PowerSupplyStation powerSupplyStation)
+        /// <summary>
+        /// координаты и сопротивление фидеров (определенного типа) для выбранной подстанции
+        /// </summary>
+        /// <param name="powerSupplyStation"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public IList<Feeder> GetFeeder(PowerSupplyStation powerSupplyStation, String name)
          {
             return GetAll()
-                 .Where(feeder => feeder.PSS == powerSupplyStation).Select(feeder => feeder.Name)
-                 .ToList();             
+                 .Where(feeder => feeder.PSS == powerSupplyStation)
+                 .Where (feeder => feeder.Feeder_Type == name)
+                 .Select(feeder => feeder).ToList();             
         }
+
+
     }
 }

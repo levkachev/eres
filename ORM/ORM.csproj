@@ -84,6 +84,7 @@
     <Compile Include="Energy\Repositories\PowerSupplyStationRepository.cs" />
     <Compile Include="Energy\Repositories\ResistanceRepository.cs" />
     <Compile Include="Energy\Repositories\UnitRepository.cs" />
+    <Compile Include="Energy\Repositories\Unit_NameRepository.cs" />
     <Compile Include="Line\Entities\Color.cs" />
     <Compile Include="Line\Entities\LineLine.cs" />
     <Compile Include="Line\Map\ColorMap.cs" />

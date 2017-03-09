@@ -31,12 +31,7 @@ namespace ORM.Line.Repositories
                 .Where(pstline => pstline.Name == name)
                 .SingleOrDefault();
         }
-        // public IList<PowerSupplyStation> GetName()
-        // {
-        //       return GetAll()
-        //          .Where(b => String.Equals(b.Line.Name, "Калининская"))
-        //           .SelectMany(x => x.Name)
-        //          .ToList<PowerSupplyStation>();
+        
     }
     
 }

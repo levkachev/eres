@@ -4,7 +4,7 @@ using ORM.Base;
 namespace ORM.Train.Entities
 {
     /// <summary>
-    /// 
+    /// характеристики 
     /// </summary>
     public class VFI : Entity<VFI>
     {
@@ -14,12 +14,12 @@ namespace ORM.Train.Entities
         public virtual Double Velocity { get; set; }
 
         /// <summary>
-        /// 
+        /// сила тяги (торможения) max
         /// </summary>
         public virtual Double ForceMax { get; set; }
 
         /// <summary>
-        /// 
+        /// сила тяги (торможения) min
         /// </summary>
         public virtual Double ForceMin { get; set; }
 
@@ -34,7 +34,7 @@ namespace ORM.Train.Entities
         public virtual Double CurrentMin { get; set; }
 
         /// <summary>
-        ///
+        /// режим управления
         /// </summary>
         public virtual Mode_Control ModeControl { get; set; }
 
@@ -42,5 +42,11 @@ namespace ORM.Train.Entities
         /// масса поезда
         /// </summary>
         public virtual MassMass Mass { get; set; }
+
+        /// <summary>
+        /// наименование поезда
+        /// </summary>
+        public virtual Train_Name Train { get; set; }
+        
     }
 }

@@ -17,8 +17,8 @@ namespace ORM.Energy.Entities
         /// <summary>
         /// Количество диодов
         /// </summary>
-        //DioCount --->  DiodCount
-        public virtual Int32 DioCount { get; set; }
+        
+        public virtual Int32 DiodCount { get; set; }
 
         /// <summary>
         /// Количество трансформа-торов
@@ -51,6 +51,11 @@ namespace ORM.Energy.Entities
             Diods = new List<Diod>();
             PowerConverts = new List<PowerConvert>();
 
+        }
+
+        public override String ToString()
+        {
+            return String.Format($"{UnitCount}, {DiodCount}, {TransformatorCount}");
         }
 
     }

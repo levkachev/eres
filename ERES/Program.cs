@@ -4,6 +4,7 @@ using ORM.Energy.Repositories;
 using System.Collections.Generic;
 using System;
 using ORM.Line.Repositories;
+using ORM.Energy.Entities;
 
 namespace ERES
 {
@@ -15,30 +16,37 @@ namespace ERES
             sessionFactory = SessionFactory.GetSessionFactory();
 
 
-            //    var powerSupplyStationRepository = PowerSupplyStationRepository.GetInstance(sessionFactory);
-
-            //ShowCollection<Name>(powerSupplyStationRepository.GetAll, "GetAll");
-            // var powerSupplyStationRepository = PowerSupplyStationRepository.GetInstance(sessionFactory);
-            //   var powerSupplyStations = powerSupplyStationRepository.GetAll();
-            //   ShowCollection<PowerSupplyStation>(powerSupplyStations, "PowerSupplyStations");
-
-            //    ShowCollection<String>(powerSupplyStationRepository.GetPowerSupplyStationNames(), "GetAllNames");
-
-
+            /// <summary>
+            /// Показать фидеры выбранного типа для выбранной подстанции на выбранной линии
+            /// </summary>
+            /// 
+            
             var linelineRepository = LineLineRepository.GetInstance(sessionFactory);
-            var line = linelineRepository.GetByName("Таганско-Краснопресненская");
+            var line = linelineRepository.GetByName("Калининская");
             
-            
-
             var powerSupplyStationRepository = PowerSupplyStationRepository.GetInstance(sessionFactory);
-            var powerSupplyStation = powerSupplyStationRepository.GetPSTbyLine(line,"62");
+            var unitRepository = UnitRepository.GetInstance(sessionFactory);
+            
+            /// <summary>
+            /// Показать всеподстанции на выбранной линии
+            /// </summary>
+            ShowDictionary(powerSupplyStationRepository.GetAllPSTbyLine(line), "GetAllPSTbyLine");
+
+            /// <summary>
+            /// Показать фидеры выбранного типа для выбранной подстанции на выбранной линии
+            /// </summary>
+            var powerSupplyStation = powerSupplyStationRepository.GetPSTbyLine(line,"88");
             var feederRepository = FeederRepository.GetInstance(sessionFactory);
-            ShowCollection<String>(feederRepository.GetFeeder(powerSupplyStation), "GetFeeder");
+            //  ShowCollection<String>(feederRepository.GetFeeder(powerSupplyStation), "GetFeeder");
+            var type = "питание";
+            ShowCollection<Feeder>(feederRepository.GetFeeder(powerSupplyStation, type), "GetFeederTypeP");
+            var type1 = "отсос";
+            ShowCollection<Feeder>(feederRepository.GetFeeder(powerSupplyStation, type1), "GetFeederTypeO");
+            /// <summary>
+            /// Показать количество агрегатов, диодов, трансформаторов  для выбранной подстанции на выбранной линии
+            /// </summary>
+            ShowCollection<Unit>(unitRepository.GetUnit(powerSupplyStation), "GetUnit");
 
-            // Guid id =97A3CBD2-E2AB-4AF2-B47A-EA11E0BBFA5B5;
-
-            //    var powerSupplyStationById = PowerSupplyStationRepository.GetById(97);
-            //  ShowCollection<String>(feederRepository.GetFeeder(powerSupplyStationById), "GetFeeder");
             Console.WriteLine("Press any key to close the program");
             Console.ReadKey(true);
         }
@@ -51,5 +59,13 @@ namespace ERES
                 Console.WriteLine(item);
         }
 
+        private static void ShowDictionary<TKey, TValue>(IDictionary<TKey, TValue> dictionary, String name)
+        {
+            Console.WriteLine(new String('_', Environment.CommandLine.Length / 2));
+            Console.WriteLine($"{name}{Environment.NewLine}");
+            foreach (var item in dictionary)
+                //      Console.WriteLine($"In the {item.Key} where are {item.Value}");
+                Console.WriteLine($"{item.Key}, {item.Value}");
+        }
     }
 }

@@ -16,6 +16,7 @@ namespace ORM.Train.Map
             Map(x => x.ForceMin).Not.Nullable();
             References(x => x.Mass);
             References(x => x.ModeControl);
+            References(x => x.Train);
 
         }
     }

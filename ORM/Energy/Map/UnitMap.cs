@@ -11,7 +11,7 @@ namespace ORM.Energy.Map
             Id(x => x.ID);
             Map(x => x.TransformatorCount).Not.Nullable();
             Map(x => x.UnitCount).Not.Nullable();
-            Map(x => x.DioCount).Not.Nullable();
+            Map(x => x.DiodCount).Not.Nullable();
            
             References(x => x.Unit_Name);
             References(x => x.PSS);
