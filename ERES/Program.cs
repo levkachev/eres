@@ -54,18 +54,18 @@ namespace ERES
             Console.ReadKey(true);
 
 
-            try
-            {
-                //var train = new Train.Train();
-                var properties = TrainFactory.NewCommonProperties();
-                var ACmachine = TrainFactory.NewACMachineProperties();
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-            }
+     //       try
+     //       {
+     //           //var train = new Train.Train();
+      //          var properties = TrainFactory.NewCommonProperties();
+     //           var ACmachine = TrainFactory.NewACMachineProperties();
+      //      }
+      //      catch (Exception exception)
+      //      {
+       //         Console.WriteLine(exception);
+       //     }
             
-            Console.ReadKey(true);
+        //    Console.ReadKey(true);
 
         }
        
