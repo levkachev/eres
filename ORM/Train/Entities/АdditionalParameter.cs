@@ -24,12 +24,12 @@ namespace ORM.Train.Entities
         public virtual Int32 Number_Cars { get; set; }
 
         /// <summary>
-        /// 
+        /// номинальное напряжение
         /// </summary>
         public virtual Double Unom { get; set; }
 
         /// <summary>
-        /// for AC
+        /// for AC максимальное напряжение
         /// </summary>
         public virtual Double Umax { get; set; }
 

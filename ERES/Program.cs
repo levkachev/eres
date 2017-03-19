@@ -6,6 +6,8 @@ using System;
 using ORM.Line.Repositories;
 using ORM.Energy.Entities;
 
+
+
 namespace ERES
 {
     class Program
