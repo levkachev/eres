@@ -1,7 +1,7 @@
 ﻿using System;
 using TrainMovement.Machine;
 using TrainMovement.ModeControl;
-using ORM.
+using ORM.Train.Entities;
 
 
 namespace TrainMovement.Train

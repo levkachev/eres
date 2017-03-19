@@ -75,6 +75,10 @@
       <Project>{f38cf343-031f-4df6-a3d9-24ee55b2c065}</Project>
       <Name>ORM</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TrainMovement\TrainMovement.csproj">
+      <Project>{5bb81442-7646-47d5-ad87-50c12a3f896c}</Project>
+      <Name>TrainMovement</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

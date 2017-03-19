@@ -2,6 +2,8 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using TrainMovement.Machine;
+using ORM.Train.Entities;
+
 namespace TrainMovement.Train
 {
     static class ExtensionMethods
