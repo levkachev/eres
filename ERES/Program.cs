@@ -70,6 +70,7 @@ namespace ERES
         }
        
 
+
         private static void ShowCollection<T>(IEnumerable<T> collection, String name)
         {
             Console.WriteLine(new String('_', Environment.CommandLine.Length / 2));
