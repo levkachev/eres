@@ -49,9 +49,9 @@
     <Compile Include="ModeControl\IModeControl.cs" />
     <Compile Include="ModeControl\InertModeControl.cs" />
     <Compile Include="ModeControl\PullModeControl.cs" />
-    <Compile Include="PhisicaHelper\Converter.cs" />
-    <Compile Include="PhisicaHelper\DomainHelper.cs" />
-    <Compile Include="PhisicaHelper\PhisicaHelper.cs" />
+    <Compile Include="PhisicalHelper\Converter.cs" />
+    <Compile Include="PhisicalHelper\DomainHelper.cs" />
+    <Compile Include="PhisicalHelper\PhisicaHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stage\LimitStructure.cs" />
     <Compile Include="Stage\Stage.cs" />
