@@ -48,6 +48,12 @@ namespace ORM.Interpolation.Entities
         /// наименование поезда
         /// </summary>
         public virtual Train_Name Train { get; set; }
-        
+
+
+
+        public override String ToString()
+        {
+            return String.Format($"{Velocity}, {ForceMax}, {ForceMin}, {CurrentMax}, {CurrentMin}");
+        }
     }
 }

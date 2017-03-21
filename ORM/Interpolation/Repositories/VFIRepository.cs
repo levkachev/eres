@@ -7,12 +7,12 @@ using System;
 
 namespace ORM.Interpolation.Repositories
 {
-    public class VFIRepositories : Repository<VFI>
+    public class VFIRepository : Repository<VFI>
 
     {
-        public static VFIRepositories GetInstance(ISessionFactory factory)
+        public static VFIRepository GetInstance(ISessionFactory factory)
         {
-            return GetInstance<VFIRepositories>(factory);
+            return GetInstance<VFIRepository>(factory);
         }
     }
 }
