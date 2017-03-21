@@ -85,6 +85,9 @@
     <Compile Include="Energy\Repositories\ResistanceRepository.cs" />
     <Compile Include="Energy\Repositories\UnitRepository.cs" />
     <Compile Include="Energy\Repositories\Unit_NameRepository.cs" />
+    <Compile Include="Interpolation\Entities\VFI.cs" />
+    <Compile Include="Interpolation\Map\VFIMap.cs" />
+    <Compile Include="Interpolation\Repositories\VFIRepositories.cs" />
     <Compile Include="Line\Entities\Color.cs" />
     <Compile Include="Line\Entities\LineLine.cs" />
     <Compile Include="Line\Map\ColorMap.cs" />
@@ -97,13 +100,11 @@
     <Compile Include="Train\Entities\Motor_Type.cs" />
     <Compile Include="Train\Entities\TrainType.cs" />
     <Compile Include="Train\Entities\Train_Name.cs" />
-    <Compile Include="Train\Entities\VFI.cs" />
     <Compile Include="Train\Entities\АdditionalParameter.cs" />
     <Compile Include="Train\Map\MassMassMap.cs" />
     <Compile Include="Train\Map\Mode_ControlMap.cs" />
     <Compile Include="Train\Map\Motor_TypeMap.cs" />
     <Compile Include="Train\Map\Train_NameMap.cs" />
-    <Compile Include="Train\Map\VFIMap.cs" />
     <Compile Include="Train\Map\АdditionalParameterMap.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,8 @@
 ﻿using System;
 using ORM.Base;
+using ORM.Train.Entities;
 
-namespace ORM.Train.Entities
+namespace ORM.Interpolation.Entities
 {
     /// <summary>
     /// характеристики 
