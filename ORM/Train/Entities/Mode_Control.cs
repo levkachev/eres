@@ -16,7 +16,7 @@ namespace ORM.Train.Entities
         /// <summary>
         /// тип двигателя
         /// </summary>
-        public virtual Motor_Type Motor_Type { get; set; }
+        public virtual Motor_Type MotorType { get; set; }
 
     }
 }

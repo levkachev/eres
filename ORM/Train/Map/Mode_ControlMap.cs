@@ -10,7 +10,7 @@ namespace ORM.Train.Map
             Table("Train.ModeControl");
             Id(x => x.ID);
             Map(x => x.ModeControl).Length(25).Not.Nullable();
-            References(x => x.Motor_Type);
+            References(x => x.MotorType);
 
         }
     }

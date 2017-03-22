@@ -106,8 +106,6 @@
     <Compile Include="Train\Map\Motor_TypeMap.cs" />
     <Compile Include="Train\Map\Train_NameMap.cs" />
     <Compile Include="Train\Map\АdditionalParameterMap.cs" />
-    <Compile Include="Train\Repositories\Motor_TypeRepository.cs" />
-    <Compile Include="Train\Repositories\Train_NameRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Stage\" />

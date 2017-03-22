@@ -30,6 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NHibernate, Version=4.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.4.1.1.4000\lib\net40\NHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Configuration.Install" />
@@ -53,6 +61,10 @@
     <Compile Include="PhisicalHelper\DomainHelper.cs" />
     <Compile Include="PhisicalHelper\PhisicaHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\MassRepository.cs" />
+    <Compile Include="Repositories\Mode_ControlRepository.cs" />
+    <Compile Include="Repositories\Motor_TypeRepository.cs" />
+    <Compile Include="Repositories\Train_NameRepository.cs" />
     <Compile Include="Stage\LimitStructure.cs" />
     <Compile Include="Stage\Stage.cs" />
     <Compile Include="Train\Train.cs" />
@@ -63,6 +75,10 @@
       <Project>{f38cf343-031f-4df6-a3d9-24ee55b2c065}</Project>
       <Name>ORM</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

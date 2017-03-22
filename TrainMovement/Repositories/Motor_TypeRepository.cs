@@ -5,7 +5,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 
-namespace ORM.Train.Repositories
+namespace TrainMovement.Repositories
 {
    public class Motor_TypeRepository: Repository<Motor_Type>
     {

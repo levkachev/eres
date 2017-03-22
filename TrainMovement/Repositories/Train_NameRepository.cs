@@ -5,7 +5,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 
-namespace ORM.Train.Repositories
+namespace TrainMovement.Repositories
 {
    public class Train_NameRepository : Repository<Train_Name>
     {
