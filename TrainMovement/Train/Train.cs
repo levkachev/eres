@@ -53,21 +53,22 @@ namespace TrainMovement.Train
         /// </summary>
         private BaseMachine Machine;
 
-        /// <summary>
-        /// Длина вагона
-        /// </summary>
-        private Double carLength;
-
-        /// <summary>
-        /// Масса порожнего вагона tara
-        /// </summary>
-        private Double unladenWeight;
 
         /// <summary>
         /// 
         /// </summary>
         private Int32 numberCars;
 
+
+        /// <summary>
+        /// Длина вагона
+        /// </summary>
+        private Double carLength;
+
+        /// <summary>
+        /// Масса порожнего вагона
+        /// </summary>
+        private Double unladenWeight;
         /// <summary>
         /// 
         /// </summary>
@@ -77,6 +78,7 @@ namespace TrainMovement.Train
         /// /
         /// </summary>
         private Double netResistancePullFactor;
+
 
         /// <summary>
         /// 
@@ -112,6 +114,8 @@ namespace TrainMovement.Train
         /// 
         /// </summary>
         private Double ownNeedsElectricPower;
+
+
 
         #endregion
 
@@ -462,9 +466,44 @@ namespace TrainMovement.Train
         /// <param name="machine"></param>
         /// <param name="commonProperties"></param>
         /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
-        internal Train(BaseMachine machine, CommonProperties commonProperties)
+        internal Train(BaseMachine machine, АdditionalParameter commonProperties)
         {
             CarLength = commonProperties.CarLength;
+            UnladenWeight = commonProperties.UnladenWeight;
+            NumberCars = commonProperties.NumberCars;
+            //Unom = commonProperties.Unom;
+            //Umax = commonProperties.Umax;
+            //BAverage = commonProperties.BAverage;
+            //NetResistencePullFactor = commonProperties.NetResistencePullFactor;
+            //AerodynamicDragFactor = commonProperties.AerodynamicDragFactor;
+            //NetResistenceCoastingFactor1 = commonProperties.NetResistenceCoastingFactor1;
+            //NetResistenceCoastingFactor2 = commonProperties.NetResistenceCoastingFactor2;
+            //NetResistenceCoastingFactor3 = commonProperties.NetResistenceCoastingFactor3;
+            //TrainEqvivalentSurface = commonProperties.TrainEqvivalentSurface;
+            //InertiaRotationFactor = commonProperties.InertiaRotationFactor;
+            //AssemblyPowerCircuitTime = commonProperties.AssemblyPowerCircuitTime;
+            //DisassemblyPowerCircuitTime = commonProperties.DisassemblyPowerCircuitTime;
+            //AssemblyPullTime = commonProperties.AssemblyPullTime;
+            //AssemblyPullResistance = commonProperties.AssemblyPullResistance;
+            //AssemblyBreakTime = commonProperties.AssemblyBreakTime;
+            //AssemblyBreakResistance = commonProperties.AssemblyBreakResistance;
+            //AnchorResistance = commonProperties.AnchorResistance;
+            //MainPoleResistance = commonProperties.MainPoleResistance;
+            //CompolesResistance = commonProperties.CompolesResistance;
+            //AutomodeFactor1 = commonProperties.AutomodeFactor1;
+            //AutomodeFactor2 = commonProperties.AutomodeFactor2;
+            //ExcitationTimeFactor1 = commonProperties.ExcitationTimeFactor1;
+            //ExcitationTimeFactor2 = commonProperties.ExcitationTimeFactor2;
+            //ExcitationTimeFactor3 =commonProperties.ExcitationTimeFactor3;
+            //MaxExcitationTime = commonProperties.MaxExcitationTime;
+            //LowAutoModeRange = commonProperties.LowAutoModeRange;
+            //HighAutoModeRange = commonProperties.HighAutoModeRange;
+            //LinearGrowCurrentTime = commonProperties.LinearGrowCurrentTime;
+            //ConnectionPull2 = commonProperties.ConnectionPull2;
+            //PositionPull2 = commonProperties.PositionPull2;
+            //OwnNeedsElectricPower = commonProperties.OwnNeedsElectricPower;
+            //nbAuto = commonProperties.nbAuto;
+            //WeakPull2 = commonProperties.WeakPull2;
             Machine = machine;
         }
 

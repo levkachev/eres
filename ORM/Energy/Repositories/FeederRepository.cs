@@ -10,9 +10,9 @@ namespace ORM.Energy.Repositories
     public class FeederRepository : Repository<Feeder>
 
     {
-        public static FeederRepository GetInstance(ISessionFactory factory)
+        public static FeederRepository GetInstance()
         {
-            return GetInstance<FeederRepository>(factory);
+            return GetInstance<FeederRepository>(SessionWrapper.GetInstance().Factory);
         }
 
         /// <summary>

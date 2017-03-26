@@ -6,7 +6,7 @@ using System;
 using ORM.Line.Repositories;
 using ORM.Energy.Entities;
 using TrainMovement.Train;
-using TrainMovement.Repositories;
+using ORM.Train.Repositories;
 using ORM.Interpolation.Repositories;
 using ORM.Interpolation.Entities;
 
@@ -15,10 +15,10 @@ namespace ERES
 {
     class Program
     {
-        public static ISessionFactory sessionFactory { get; protected set; }
+     //   public static ISessionFactory sessionFactory { get; protected set; }
         static void Main(string[] args)
         {
-            sessionFactory = SessionFactory.GetSessionFactory();
+          //  sessionFactory = SessionFactory.GetSessionFactory();
 
 
             /// <summary>
@@ -26,11 +26,11 @@ namespace ERES
             /// </summary>
             /// 
 
-            var linelineRepository = LineLineRepository.GetInstance(sessionFactory);
+            var linelineRepository = LineLineRepository.GetInstance();
             var line = linelineRepository.GetByName("Калининская");
 
-            var powerSupplyStationRepository = PowerSupplyStationRepository.GetInstance(sessionFactory);
-            var unitRepository = UnitRepository.GetInstance(sessionFactory);
+            var powerSupplyStationRepository = PowerSupplyStationRepository.GetInstance();
+            var unitRepository = UnitRepository.GetInstance();
 
             /// <summary>
             /// Показать всеподстанции на выбранной линии
@@ -41,7 +41,7 @@ namespace ERES
             /// Показать фидеры выбранного типа для выбранной подстанции на выбранной линии
             /// </summary>
             var powerSupplyStation = powerSupplyStationRepository.GetPSTbyLine(line, "88");
-            var feederRepository = FeederRepository.GetInstance(sessionFactory);
+            var feederRepository = FeederRepository.GetInstance();
             //  ShowCollection<String>(feederRepository.GetFeeder(powerSupplyStation), "GetFeeder");
             var type = "питание";
             ShowCollection<Feeder>(feederRepository.GetFeeder(powerSupplyStation, type), "GetFeederTypeP");
@@ -56,20 +56,19 @@ namespace ERES
             ///показать для выбранного типа мотора, имени поезда и массы все зависимости
             /// </summary> 
 
-            var motortypeRepository = Motor_TypeRepository.GetInstance(sessionFactory);
+            var motortypeRepository = Motor_TypeRepository.GetInstance();
             var motortype = motortypeRepository.GetByType("AC");
 
-            var trainnameRepository = Train_NameRepository.GetInstance(sessionFactory);
+            var trainnameRepository = Train_NameRepository.GetInstance();
             var trainname = trainnameRepository.GetByName("81-740.4");
 
-            var massRepository = MassRepository.GetInstance(sessionFactory);
+            var massRepository = MassRepository.GetInstance();
             var mass = massRepository.GetByMass(100);
 
-            var modecontrolRepository = Mode_ControlRepository.GetInstance(sessionFactory);
-            /// var modecontrol = modecontrolRepository.GetByModeControlMotorType(motortype);
+            var modecontrolRepository = Mode_ControlRepository.GetInstance();
             var modecontrol = modecontrolRepository.GetByModeControl("Pull1");
 
-            var vfiRepository = VFIRepository.GetInstance(sessionFactory);
+            var vfiRepository = VFIRepository.GetInstance();
             ShowCollection<VFI>(vfiRepository.GetVFI(trainname, modecontrol, mass), "GetVFI") ;
 
             Console.WriteLine("Press any key to close the program");

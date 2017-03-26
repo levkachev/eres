@@ -62,6 +62,7 @@
     <Compile Include="Base\IRepository.cs" />
     <Compile Include="Base\Repository.cs" />
     <Compile Include="Base\SessionFactory.cs" />
+    <Compile Include="Base\SessionWrapper.cs" />
     <Compile Include="Conventions\MyForeignKeyConvention.cs" />
     <Compile Include="Conventions\MyIdConvention.cs" />
     <Compile Include="Energy\Entities\Diod.cs" />
@@ -94,6 +95,8 @@
     <Compile Include="Line\Map\LineLineMap.cs" />
     <Compile Include="Line\Repositories\LineLineRepositories.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stage\Entities\SpeedLimit.cs" />
+    <Compile Include="Stage\Entities\Stage.cs" />
     <Compile Include="Train\Entities\MassMass.cs" />
     <Compile Include="Train\Entities\Mode_Control.cs" />
     <Compile Include="Train\Entities\Motor_Type.cs" />
@@ -105,10 +108,13 @@
     <Compile Include="Train\Map\Motor_TypeMap.cs" />
     <Compile Include="Train\Map\Train_NameMap.cs" />
     <Compile Include="Train\Map\АdditionalParameterMap.cs" />
+    <Compile Include="Train\Repositories\MassRepository.cs" />
+    <Compile Include="Train\Repositories\Mode_ControlRepository.cs" />
+    <Compile Include="Train\Repositories\Motor_TypeRepository.cs" />
+    <Compile Include="Train\Repositories\Train_NameRepository.cs" />
+    <Compile Include="Train\Repositories\АdditionalParameterRepository.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Stage\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />

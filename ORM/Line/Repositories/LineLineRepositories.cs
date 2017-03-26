@@ -10,9 +10,9 @@ namespace ORM.Line.Repositories
     public class LineLineRepository : Repository<LineLine>
 
     {
-        public static LineLineRepository GetInstance(ISessionFactory factory)
+        public static LineLineRepository GetInstance()
         {
-            return GetInstance<LineLineRepository>(factory);
+            return GetInstance<LineLineRepository>(SessionWrapper.GetInstance().Factory);
         }
 
        public LineLine GetLineId(Guid Id)

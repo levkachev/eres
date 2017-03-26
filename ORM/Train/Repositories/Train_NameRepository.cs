@@ -5,13 +5,13 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 
-namespace TrainMovement.Repositories
+namespace ORM.Train.Repositories
 {
    public class Train_NameRepository : Repository<Train_Name>
     {
-        public static Train_NameRepository GetInstance(ISessionFactory factory)
+        public static Train_NameRepository GetInstance()
         {
-            return GetInstance<Train_NameRepository>(factory);
+            return GetInstance<Train_NameRepository>(SessionWrapper.GetInstance().Factory);
         }
 
         public Train_Name GetByName(String name)

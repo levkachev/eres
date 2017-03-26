@@ -7,9 +7,9 @@ namespace ORM.Energy.Repositories
     public class ResistanceRepository : Repository<Resistance>
 
     {
-        public static ResistanceRepository GetInstance(ISessionFactory factory)
+        public static ResistanceRepository GetInstance()
         {
-            return GetInstance<ResistanceRepository>(factory);
+            return GetInstance<ResistanceRepository>(SessionWrapper.GetInstance().Factory);
         }
     }
 }

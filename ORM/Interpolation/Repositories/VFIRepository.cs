@@ -11,9 +11,9 @@ namespace ORM.Interpolation.Repositories
     public class VFIRepository : Repository<VFI>
 
     {
-        public static VFIRepository GetInstance(ISessionFactory factory)
+        public static VFIRepository GetInstance()
         {
-            return GetInstance<VFIRepository>(factory);
+            return GetInstance<VFIRepository>(SessionWrapper.GetInstance().Factory);
         }
 
         /// <summary>

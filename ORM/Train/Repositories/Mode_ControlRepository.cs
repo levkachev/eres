@@ -5,14 +5,14 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 
-namespace TrainMovement.Repositories
+namespace ORM.Train.Repositories
 {
     public class Mode_ControlRepository : Repository<Mode_Control>
 
     {
-        public static Mode_ControlRepository GetInstance(ISessionFactory factory)
+        public static Mode_ControlRepository GetInstance()
         {
-            return GetInstance<Mode_ControlRepository>(factory);
+            return GetInstance<Mode_ControlRepository>(SessionWrapper.GetInstance().Factory);
         }
 
         

@@ -1,57 +1,66 @@
-﻿using System;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using TrainMovement.Machine;
-using ORM.Train.Entities;
+﻿using TrainMovement.Machine;
+using ORM.Train.Repositories;
+using TrainMovement.Stuff;
 
 namespace TrainMovement.Train
 {
-    static class ExtensionMethods
-    {
-        public static T DeepCopy<T>(this T self)
-        {
-            if (!typeof(T).IsSerializable)
-                throw new ArgumentException("Type must be serializable");
-            if (ReferenceEquals(self, null))
-                return default(T);
-            var formatter = new BinaryFormatter();
-            using (var stream = new MemoryStream())
-            {
-                formatter.Serialize(stream, self);
-                stream.Seek(0, SeekOrigin.Begin);
-                return (T)formatter.Deserialize(stream);
-            }
-        }
-    }
-
+   
     public class TrainFactory
     {
-        private static TrainType CommonProperties = new TrainType();
+        /// <summary>
+        /// 
+        /// </summary>
+        private static BaseMachine ACMachinePrototype = new ACMachine();
 
-        private static BaseMachine ACMachineProperties = new ACMachine();
+        /// <summary>
+        /// 
+        /// </summary>
+        private static BaseMachine DCMachinePrototype = new DCMachine();
 
-        private static BaseMachine DCMachineProperties = new DCMachine();
-
-        public static TrainType NewCommonProperties()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private static BaseMachine GetNewACMachine()
         {
-            var result = CommonProperties.DeepCopy();
-            return result;
+            return CloneMachine(ACMachinePrototype);
         }
 
-        public static BaseMachine NewACMachineProperties()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private static BaseMachine GetNewDCMachine()
         {
-            return NewMachine(ACMachineProperties);
+            return CloneMachine(DCMachinePrototype);
         }
 
-        public static BaseMachine NewDCMachineProperties()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="machine"></param>
+        /// <returns></returns>
+        private static BaseMachine CloneMachine(BaseMachine machine)
         {
-            return NewMachine(DCMachineProperties);
+            return machine.DeepCopy();
         }
 
-        private static BaseMachine NewMachine(BaseMachine machine)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static Train GetACTrain()
         {
-            var result = machine.DeepCopy();
-            return result;
+            return new Train(GetNewACMachine(), АdditionalParameterRepository.GetАdditionalParameter());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static Train GetDCTrain()
+        {
+            return new Train(GetNewDCMachine(), АdditionalParameterRepository.GetАdditionalParameter());
         }
 
     }

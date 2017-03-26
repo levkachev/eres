@@ -1,5 +1,6 @@
 ﻿using System;
 
+
 namespace TrainMovement.PhisicalHelper
 {
     internal sealed class Range
@@ -28,4 +29,3 @@ namespace TrainMovement.PhisicalHelper
         }
     }
 }
-

@@ -13,9 +13,9 @@ namespace ORM.Energy.Repositories
     public class PowerSupplyStationRepository : Repository<PowerSupplyStation>
     
     {
-       public static PowerSupplyStationRepository GetInstance(ISessionFactory factory)
+       public static PowerSupplyStationRepository GetInstance()
         {
-            return GetInstance<PowerSupplyStationRepository>(factory);
+            return GetInstance<PowerSupplyStationRepository>(SessionWrapper.GetInstance().Factory);
         }
 
         

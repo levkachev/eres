@@ -10,9 +10,9 @@ namespace ORM.Energy.Repositories
     public class UnitRepository : Repository<Unit>
 
     {
-        public static UnitRepository GetInstance(ISessionFactory factory)
+        public static UnitRepository GetInstance()
         {
-            return GetInstance<UnitRepository>(factory);
+            return GetInstance<UnitRepository>(SessionWrapper.GetInstance().Factory);
         }
         public Unit GetByName(Unit_Name name)
         {

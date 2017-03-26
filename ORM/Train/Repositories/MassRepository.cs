@@ -5,13 +5,13 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 
-namespace TrainMovement.Repositories
+namespace ORM.Train.Repositories
 {
     public class MassRepository : Repository<MassMass>
     {
-        public static MassRepository GetInstance(ISessionFactory factory)
+        public static MassRepository GetInstance()
         {
-            return GetInstance<MassRepository>(factory);
+            return GetInstance<MassRepository>(SessionWrapper.GetInstance().Factory);
         }
 
         public MassMass GetByMass(Double mass)
