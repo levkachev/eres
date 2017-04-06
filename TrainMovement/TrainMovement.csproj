@@ -50,9 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Machine\ACMachine.cs" />
-    <Compile Include="Machine\BaseMachine.cs" />
-    <Compile Include="Machine\DCMachine.cs" />
     <Compile Include="ModeControl\BreakModeControl.cs" />
     <Compile Include="ModeControl\IModeControl.cs" />
     <Compile Include="ModeControl\InertModeControl.cs" />
@@ -64,7 +61,9 @@
     <Compile Include="Stage\LimitStructure.cs" />
     <Compile Include="Stage\Stage.cs" />
     <Compile Include="Stuff\ExtensionMethods.cs" />
-    <Compile Include="Train\Train.cs" />
+    <Compile Include="Train\ACTrain.cs" />
+    <Compile Include="Train\BaseTrain.cs" />
+    <Compile Include="Train\DCTrain.cs" />
     <Compile Include="Train\TrainFactory.cs" />
   </ItemGroup>
   <ItemGroup>

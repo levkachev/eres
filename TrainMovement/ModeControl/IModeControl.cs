@@ -10,18 +10,18 @@ namespace TrainMovement.ModeControl
     /// </summary>
     /// <param name="train"></param>
     /// <returns></returns>
-    Double GetForceBaseResistance(Train.Train train);
+    Double GetForceBaseResistance(Train.BaseTrain train);
     /// <summary>
     /// 
     /// </summary>
     /// <param name="train"></param>
     /// <returns></returns>
-    Double GetForcePull(Train.Train train);
+    Double GetForcePull(Train.BaseTrain train);
     /// <summary>
     /// 
     /// </summary>
     /// <param name="train"></param>
     /// <returns></returns>
-    Double GetForceBreak(Train.Train train);
+    Double GetForceBreak(Train.BaseTrain train);
 }
 }

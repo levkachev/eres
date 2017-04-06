@@ -157,7 +157,7 @@ namespace TrainMovement.PhisicalHelper
         /// <returns></returns>
         public static Boolean CheckNetResistanceCoastingFactor1(Double netResistanceCoastingFactor1)
         {
-            return CheckConstraint("netResistanceCoastingFactor1", netResistanceCoastingFactor1);
+            return CheckConstraint("netResistenceCoastingFactor1", netResistanceCoastingFactor1);
         }
 
         /// <summary>
@@ -167,7 +167,7 @@ namespace TrainMovement.PhisicalHelper
         /// <returns></returns>
         public static Boolean CheckNetResistanceCoastingFactor2(Double netResistanceCoastingFactor2)
         {
-            return CheckConstraint("netResistanceCoastingFactor2", netResistanceCoastingFactor2);
+            return CheckConstraint("netResistenceCoastingFactor2", netResistanceCoastingFactor2);
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace TrainMovement.PhisicalHelper
         /// <returns></returns>
         public static Boolean CheckNetResistanceCoastingFactor3(Double netResistanceCoastingFactor3)
         {
-            return CheckConstraint("netResistanceCoastingFactor3", netResistanceCoastingFactor3);
+            return CheckConstraint("netResistenceCoastingFactor3", netResistanceCoastingFactor3);
         }
 
         /// <summary>
