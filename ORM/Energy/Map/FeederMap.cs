@@ -13,7 +13,7 @@ namespace ORM.Energy.Map
             Table("Energy.Feeder");
             Id(x => x.ID);
             Map(x => x.Name).Length(45).Not.Nullable();
-            Map(x => x.Feeder_Type).Length(45).Not.Nullable();
+            Map(x => x.FeederType).Length(45).Not.Nullable();
             Map(x => x.Piketag).Not.Nullable();
             Map(x => x.Resistance).Not.Nullable();
             References(x => x.PSS);

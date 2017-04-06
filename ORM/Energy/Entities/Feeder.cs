@@ -21,7 +21,7 @@ namespace ORM.Energy.Entities
         /// <summary>
         /// Тип фидера
         /// </summary>
-        public virtual String Feeder_Type { get; set; }
+        public virtual String FeederType { get; set; }
 
         /// <summary>
         /// Сопротивление фидера

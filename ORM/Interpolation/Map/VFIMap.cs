@@ -18,6 +18,7 @@ namespace ORM.Interpolation.Map
             References(x => x.ModeControl);
             References(x => x.Train);
 
+
         }
     }
 }

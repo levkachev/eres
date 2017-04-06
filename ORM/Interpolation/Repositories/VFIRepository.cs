@@ -22,10 +22,10 @@ namespace ORM.Interpolation.Repositories
         /// <param name="powerSupplyStation"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public IList<VFI> GetVFI(Train_Name trainname, Mode_Control motorcontrol, MassMass mass)
+        public IList<VFI> GetVFI(String trainName, Mode_Control motorcontrol, MassMass mass)
         {
             return GetAll()
-                 .Where(vfi => vfi.Train == trainname)
+                 .Where(vfi => vfi.Train.Name == trainName)
                  .Where(vfi => vfi.ModeControl == motorcontrol)
                  .Where(vfi => vfi.Mass == mass)
                  .Select(vfi => vfi).ToList();
