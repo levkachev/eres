@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Repository.Base
+namespace ORM.Base
 {
     /// <summary>
     /// 

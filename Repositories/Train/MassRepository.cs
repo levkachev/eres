@@ -1,9 +1,9 @@
-﻿using ORM.Base;
-using ORM.Train.Entities;
+﻿using System;
 using System.Linq;
-using System;
+using ORM.Base;
+using ORM.Train.Entities;
 
-namespace ORM.Train.Repositories
+namespace Repositories.Train
 {
     /// <summary>
     /// 

@@ -48,7 +48,7 @@ namespace ORM.Base
 
         private Boolean IsNew()
         {
-            return ID == new Guid();
+            return ID == Guid.Empty;
         }
 
         public override Int32 GetHashCode()

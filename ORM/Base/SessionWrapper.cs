@@ -1,8 +1,10 @@
-﻿using System;
-using NHibernate;
+﻿using NHibernate;
 
 namespace ORM.Base
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class SessionWrapper
     {
         /// <summary>
