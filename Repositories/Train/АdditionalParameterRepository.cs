@@ -61,10 +61,53 @@ namespace Repositories.Train
 
             var dcTrainParametres = (DCParametres)baseParametres;
 
-            //это заглушка. Дописать все свойства!
+            dcTrainParametres.weakPull2 = repository.GetAdditionalParametresByTrainName(trainName).WeakPull2;
+
+            dcTrainParametres.positionPull2 = repository.GetAdditionalParametresByTrainName(trainName).PositionPull2;
+
+            dcTrainParametres.connectionPull2 = repository.GetAdditionalParametresByTrainName(trainName).ConnectionPull2;
+
+            dcTrainParametres.assemblyPowerCircuitTime = repository.GetAdditionalParametresByTrainName(trainName).AssemblyPowerCircuitTime;
+
+            dcTrainParametres.disassemblyPowerCircuitTime = repository.GetAdditionalParametresByTrainName(trainName).DisassemblyPowerCircuitTime;
+
+            dcTrainParametres.assemblyPullTime = repository.GetAdditionalParametresByTrainName(trainName).AssemblyPullTime;
+
+            dcTrainParametres.assemblyPullResistance = repository.GetAdditionalParametresByTrainName(trainName).AssemblyPullResistance;
+
+            dcTrainParametres.assemblyBreakTime = repository.GetAdditionalParametresByTrainName(trainName).AssemblyBreakTime;
+
+            dcTrainParametres.assemblyBreakResistance = repository.GetAdditionalParametresByTrainName(trainName).AssemblyBreakResistance;
+
+            dcTrainParametres.anchorResistance = repository.GetAdditionalParametresByTrainName(trainName).AnchorResistance;
+
+            dcTrainParametres.mainPoleResistance = repository.GetAdditionalParametresByTrainName(trainName).MainPoleResistance;
+
+            dcTrainParametres.compolesResistance = repository.GetAdditionalParametresByTrainName(trainName).CompolesResistance;
+
+            dcTrainParametres.automodeFactor1 = repository.GetAdditionalParametresByTrainName(trainName).AutomodeFactor1;
+
+            dcTrainParametres.automodeFactor2 = repository.GetAdditionalParametresByTrainName(trainName).AutomodeFactor2;
+
+            dcTrainParametres.excitationTimeFactor1 = repository.GetAdditionalParametresByTrainName(trainName).ExcitationTimeFactor1;
+
+            dcTrainParametres.excitationTimeFactor2 = repository.GetAdditionalParametresByTrainName(trainName).ExcitationTimeFactor2;
+
+            dcTrainParametres.excitationTimeFactor3 = repository.GetAdditionalParametresByTrainName(trainName).ExcitationTimeFactor3;
+
+            dcTrainParametres.maxExcitationTime = repository.GetAdditionalParametresByTrainName(trainName).MaxExcitationTime;
+
+            dcTrainParametres.lowAutoModeRange = repository.GetAdditionalParametresByTrainName(trainName).LowAutoModeRange;
+
+            dcTrainParametres.highAutoModeRange = repository.GetAdditionalParametresByTrainName(trainName).HighAutoModeRange;
+
+            dcTrainParametres.linearGrowCurrentTime = repository.GetAdditionalParametresByTrainName(trainName).LinearGrowCurrentTime;
 
             return dcTrainParametres;
         }
+         
+           
+          
 
         /// <summary>
         /// Создает объект для  AC двигателя
