@@ -2,7 +2,7 @@
 using ORM.Base;
 using ORM.Train.Entities;
 
-namespace ORM.Interpolation.Entities
+namespace ORM.Train.Interpolation.Entities
 {
     /// <summary>
     /// характеристики 

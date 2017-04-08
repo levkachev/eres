@@ -2,7 +2,7 @@
 
 namespace ORM.Train.Entities
 {
-    public class TrainBaseParametres
+    public class BaseTrainParametres
     {
         #region Fields
 
@@ -270,7 +270,7 @@ namespace ORM.Train.Entities
 
         #endregion
 
-        internal TrainBaseParametres(Int32 numberCars, Double carLength, Double unladenWeight, Double breakAverage, Double netResistancePullFactor, Double aerodynamicDragFactor, Double netResistenceCoastingFactor1, Double netResistenceCoastingFactor2, Double netResistenceCoastingFactor3, Double trainEqvivalentSurface, Double inertiaRotationFactor,Double ownNeedsElectricPower)
+        public BaseTrainParametres(Int32 numberCars, Double carLength, Double unladenWeight, Double breakAverage, Double netResistancePullFactor, Double aerodynamicDragFactor, Double netResistenceCoastingFactor1, Double netResistenceCoastingFactor2, Double netResistenceCoastingFactor3, Double trainEqvivalentSurface, Double inertiaRotationFactor,Double ownNeedsElectricPower)
         {
             CarLength = carLength;
             UnladenWeight = unladenWeight;
@@ -286,7 +286,7 @@ namespace ORM.Train.Entities
             OwnNeedsElectricPower = ownNeedsElectricPower;
         }
 
-        protected TrainBaseParametres() { }
+        protected BaseTrainParametres() { }
 
     }
 }

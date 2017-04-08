@@ -3,10 +3,11 @@ using ORM.Train.Entities;
 using System.Linq;
 using System;
 using System.Collections.Generic;
-using ORM.Machine;
+using Repositories.Train.Machine;
 
 
-namespace ORM.Train.Repositories
+
+namespace Repositories.Train
 {
     /// <summary>
     /// Класс для создания объектов двигателя и поезда
@@ -52,13 +53,13 @@ namespace ORM.Train.Repositories
         /// </summary>
         /// <param name="trainName"></param>
         /// <returns></returns>
-        public static DСParametres GetDCTrainParametres(String trainName)
+        public static DCParametres GetDCTrainParametres(String trainName)
         {
             var repository = АdditionalParameterRepository.GetInstance();
 
             var baseParametres = repository.GetTrainBaseParametres(trainName);
 
-            var dcTrainParametres = (DСParametres)baseParametres;
+            var dcTrainParametres = (DCParametres)baseParametres;
 
             //это заглушка. Дописать все свойства!
 
@@ -77,7 +78,7 @@ namespace ORM.Train.Repositories
 
             var baseMachine = repository.GetBaseMachineParametres(trainName);
 
-            var acMachine = (ACMachineParametres)baseMachine;
+            var acMachine = (ACMachine)baseMachine;
 
             acMachine.Umax = repository.GetAdditionalParametresByTrainName(trainName).Umax;
             acMachine.Unominal = repository.GetAdditionalParametresByTrainName(trainName).Unom;
@@ -97,7 +98,7 @@ namespace ORM.Train.Repositories
 
             var baseMachine = repository.GetBaseMachineParametres(trainName);
 
-            var dcMachine = (DCMachineParametres)baseMachine;
+            var dcMachine = (DCMachine)baseMachine;
 
             //Это заглушка!!! Вынуть из БД все параметры
 
@@ -115,7 +116,7 @@ namespace ORM.Train.Repositories
             var assemblyPullTime = GetAdditionalParametresByTrainName(trainName).AssemblyPullTime;
             var disassemblyPowerCircuitTime = GetAdditionalParametresByTrainName(trainName).AssemblyBreakResistance;
             var assemblyBreakTime = GetAdditionalParametresByTrainName(trainName).AssemblyBreakTime;
-            return new MachineBaseParametres(assemblyPullTime, assemblyBreakTime, assemblyPullTime, trainName);
+            return new BaseMachine (assemblyPullTime, assemblyBreakTime, assemblyPullTime, trainName);
         }
 
         /// <summary>
@@ -123,7 +124,7 @@ namespace ORM.Train.Repositories
         /// </summary>
         /// <param name="trainName"></param>
         /// <returns></returns>
-        private TrainBaseParametres GetTrainBaseParametres(String trainName)
+        private BaseTrainParametres GetTrainBaseParametres(String trainName)
         {
             var carLength = GetAdditionalParametresByTrainName(trainName).CarLength;
 
@@ -149,7 +150,7 @@ namespace ORM.Train.Repositories
 
             var ownNeedsElectricPower = GetAdditionalParametresByTrainName(trainName).OwnNeedsElectricPower;
 
-            return new TrainBaseParametres(numberCars, carLength, unladenWeight, breakAverage, netResistencePullFactor, aerodynamicDragFactor, netResistenceCoastingFactor1, netResistenceCoastingFactor2, netResistenceCoastingFactor3, trainEqvivalentSurface, inertiaRotationFactor, ownNeedsElectricPower);
+            return new BaseTrainParametres (numberCars, carLength, unladenWeight, breakAverage, netResistencePullFactor, aerodynamicDragFactor, netResistenceCoastingFactor1, netResistenceCoastingFactor2, netResistenceCoastingFactor3, trainEqvivalentSurface, inertiaRotationFactor, ownNeedsElectricPower);
 
         }
 

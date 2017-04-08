@@ -1,7 +1,7 @@
-﻿using ORM.Interpolation.Entities;
+﻿using ORM.Train.Interpolation.Entities;
 using FluentNHibernate.Mapping;
 
-namespace ORM.Interpolation.Map
+namespace ORM.Train.Interpolation.Map
 {
     public class VFIMap : ClassMap<VFI>
     {

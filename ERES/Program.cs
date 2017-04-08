@@ -7,8 +7,8 @@ using ORM.Line.Repositories;
 using ORM.Energy.Entities;
 using TrainMovement.Train;
 using ORM.Train.Repositories;
-using ORM.Interpolation.Repositories;
-using ORM.Interpolation.Entities;
+using Repositories.Train.Interpolation;
+using ORM.Train.Interpolation.Entities;
 
 
 namespace ERES 
@@ -55,6 +55,8 @@ namespace ERES
 
             ///показать для выбранного типа мотора, имени поезда и массы все зависимости
             /// </summary> 
+            /// 
+            var testTrainName = "81-740.4";
 
             var motortypeRepository = Motor_TypeRepository.GetInstance();
             var motortype = motortypeRepository.GetByType("AC");
@@ -69,7 +71,7 @@ namespace ERES
             var modecontrol = modecontrolRepository.GetByModeControl("Pull1");
 
             var vfiRepository = VFIRepository.GetInstance();
-            ShowCollection<VFI>(vfiRepository.GetVFI(trainname, modecontrol, mass), "GetVFI") ;
+            ShowCollection<VFI>(vfiRepository.GetVFI(testTrainName, modecontrol, mass), "GetVFI") ;
 
             Console.WriteLine("Press any key to close the program");
             Console.ReadKey(true);

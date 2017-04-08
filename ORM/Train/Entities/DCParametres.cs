@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ORM.Train.Entities
 {
-    public class DСParametres : TrainBaseParametres
+   public class DCParametres : BaseTrainParametres
     {
     }
+
 }

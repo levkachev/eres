@@ -2,7 +2,7 @@
 
 namespace ORM.Train.Entities
 {
-    public class ACParametres : TrainBaseParametres
+    public class ACParametres : BaseTrainParametres
     {
         private Int32 nbAuto;
 

@@ -1,12 +1,12 @@
 ﻿using ORM.Base;
 using NHibernate;
-using ORM.Interpolation.Entities;
+using ORM.Train.Interpolation.Entities;
 using System.Linq;
 using System.Collections.Generic;
 using System;
 using ORM.Train.Entities;
 
-namespace ORM.Interpolation.Repositories
+namespace Repositories.Train.Interpolation
 {
     public class VFIRepository : Repository<VFI>
 

@@ -96,11 +96,12 @@
     <Compile Include="Stage\Entities\StageStage.cs" />
     <Compile Include="Stage\Repositories\StageRepository.cs" />
     <Compile Include="Train\Entities\ACParametres.cs" />
-    <Compile Include="Train\Entities\DСParametres.cs" />
+    <Compile Include="Train\Entities\DCParametres.cs" />
+    <Compile Include="Train\Entities\MachineBaseParametres.cs" />
     <Compile Include="Train\Entities\MassMass.cs" />
     <Compile Include="Train\Entities\Mode_Control.cs" />
     <Compile Include="Train\Entities\Motor_Type.cs" />
-    <Compile Include="Train\Entities\TrainBaseParametres.cs" />
+    <Compile Include="Train\Entities\BaseTrainParametres.cs" />
     <Compile Include="Train\Entities\TrainType.cs" />
     <Compile Include="Train\Entities\Train_Name.cs" />
     <Compile Include="Train\Entities\АdditionalParameter.cs" />

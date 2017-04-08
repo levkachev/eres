@@ -1,5 +1,5 @@
 ﻿using System;
-//using ORM.Machine;
+using Repositories.Train.Machine;
 using TrainMovement.ModeControl;
 using ORM.Train.Entities;
 using TrainMovement.PhisicalHelper;
@@ -53,7 +53,7 @@ namespace TrainMovement.Train
         /// <summary>
         /// Параметр двигателя
         /// </summary>
-       // private BaseMachine machine;
+        private BaseMachine machine;
 
 
         /// <summary>
@@ -500,7 +500,7 @@ namespace TrainMovement.Train
         /// <param name="commonProperties"></param>
         /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
         protected BaseTrain(BaseMachine 
-            machine, TrainBaseParametres commonProperties)
+            machine, BaseTrainParametres commonProperties)
         {
             CarLength = commonProperties.CarLength;
             UnladenWeight = commonProperties.UnladenWeight;

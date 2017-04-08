@@ -71,6 +71,10 @@
       <Project>{f38cf343-031f-4df6-a3d9-24ee55b2c065}</Project>
       <Name>ORM</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Repositories\Repositories.csproj">
+      <Project>{6bd688f1-91ab-4662-8090-23b4d6eb2621}</Project>
+      <Name>Repositories</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

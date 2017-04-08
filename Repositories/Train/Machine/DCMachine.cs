@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ORM.Machine
+namespace Repositories.Train.Machine
 {
     /// <summary>
     /// Параметры для DC двигателя 

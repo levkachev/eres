@@ -75,6 +75,10 @@
       <Project>{f38cf343-031f-4df6-a3d9-24ee55b2c065}</Project>
       <Name>ORM</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Repositories\Repositories.csproj">
+      <Project>{6bd688f1-91ab-4662-8090-23b4d6eb2621}</Project>
+      <Name>Repositories</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TrainMovement\TrainMovement.csproj">
       <Project>{5bb81442-7646-47d5-ad87-50c12a3f896c}</Project>
       <Name>TrainMovement</Name>

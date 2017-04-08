@@ -1,5 +1,5 @@
 ﻿using System;
-using ORM.Machine;
+using Repositories.Train.Machine;
 using ORM.Train.Entities;
 
 namespace TrainMovement.Train
@@ -17,7 +17,7 @@ namespace TrainMovement.Train
         /// <exception cref="ArgumentException">Train.Name != <paramref name="commonProperties"/>.TrainName</exception>
         /// <exception cref="ArgumentNullException">value is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">empty.</exception>
-        internal DCTrain(DCMachine machine, DСParametres commonProperties, String trainName)
+        internal DCTrain(DCMachine machine, DCParametres commonProperties, String trainName)
         {
             Name = trainName;
 

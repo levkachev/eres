@@ -1,5 +1,5 @@
 ﻿using System;
-using ORM.Machine;
+using Repositories.Train.Machine;
 using ORM.Train.Entities;
 
 namespace TrainMovement.Train
