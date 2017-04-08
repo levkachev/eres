@@ -27,7 +27,7 @@ namespace ERES
             /// 
 
             var linelineRepository = LineLineRepository.GetInstance();
-            var line = linelineRepository.GetByName("Калининская");
+            var line = linelineRepository.GetIDByName("Калининская");
 
             var powerSupplyStationRepository = PowerSupplyStationRepository.GetInstance();
             var unitRepository = UnitRepository.GetInstance();
@@ -60,7 +60,7 @@ namespace ERES
             var motortype = motortypeRepository.GetByType("AC");
 
             var trainnameRepository = Train_NameRepository.GetInstance();
-            var trainname = trainnameRepository.GetByName("81-740.4");
+            var trainname = trainnameRepository.GetIDByName("81-740.4");
 
             var massRepository = MassRepository.GetInstance();
             var mass = massRepository.GetByMass(100);
