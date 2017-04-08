@@ -71,5 +71,14 @@ namespace ORM.Energy.Repositories
                 .ToDictionary(pst => pst.Name, pst => pst.Piketag);
 
         }
+
+      public  Double GetAllPST(Guid line, String name)
+        {
+            return GetAll()
+                .Where(pst => pst.Line.ID == line)
+                .Where(pst => pst.Name == name)
+                .Select(pst => pst.Piketag).SingleOrDefault();
+                
+        }
     }
 }

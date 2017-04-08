@@ -66,6 +66,7 @@
     <Compile Include="Conventions\MyForeignKeyConvention.cs" />
     <Compile Include="Conventions\MyIdConvention.cs" />
     <Compile Include="Energy\Entities\Diod.cs" />
+    <Compile Include="Energy\Entities\EnergyEnergy.cs" />
     <Compile Include="Energy\Entities\Feeder.cs" />
     <Compile Include="Energy\Entities\PowerConvert.cs" />
     <Compile Include="Energy\Entities\PowerSupplyStation.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Energy\Map\Type_ResistanceMap.cs" />
     <Compile Include="Energy\Map\UnitMap.cs" />
     <Compile Include="Energy\Map\Unit_NameMap.cs" />
+    <Compile Include="Energy\Repositories\EnergyRepository.cs" />
     <Compile Include="Energy\Repositories\FeederRepository.cs" />
     <Compile Include="Energy\Repositories\PowerSupplyStationRepository.cs" />
     <Compile Include="Energy\Repositories\ResistanceRepository.cs" />
