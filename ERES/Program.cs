@@ -112,12 +112,16 @@ namespace ERES
 
             SerializableObject obj = new SerializableObject();
             obj.Energy = energyeneregy;
-
+            
             MySerializer serializer = new MySerializer();
-            serializer.SerializeObject("output.txt", obj);
+            //serializer.SerializeObject("output.txt", obj);
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream("output.txt", FileMode.Create, FileAccess.Write, FileShare.None);
+            formatter.Serialize(stream, obj);
+            stream.Close();
 
-            obj = serializer.DeserializeObject("output.txt");
-            energyeneregy = obj.Energy;
+            //obj = serializer.DeserializeObject("output.txt");
+            //energyeneregy = obj.Energy;
 
 
             //       try
