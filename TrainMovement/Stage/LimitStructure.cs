@@ -122,5 +122,30 @@ namespace TrainMovement.Stage
         {
             return lha.Space < rha;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override Boolean Equals(Object obj)
+        {
+            var tmp = (LimitStructure) obj;
+            if (tmp == null)
+                return false;
+            if (ReferenceEquals(this, tmp))
+                return true;
+
+            return Math.Abs(this.Space - tmp.Space) < Double.Epsilon;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override Int32 GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }
