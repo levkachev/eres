@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ORM.Stage.Entities;
 
 namespace TrainMovement.Stage
@@ -142,13 +143,27 @@ namespace TrainMovement.Stage
         }
 
         /// <summary>
-        /// 
+        /// Возвращает текущий коэффициент сопротивления для открытого участка
         /// </summary>
-        /// <param name="train"></param>
+        /// <param name="space"></param>
         /// <returns></returns>
-        public Double GetForceAdditionalResistance(Train.BaseTrain train)
+        internal Double GetCoefficientOpenStage(Double space)
         {
-            return 0;
+            return GetLimit(space, OpenSection);
+        }
+
+        /// <summary>
+        /// Находит ограничение до указанного пути
+        /// <param name="space"></param>
+        /// <param name="limitStructure"></param>
+        /// <returns></returns>
+        private static Double GetLimit(Double space, IEnumerable<LimitStructure> limitStructure)
+        {
+            var tmpStructure = limitStructure as IList<LimitStructure> ?? limitStructure.ToList();
+
+            Int32 index;
+            for (index = 0; (index < tmpStructure.Count) || (tmpStructure[index] > space); ++index);
+            return tmpStructure[index].Limit;
         }
     }
 }
