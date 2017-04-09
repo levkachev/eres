@@ -3,6 +3,9 @@ using ORM.Base;
 
 namespace ORM.Stage.Entities
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class SpeedLimit : Entity<SpeedLimit>
     {
         /// <summary>
