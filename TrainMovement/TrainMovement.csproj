@@ -50,9 +50,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModeControl\BaseACRusi4BaseResistance.cs" />
     <Compile Include="ModeControl\BreakModeControl.cs" />
     <Compile Include="ModeControl\IModeControl.cs" />
     <Compile Include="ModeControl\InertModeControl.cs" />
+    <Compile Include="ModeControl\IPullBreakControl.cs" />
+    <Compile Include="ModeControl\IResistance.cs" />
+    <Compile Include="ModeControl\Pull1ACRusi4.cs" />
     <Compile Include="ModeControl\PullModeControl.cs" />
     <Compile Include="PhisicalHelper\Converter.cs" />
     <Compile Include="PhisicalHelper\DomainHelper.cs" />
