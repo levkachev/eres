@@ -18,6 +18,9 @@ namespace TrainMovement.Train
         /// </summary>
         private Double acceleration;
 
+        /// <summary>
+        /// Имя поезда
+        /// </summary>
         private String name;
 
         /// <summary>
