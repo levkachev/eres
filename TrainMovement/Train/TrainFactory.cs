@@ -1,69 +1,31 @@
-﻿using TrainMovement.Machine;
-using ORM.Train.Repositories;
-using TrainMovement.Stuff;
-using ORM.Train.Entities;
+﻿using ORM.Train.Repositories;
 using System;
+using Repositories.Train;
 
 namespace TrainMovement.Train
 {
-   
+    /// <summary>
+    /// Фабрика поездов
+    /// </summary>
     public class TrainFactory
     {
         /// <summary>
-        /// 
-        /// </summary>
-       // private static BaseMachine ACMachinePrototype = new ACMachine();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private static BaseMachine DCMachinePrototype = new DCMachine();
-
-        /// <summary>
-        /// 
+        /// Создает AC поезд
         /// </summary>
         /// <returns></returns>
-        //private static BaseMachine GetNewACMachine()
-        //{
-        //    return CloneMachine(ACMachinePrototype);
-        //}
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        private static BaseMachine GetNewDCMachine()
-        {
-            return CloneMachine(DCMachinePrototype);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="machine"></param>
-        /// <returns></returns>
-        private static BaseMachine CloneMachine(BaseMachine machine)
-        {
-            return machine.DeepCopy();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException">less zero.</exception>
         public static BaseTrain GetACTrain(String trainName)
         {
-            return new ACTrain(new ACMachine(trainName), АdditionalParameterRepository.GetACTrainParametres(trainName), trainName);
+            return new ACTrain(АdditionalParameterRepository.GetACMachineParametres(trainName), АdditionalParameterRepository.GetACTrainParametres(trainName), trainName);
         }
 
         /// <summary>
-        /// 
+        /// Создает DC поезд
         /// </summary>
         /// <returns></returns>
         public static BaseTrain GetDCTrain(String trainName)
         {
-            throw new NotImplementedException();
-            //return new DCTrain(GetNewDCMachine(), АdditionalParameterRepository.GetDCTrainParametres(trainName), trainName);
+            return new DCTrain(АdditionalParameterRepository.GetDCMachineParametres(trainName), АdditionalParameterRepository.GetDCTrainParametres(trainName), trainName);
         }
 
     }

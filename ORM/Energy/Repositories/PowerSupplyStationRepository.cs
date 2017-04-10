@@ -36,23 +36,25 @@ namespace ORM.Energy.Repositories
         {
             return GetById(Id);
         }
-      
-        public PowerSupplyStation GetByName(String name)
+
+        public Guid GetIDByName(String name)
         {
-            return GetAll()
-                .Where(pst => pst.Name == name)
-                .SingleOrDefault();
+            var tmp = GetAll()
+                .SingleOrDefault(tr => tr.Name == name);
+            if (tmp == null)
+                throw new ArgumentOutOfRangeException(paramName: nameof(name));
+            return tmp.ID;
         }
-       /// <summary>
-       /// Подстанция для выбранной линии по наименованию подстанции
-       /// </summary>
-       /// <param name="line"></param>
-       /// <param name="name"></param>
-       /// <returns></returns>
-        public PowerSupplyStation GetPSTbyLine(LineLine line, String name)
+        /// <summary>
+        /// Подстанция для выбранной линии по наименованию подстанции
+        /// </summary>
+        /// <param name="line"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public PowerSupplyStation GetPSTbyLine(Guid line, String name)
         {
             return GetAll()
-                .Where(pst => pst.Line == line)
+                .Where(pst => pst.Line.ID == line)
                 .Where(pst => pst.Name == name)
                 .SingleOrDefault();
                
@@ -62,12 +64,21 @@ namespace ORM.Energy.Repositories
         /// </summary>
         /// <param name="line"></param>
         /// <returns></returns>
-        public IDictionary<String, Double> GetAllPSTbyLine(LineLine line)
+        public IDictionary<String, Double> GetAllPSTbyLine(Guid line)
         {
             return GetAll()
-                .Where(pst => pst.Line == line)
+                .Where(pst => pst.Line.ID == line)
                 .ToDictionary(pst => pst.Name, pst => pst.Piketag);
 
+        }
+
+      public  Double GetAllPST(Guid line, String name)
+        {
+            return GetAll()
+                .Where(pst => pst.Line.ID == line)
+                .Where(pst => pst.Name == name)
+                .Select(pst => pst.Piketag).SingleOrDefault();
+                
         }
     }
 }

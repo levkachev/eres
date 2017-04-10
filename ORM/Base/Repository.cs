@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using NHibernate;
-//using NHibernate.Mapping;
-using System.Linq;
-using FluentNHibernate.MappingModel.Collections;
+
 
 namespace ORM.Base
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class Repository<T> : IRepository<T> where T : Entity<T>
     {
        

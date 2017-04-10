@@ -1,13 +1,22 @@
 ﻿using System;
-using TrainMovement.Machine;
+using Repositories.Train.Machine;
 using ORM.Train.Entities;
 
 namespace TrainMovement.Train
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ACTrain : BaseTrain
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private Int32 nbAuto;
 
+        /// <summary>
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
         public Int32 NbAuto
         {
             get { return nbAuto; }
@@ -18,7 +27,15 @@ namespace TrainMovement.Train
             }
         }
 
-        public ACTrain(ACMachine machine, ACTrainParametres commonProperties, String trainName)
+        /// <summary>
+        /// </summary>
+        /// <param name="machine"></param>
+        /// <param name="commonProperties"></param>
+        /// <param name="trainName"></param>
+        /// <exception cref="ArgumentException">Train.Name != <paramref name="commonProperties"/>.TrainName</exception>
+        /// <exception cref="ArgumentNullException">value is <see langword="null"/></exception>
+        /// <exception cref="ArgumentOutOfRangeException">empty.</exception>
+        internal ACTrain(ACMachine machine, ACParametres commonProperties, String trainName)
         {
             Name = trainName;
             

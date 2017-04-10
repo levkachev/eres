@@ -66,6 +66,7 @@
     <Compile Include="Conventions\MyForeignKeyConvention.cs" />
     <Compile Include="Conventions\MyIdConvention.cs" />
     <Compile Include="Energy\Entities\Diod.cs" />
+    <Compile Include="Energy\Entities\EnergyEnergy.cs" />
     <Compile Include="Energy\Entities\Feeder.cs" />
     <Compile Include="Energy\Entities\PowerConvert.cs" />
     <Compile Include="Energy\Entities\PowerSupplyStation.cs" />
@@ -81,14 +82,12 @@
     <Compile Include="Energy\Map\Type_ResistanceMap.cs" />
     <Compile Include="Energy\Map\UnitMap.cs" />
     <Compile Include="Energy\Map\Unit_NameMap.cs" />
+    <Compile Include="Energy\Repositories\EnergyRepository.cs" />
     <Compile Include="Energy\Repositories\FeederRepository.cs" />
     <Compile Include="Energy\Repositories\PowerSupplyStationRepository.cs" />
     <Compile Include="Energy\Repositories\ResistanceRepository.cs" />
     <Compile Include="Energy\Repositories\UnitRepository.cs" />
     <Compile Include="Energy\Repositories\Unit_NameRepository.cs" />
-    <Compile Include="Interpolation\Entities\VFI.cs" />
-    <Compile Include="Interpolation\Map\VFIMap.cs" />
-    <Compile Include="Interpolation\Repositories\VFIRepository.cs" />
     <Compile Include="Line\Entities\Color.cs" />
     <Compile Include="Line\Entities\LineLine.cs" />
     <Compile Include="Line\Map\ColorMap.cs" />
@@ -98,9 +97,8 @@
     <Compile Include="Stage\Entities\SpeedLimit.cs" />
     <Compile Include="Stage\Entities\StageStage.cs" />
     <Compile Include="Stage\Repositories\StageRepository.cs" />
-    <Compile Include="Train\Entities\ACMachineParametres.cs" />
-    <Compile Include="Train\Entities\ACTrainParametres.cs" />
-    <Compile Include="Train\Entities\DCTrainParametres.cs" />
+    <Compile Include="Train\Entities\ACParametres.cs" />
+    <Compile Include="Train\Entities\DCParametres.cs" />
     <Compile Include="Train\Entities\MachineBaseParametres.cs" />
     <Compile Include="Train\Entities\MassMass.cs" />
     <Compile Include="Train\Entities\Mode_Control.cs" />
@@ -109,6 +107,8 @@
     <Compile Include="Train\Entities\TrainType.cs" />
     <Compile Include="Train\Entities\Train_Name.cs" />
     <Compile Include="Train\Entities\АdditionalParameter.cs" />
+    <Compile Include="Train\Interpolation\Entities\VFI.cs" />
+    <Compile Include="Train\Interpolation\Map\VFIMap.cs" />
     <Compile Include="Train\Map\MassMassMap.cs" />
     <Compile Include="Train\Map\Mode_ControlMap.cs" />
     <Compile Include="Train\Map\Motor_TypeMap.cs" />
@@ -118,7 +118,6 @@
     <Compile Include="Train\Repositories\Mode_ControlRepository.cs" />
     <Compile Include="Train\Repositories\Motor_TypeRepository.cs" />
     <Compile Include="Train\Repositories\Train_NameRepository.cs" />
-    <Compile Include="Train\Repositories\АdditionalParameterRepository.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

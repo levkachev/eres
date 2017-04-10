@@ -7,8 +7,11 @@ using ORM.Line.Repositories;
 using ORM.Energy.Entities;
 using TrainMovement.Train;
 using ORM.Train.Repositories;
-using ORM.Interpolation.Repositories;
-using ORM.Interpolation.Entities;
+using Repositories.Train.Interpolation;
+using ORM.Train.Interpolation.Entities;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 
 namespace ERES 
@@ -27,13 +30,13 @@ namespace ERES
             /// 
 
             var linelineRepository = LineLineRepository.GetInstance();
-            var line = linelineRepository.GetByName("Калининская");
+            var line = linelineRepository.GetIDByName("Калининская");
 
             var powerSupplyStationRepository = PowerSupplyStationRepository.GetInstance();
             var unitRepository = UnitRepository.GetInstance();
 
             /// <summary>
-            /// Показать всеподстанции на выбранной линии
+            /// Показать все подстанции на выбранной линии
             /// </summary>
             ShowDictionary(powerSupplyStationRepository.GetAllPSTbyLine(line), "GetAllPSTbyLine");
 
@@ -56,15 +59,13 @@ namespace ERES
             ///показать для выбранного типа мотора, имени поезда и массы все зависимости
             /// </summary> 
             /// 
-
             var testTrainName = "81-740.4";
 
             var motortypeRepository = Motor_TypeRepository.GetInstance();
             var motortype = motortypeRepository.GetByType("AC");
 
-             var trainnameRepository = Train_NameRepository.GetInstance();
-             var trainName = trainnameRepository.GetIDByName(testTrainName);
-
+            var trainnameRepository = Train_NameRepository.GetInstance();
+            var trainname = trainnameRepository.GetIDByName("81-740.4");
 
             var massRepository = MassRepository.GetInstance();
             var mass = massRepository.GetByMass(100);
@@ -75,22 +76,66 @@ namespace ERES
             var vfiRepository = VFIRepository.GetInstance();
             ShowCollection<VFI>(vfiRepository.GetVFI(testTrainName, modecontrol, mass), "GetVFI") ;
 
+
+            var name = EnergyRepository.GetPST("Калининская").NameLine;
+            var piketag = EnergyRepository.GetPST("Калининская").Piketag;
+
             Console.WriteLine("Press any key to close the program");
+
+            Console.WriteLine(name);
+            Console.WriteLine(piketag);
             Console.ReadKey(true);
 
+            //string pathToFile = @"G:\DSA\MS_VS_Projects\C#\ReadWrite File";
+            //string nameFile = "Example";
+            //string format = ".txt";
+            //string path = Path.Combine(pathToFile, nameFile) + format;
 
-     //       try
-     //       {
-     //           //var train = new Train.Train();
-      //          var properties = TrainFactory.NewCommonProperties();
-     //           var ACmachine = TrainFactory.NewACMachineProperties();
-      //      }
-      //      catch (Exception exception)
-      //      {
-       //         Console.WriteLine(exception);
-       //     }
+            //// Example #1: Write an array of strings to a file.
+            //// Create a string array that consists of three lines.
+            ////string[] lines = { "First line", "Second line", "Third line", "Fourth line" };
+            //string[] rows = { name, Convert.ToString(piketag) };
+
+            //FileInfo file = new FileInfo(path);
+            //if (file.Exists == false)
+            //{
+            //    file.Create().Close();
+            //    Console.WriteLine("File add to path!");
+            //}
+            //else Console.WriteLine("File exist! Rename file!");
+
+            ////File.WriteAllLines(path, rows);
+            //File.WriteAllText(path, rows);
+            //Console.ReadKey();
+
+            List<EnergyEnergy> energyeneregy = new List<EnergyEnergy>();
+
+            SerializableObject obj = new SerializableObject();
+            obj.Energy = energyeneregy;
             
-        //    Console.ReadKey(true);
+            MySerializer serializer = new MySerializer();
+            //serializer.SerializeObject("output.txt", obj);
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream("output.txt", FileMode.Create, FileAccess.Write, FileShare.None);
+            formatter.Serialize(stream, obj);
+            stream.Close();
+
+            //obj = serializer.DeserializeObject("output.txt");
+            //energyeneregy = obj.Energy;
+
+
+            //       try
+            //       {
+            //           //var train = new Train.Train();
+            //          var properties = TrainFactory.NewCommonProperties();
+            //           var ACmachine = TrainFactory.NewACMachineProperties();
+            //      }
+            //      catch (Exception exception)
+            //      {
+            //         Console.WriteLine(exception);
+            //     }
+
+            //    Console.ReadKey(true);
 
         }
        

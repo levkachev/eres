@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERES", "ERES\ERES.csproj", "{B49F3DA0-777B-4F2A-9E2E-AB1AF856139F}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainMovement", "TrainMovem
 	ProjectSection(ProjectDependencies) = postProject
 		{F38CF343-031F-4DF6-A3D9-24EE55B2C065} = {F38CF343-031F-4DF6-A3D9-24EE55B2C065}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories", "Repositories\Repositories.csproj", "{6BD688F1-91AB-4662-8090-23B4D6EB2621}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +36,10 @@ Global
 		{5BB81442-7646-47D5-AD87-50C12A3F896C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BB81442-7646-47D5-AD87-50C12A3F896C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BB81442-7646-47D5-AD87-50C12A3F896C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BD688F1-91AB-4662-8090-23B4D6EB2621}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BD688F1-91AB-4662-8090-23B4D6EB2621}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BD688F1-91AB-4662-8090-23B4D6EB2621}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BD688F1-91AB-4662-8090-23B4D6EB2621}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

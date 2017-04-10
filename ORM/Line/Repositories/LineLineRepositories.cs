@@ -25,13 +25,15 @@ namespace ORM.Line.Repositories
                 .Select(s => s.Name)
                 .ToList();
         }
-        public LineLine GetByName(String name)
+        public Guid GetIDByName(String name)
         {
-            return GetAll()
-                .Where(pstline => pstline.Name == name)
-                .SingleOrDefault();
+            var tmp = GetAll()
+                .SingleOrDefault(tr => tr.Name == name);
+            if (tmp == null)
+                throw new ArgumentOutOfRangeException(paramName: nameof(name));
+            return tmp.ID;
         }
-        
+
     }
     
 }

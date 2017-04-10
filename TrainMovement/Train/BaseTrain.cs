@@ -1,5 +1,5 @@
 ﻿using System;
-using TrainMovement.Machine;
+using Repositories.Train.Machine;
 using TrainMovement.ModeControl;
 using ORM.Train.Entities;
 using TrainMovement.PhisicalHelper;
@@ -23,37 +23,37 @@ namespace TrainMovement.Train
         /// <summary>
         /// Ток
         /// </summary>
-        protected Double current;
+        private Double current;
 
         /// <summary>
         /// Масса
         /// </summary>
-        protected Double mass;
+        private Double mass;
 
         /// <summary>
         /// Скорость
         /// </summary>
-        protected Double velocity;
+        private Double velocity;
 
         /// <summary>
         /// Напряжение
         /// </summary>
-        protected Double voltage;
+        private Double voltage;
 
         /// <summary>
         /// Время
         /// </summary>
-        protected Double time;
+        private Double time;
 
         /// <summary>
         /// Расстояние
         /// </summary>
-        protected Double space;
+        private Double space;
 
         /// <summary>
         /// Параметр двигателя
         /// </summary>
-        protected BaseMachine Machine;
+        private BaseMachine machine;
 
 
         /// <summary>
@@ -65,63 +65,78 @@ namespace TrainMovement.Train
         /// <summary>
         /// Длина вагона
         /// </summary>
-        protected Double carLength;
+        private Double carLength;
 
         /// <summary>
         /// Масса порожнего вагона
         /// </summary>
-        protected Double unladenWeight;
+        private Double unladenWeight;
         /// <summary>
         /// 
         /// </summary>
-        protected Double breakAverage;
+        private Double breakAverage;
 
         /// <summary>
         /// /
         /// </summary>
-        protected Double netResistencePullFactor;
+        private Double netResistencePullFactor;
 
 
         /// <summary>
         /// 
         /// </summary>
-        protected Double aerodynamicDragFactor;
+        private Double aerodynamicDragFactor;
 
         /// <summary>
         /// 
         /// </summary>
-        protected Double netResistenceCoastingFactor1;
+        private Double netResistenceCoastingFactor1;
 
         /// <summary>
         /// 
         /// </summary>
-        protected Double netResistenceCoastingFactor2;
+        private Double netResistenceCoastingFactor2;
 
         /// <summary>
         /// 
         /// </summary>
-        protected Double netResistenceCoastingFactor3;
+        private Double netResistenceCoastingFactor3;
 
         /// <summary>
         /// 
         /// </summary>
-        protected Double trainEquivalentSurface;
+        private Double trainEquivalentSurface;
 
         /// <summary>
         /// 
         /// </summary>
-        protected Double inertiaRotationFactor;
+        private Double inertiaRotationFactor;
 
         /// <summary>
         /// 
         /// </summary>
-        protected Double ownNeedsElectricPower;
+        private Double ownNeedsElectricPower;
 
 
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Двигатель
+        /// </summary>
+        /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
+        public BaseMachine Machine
+        {
+            get { return machine; }
+            set
+            {
+                if(value == null)
+                    throw new ArgumentNullException(nameof(value));
+                machine = value;
+            }
+        }
 
         /// <summary>
         /// Режим ведения
@@ -433,7 +448,10 @@ namespace TrainMovement.Train
             }
         }
 
-
+        /// <summary>
+        /// </summary>
+        /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
+        /// <exception cref="ArgumentOutOfRangeException" accessor="set">empty.</exception>
         public String Name
         {
             get { return name; }
@@ -481,13 +499,12 @@ namespace TrainMovement.Train
         /// <param name="machine"></param>
         /// <param name="commonProperties"></param>
         /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
-        public BaseTrain(BaseMachine machine, BaseTrainParametres commonProperties)
+        protected BaseTrain(BaseMachine 
+            machine, BaseTrainParametres commonProperties)
         {
             CarLength = commonProperties.CarLength;
             UnladenWeight = commonProperties.UnladenWeight;
             NumberCars = commonProperties.NumberCars;
-            //Unom = commonProperties.Unom;
-            //Umax = commonProperties.Umax;
             BreakAverage = commonProperties.BAverage;
             NetResistencePullFactor = commonProperties.NetResistencePullFactor;
             AerodynamicDragFactor = commonProperties.AerodynamicDragFactor;
@@ -496,32 +513,14 @@ namespace TrainMovement.Train
             NetResistenceCoastingFactor3 = commonProperties.NetResistenceCoastingFactor3;
             TrainEqvivalentSurface = commonProperties.TrainEqvivalentSurface;
             InertiaRotationFactor = commonProperties.InertiaRotationFactor;
-            //AssemblyPowerCircuitTime = commonProperties.AssemblyPowerCircuitTime;
-           // DisassemblyPowerCircuitTime = commonProperties.DisassemblyPowerCircuitTime;
-           // AssemblyPullTime = commonProperties.AssemblyPullTime;
-            //AssemblyPullResistance = commonProperties.AssemblyPullResistance;
-            //AssemblyBreakTime = commonProperties.AssemblyBreakTime;
-          //  AssemblyBreakResistance = commonProperties.AssemblyBreakResistance;
-          //  AnchorResistance = commonProperties.AnchorResistance;
-         //   MainPoleResistance = commonProperties.MainPoleResistance;
-          //  CompolesResistance = commonProperties.CompolesResistance;
-           // AutomodeFactor1 = commonProperties.AutomodeFactor1;
-          //  AutomodeFactor2 = commonProperties.AutomodeFactor2;
-         //   ExcitationTimeFactor1 = commonProperties.ExcitationTimeFactor1;
-          ///  ExcitationTimeFactor2 = commonProperties.ExcitationTimeFactor2;
-          //  ExcitationTimeFactor3 = commonProperties.ExcitationTimeFactor3;
-          //  MaxExcitationTime = commonProperties.MaxExcitationTime;
-          //  LowAutoModeRange = commonProperties.LowAutoModeRange;
-          //  HighAutoModeRange = commonProperties.HighAutoModeRange;
-           // LinearGrowCurrentTime = commonProperties.LinearGrowCurrentTime;
-           // ConnectionPull2 = commonProperties.ConnectionPull2;
-            //PositionPull2 = commonProperties.PositionPull2;
             OwnNeedsElectricPower = commonProperties.OwnNeedsElectricPower;
-          //AC  nbAuto = commonProperties.nbAuto;
-           // WeakPull2 = commonProperties.WeakPull2;
-           Machine = machine;
+
+            Machine = machine;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected BaseTrain() { }
 
         /// <summary>
