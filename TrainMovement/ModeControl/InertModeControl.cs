@@ -12,7 +12,7 @@ namespace TrainMovement.ModeControl
         /// <param name="train"></param>
         /// <returns></returns>
 
-        public Double GetForceBaseResistance(Train.Train train)
+        public Double GetForceBaseResistance(Train.BaseTrain train)
         {
             return 0;
         }
@@ -21,7 +21,7 @@ namespace TrainMovement.ModeControl
         /// </summary>
         /// <param name="train"></param>
         /// <returns></returns>
-        public Double GetForcePull(Train.Train train)
+        public Double GetForcePull(Train.BaseTrain train)
         {
             return 0;
         }
@@ -30,7 +30,7 @@ namespace TrainMovement.ModeControl
         /// </summary>
         /// <param name="train"></param>
         /// <returns></returns>
-        public Double GetForceBreak(Train.Train train)
+        public Double GetForceBreak(Train.BaseTrain train)
         {
             return 0;
         }

@@ -146,7 +146,7 @@ namespace TrainMovement.Stage
         /// </summary>
         /// <param name="train"></param>
         /// <returns></returns>
-        public Double GetForceAdditionalResistance(Train.Train train)
+        public Double GetForceAdditionalResistance(Train.BaseTrain train)
         {
             return 0;
         }

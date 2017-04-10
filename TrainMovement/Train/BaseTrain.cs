@@ -10,7 +10,7 @@ namespace TrainMovement.Train
     /// <summary>
     /// Train
     /// </summary>
-    public sealed class Train
+    public abstract class BaseTrain
     {
         #region Fields
         /// <summary>
@@ -18,40 +18,42 @@ namespace TrainMovement.Train
         /// </summary>
         private Double acceleration;
 
+        private String name;
+
         /// <summary>
         /// Ток
         /// </summary>
-        private Double current;
+        protected Double current;
 
         /// <summary>
         /// Масса
         /// </summary>
-        private Double mass;
+        protected Double mass;
 
         /// <summary>
         /// Скорость
         /// </summary>
-        private Double velocity;
+        protected Double velocity;
 
         /// <summary>
         /// Напряжение
         /// </summary>
-        private Double voltage;
+        protected Double voltage;
 
         /// <summary>
         /// Время
         /// </summary>
-        private Double time;
+        protected Double time;
 
         /// <summary>
         /// Расстояние
         /// </summary>
-        private Double space;
+        protected Double space;
 
         /// <summary>
         /// Параметр двигателя
         /// </summary>
-        private BaseMachine Machine;
+        protected BaseMachine Machine;
 
 
         /// <summary>
@@ -63,57 +65,57 @@ namespace TrainMovement.Train
         /// <summary>
         /// Длина вагона
         /// </summary>
-        private Double carLength;
+        protected Double carLength;
 
         /// <summary>
         /// Масса порожнего вагона
         /// </summary>
-        private Double unladenWeight;
+        protected Double unladenWeight;
         /// <summary>
         /// 
         /// </summary>
-        private Double breakAverage;
+        protected Double breakAverage;
 
         /// <summary>
         /// /
         /// </summary>
-        private Double netResistancePullFactor;
+        protected Double netResistencePullFactor;
 
 
         /// <summary>
         /// 
         /// </summary>
-        private Double aerodynamicDragFactor;
+        protected Double aerodynamicDragFactor;
 
         /// <summary>
         /// 
         /// </summary>
-        private Double netResistanceCoastingFactor1;
+        protected Double netResistenceCoastingFactor1;
 
         /// <summary>
         /// 
         /// </summary>
-        private Double netResistanceCoastingFactor2;
+        protected Double netResistenceCoastingFactor2;
 
         /// <summary>
         /// 
         /// </summary>
-        private Double netResistanceCoastingFactor3;
+        protected Double netResistenceCoastingFactor3;
 
         /// <summary>
         /// 
         /// </summary>
-        private Double trainEquivalentSurface;
+        protected Double trainEquivalentSurface;
 
         /// <summary>
         /// 
         /// </summary>
-        private Double inertiaRotationFactor;
+        protected Double inertiaRotationFactor;
 
         /// <summary>
         /// 
         /// </summary>
-        private Double ownNeedsElectricPower;
+        protected Double ownNeedsElectricPower;
 
 
 
@@ -315,14 +317,14 @@ namespace TrainMovement.Train
         /// FLOAT NOT NULL --1-коэффициент основного сопротивления для тяги wwt1
         /// </summary>
         /// /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
-        public Double NetResistancePullFactor
+        public Double NetResistencePullFactor
         {
-            get { return netResistancePullFactor; }
+            get { return netResistencePullFactor; }
             private set
             {
                 if (!DomainHelper.CheckNetResistancePullFactor(value))
                     throw new ArgumentOutOfRangeException(nameof(value));
-                netResistancePullFactor = value;
+                netResistencePullFactor = value;
             }
         }
 
@@ -345,14 +347,14 @@ namespace TrainMovement.Train
         /// FLOAT NOT NULL --1-коэффициент основного сопротивления для выбега wwi1
         /// </summary>
         /// /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
-        public Double NetResistanceCoastingFactor1
+        public Double NetResistenceCoastingFactor1
         {
-            get { return netResistanceCoastingFactor1; }
+            get { return netResistenceCoastingFactor1; }
             private set
             {
                 if (!DomainHelper.CheckNetResistanceCoastingFactor1(value))
                     throw new ArgumentOutOfRangeException(nameof(value));
-                netResistanceCoastingFactor1 = value;
+                netResistenceCoastingFactor1 = value;
             }
         }
 
@@ -360,14 +362,14 @@ namespace TrainMovement.Train
         /// FLOAT NOT NULL --2-коэффициент основного сопротивления для выбега wwi2
         /// </summary>
         /// /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
-        public Double NetResistanceCoastingFactor2
+        public Double NetResistenceCoastingFactor2
         {
-            get { return netResistanceCoastingFactor2; }
+            get { return netResistenceCoastingFactor2; }
             private set
             {
                 if (!DomainHelper.CheckNetResistanceCoastingFactor2(value))
                     throw new ArgumentOutOfRangeException(nameof(value));
-                netResistanceCoastingFactor2 = value;
+                netResistenceCoastingFactor2 = value;
             }
         }
 
@@ -375,14 +377,14 @@ namespace TrainMovement.Train
         /// *FLOAT NOT NULL --3-коэффициент основного сопротивления для выбега wwi3
         /// </summary>
         /// /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
-        public Double NetResistanceCoastingFactor3
+        public Double NetResistenceCoastingFactor3
         {
-            get { return netResistanceCoastingFactor3; }
+            get { return netResistenceCoastingFactor3; }
             private set
             {
                 if (!DomainHelper.CheckNetResistanceCoastingFactor3(value))
                     throw new ArgumentOutOfRangeException(nameof(value));
-                netResistanceCoastingFactor3 = value;
+                netResistenceCoastingFactor3 = value;
             }
         }
 
@@ -390,7 +392,7 @@ namespace TrainMovement.Train
         /// FLOAT NOT NULL -- эквивалентная поверхность состава seq
         /// </summary>
         /// /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
-        public Double TrainEquivalentSurface
+        public Double TrainEqvivalentSurface
         {
             get { return trainEquivalentSurface; }
             private set
@@ -432,6 +434,19 @@ namespace TrainMovement.Train
         }
 
 
+        public String Name
+        {
+            get { return name; }
+            protected set
+            {
+                if (value == null)
+                    throw new ArgumentNullException(paramName: nameof(value));
+                if (value.Trim().Length == 0)
+                    throw new ArgumentOutOfRangeException(paramName: nameof(value));
+                name = value;
+            }
+        }
+
         /// <summary>
         /// Перегон
         /// </summary>
@@ -466,46 +481,48 @@ namespace TrainMovement.Train
         /// <param name="machine"></param>
         /// <param name="commonProperties"></param>
         /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
-        internal Train(BaseMachine machine, АdditionalParameter commonProperties)
+        public BaseTrain(BaseMachine machine, BaseTrainParametres commonProperties)
         {
             CarLength = commonProperties.CarLength;
             UnladenWeight = commonProperties.UnladenWeight;
             NumberCars = commonProperties.NumberCars;
             //Unom = commonProperties.Unom;
             //Umax = commonProperties.Umax;
-            //BAverage = commonProperties.BAverage;
-            //NetResistencePullFactor = commonProperties.NetResistencePullFactor;
-            //AerodynamicDragFactor = commonProperties.AerodynamicDragFactor;
-            //NetResistenceCoastingFactor1 = commonProperties.NetResistenceCoastingFactor1;
-            //NetResistenceCoastingFactor2 = commonProperties.NetResistenceCoastingFactor2;
-            //NetResistenceCoastingFactor3 = commonProperties.NetResistenceCoastingFactor3;
-            //TrainEqvivalentSurface = commonProperties.TrainEqvivalentSurface;
-            //InertiaRotationFactor = commonProperties.InertiaRotationFactor;
+            BreakAverage = commonProperties.BAverage;
+            NetResistencePullFactor = commonProperties.NetResistencePullFactor;
+            AerodynamicDragFactor = commonProperties.AerodynamicDragFactor;
+            NetResistenceCoastingFactor1 = commonProperties.NetResistenceCoastingFactor1;
+            NetResistenceCoastingFactor2 = commonProperties.NetResistenceCoastingFactor2;
+            NetResistenceCoastingFactor3 = commonProperties.NetResistenceCoastingFactor3;
+            TrainEqvivalentSurface = commonProperties.TrainEqvivalentSurface;
+            InertiaRotationFactor = commonProperties.InertiaRotationFactor;
             //AssemblyPowerCircuitTime = commonProperties.AssemblyPowerCircuitTime;
-            //DisassemblyPowerCircuitTime = commonProperties.DisassemblyPowerCircuitTime;
-            //AssemblyPullTime = commonProperties.AssemblyPullTime;
+           // DisassemblyPowerCircuitTime = commonProperties.DisassemblyPowerCircuitTime;
+           // AssemblyPullTime = commonProperties.AssemblyPullTime;
             //AssemblyPullResistance = commonProperties.AssemblyPullResistance;
             //AssemblyBreakTime = commonProperties.AssemblyBreakTime;
-            //AssemblyBreakResistance = commonProperties.AssemblyBreakResistance;
-            //AnchorResistance = commonProperties.AnchorResistance;
-            //MainPoleResistance = commonProperties.MainPoleResistance;
-            //CompolesResistance = commonProperties.CompolesResistance;
-            //AutomodeFactor1 = commonProperties.AutomodeFactor1;
-            //AutomodeFactor2 = commonProperties.AutomodeFactor2;
-            //ExcitationTimeFactor1 = commonProperties.ExcitationTimeFactor1;
-            //ExcitationTimeFactor2 = commonProperties.ExcitationTimeFactor2;
-            //ExcitationTimeFactor3 =commonProperties.ExcitationTimeFactor3;
-            //MaxExcitationTime = commonProperties.MaxExcitationTime;
-            //LowAutoModeRange = commonProperties.LowAutoModeRange;
-            //HighAutoModeRange = commonProperties.HighAutoModeRange;
-            //LinearGrowCurrentTime = commonProperties.LinearGrowCurrentTime;
-            //ConnectionPull2 = commonProperties.ConnectionPull2;
+          //  AssemblyBreakResistance = commonProperties.AssemblyBreakResistance;
+          //  AnchorResistance = commonProperties.AnchorResistance;
+         //   MainPoleResistance = commonProperties.MainPoleResistance;
+          //  CompolesResistance = commonProperties.CompolesResistance;
+           // AutomodeFactor1 = commonProperties.AutomodeFactor1;
+          //  AutomodeFactor2 = commonProperties.AutomodeFactor2;
+         //   ExcitationTimeFactor1 = commonProperties.ExcitationTimeFactor1;
+          ///  ExcitationTimeFactor2 = commonProperties.ExcitationTimeFactor2;
+          //  ExcitationTimeFactor3 = commonProperties.ExcitationTimeFactor3;
+          //  MaxExcitationTime = commonProperties.MaxExcitationTime;
+          //  LowAutoModeRange = commonProperties.LowAutoModeRange;
+          //  HighAutoModeRange = commonProperties.HighAutoModeRange;
+           // LinearGrowCurrentTime = commonProperties.LinearGrowCurrentTime;
+           // ConnectionPull2 = commonProperties.ConnectionPull2;
             //PositionPull2 = commonProperties.PositionPull2;
-            //OwnNeedsElectricPower = commonProperties.OwnNeedsElectricPower;
-            //nbAuto = commonProperties.nbAuto;
-            //WeakPull2 = commonProperties.WeakPull2;
-            Machine = machine;
+            OwnNeedsElectricPower = commonProperties.OwnNeedsElectricPower;
+          //AC  nbAuto = commonProperties.nbAuto;
+           // WeakPull2 = commonProperties.WeakPull2;
+           Machine = machine;
         }
+
+        protected BaseTrain() { }
 
         /// <summary>
         /// Move by a <paramref name="distance"/> with definite modeControl 

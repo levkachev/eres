@@ -55,12 +55,16 @@ namespace ERES
 
             ///показать для выбранного типа мотора, имени поезда и массы все зависимости
             /// </summary> 
+            /// 
+
+            var testTrainName = "81-740.4";
 
             var motortypeRepository = Motor_TypeRepository.GetInstance();
             var motortype = motortypeRepository.GetByType("AC");
 
-            var trainnameRepository = Train_NameRepository.GetInstance();
-            var trainname = trainnameRepository.GetByName("81-740.4");
+             var trainnameRepository = Train_NameRepository.GetInstance();
+             var trainName = trainnameRepository.GetIDByName(testTrainName);
+
 
             var massRepository = MassRepository.GetInstance();
             var mass = massRepository.GetByMass(100);
@@ -69,7 +73,7 @@ namespace ERES
             var modecontrol = modecontrolRepository.GetByModeControl("Pull1");
 
             var vfiRepository = VFIRepository.GetInstance();
-            ShowCollection<VFI>(vfiRepository.GetVFI(trainname, modecontrol, mass), "GetVFI") ;
+            ShowCollection<VFI>(vfiRepository.GetVFI(testTrainName, modecontrol, mass), "GetVFI") ;
 
             Console.WriteLine("Press any key to close the program");
             Console.ReadKey(true);

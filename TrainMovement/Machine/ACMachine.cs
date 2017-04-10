@@ -9,5 +9,10 @@ namespace TrainMovement.Machine
         /// Максимальное напряжение двигателя FLOAT for AC
         /// </summary>
         public Double UMax { get; protected set; }
+
+        public ACMachine(String trainName)
+        {
+            Name = trainName;
+        }
     }
 }

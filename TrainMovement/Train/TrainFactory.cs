@@ -1,6 +1,8 @@
 ﻿using TrainMovement.Machine;
 using ORM.Train.Repositories;
 using TrainMovement.Stuff;
+using ORM.Train.Entities;
+using System;
 
 namespace TrainMovement.Train
 {
@@ -10,7 +12,7 @@ namespace TrainMovement.Train
         /// <summary>
         /// 
         /// </summary>
-        private static BaseMachine ACMachinePrototype = new ACMachine();
+       // private static BaseMachine ACMachinePrototype = new ACMachine();
 
         /// <summary>
         /// 
@@ -21,10 +23,10 @@ namespace TrainMovement.Train
         /// 
         /// </summary>
         /// <returns></returns>
-        private static BaseMachine GetNewACMachine()
-        {
-            return CloneMachine(ACMachinePrototype);
-        }
+        //private static BaseMachine GetNewACMachine()
+        //{
+        //    return CloneMachine(ACMachinePrototype);
+        //}
 
         /// <summary>
         /// 
@@ -49,18 +51,19 @@ namespace TrainMovement.Train
         /// 
         /// </summary>
         /// <returns></returns>
-        public static Train GetACTrain()
+        public static BaseTrain GetACTrain(String trainName)
         {
-            return new Train(GetNewACMachine(), АdditionalParameterRepository.GetАdditionalParameter());
+            return new ACTrain(new ACMachine(trainName), АdditionalParameterRepository.GetACTrainParametres(trainName), trainName);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public static Train GetDCTrain()
+        public static BaseTrain GetDCTrain(String trainName)
         {
-            return new Train(GetNewDCMachine(), АdditionalParameterRepository.GetАdditionalParameter());
+            throw new NotImplementedException();
+            //return new DCTrain(GetNewDCMachine(), АdditionalParameterRepository.GetDCTrainParametres(trainName), trainName);
         }
 
     }

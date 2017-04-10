@@ -13,12 +13,22 @@ namespace ORM.Train.Repositories
         {
             return GetInstance<Train_NameRepository>(SessionWrapper.GetInstance().Factory);
         }
-
-        public Train_Name GetByName(String name)
+        public Guid GetIDByName(String name)
         {
-            return GetAll()
-                .Where(tname => tname.Name == name)
-                .SingleOrDefault();
+            var tmp = GetAll()
+                .SingleOrDefault(tr => tr.Name == name);
+            if (tmp == null)
+                throw new ArgumentOutOfRangeException(paramName: nameof(name));
+            return tmp.ID;
+        }
+
+        public Motor_Type GetIDMotorTypeByName(String name)
+        {
+            var tmp = GetAll()
+                .SingleOrDefault(tr => tr.Name == name);
+            if (tmp == null)
+                throw new ArgumentOutOfRangeException(paramName: nameof(name));
+            return tmp.MotorType;
         }
     }
 }

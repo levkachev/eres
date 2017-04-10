@@ -25,7 +25,7 @@ namespace ORM.Energy.Repositories
          {
             return GetAll()
                  .Where(feeder => feeder.PSS == powerSupplyStation)
-                 .Where (feeder => feeder.Feeder_Type == name)
+                 .Where (feeder => feeder.FeederType == name)
                  .Select(feeder => feeder).ToList();             
         }
 

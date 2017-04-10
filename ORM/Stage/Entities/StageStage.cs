@@ -1,12 +1,13 @@
 ﻿using System;
 using ORM.Base;
+using System.Collections.Generic;
 
 namespace ORM.Stage.Entities
 {
     /// <summary>
     /// 
     /// </summary>
-    public class Stage : Entity<Stage>
+    public class StageStage : Entity<StageStage>
     {
         /// <summary>
         /// 
@@ -15,15 +16,16 @@ namespace ORM.Stage.Entities
         /// <summary>
         /// 
         /// </summary>
-        public SpeedLimit SpeedLmit;
+        public IEnumerable<SpeedLimit> SpeedLimit;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="name"></param>
         /// <param name="speedLmit"></param>
-        public Stage(String name, SpeedLimit speedLmit)
+        public StageStage()
         {
+            SpeedLimit = new SortedSet<SpeedLimit>();
         }
     }
 }
