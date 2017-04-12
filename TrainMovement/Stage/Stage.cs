@@ -51,6 +51,7 @@ namespace TrainMovement.Stage
         /// <exception cref="ArgumentException" accessor="set">Condition.</exception>
         public virtual String Name
         {
+
             get
             {
                 return name;
