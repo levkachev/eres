@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 using ORM.Energy.Entities;
 
 namespace ERES
@@ -19,6 +20,8 @@ namespace ERES
         /// <summary>
         /// 
         /// </summary>
+        [XmlArray(ElementName = "energyenergy")]
+        [XmlArrayItem("text", Type = typeof(EnergyEnergy))]
         public List<EnergyEnergy> Energy
         {
             get { return energyenergy; }

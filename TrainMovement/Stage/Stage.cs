@@ -159,7 +159,7 @@ namespace TrainMovement.Stage
         /// <returns></returns>
         private static Double GetLimit(Double space, IEnumerable<LimitStructure> limitStructure)
         {
-            var tmpStructure = limitStructure as IList<LimitStructure> ?? limitStructure.ToList();
+            var tmpStructure = limitStructure as IList<LimitStructure> ?? limitStructure.ToArray();
 
             Int32 index;
             for (index = 0; (index < tmpStructure.Count) || (tmpStructure[index] > space); ++index);

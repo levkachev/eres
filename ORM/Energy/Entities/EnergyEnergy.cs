@@ -29,12 +29,13 @@ namespace ORM.Energy.Entities
         /// <summary>
         /// 
         /// </summary>
+        [System.Xml.Serialization.XmlAttribute("name")]
         public String NameLine;
         /// <summary>
         /// 
         /// </summary>
-      //  public IEnumerable<PowerSupplyStation> PowerSupplyStation;
-
+        //  public IEnumerable<PowerSupplyStation> PowerSupplyStation;
+        [System.Xml.Serialization.XmlAttribute("pick")]
         public Double Piketag;
 
         /// <summary>
