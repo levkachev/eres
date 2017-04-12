@@ -12,8 +12,7 @@ using ORM.Train.Interpolation.Entities;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters.Soap;
-using System.Text;
+ 
 
 
 namespace ERES 
@@ -21,7 +20,7 @@ namespace ERES
     class Program
     {
      //   public static ISessionFactory sessionFactory { get; protected set; }
-        static void Main()
+        static void Main(string[] args)
         {
           //  sessionFactory = SessionFactory.GetSessionFactory();
 
@@ -88,51 +87,39 @@ namespace ERES
             Console.WriteLine(piketag);
             Console.ReadKey(true);
 
-            string pathToFile = @"G:\DSA\MS_VS_Projects\C#\ReadWrite File";
-            string nameFile = "Example";
-            string format = ".txt";
-            string path = Path.Combine(pathToFile, nameFile) + format;
+            //string pathToFile = @"G:\DSA\MS_VS_Projects\C#\ReadWrite File";
+            //string nameFile = "Example";
+            //string format = ".txt";
+            //string path = Path.Combine(pathToFile, nameFile) + format;
 
-            // Example #1: Write an array of strings to a file.
-            // Create a string array that consists of three lines.
-            //string[] lines = { "First line", "Second line", "Third line", "Fourth line" };
-            string[] rows = { name, Convert.ToString(piketag) };
-            var str = new StringBuilder();
-            str.Append(name);
-            str.Append(piketag);
+            //// Example #1: Write an array of strings to a file.
+            //// Create a string array that consists of three lines.
+            ////string[] lines = { "First line", "Second line", "Third line", "Fourth line" };
+            //string[] rows = { name, Convert.ToString(piketag) };
 
-            FileInfo file = new FileInfo(path);
-            if (file.Exists == false)
-            {
-                file.Create().Close();
-                Console.WriteLine("File add to path!");
-            }
-            else Console.WriteLine("File exist! Rename file!");
+            //FileInfo file = new FileInfo(path);
+            //if (file.Exists == false)
+            //{
+            //    file.Create().Close();
+            //    Console.WriteLine("File add to path!");
+            //}
+            //else Console.WriteLine("File exist! Rename file!");
 
-            //File.WriteAllLines(path, rows);
-            File.WriteAllText(path, str.ToString());
-            Console.ReadKey();
+            ////File.WriteAllLines(path, rows);
+            //File.WriteAllText(path, rows);
+            //Console.ReadKey();
 
-            List<EnergyEnergy> energyeneregy = new List<EnergyEnergy>
-            {
-                new EnergyEnergy { NameLine = "Калининская", Piketag = 456 }
-            };
+            List<EnergyEnergy> energyeneregy = new List<EnergyEnergy>();
 
             SerializableObject obj = new SerializableObject();
             obj.Energy = energyeneregy;
             
             MySerializer serializer = new MySerializer();
             //serializer.SerializeObject("output.txt", obj);
-            //System.Runtime.Serialization.Formatters.
-            var formatter1 = new SoapFormatter();
-           IFormatter formatter = new BinaryFormatter();
+            IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream("output.txt", FileMode.Create, FileAccess.Write, FileShare.None);
-            
             formatter.Serialize(stream, obj);
             stream.Close();
-
-
-            var obj1 = serializer.DeserializeObject("output.txt");
 
             //obj = serializer.DeserializeObject("output.txt");
             //energyeneregy = obj.Energy;

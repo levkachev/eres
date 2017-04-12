@@ -49,7 +49,7 @@ namespace Repositories.Train
             return acTrainParametres;
         }
         /// <summary>
-        /// Создает объект для DC поезда с дополнительными параметрами (Не сделан!)
+        /// Создает объект для DC поезда с дополнительными параметрами 
         /// </summary>
         /// <param name="trainName"></param>
         /// <returns></returns>
