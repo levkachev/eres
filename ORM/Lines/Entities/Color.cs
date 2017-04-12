@@ -1,7 +1,7 @@
 ﻿using System;
 using ORM.Base;
 
-namespace ORM.Line.Entities
+namespace ORM.Lines.Entities
 {
     /// <summary>
     /// Цвет линии
@@ -17,5 +17,6 @@ namespace ORM.Line.Entities
         /// RGB цвета линии
         /// </summary>
         public virtual String RGBvalue { get; set; }
+
     }
 }

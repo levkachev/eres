@@ -24,7 +24,7 @@ namespace ORM.Energy.Repositories
         public IList<Feeder> GetFeeder(PowerSupplyStation powerSupplyStation, String name)
          {
             return GetAll()
-                 .Where(feeder => feeder.PSS == powerSupplyStation)
+                 .Where(feeder => feeder.PowerSupplyStation == powerSupplyStation)
                  .Where (feeder => feeder.FeederType == name)
                  .Select(feeder => feeder).ToList();             
         }

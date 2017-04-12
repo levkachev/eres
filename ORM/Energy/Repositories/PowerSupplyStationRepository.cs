@@ -1,30 +1,43 @@
 ﻿using ORM.Base;
-using NHibernate;
 using ORM.Energy.Entities;
 using System.Linq;
 using System.Collections.Generic;
 using System;
-using ORM.Line.Entities;
 
 
 
 namespace ORM.Energy.Repositories
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class PowerSupplyStationRepository : Repository<PowerSupplyStation>
     
     {
-       public static PowerSupplyStationRepository GetInstance()
+        /// <summary>
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
+        public static PowerSupplyStationRepository GetInstance()
         {
             return GetInstance<PowerSupplyStationRepository>(SessionWrapper.GetInstance().Factory);
         }
 
-        
 
-        public PowerSupplyStation GetPowerSupplyStation(String PowerSupplyStationName)
+        /// <summary>
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
+        public PowerSupplyStation GetPowerSupplyStation(String aPowerSupplyStationName)
         {
             return GetAll()
-                .SingleOrDefault(s => s.Name == PowerSupplyStationName);
+                .SingleOrDefault(s => s.Name == aPowerSupplyStationName);
         }
+
+        /// <summary>
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">Параметр <paramref name="source" /> имеет значение null.</exception>
         public IList<String> GetPowerSupplyStationNames()
         {
             return GetAll()
@@ -32,11 +45,22 @@ namespace ORM.Energy.Repositories
                 .ToList();
         }
 
-        public PowerSupplyStation GetPowerSupplyStationId(Guid Id)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public PowerSupplyStation GetPowerSupplyStationId(Guid id)
         {
-            return GetById(Id);
+            return GetById(id);
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
         public Guid GetIDByName(String name)
         {
             var tmp = GetAll()
@@ -45,40 +69,65 @@ namespace ORM.Energy.Repositories
                 throw new ArgumentOutOfRangeException(paramName: nameof(name));
             return tmp.ID;
         }
+
         /// <summary>
         /// Подстанция для выбранной линии по наименованию подстанции
         /// </summary>
         /// <param name="line"></param>
         /// <param name="name"></param>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
         public PowerSupplyStation GetPSTbyLine(Guid line, String name)
         {
             return GetAll()
                 .Where(pst => pst.Line.ID == line)
-                .Where(pst => pst.Name == name)
-                .SingleOrDefault();
+                .SingleOrDefault(pst => pst.Name == name);
                
         }
+
         /// <summary>
         /// все подстаниции для выбранной линии
         /// </summary>
         /// <param name="line"></param>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
+        /// <exception cref="ArgumentException">Функция <paramref name="keySelector" /> выдает дубликаты ключей для двух элементов.</exception>
         public IDictionary<String, Double> GetAllPSTbyLine(Guid line)
         {
             return GetAll()
                 .Where(pst => pst.Line.ID == line)
-                .ToDictionary(pst => pst.Name, pst => pst.Piketag);
+                .ToDictionary(pst => pst.Name, pst => pst.Piketage);
 
         }
 
-      public  Double GetAllPST(Guid line, String name)
+        /// <summary>
+        /// </summary>
+        /// <param name="line"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
+        /// <exception cref="InvalidOperationException">Входная последовательность содержит более одного элемента.</exception>
+        public  Double GetAllPST(Guid line, String name)
         {
             return GetAll()
                 .Where(pst => pst.Line.ID == line)
                 .Where(pst => pst.Name == name)
-                .Select(pst => pst.Piketag).SingleOrDefault();
+                .Select(pst => pst.Piketage)
+                .SingleOrDefault();
                 
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="line"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
+        public IEnumerable<PowerSupplyStation> GetPowerStations(Guid line)
+        {
+            return GetAll()
+                .Where(ps => ps.Line.ID == line)
+                .Select(ps => ps)
+                .ToList();
         }
     }
 }

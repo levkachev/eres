@@ -3,7 +3,6 @@ using ORM.Base;
 using ORM.Energy.Repositories;
 using System.Collections.Generic;
 using System;
-using ORM.Line.Repositories;
 using ORM.Energy.Entities;
 using TrainMovement.Train;
 using ORM.Train.Repositories;
@@ -12,7 +11,7 @@ using ORM.Train.Interpolation.Entities;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
- 
+using ORM.Lines.Repositories;
 
 
 namespace ERES 
@@ -30,7 +29,7 @@ namespace ERES
             /// </summary>
             /// 
 
-            var linelineRepository = LineLineRepository.GetInstance();
+            var linelineRepository = LineRepository.GetInstance();
             var line = linelineRepository.GetIDByName("Калининская");
 
             var powerSupplyStationRepository = PowerSupplyStationRepository.GetInstance();
@@ -78,13 +77,18 @@ namespace ERES
             ShowCollection<VFI>(vfiRepository.GetVFI(testTrainName, modecontrol, mass), "GetVFI") ;
 
 
-            var name = EnergyRepository.GetPST("Калининская").NameLine;
-            var piketag = EnergyRepository.GetPST("Калининская").Piketag;
+            //var name = EnergyRepository.GetPST("Калининская").NameLine;
+            //var piketag = EnergyRepository.GetPST("Калининская").Piketag;
+
+            var name = "Калининская";
+            var lineRepository = LineRepository.GetInstance();
+            var PSS = lineRepository.GetAllPowerSupplyStations(name);
+            ShowCollection<PowerSupplyStation>(PSS, "PowerSupplyStations");
 
             Console.WriteLine("Press any key to close the program");
 
-            Console.WriteLine(name);
-            Console.WriteLine(piketag);
+            //Console.WriteLine(name);
+            //Console.WriteLine(piketag);
             Console.ReadKey(true);
 
             //string pathToFile = @"G:\DSA\MS_VS_Projects\C#\ReadWrite File";
@@ -109,17 +113,17 @@ namespace ERES
             //File.WriteAllText(path, rows);
             //Console.ReadKey();
 
-            List<EnergyEnergy> energyeneregy = new List<EnergyEnergy>();
+            //List<EnergyEnergy> energyeneregy = new List<EnergyEnergy>();
 
-            SerializableObject obj = new SerializableObject();
-            obj.Energy = energyeneregy;
+            //SerializableObject obj = new SerializableObject();
+            //obj.Energy = energyeneregy;
             
-            MySerializer serializer = new MySerializer();
-            //serializer.SerializeObject("output.txt", obj);
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("output.txt", FileMode.Create, FileAccess.Write, FileShare.None);
-            formatter.Serialize(stream, obj);
-            stream.Close();
+            //MySerializer serializer = new MySerializer();
+            ////serializer.SerializeObject("output.txt", obj);
+            //IFormatter formatter = new BinaryFormatter();
+            //Stream stream = new FileStream("output.txt", FileMode.Create, FileAccess.Write, FileShare.None);
+            //formatter.Serialize(stream, obj);
+            //stream.Close();
 
             //obj = serializer.DeserializeObject("output.txt");
             //energyeneregy = obj.Energy;

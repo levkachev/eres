@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using ORM.Base;
-using ORM.Line.Entities;
 
 
 namespace ORM.Energy.Entities
@@ -18,13 +18,35 @@ namespace ORM.Energy.Entities
         /// <summary>
         /// Пикетаж
         /// </summary>
-        public virtual Double Piketag { get; set; }
+        public virtual Double Piketage { get; set; }
 
         /// <summary>
         /// Линия
         /// </summary>
-        public virtual LineLine Line { get; set; }
-       
-       
+        public virtual Lines.Entities.Line Line { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual IList<Unit> Units { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual IList<Feeder> Feeders { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public PowerSupplyStation()
+        {
+            Units = new List<Unit>();
+            Feeders = new List<Feeder>();
+        }
+
+        public override String ToString()
+        {
+            return $"For {Name} [{Piketage}]{Environment.NewLine}Units: {String.Join("; ", Units)}{Environment.NewLine}Feeders: {String.Join("; ", Feeders)}{Environment.NewLine}";
+        }
     }
 }

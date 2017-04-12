@@ -2,6 +2,9 @@
 
 namespace TrainMovement.ModeControl
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IModeControl
     { 
     // Int32 Position { get; protected set; }

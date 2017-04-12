@@ -33,19 +33,21 @@ namespace ORM.Energy.Entities
         /// <summary>
         /// Тяговая подстанция
         /// </summary>
-        public virtual PowerSupplyStation PSS { get; set; }
+        public virtual PowerSupplyStation PowerSupplyStation { get; set; }
 
         /// <summary>
-        /// Выпрямитель
+        /// Выпрямители
         /// </summary>
         public virtual IList<Diod> Diods { get; set; }
 
         /// <summary>
-        /// Трансформатор
+        /// Трансформаторы
         /// </summary>
         public virtual IList<PowerConvert> PowerConverts { get; set; }
 
-        
+        /// <summary>
+        /// 
+        /// </summary>
         public Unit()
         {
             Diods = new List<Diod>();
@@ -55,11 +57,10 @@ namespace ORM.Energy.Entities
 
         public override String ToString()
         {
-            return String.Format($"{UnitCount}, {DiodCount}, {TransformatorCount}");
+            return $"Units count = {UnitCount}, Diods count = {DiodCount}, transformators count = " +
+                   $"{TransformatorCount}";
         }
-
     }
 }
-    
-    
+        
  

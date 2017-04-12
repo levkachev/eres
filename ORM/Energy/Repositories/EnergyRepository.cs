@@ -1,15 +1,14 @@
 ﻿using ORM.Base;
-using NHibernate;
 using ORM.Energy.Entities;
-using System.Linq;
-using System.Collections.Generic;
 using System;
-using ORM.Line.Entities;
-using ORM.Line.Repositories;
+using ORM.Lines.Repositories;
 
 
 namespace ORM.Energy.Repositories
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class EnergyRepository : Repository<PowerSupplyStation>
     {
         internal static EnergyRepository GetInstance()
@@ -21,7 +20,7 @@ namespace ORM.Energy.Repositories
         {
            
             var repository = EnergyRepository.GetInstance();
-            var linelineRepository = LineLineRepository.GetInstance();
+            var linelineRepository = LineRepository.GetInstance();
             var line = linelineRepository.GetIDByName(lineName);
             // var speedLimitRepository = SpeedLimitRepository.GetInstance();
             // var speedLimit = speedLimitRepository.GetAll(stageName);
@@ -32,6 +31,8 @@ namespace ORM.Energy.Repositories
             tmpEnergy.NameLine = lineName;
             //  tmpEnergy.PowerSupplyStation = "88";
             tmpEnergy.Piketag = psr;
+
+            var psList = powerSupplyStationRepository.GetPowerStations(line);
 
             return tmpEnergy;
 

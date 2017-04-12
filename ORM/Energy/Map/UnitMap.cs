@@ -14,7 +14,7 @@ namespace ORM.Energy.Map
             Map(x => x.DiodCount).Not.Nullable();
            
             References(x => x.Unit_Name);
-            References(x => x.PSS);
+            References(x => x.PowerSupplyStation);
             HasMany(x => x.Diods);
             HasMany(x => x.PowerConverts);
         }

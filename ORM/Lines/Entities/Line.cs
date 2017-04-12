@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using ORM.Base;
+using ORM.Energy.Entities;
 
 
-namespace ORM.Line.Entities
+namespace ORM.Lines.Entities
 {
     /// <summary>
     /// Линия
     /// </summary>
-    public class LineLine : Entity<LineLine>
+    public class Line : Entity<Line>
     {
         /// <summary>
         /// Наименование линии
@@ -18,5 +20,15 @@ namespace ORM.Line.Entities
         /// Цвет линии 
         /// </summary>
         public virtual Color Color { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual IList<PowerSupplyStation> PowerSupplyStation { get; set; }
+
+        public Line()
+        {
+            PowerSupplyStation = new List<PowerSupplyStation>();
+        }
     }
 }

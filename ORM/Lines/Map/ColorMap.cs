@@ -1,7 +1,7 @@
 ﻿using FluentNHibernate.Mapping;
-using ORM.Line.Entities;
+using ORM.Lines.Entities;
 
-namespace ORM.Line.Map
+namespace ORM.Lines.Map
 {
     /// <summary>
     /// Цвет линии

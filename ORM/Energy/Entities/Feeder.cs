@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ORM.Base;
 
 namespace ORM.Energy.Entities
@@ -29,14 +30,27 @@ namespace ORM.Energy.Entities
         public virtual Double Resistance { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public virtual IList<Resistance> Resistances { get; set; }
+
+        /// <summary>
         /// Тяговая подстанция
         /// </summary>
-        public virtual PowerSupplyStation PSS { get; set; }
+        public virtual PowerSupplyStation PowerSupplyStation { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override String ToString()
         {
-            return String.Format($"{Resistance}, {Piketag}, {Name}");
+            return $"R = {Resistance}, Piketage = {Piketag}, Name = {Name}";
         }
 
+        public Feeder()
+        {
+            Resistances = new List<Resistance>();
+        }
     }
 }
