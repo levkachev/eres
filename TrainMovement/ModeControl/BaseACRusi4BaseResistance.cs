@@ -19,11 +19,14 @@ namespace TrainMovement.ModeControl
             const Double coefficient1 = 1.1;
             const Double coefficient2 = 0.01;
             const Double coefficient3 = 0.001;
+
             var coefficientOpenStage = train.CurrentStage.GetCoefficientOpenStage(train.Space);
 
-            return coefficient1 * train.UnladenWeight / (train.UnladenWeight + train.Mass) + coefficient2 * train.Velocity +
-                   coefficient3 * train.UnladenWeight / (train.UnladenWeight + train.Mass) * train.Velocity * train.Velocity *
-                   coefficientOpenStage;
+            var trainWeightFactor = train.UnladenWeight / (train.UnladenWeight + train.Mass);
+
+            return coefficient1 * trainWeightFactor
+                + coefficient2 * train.Velocity 
+                + coefficient3 * trainWeightFactor * train.Velocity * train.Velocity * coefficientOpenStage;
         }
     }
 }

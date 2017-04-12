@@ -49,9 +49,10 @@ namespace TrainMovement.Train
         private Double time;
 
         /// <summary>
-        /// Расстояние
+        /// Расстояние от начала перегона в метрах
         /// </summary>
         private Double space;
+
 
         /// <summary>
         /// Параметр двигателя
@@ -140,6 +141,12 @@ namespace TrainMovement.Train
                 machine = value;
             }
         }
+
+        /// <summary>
+        /// Координата поезда на линии
+        /// </summary>
+        public Double SpacePiketage {get; set; }
+
 
         /// <summary>
         /// Режим ведения
@@ -289,14 +296,18 @@ namespace TrainMovement.Train
         /// <summary>
         /// Масса порожнего вагона tara
         /// </summary>
-        /// /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
+        /// <exception cref="ArgumentOutOfRangeException" accessor="set"/>
         public Double UnladenWeight
         {
-            get { return unladenWeight; }
+            get
+            {
+                return unladenWeight;
+            }
             private set
             {
                 if (!DomainHelper.CheckUnladenWeight(value))
                     throw new ArgumentOutOfRangeException(nameof(value));
+
                 unladenWeight = value;
             }
         }
@@ -304,14 +315,18 @@ namespace TrainMovement.Train
         /// <summary>
         /// Количество вагонов nb
         /// </summary>
-        /// /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
+        /// <exception cref="ArgumentOutOfRangeException" accessor="set"/>
         public Int32 NumberCars
         {
-            get { return numberCars; }
+            get
+            {
+                return numberCars;
+            }
             private set
             {
                 if (!DomainHelper.CheckNumberCars(value))
                     throw new ArgumentOutOfRangeException(nameof(value));
+
                 numberCars = value;
             }
         }

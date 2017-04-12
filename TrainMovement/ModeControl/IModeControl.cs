@@ -1,4 +1,5 @@
 ﻿using System;
+using TrainMovement.Train;
 
 namespace TrainMovement.ModeControl
 {
@@ -6,25 +7,26 @@ namespace TrainMovement.ModeControl
     /// 
     /// </summary>
     public interface IModeControl
-    { 
-    // Int32 Position { get; protected set; }
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="train"></param>
-    /// <returns></returns>
-    Double GetForceBaseResistance(Train.BaseTrain train);
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="train"></param>
-    /// <returns></returns>
-    Double GetForcePull(Train.BaseTrain train);
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="train"></param>
-    /// <returns></returns>
-    Double GetForceBreak(Train.BaseTrain train);
-}
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="train"></param>
+        /// <returns></returns>
+        Double GetPullOrBreak(BaseTrain train);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="train"></param>
+        /// <returns></returns>
+        Double GetCurrent(BaseTrain train);
+
+        /// <summary>
+        /// Расчет основного сопротивления
+        /// </summary>
+        /// <param name="train"></param>
+        /// <returns></returns>
+        Double GetBaseResistance(BaseTrain train);
+    }
 }

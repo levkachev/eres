@@ -61,47 +61,7 @@ namespace Repositories.Train
 
             var dcTrainParametres = (DCParametres)baseParametres;
 
-            dcTrainParametres.weakPull2 = repository.GetAdditionalParametresByTrainName(trainName).WeakPull2;
-
-            dcTrainParametres.positionPull2 = repository.GetAdditionalParametresByTrainName(trainName).PositionPull2;
-
-            dcTrainParametres.connectionPull2 = repository.GetAdditionalParametresByTrainName(trainName).ConnectionPull2;
-
-            dcTrainParametres.assemblyPowerCircuitTime = repository.GetAdditionalParametresByTrainName(trainName).AssemblyPowerCircuitTime;
-
-            dcTrainParametres.disassemblyPowerCircuitTime = repository.GetAdditionalParametresByTrainName(trainName).DisassemblyPowerCircuitTime;
-
-            dcTrainParametres.assemblyPullTime = repository.GetAdditionalParametresByTrainName(trainName).AssemblyPullTime;
-
-            dcTrainParametres.assemblyPullResistance = repository.GetAdditionalParametresByTrainName(trainName).AssemblyPullResistance;
-
-            dcTrainParametres.assemblyBreakTime = repository.GetAdditionalParametresByTrainName(trainName).AssemblyBreakTime;
-
-            dcTrainParametres.assemblyBreakResistance = repository.GetAdditionalParametresByTrainName(trainName).AssemblyBreakResistance;
-
-            dcTrainParametres.anchorResistance = repository.GetAdditionalParametresByTrainName(trainName).AnchorResistance;
-
-            dcTrainParametres.mainPoleResistance = repository.GetAdditionalParametresByTrainName(trainName).MainPoleResistance;
-
-            dcTrainParametres.compolesResistance = repository.GetAdditionalParametresByTrainName(trainName).CompolesResistance;
-
-            dcTrainParametres.automodeFactor1 = repository.GetAdditionalParametresByTrainName(trainName).AutomodeFactor1;
-
-            dcTrainParametres.automodeFactor2 = repository.GetAdditionalParametresByTrainName(trainName).AutomodeFactor2;
-
-            dcTrainParametres.excitationTimeFactor1 = repository.GetAdditionalParametresByTrainName(trainName).ExcitationTimeFactor1;
-
-            dcTrainParametres.excitationTimeFactor2 = repository.GetAdditionalParametresByTrainName(trainName).ExcitationTimeFactor2;
-
-            dcTrainParametres.excitationTimeFactor3 = repository.GetAdditionalParametresByTrainName(trainName).ExcitationTimeFactor3;
-
-            dcTrainParametres.maxExcitationTime = repository.GetAdditionalParametresByTrainName(trainName).MaxExcitationTime;
-
-            dcTrainParametres.lowAutoModeRange = repository.GetAdditionalParametresByTrainName(trainName).LowAutoModeRange;
-
-            dcTrainParametres.highAutoModeRange = repository.GetAdditionalParametresByTrainName(trainName).HighAutoModeRange;
-
-            dcTrainParametres.linearGrowCurrentTime = repository.GetAdditionalParametresByTrainName(trainName).LinearGrowCurrentTime;
+           
 
             return dcTrainParametres;
         }
@@ -135,6 +95,7 @@ namespace Repositories.Train
         /// </summary>
         /// <param name="trainName"></param>
         /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException">less zero.</exception>
         public static DCMachine GetDCMachineParametres(String trainName)
         {
             var repository = АdditionalParameterRepository.GetInstance();
@@ -142,8 +103,47 @@ namespace Repositories.Train
             var baseMachine = repository.GetBaseMachineParametres(trainName);
 
             var dcMachine = (DCMachine)baseMachine;
+            dcMachine.WeakPull2 = repository.GetAdditionalParametresByTrainName(trainName).WeakPull2;
 
-            //Это заглушка!!! Вынуть из БД все параметры
+            dcMachine.PositionPull2 = repository.GetAdditionalParametresByTrainName(trainName).PositionPull2;
+
+            dcMachine.ConnectionPull2 = repository.GetAdditionalParametresByTrainName(trainName).ConnectionPull2;
+
+            dcMachine.AssemblyPowerCircuitTime = repository.GetAdditionalParametresByTrainName(trainName).AssemblyPowerCircuitTime;
+
+            dcMachine.DisassemblyPowerCircuitTime = repository.GetAdditionalParametresByTrainName(trainName).DisassemblyPowerCircuitTime;
+
+            dcMachine.AssemblyPullTime = repository.GetAdditionalParametresByTrainName(trainName).AssemblyPullTime;
+
+            dcMachine.AssemblyPullResistance = repository.GetAdditionalParametresByTrainName(trainName).AssemblyPullResistance;
+
+            dcMachine.AssemblyBreakTime = repository.GetAdditionalParametresByTrainName(trainName).AssemblyBreakTime;
+
+            dcMachine.AssemblyBreakResistance = repository.GetAdditionalParametresByTrainName(trainName).AssemblyBreakResistance;
+
+            dcMachine.AnchorResistance = repository.GetAdditionalParametresByTrainName(trainName).AnchorResistance;
+
+            dcMachine.MainPoleResistance = repository.GetAdditionalParametresByTrainName(trainName).MainPoleResistance;
+
+            dcMachine.ComPolesResistance = repository.GetAdditionalParametresByTrainName(trainName).CompolesResistance;
+
+            dcMachine.AutoModeFactor1 = repository.GetAdditionalParametresByTrainName(trainName).AutomodeFactor1;
+
+            dcMachine.AutoModeFactor2 = repository.GetAdditionalParametresByTrainName(trainName).AutomodeFactor2;
+
+            dcMachine.ExcitationTimeFactor1 = repository.GetAdditionalParametresByTrainName(trainName).ExcitationTimeFactor1;
+
+            dcMachine.ExcitationTimeFactor2 = repository.GetAdditionalParametresByTrainName(trainName).ExcitationTimeFactor2;
+
+            dcMachine.ExcitationTimeFactor3 = repository.GetAdditionalParametresByTrainName(trainName).ExcitationTimeFactor3;
+
+            dcMachine.MaxExcitationTime = repository.GetAdditionalParametresByTrainName(trainName).MaxExcitationTime;
+
+            dcMachine.LowAutoModeRange = repository.GetAdditionalParametresByTrainName(trainName).LowAutoModeRange;
+
+            dcMachine.HighAutoModeRange = repository.GetAdditionalParametresByTrainName(trainName).HighAutoModeRange;
+
+            dcMachine.LinearGrowCurrentTime = repository.GetAdditionalParametresByTrainName(trainName).LinearGrowCurrentTime;
 
             return dcMachine;
 
