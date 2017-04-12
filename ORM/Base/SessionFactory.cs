@@ -1,4 +1,5 @@
-﻿using NHibernate;
+﻿using System;
+using NHibernate;
 using ORM.Conventions;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
@@ -11,8 +12,12 @@ using System.Reflection;
 
 namespace ORM.Base
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class SessionFactory
     {
+        /// <exception cref="ArgumentException">Представлен недопустимый аргумент строки 
         public static ISessionFactory GetSessionFactory()
         {
            
