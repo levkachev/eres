@@ -68,6 +68,8 @@ namespace TrainMovement.Stage
             }
         }
 
+        // роловреквл
+
         /// <summary>
         /// Ограничения скорости
         /// </summary>
