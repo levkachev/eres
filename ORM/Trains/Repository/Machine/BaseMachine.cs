@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Repositories.Train.Machine
+namespace ORM.Trains.Repository.Machine
 {
     /// <summary>
     /// Общие параметры для двигателя

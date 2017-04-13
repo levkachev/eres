@@ -1,9 +1,10 @@
-﻿using ORM.Base;
-using ORM.Train.Entities;
+﻿using System;
 using System.Linq;
-using System;
+using ORM.Base;
+using ORM.Train.Entities;
+using ORM.Helpers;
 
-namespace ORM.Train.Repositories
+namespace ORM.Trains.Repository
 {
     /// <summary>
     /// 
@@ -27,18 +28,9 @@ namespace ORM.Train.Repositories
         public MassMass GetByMass(Double mass)
         {
             return GetAll()
-                .SingleOrDefault(tmass => IsEqual(tmass.Mass, mass));
+                .SingleOrDefault(tmass => MathHelper.IsEqual(tmass.Mass, mass));
         }
 
-        /// <summary>
-        /// Возвращает истина, если два значения равны
-        /// </summary>
-        /// <param name="arg0"></param>
-        /// <param name="arg1"></param>
-        /// <returns></returns>
-        private static Boolean IsEqual(Double arg0, Double arg1)
-        {
-            return Math.Abs(arg0 - arg1) < Double.Epsilon;
-        }
+       
     }
 }

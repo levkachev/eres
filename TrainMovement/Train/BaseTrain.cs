@@ -1,7 +1,7 @@
 ﻿using System;
-using Repositories.Train.Machine;
 using TrainMovement.ModeControl;
 using ORM.Train.Entities;
+using ORM.Trains.Repository.Machine;
 using TrainMovement.PhisicalHelper;
 
 
@@ -486,7 +486,7 @@ namespace TrainMovement.Train
         /// <summary>
         /// Перегон
         /// </summary>
-        public Stage.Stage CurrentStage { get; set; }
+        public Stages.Stage CurrentStage { get; set; }
 
         /// <summary>
         /// СИла тяги

@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ORM.Stage.Entities;
+using ORM.Base;
 
-namespace TrainMovement.Stage
+namespace ORM.Stageis.Entities
 {
     /// <summary>
-    /// 
+    /// DTO
     /// </summary>
-    public class Stage
+    public class Stage : Entity<Stage>
     {
+        #region Fields
         /// <summary>
         /// </summary>
         private String name;
@@ -37,19 +38,22 @@ namespace TrainMovement.Stage
         /// <summary>
         /// 
         /// </summary>
-        private SortedSet<LimitStructure> automaticSR;
+        private SortedSet<LimitStructure> automaticSpeedControl;
 
         /// <summary>
         /// 
         /// </summary>
         private SortedSet<LimitStructure> openSection;
 
+        #endregion
 
+
+        #region Properties
         /// <summary>
         /// </summary>
         /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
         /// <exception cref="ArgumentException" accessor="set">Condition.</exception>
-        public virtual String Name
+        public String Name
         {
 
             get
@@ -107,10 +111,10 @@ namespace TrainMovement.Stage
         /// <summary>
         /// Ограничения по системе АРС
         /// </summary>
-        public IEnumerable<LimitStructure> ASR
+        public IEnumerable<LimitStructure> AutomaticSpeedControl
         {
-            get { return automaticSR; }
-            protected set { automaticSR = new SortedSet<LimitStructure>(value); }
+            get { return automaticSpeedControl; }
+            protected set { automaticSpeedControl = new SortedSet<LimitStructure>(value); }
         }
 
         /// <summary>
@@ -122,50 +126,31 @@ namespace TrainMovement.Stage
             protected set { openSection = new SortedSet<LimitStructure>(value); }
         }
 
+
+        #endregion
+
+
         /// <summary>
         /// Создание перегона по имени
         /// </summary>
-        /// <param name="name"></param>
         /// <exception cref="ArgumentNullException">value is <see langword="null"/></exception>
         /// <exception cref="ArgumentException">Condition.</exception>
-        internal Stage(String stageName, SpeedLimit speed)
+        internal Stage(String stageName, IEnumerable<LimitStructure> speedLimit, IEnumerable<LimitStructure> planLimit, IEnumerable<LimitStructure> profileLimit, IEnumerable<LimitStructure> currentSection, IEnumerable<LimitStructure> automaticSpeedControl, IEnumerable<LimitStructure> openSection)
         {
             Name = stageName;
+            SpeedLimit = speedLimit;
+            PlanLimit = planLimit;
+            ProfileLimit = profileLimit;
+            CurrentSection = currentSection;
+            AutomaticSpeedControl = automaticSpeedControl;
+            OpenSection = openSection;
         }
+
         /// <summary>
-        /// 
+        /// Конструктор для наследования
         /// </summary>
-        /// <param name="stageName"></param>
-        /// <param name="speed"></param>
-        /// <returns></returns>
-        public static Stage GetStage(String stageName, SpeedLimit speed)
+        protected Stage()
         {
-            return new Stage(stageName, speed);
-        }
-
-        /// <summary>
-        /// Возвращает текущий коэффициент сопротивления для открытого участка
-        /// </summary>
-        /// <param name="space"></param>
-        /// <returns></returns>
-        internal Double GetCoefficientOpenStage(Double space)
-        {
-            return GetLimit(space, OpenSection);
-        }
-
-        /// <summary>
-        /// Находит ограничение до указанного пути
-        /// <param name="space"></param>
-        /// <param name="limitStructure"></param>
-        /// <returns></returns>
-        private static Double GetLimit(Double space, IEnumerable<LimitStructure> limitStructure)
-        {
-            var tmpStructure = limitStructure as IList<LimitStructure> ?? limitStructure.ToArray();
-
-            Int32 index;
-            for (index = 0; (index < tmpStructure.Count) || (tmpStructure[index] > space); ++index);
-            return tmpStructure[index].Limit;
         }
     }
 }
-
