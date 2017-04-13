@@ -1,6 +1,5 @@
 ﻿using NHibernate;
 using ORM.Base;
-using ORM.Energy.Repositories;
 using System.Collections.Generic;
 using System;
 using ORM.Energy.Entities;
@@ -11,7 +10,8 @@ using ORM.Train.Interpolation.Entities;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using ORM.Lines.Repositories;
+using Repositories.Energies;
+using Repositories.Lines;
 
 
 namespace ERES 

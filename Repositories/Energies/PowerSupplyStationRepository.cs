@@ -1,12 +1,10 @@
-﻿using ORM.Base;
-using ORM.Energy.Entities;
-using System.Linq;
+﻿using System;
 using System.Collections.Generic;
-using System;
+using System.Linq;
+using ORM.Base;
+using ORM.Energy.Entities;
 
-
-
-namespace ORM.Energy.Repositories
+namespace Repositories.Energies
 {
     /// <summary>
     /// 

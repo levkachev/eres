@@ -1,20 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ORM.Base;
 using ORM.Stage.Entities;
 
-namespace ORM.Stage.Repositories
+namespace Repositories.Stages
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class StageRepository : Repository<StageStage>
     {
+        /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
         internal static StageRepository GetInstance()
         {
             return GetInstance<StageRepository>((SessionWrapper.GetInstance().Factory));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stageName"></param>
+        /// <returns></returns>
         public static StageStage GetStage(String stageName)
         {
             var repository = StageRepository.GetInstance();

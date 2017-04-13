@@ -1,11 +1,10 @@
-﻿using ORM.Base;
-using NHibernate;
-using ORM.Energy.Entities;
-using System.Linq;
+﻿using System;
 using System.Collections.Generic;
-using System;
+using System.Linq;
+using ORM.Base;
+using ORM.Energy.Entities;
 
-namespace ORM.Energy.Repositories
+namespace Repositories.Energies
 {
     /// <summary>
     /// 
@@ -21,16 +20,16 @@ namespace ORM.Energy.Repositories
         {
             return GetInstance<UnitRepository>(SessionWrapper.GetInstance().Factory);
         }
+
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
         public Unit GetByName(Unit_Name name)
         {
             return GetAll()
-                .Where(unit => unit.Unit_Name == name)
-                .SingleOrDefault();
+                .SingleOrDefault(unit => unit.Unit_Name == name);
         }
         /// <summary>
         /// 

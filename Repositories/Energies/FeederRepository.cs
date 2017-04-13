@@ -1,15 +1,21 @@
-﻿using ORM.Base;
-using NHibernate;
-using ORM.Energy.Entities;
-using System.Linq;
+﻿using System;
 using System.Collections.Generic;
-using System;
+using System.Linq;
+using ORM.Base;
+using ORM.Energy.Entities;
 
-namespace ORM.Energy.Repositories
+namespace Repositories.Energies
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class FeederRepository : Repository<Feeder>
 
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static FeederRepository GetInstance()
         {
             return GetInstance<FeederRepository>(SessionWrapper.GetInstance().Factory);

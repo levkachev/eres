@@ -1,10 +1,9 @@
-﻿using ORM.Base;
+﻿using System;
+using ORM.Base;
 using ORM.Energy.Entities;
-using System;
-using ORM.Lines.Repositories;
+using Repositories.Lines;
 
-
-namespace ORM.Energy.Repositories
+namespace Repositories.Energies
 {
     /// <summary>
     /// 

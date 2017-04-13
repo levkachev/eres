@@ -50,19 +50,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Energies\EnergyRepository.cs" />
+    <Compile Include="Energies\FeederRepository.cs" />
+    <Compile Include="Energies\PowerSupplyStationRepository.cs" />
+    <Compile Include="Energies\ResistanceRepository.cs" />
+    <Compile Include="Energies\UnitRepository.cs" />
+    <Compile Include="Energies\Unit_NameRepository.cs" />
+    <Compile Include="Lines\LineRepositories.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Train\Interpolation\VFIRepository.cs" />
-    <Compile Include="Train\Machine\ACMachine.cs" />
-    <Compile Include="Train\Machine\BaseMachine.cs" />
-    <Compile Include="Train\Machine\DCMachine.cs" />
-    <Compile Include="Train\MassRepository.cs" />
-    <Compile Include="Train\АdditionalParameterRepository.cs" />
+    <Compile Include="Stages\StageRepository.cs" />
+    <Compile Include="Trains\Interpolation\VFIRepository.cs" />
+    <Compile Include="Trains\Machine\ACMachine.cs" />
+    <Compile Include="Trains\Machine\BaseMachine.cs" />
+    <Compile Include="Trains\Machine\DCMachine.cs" />
+    <Compile Include="Trains\MassRepository.cs" />
+    <Compile Include="Trains\Trains\MassRepository.cs" />
+    <Compile Include="Trains\Trains\Mode_ControlRepository.cs" />
+    <Compile Include="Trains\Trains\Motor_TypeRepository.cs" />
+    <Compile Include="Trains\Trains\Train_NameRepository.cs" />
+    <Compile Include="Trains\АdditionalParameterRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Base\" />
-    <Folder Include="Energy\" />
-    <Folder Include="Line\" />
-    <Folder Include="Stage\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ORM\ORM.csproj">
