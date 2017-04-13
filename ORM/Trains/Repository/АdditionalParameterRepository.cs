@@ -1,13 +1,11 @@
-﻿using ORM.Base;
-using ORM.Train.Entities;
-using System.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Repositories.Train.Machine;
+using System.Linq;
+using ORM.Base;
+using ORM.Train.Entities;
+using ORM.Trains.Repository.Machine;
 
-
-
-namespace Repositories.Train
+namespace ORM.Trains.Repository
 {
     /// <summary>
     /// Класс для создания объектов двигателя и поезда

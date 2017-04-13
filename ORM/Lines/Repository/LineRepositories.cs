@@ -5,7 +5,7 @@ using ORM.Base;
 using ORM.Energy.Entities;
 using ORM.Lines.Entities;
 
-namespace Repositories.Lines
+namespace ORM.Lines.Repository
 {
     /// <summary>
     /// 

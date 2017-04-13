@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using ORM.Base;
 
-namespace ORM.Stage.Entities
+namespace ORM.Stageis.Entities
 {
     /// <summary>
     /// 
@@ -12,5 +13,15 @@ namespace ORM.Stage.Entities
         /// 
         /// </summary>
         public virtual String Name { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual IEnumerable<LimitStructure> SpeedLimitProperty { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual Stage Stage { get; set; }
     }
 }

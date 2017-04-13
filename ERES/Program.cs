@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System;
 using ORM.Energy.Entities;
 using TrainMovement.Train;
-using ORM.Train.Repositories;
-using Repositories.Train.Interpolation;
 using ORM.Train.Interpolation.Entities;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using Repositories.Energies;
-using Repositories.Lines;
+using ORM.Energies.Repository;
+using ORM.Lines.Repository;
+using ORM.Trains.Repository.Interpolation;
+using ORM.Trains.Repository.Trains;
 
 
 namespace ERES 
@@ -61,16 +61,16 @@ namespace ERES
             /// 
             var testTrainName = "81-740.4";
 
-            var motortypeRepository = Motor_TypeRepository.GetInstance();
+            var motortypeRepository = MotorTypeRepository.GetInstance();
             var motortype = motortypeRepository.GetByType("AC");
 
-            var trainnameRepository = Train_NameRepository.GetInstance();
+            var trainnameRepository = TrainNameRepository.GetInstance();
             var trainname = trainnameRepository.GetIDByName("81-740.4");
 
             var massRepository = MassRepository.GetInstance();
             var mass = massRepository.GetByMass(100);
 
-            var modecontrolRepository = Mode_ControlRepository.GetInstance();
+            var modecontrolRepository = ModeControlRepository.GetInstance();
             var modecontrol = modecontrolRepository.GetByModeControl("Pull1");
 
             var vfiRepository = VFIRepository.GetInstance();

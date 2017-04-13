@@ -4,7 +4,7 @@ using System.Linq;
 using ORM.Base;
 using ORM.Energy.Entities;
 
-namespace Repositories.Energies
+namespace ORM.Energies.Repository
 {
     /// <summary>
     /// 

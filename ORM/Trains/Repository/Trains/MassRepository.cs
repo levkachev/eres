@@ -3,7 +3,7 @@ using System.Linq;
 using ORM.Base;
 using ORM.Train.Entities;
 
-namespace Repositories.Train
+namespace ORM.Trains.Repository.Trains
 {
     /// <summary>
     /// 
