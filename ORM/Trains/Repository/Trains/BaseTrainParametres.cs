@@ -1,7 +1,10 @@
 ﻿using System;
 
-namespace ORM.Train.Entities
+namespace ORM.Trains.Repository.Trains
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class BaseTrainParametres
     {
         #region Fields
@@ -75,6 +78,8 @@ namespace ORM.Train.Entities
 
         #region Properties
 
+        /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
+        /// <exception cref="ArgumentOutOfRangeException" accessor="set">Condition.</exception>
         public String Name
         {
             get { return name; }
@@ -270,7 +275,22 @@ namespace ORM.Train.Entities
 
         #endregion
 
-        public BaseTrainParametres(Int32 numberCars, Double carLength, Double unladenWeight, Double breakAverage, Double netResistancePullFactor, Double aerodynamicDragFactor, Double netResistenceCoastingFactor1, Double netResistenceCoastingFactor2, Double netResistenceCoastingFactor3, Double trainEqvivalentSurface, Double inertiaRotationFactor,Double ownNeedsElectricPower)
+        /// <summary>
+        /// </summary>
+        /// <param name="numberCars"></param>
+        /// <param name="carLength"></param>
+        /// <param name="unladenWeight"></param>
+        /// <param name="breakAverage"></param>
+        /// <param name="netResistancePullFactor"></param>
+        /// <param name="aerodynamicDragFactor"></param>
+        /// <param name="netResistenceCoastingFactor1"></param>
+        /// <param name="netResistenceCoastingFactor2"></param>
+        /// <param name="netResistenceCoastingFactor3"></param>
+        /// <param name="trainEqvivalentSurface"></param>
+        /// <param name="inertiaRotationFactor"></param>
+        /// <param name="ownNeedsElectricPower"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
+        internal BaseTrainParametres(Int32 numberCars, Double carLength, Double unladenWeight, Double breakAverage, Double netResistancePullFactor, Double aerodynamicDragFactor, Double netResistenceCoastingFactor1, Double netResistenceCoastingFactor2, Double netResistenceCoastingFactor3, Double trainEqvivalentSurface, Double inertiaRotationFactor,Double ownNeedsElectricPower)
         {
             CarLength = carLength;
             UnladenWeight = unladenWeight;
@@ -286,6 +306,9 @@ namespace ORM.Train.Entities
             OwnNeedsElectricPower = ownNeedsElectricPower;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected BaseTrainParametres() { }
 
     }
