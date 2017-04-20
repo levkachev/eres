@@ -1,156 +1,75 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using ORM.Base;
+using System.Collections.Generic;
+using ORM.Lines.Entities;
 
 namespace ORM.Stageis.Entities
 {
     /// <summary>
-    /// DTO
+    /// Перегон
     /// </summary>
     public class Stage : Entity<Stage>
     {
-        #region Fields
         /// <summary>
+        /// длина
         /// </summary>
-        private String name;
+        public virtual Double Length { get; set; }
+
+
+        /// <summary>
+        /// станция отправления
+        /// </summary>
+        public virtual String St_Department { get; set; }
+
+        /// <summary>
+        /// станция назначения
+        /// </summary>
+        public virtual String St_Arrival { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual Track Track { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        private SortedSet<LimitStructure> speedLimit;
+        public virtual IList<Profil_Stage> Profil_Stage { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        private SortedSet<LimitStructure> planLimit;
+        public virtual IList<Plan_Stage> Plan_Stage { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        private SortedSet<LimitStructure> profileLimit;
+        public virtual IList<Current_Section> Current_Section { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        private SortedSet<LimitStructure> currentSection;
+        public virtual IList<Limit_Stage> Limit_Stage { get; set; }
+
 
         /// <summary>
         /// 
         /// </summary>
-        private SortedSet<LimitStructure> automaticSpeedControl;
+        public virtual IList<ASR_Stage> ASR_Stage { get; set; }
+
 
         /// <summary>
         /// 
         /// </summary>
-        private SortedSet<LimitStructure> openSection;
-
-        #endregion
-
-
-        #region Properties
-        /// <summary>
-        /// </summary>
-        /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
-        /// <exception cref="ArgumentException" accessor="set">Condition.</exception>
-        public String Name
+        public virtual IList<Open_Stage> Open_Stage { get; set; }
+        public Stage()
         {
-
-            get
-            {
-                return name;
-            }
-            protected set
-            {
-                if (value == null)
-                    throw new ArgumentNullException(nameof(value));
-
-                if (value.Trim().Length > 0)
-                    throw new ArgumentException(nameof(value));
-
-                name = value;
-            }
+            Profil_Stage = new List<Profil_Stage>();
+            Plan_Stage = new List<Plan_Stage>();
+            Current_Section = new List<Current_Section>();
+            Limit_Stage = new List<Limit_Stage>();
+            ASR_Stage = new List<ASR_Stage>();
+            Open_Stage = new List<Open_Stage>();
         }
 
-        /// <summary>
-        /// Ограничения скорости
-        /// </summary>
-        public IEnumerable<LimitStructure> SpeedLimit
-        {
-            get { return speedLimit; }
-            protected set { speedLimit = new SortedSet<LimitStructure>(value); }
-        }
-
-        /// <summary>
-        /// Ограничения по уклонам
-        /// </summary>
-        public IEnumerable<LimitStructure> PlanLimit
-        {
-            get { return planLimit; }
-            protected set { planLimit = new SortedSet<LimitStructure>(value); }
-        }
-
-        /// <summary>
-        /// Ограничения по кривым
-        /// </summary>
-        public IEnumerable<LimitStructure> ProfileLimit
-        {
-            get { return profileLimit; }
-            protected set { profileLimit = new SortedSet<LimitStructure>(value); }
-        }
-
-        /// <summary>
-        /// Ограничения по токоразделам
-        /// </summary>
-        public IEnumerable<LimitStructure> CurrentSection
-        {
-            get { return currentSection; }
-            protected set { currentSection = new SortedSet<LimitStructure>(value); }
-        }
-
-        /// <summary>
-        /// Ограничения по системе АРС
-        /// </summary>
-        public IEnumerable<LimitStructure> AutomaticSpeedControl
-        {
-            get { return automaticSpeedControl; }
-            protected set { automaticSpeedControl = new SortedSet<LimitStructure>(value); }
-        }
-
-        /// <summary>
-        /// Ограничения по открытым участкам
-        /// </summary>
-        public IEnumerable<LimitStructure> OpenSection
-        {
-            get { return openSection; }
-            protected set { openSection = new SortedSet<LimitStructure>(value); }
-        }
-
-
-        #endregion
-
-
-        /// <summary>
-        /// Создание перегона по имени
-        /// </summary>
-        /// <exception cref="ArgumentNullException">value is <see langword="null"/></exception>
-        /// <exception cref="ArgumentException">Condition.</exception>
-        internal Stage(String stageName, IEnumerable<LimitStructure> speedLimit, IEnumerable<LimitStructure> planLimit, IEnumerable<LimitStructure> profileLimit, IEnumerable<LimitStructure> currentSection, IEnumerable<LimitStructure> automaticSpeedControl, IEnumerable<LimitStructure> openSection)
-        {
-            Name = stageName;
-            SpeedLimit = speedLimit;
-            PlanLimit = planLimit;
-            ProfileLimit = profileLimit;
-            CurrentSection = currentSection;
-            AutomaticSpeedControl = automaticSpeedControl;
-            OpenSection = openSection;
-        }
-
-        /// <summary>
-        /// Конструктор для наследования
-        /// </summary>
-        protected Stage()
-        {
-        }
     }
 }

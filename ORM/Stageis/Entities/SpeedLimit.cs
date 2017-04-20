@@ -22,6 +22,6 @@ namespace ORM.Stageis.Entities
         /// <summary>
         /// 
         /// </summary>
-        public virtual Stage Stage { get; set; }
+        public virtual Stages Stage { get; set; }
     }
 }

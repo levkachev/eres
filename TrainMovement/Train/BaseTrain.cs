@@ -487,7 +487,7 @@ namespace TrainMovement.Train
         /// <summary>
         /// Перегон
         /// </summary>
-        public Stage CurrentStage { get; set; }
+        public Stages CurrentStage { get; set; }
 
         /// <summary>
         /// СИла тяги
