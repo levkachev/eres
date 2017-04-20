@@ -22,6 +22,7 @@ namespace TrainMovement.Train
         /// Создает DC поезд
         /// </summary>
         /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException">less zero.</exception>
         public static BaseTrain GetDCTrain(String trainName)
         {
             return new DCTrain(АdditionalParameterRepository.GetDCMachineParametres(trainName), АdditionalParameterRepository.GetDCTrainParametres(trainName), trainName);
