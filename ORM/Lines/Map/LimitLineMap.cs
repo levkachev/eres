@@ -6,11 +6,11 @@ namespace ORM.Lines.Map
     /// <summary>
     /// Ограничения линий
     /// </summary>
-    public class Limit_LineMap : ClassMap<Limit_Line>
+    public class LimitLineMap : ClassMap<LimitLine>
     {
-        public Limit_LineMap()
+        public LimitLineMap()
         {
-            Table("Line.Limit_Line");
+            Table("Line.LimitLine");
             Id(x => x.ID);
             Map(x => x.Piketage).Column("Piketag").Not.Nullable(); 
             Map(x => x.Limit).Not.Nullable(); 

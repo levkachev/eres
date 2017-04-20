@@ -4,21 +4,21 @@ using ORM.Stageis.Entities;
 namespace ORM.Stageis.Map
 {
     /// <summary>
-    /// ARS Перегон
+    /// Профиль перегона
     /// </summary>
-    public class ASR_StageMap : ClassMap<ASR_Stage>
+    public class ProfileStageMap : ClassMap<ProfileStage>
     {
         /// <summary>
         /// 
         /// </summary>
-        public ASR_StageMap()
+        public ProfileStageMap()
         {
-            Table("Line.ASR_Stage");
+            Table("Line.ProfileStage");
             Id(x => x.ID);
-            Map(x => x.Velocity).Not.Nullable();
-            Map(x => x.End_Velocity).Not.Nullable();
+            Map(x => x.Slope).Not.Nullable();
+            Map(x => x.End_Slope).Not.Nullable();
             References(x => x.Stage).ForeignKey("ID_Stage");
-
+           
         }
     }
 }

@@ -7,21 +7,21 @@ using System.Collections.Generic;
 namespace ORM.Lines.Entities
 {
     /// <summary>
-    /// Ограничения линий
+    /// Профиль линии
     /// </summary>
-    public class Limit_Line : Entity<Limit_Line>
+    public class ProfileLine : Entity<ProfileLine>
     {
         /// <summary>
-        /// Ограничения
+        /// Уклон
         /// </summary>
-        public virtual Double Limit { get; set; }
+        public virtual Double Slope { get; set; }
 
         /// <summary>
-        /// Пикетаж
+        /// Пикетаж  
         /// </summary>
         public virtual Double Piketage { get; set; }
 
-
+      
         /// <summary>
         /// номер пути
         /// </summary>

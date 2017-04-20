@@ -6,14 +6,14 @@ namespace ORM.Stageis.Map
     /// <summary>
     /// План перегона
     /// </summary>
-    public class Plan_StageMap : ClassMap<Plan_Stage>
+    public class PlanStageMap : ClassMap<PlanStage>
     {
         /// <summary>
         /// 
         /// </summary>
-        public Plan_StageMap()
+        public PlanStageMap()
         {
-            Table("Line.Plan_Stage");
+            Table("Line.PlanStage");
             Id(x => x.ID);
             Map(x => x.Radius).Not.Nullable();
             Map(x => x.End_Radius).Not.Nullable();

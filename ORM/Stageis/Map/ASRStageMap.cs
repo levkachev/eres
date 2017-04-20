@@ -4,20 +4,19 @@ using ORM.Stageis.Entities;
 namespace ORM.Stageis.Map
 {
     /// <summary>
-    /// Открытые перегоны
+    /// ARS Перегон
     /// </summary>
-    public class Open_StageMap : ClassMap<Open_Stage>
+    public class ASRStageMap : ClassMap<ASRStage>
     {
         /// <summary>
         /// 
         /// </summary>
-        public Open_StageMap()
+        public ASRStageMap()
         {
-            Table("Line.Open_Stage");
+            Table("Line.ASRStage");
             Id(x => x.ID);
-            Map(x => x.KWosn).Not.Nullable();
-            Map(x => x.Start).Not.Nullable();
-            Map(x => x.Finish).Not.Nullable();
+            Map(x => x.Velocity).Not.Nullable();
+            Map(x => x.End_Velocity).Not.Nullable();
             References(x => x.Stage).ForeignKey("ID_Stage");
 
         }

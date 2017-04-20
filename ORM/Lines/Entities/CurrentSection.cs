@@ -7,15 +7,10 @@ using System.Collections.Generic;
 namespace ORM.Lines.Entities
 {
     /// <summary>
-    /// План линии
+    /// Токораздел линии
     /// </summary>
-    public class Plan_Line : Entity<Plan_Line>
+    public class CurrentSection : Entity<CurrentSection>
     {
-        /// <summary>
-        /// Радииус
-        /// </summary>
-        public virtual Double Radius { get; set; }
-
         /// <summary>
         /// Пикетаж начала 
         /// </summary>
@@ -32,6 +27,6 @@ namespace ORM.Lines.Entities
         /// </summary>
         public virtual Track Track { get; set; }
 
-       
+
     }
 }

@@ -4,19 +4,19 @@ using ORM.Stageis.Entities;
 namespace ORM.Stageis.Map
 {
     /// <summary>
-    /// Ограничения перегона
+    /// Токораздел перегона
     /// </summary>
-    public class Limit_StageMap : ClassMap<Limit_Stage>
+    public class CurrentSectionMap : ClassMap<CurrentSection>
     {
         /// <summary>
         /// 
         /// </summary>
-        public Limit_StageMap()
+        public CurrentSectionMap()
         {
-            Table("Line.Limit_Stage");
+            Table("Line.CurrentSection");
             Id(x => x.ID);
-            Map(x => x.Velocity).Not.Nullable();
-            Map(x => x.End_Velocity).Not.Nullable();
+            Map(x => x.Start).Not.Nullable();
+            Map(x => x.Finish).Not.Nullable();
             References(x => x.Stage).ForeignKey("ID_Stage");
 
         }

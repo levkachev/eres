@@ -7,7 +7,7 @@ namespace ORM.Stageis.Entities
     /// <summary>
     /// Ограничения перегона
     /// </summary>
-    public class Limit_Stage : Entity<Limit_Stage>
+    public class LimitStage : Entity<LimitStage>
     {
         /// <summary>
         /// Скорость

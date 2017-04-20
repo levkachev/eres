@@ -33,42 +33,42 @@ namespace ORM.Stageis.Entities
         /// <summary>
         /// 
         /// </summary>
-        public virtual IList<Profil_Stage> Profil_Stage { get; set; }
+        public virtual IList<ProfileStage> Profil_Stage { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IList<Plan_Stage> Plan_Stage { get; set; }
+        public virtual IList<PlanStage> Plan_Stage { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IList<Current_Section> Current_Section { get; set; }
+        public virtual IList<CurrentSection> Current_Section { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IList<Limit_Stage> Limit_Stage { get; set; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual IList<ASR_Stage> ASR_Stage { get; set; }
+        public virtual IList<LimitStage> Limit_Stage { get; set; }
 
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IList<Open_Stage> Open_Stage { get; set; }
+        public virtual IList<ASRStage> ASR_Stage { get; set; }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual IList<OpenStage> Open_Stage { get; set; }
         public Stage()
         {
-            Profil_Stage = new List<Profil_Stage>();
-            Plan_Stage = new List<Plan_Stage>();
-            Current_Section = new List<Current_Section>();
-            Limit_Stage = new List<Limit_Stage>();
-            ASR_Stage = new List<ASR_Stage>();
-            Open_Stage = new List<Open_Stage>();
+            Profil_Stage = new List<ProfileStage>();
+            Plan_Stage = new List<PlanStage>();
+            Current_Section = new List<CurrentSection>();
+            Limit_Stage = new List<LimitStage>();
+            ASR_Stage = new List<ASRStage>();
+            Open_Stage = new List<OpenStage>();
         }
 
     }

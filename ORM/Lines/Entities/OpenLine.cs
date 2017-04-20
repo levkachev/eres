@@ -9,7 +9,7 @@ namespace ORM.Lines.Entities
     /// <summary>
     /// Открытые линии
     /// </summary>
-    public class Open_Line : Entity<Open_Line>
+    public class OpenLine : Entity<OpenLine>
     {
         /// <summary>
         /// KWosn
@@ -32,7 +32,7 @@ namespace ORM.Lines.Entities
         /// </summary>
         public virtual IList<Track> Track { get; set; }
 
-        public Open_Line()
+        public OpenLine()
         {
             
             Track = new List<Track>();
