@@ -20,7 +20,7 @@ namespace ORM.Lines.Entities
         /// </summary>
         public virtual Line Line { get; set; }
 
-        public virtual Station Station { get; set; }
+        public virtual IList<Station> Station { get; set; }
 
         /// <summary>
         /// 
@@ -57,6 +57,7 @@ namespace ORM.Lines.Entities
 
         public Track()
         {
+            Station = new List<Station>();
             NM_Line = new List<NM_Line>();
             Open_Line = new List<Open_Line> ();
             Plan_Line = new List<Plan_Line>();
