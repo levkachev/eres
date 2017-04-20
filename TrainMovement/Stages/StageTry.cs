@@ -9,7 +9,7 @@ namespace TrainMovement.Stages
     /// <summary>
     /// Логика работы с перегоном
     /// </summary>
-    public sealed class StageTry: ORM.Stageis.Entities.Stage
+    public sealed class StageTry: Stage
     {
         /// <summary>
         /// Возвращает текущий коэффициент сопротивления для открытого участка
