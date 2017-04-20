@@ -21,6 +21,7 @@ namespace ORM.Lines.Map
             HasMany(x => x.Profil_Line);
             HasMany(x => x.Current_Section);
             HasMany(x => x.Limit_Line);
+            HasMany(x => x.Stage);
         }
 
     }
