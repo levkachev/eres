@@ -125,6 +125,13 @@
     <Compile Include="Stageis\Entities\SpeedLimit.cs" />
     <Compile Include="Stageis\Entities\Stage.cs" />
     <Compile Include="Stageis\Entities\Stages.cs" />
+    <Compile Include="Stageis\Map\ASR_StageMap.cs" />
+    <Compile Include="Stageis\Map\Current_SectionMap.cs" />
+    <Compile Include="Stageis\Map\Limit_StageMap.cs" />
+    <Compile Include="Stageis\Map\Open_StageMap.cs" />
+    <Compile Include="Stageis\Map\Plan_StageMap.cs" />
+    <Compile Include="Stageis\Map\Profil_StageMap.cs" />
+    <Compile Include="Stageis\Map\StageMap.cs" />
     <Compile Include="Stageis\Repository\StageRepository.cs" />
     <Compile Include="Trains\Repository\Trains\ACParametres.cs" />
     <Compile Include="Trains\Repository\Trains\DCParametres.cs" />

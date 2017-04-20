@@ -1,7 +1,7 @@
 ﻿using System;
 using ORM.Base;
 using System.Collections.Generic;
-
+using ORM.Stageis.Entities;
 
 namespace ORM.Lines.Entities
 {
@@ -55,6 +55,10 @@ namespace ORM.Lines.Entities
         public virtual IList<Limit_Line> Limit_Line { get; set; }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual IList<Stage> Stage { get; set; }
         public Track()
         {
             Station = new List<Station>();
@@ -64,6 +68,7 @@ namespace ORM.Lines.Entities
             Profil_Line = new List<Profil_Line>();
             Current_Section = new List<Current_Section>();
             Limit_Line = new List<Limit_Line>();
+            Stage = new List<Stage>();
         }
 
     }
