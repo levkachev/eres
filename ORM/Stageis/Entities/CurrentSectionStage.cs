@@ -6,16 +6,16 @@ namespace ORM.Stageis.Entities
     /// <summary>
     /// 
     /// </summary>
-    public class LimitStage:Entity<LimitStage>
+    public class CurrentSectionStage : Entity<CurrentSectionStage>
     {
         /// <summary>
         /// 
         /// </summary>
-        public Double Velocity { get; protected set; }
+        public Double Start { get; protected set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Double EndVelocity { get; protected set; }
+        public Double Finish { get; protected set; }
     }
 }

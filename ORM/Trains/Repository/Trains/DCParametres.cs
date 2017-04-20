@@ -2,114 +2,205 @@
 
 namespace ORM.Trains.Repository.Trains
 {
+    /// <summary>
+    /// 
+    /// </summary>
    public class DCParametres : BaseTrainParametres
     {
-        private Double AssemblyPowerCircuitTime;
-        private Double DisassemblyPowerCircuitTime;
-        private Double AssemblyPullTime;
-        private Double AssemblyPullResistance;
-        private Double AssemblyBreakTime;
-        private Double AssemblyBreakResistance;
-        private Double AnchorResistance;
-        private Double MainPoleResistance;
-        private Double CompolesResistance;
-        private Double AutomodeFactor1;
-        private Double AutomodeFactor2;
-        private Double ExcitationTimeFactor1;
-        private Double ExcitationTimeFactor2;
-        private Double ExcitationTimeFactor3;
-        private Double MaxExcitationTime;
-        private Double LowAutoModeRange;
-        private Double HighAutoModeRange;
-        private Double LinearGrowCurrentTime;
-        private Int32 ConnectionPull2;
-        private Int32 PositionPull2;
-        private Int32 WeakPull2;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Double assemblyPowerCircuitTime;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Double disassemblyPowerCircuitTime;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Double assemblyPullTime;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Double assemblyPullResistance;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Double assemblyBreakTime;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Double assemblyBreakResistance;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Double anchorResistance;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Double mainPoleResistance;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Double compolesResistance;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Double automodeFactor1;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Double automodeFactor2;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Double excitationTimeFactor1;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Double excitationTimeFactor2;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Double excitationTimeFactor3;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Double eaxExcitationTime;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Double lowAutoModeRange;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Double highAutoModeRange;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Double linearGrowCurrentTime;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Int32 connectionPull2;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Int32 positionPull2;
+        /// <summary>
+        /// 
+        /// </summary>
+        private Int32wWeakPull2;
 
         #region Properties
-        public Double assemblyPowerCircuitTime
+
+        /// <summary>
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException" accessor="set">Condition.</exception>
+        public Double AssemblyPowerCircuitTime
         {
-            get { return AssemblyPowerCircuitTime; }
+            get { return assemblyPowerCircuitTime; }
             set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
-                AssemblyPowerCircuitTime = value;
+                assemblyPowerCircuitTime = value;
             }
         }
 
-        public Double disassemblyPowerCircuitTime
+        /// <summary>
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException" accessor="set">Condition.</exception>
+        public Double DisassemblyPowerCircuitTime
         {
-            get { return DisassemblyPowerCircuitTime; }
+            get { return disassemblyPowerCircuitTime; }
             set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
-                DisassemblyPowerCircuitTime = value;
-            }
-        }
-        public Double assemblyPullTime
-        {
-            get { return AssemblyPullTime; }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException(nameof(value));
-                AssemblyPullTime = value;
+                disassemblyPowerCircuitTime = value;
             }
         }
 
-        public Double assemblyPullResistance
+        /// <summary>
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException" accessor="set">Condition.</exception>
+        public Double AssemblyPullTime
         {
-            get { return AssemblyPullResistance; }
+            get { return assemblyPullTime; }
             set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
-                AssemblyPullResistance = value;
+                assemblyPullTime = value;
             }
         }
 
-        public Double assemblyBreakTime
+        /// <summary>
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException" accessor="set">Condition.</exception>
+        public Double AssemblyPullResistance
         {
-            get { return AssemblyBreakTime; }
+            get { return assemblyPullResistance; }
             set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
-                AssemblyBreakTime = value;
-            }
-        }
-        public Double assemblyBreakResistance
-        {
-            get { return AssemblyBreakResistance; }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException(nameof(value));
-                AssemblyBreakResistance = value;
+                assemblyPullResistance = value;
             }
         }
 
-        public Double anchorResistance
+        /// <summary>
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException" accessor="set">Condition.</exception>
+        public Double AssemblyBreakTime
         {
-            get { return AnchorResistance; }
+            get { return assemblyBreakTime; }
             set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
-                AnchorResistance = value;
+                assemblyBreakTime = value;
             }
         }
 
-        public Double mainPoleResistance
+        /// <summary>
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException" accessor="set">Condition.</exception>
+        public Double AssemblyBreakResistance
         {
-            get { return MainPoleResistance; }
+            get { return assemblyBreakResistance; }
             set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
-                MainPoleResistance = value;
+                assemblyBreakResistance = value;
+            }
+        }
+
+        /// <exception cref="ArgumentOutOfRangeException" accessor="set">Condition.</exception>
+        public Double AnchorResistance
+        {
+            get { return anchorResistance; }
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentOutOfRangeException(nameof(value));
+                anchorResistance = value;
+            }
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException" accessor="set">Condition.</exception>
+        public Double MainPoleResistance
+        {
+            get { return mainPoleResistance; }
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentOutOfRangeException(nameof(value));
+                mainPoleResistance = value;
             }
         }
 
