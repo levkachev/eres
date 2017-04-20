@@ -4,6 +4,7 @@ using System.Linq;
 using ORM.Base;
 using ORM.Train.Entities;
 using ORM.Trains.Repository.Machine;
+using ORM.Trains.Repository.Trains;
 
 namespace ORM.Trains.Repository
 {

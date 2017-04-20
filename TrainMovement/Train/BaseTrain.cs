@@ -1,7 +1,7 @@
 ﻿using System;
 using TrainMovement.ModeControl;
-using ORM.Train.Entities;
 using ORM.Trains.Repository.Machine;
+using ORM.Trains.Repository.Trains;
 using TrainMovement.PhisicalHelper;
 
 
@@ -81,7 +81,7 @@ namespace TrainMovement.Train
         private Double breakAverage;
 
         /// <summary>
-        /// /
+        /// 
         /// </summary>
         private Double netResistencePullFactor;
 
@@ -486,7 +486,7 @@ namespace TrainMovement.Train
         /// <summary>
         /// Перегон
         /// </summary>
-        public Stages.Stage CurrentStage { get; set; }
+        public Stages.StageTry CurrentStage { get; set; }
 
         /// <summary>
         /// СИла тяги
