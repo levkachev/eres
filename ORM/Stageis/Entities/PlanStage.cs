@@ -1,23 +1,38 @@
 ﻿using System;
 using ORM.Base;
+using System.Collections.Generic;
 
 namespace ORM.Stageis.Entities
 {
     /// <summary>
-    /// 
+    /// План перегона
     /// </summary>
     public class PlanStage : Entity<PlanStage>
     {
         /// <summary>
-        /// 
+        /// Радиус
         /// </summary>
-        public Double Radius { get; protected set; }
+        public virtual Double Radius { get; set; }
+
+
+        /// <summary>
+        /// Граница радиуса
+        /// </summary>
+        public virtual Double End_Radius { get; set; }
+
 
         /// <summary>
         /// 
         /// </summary>
-        public Double EndRadius { get; protected set; } 
+        public virtual Stage Stage { get; set; }
+
+
+
+
+
+
 
 
     }
 }
+

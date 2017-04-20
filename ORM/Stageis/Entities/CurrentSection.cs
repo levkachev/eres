@@ -5,20 +5,20 @@ using System.Collections.Generic;
 namespace ORM.Stageis.Entities
 {
     /// <summary>
-    /// Ограничения перегона
+    /// Токораздел перегона
     /// </summary>
-    public class LimitStage : Entity<LimitStage>
+    public class CurrentSection : Entity<CurrentSection>
     {
         /// <summary>
-        /// Скорость
+        /// Начало
         /// </summary>
-        public virtual Double Velocity { get; set; }
+        public virtual Double Start { get; set; }
 
 
         /// <summary>
-        /// Граница скорости
+        /// Конец
         /// </summary>
-        public virtual Double End_Velocity { get; set; }
+        public virtual Double Finish { get; set; }
 
 
         /// <summary>

@@ -1,22 +1,31 @@
 ﻿using System;
 using ORM.Base;
+using System.Collections.Generic;
 
 namespace ORM.Stageis.Entities
 {
     /// <summary>
-    /// 
+    /// ARS Перегон
     /// </summary>
-    public class ASRStage: Entity<ASRStage>
+    public class ASRStage : Entity<ASRStage>
     {
-        // public Stage Stage {get; protected set;}
+        /// <summary>
+        /// Скорость
+        /// </summary>
+        public virtual Double Velocity { get; set; }
+
+
+        /// <summary>
+        /// Граница скорости
+        /// </summary>
+        public virtual Double End_Velocity { get; set; }
+
+
         /// <summary>
         /// 
         /// </summary>
-        public Double Velocity { get; protected set; }
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        public Double EndVelocity { get; protected set; }
+        public virtual Stage Stage { get; set; }
+
+
     }
 }

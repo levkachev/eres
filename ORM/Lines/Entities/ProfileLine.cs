@@ -2,35 +2,30 @@
 using ORM.Base;
 using System.Collections.Generic;
 
-namespace ORM.Stageis.Entities
+
+
+namespace ORM.Lines.Entities
 {
     /// <summary>
-    /// Профиль перегона
+    /// Профиль линии
     /// </summary>
-    public class ProfileStage : Entity<ProfileStage>
+    public class ProfileLine : Entity<ProfileLine>
     {
         /// <summary>
         /// Уклон
         /// </summary>
         public virtual Double Slope { get; set; }
 
-
         /// <summary>
-        /// Граница уклона
+        /// Пикетаж  
         /// </summary>
-        public virtual Double End_Slope { get; set; }
+        public virtual Double Piketage { get; set; }
 
-        
+      
         /// <summary>
-        /// 
+        /// номер пути
         /// </summary>
-        public virtual Stage Stage { get; set; }
-        
-
-
-
-
-
+        public virtual Track Track { get; set; }
 
 
     }
