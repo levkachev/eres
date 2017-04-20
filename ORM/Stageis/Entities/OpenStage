@@ -7,20 +7,23 @@ namespace ORM.Stageis.Entities
     /// <summary>
     /// ARS Перегон
     /// </summary>
-    public class ASR_Stage : Entity<ASR_Stage>
+    public class OpenStage : Entity<OpenStage>
     {
         /// <summary>
-        /// Скорость
+        /// KWosn
         /// </summary>
-        public virtual Double Velocity { get; set; }
+        public virtual Double KWosn { get; set; }
 
 
         /// <summary>
-        /// Граница скорости
+        /// начало
         /// </summary>
-        public virtual Double End_Velocity { get; set; }
+        public virtual Double Start { get; set; }
 
-
+        /// <summary>
+        /// конец
+        /// </summary>
+        public virtual Double Finish { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -29,3 +32,4 @@ namespace ORM.Stageis.Entities
 
     }
 }
+

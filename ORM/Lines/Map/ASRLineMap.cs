@@ -6,11 +6,11 @@ namespace ORM.Lines.Map
     /// <summary>
     /// Автоматическое регулирование скорости. Данные по Линии
     /// </summary>
-    public class ASR_LineMap : ClassMap<ASR_Line>
+    public class ASRLineMap : ClassMap<ASRLine>
     {
-        public ASR_LineMap()
+        public ASRLineMap()
         {
-            Table("Line.ASR_Line");
+            Table("Line.ASRLine");
             Id(x => x.ID);
             Map(x => x.Name).Length(45).Not.Nullable();
             Map(x => x.Limit).Not.Nullable();

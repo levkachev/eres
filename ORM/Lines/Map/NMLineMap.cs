@@ -6,11 +6,11 @@ namespace ORM.Lines.Map
     /// <summary>
     /// Немерные Пикеты
     /// </summary>
-    public class NM_LineMap : ClassMap<NM_Line>
+    public class NMLineMap : ClassMap<NMLine>
     {
-        public NM_LineMap()
+        public NMLineMap()
         {
-            Table("Line.NM_Line");
+            Table("Line.NMLine");
             Id(x => x.ID);
             Map(x => x.Length).Not.Nullable();
             Map(x => x.Piketage).Column("Piketag").Not.Nullable();

@@ -8,7 +8,7 @@ namespace ORM.Lines.Entities
     /// <summary>
     /// Автоматическое регулирование скорости. Данные по Линии
     /// </summary>
-    public class ASR_Line : Entity<ASR_Line>
+    public class ASRLine : Entity<ASRLine>
     {
         /// <summary>
         /// Наименование линии

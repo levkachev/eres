@@ -9,7 +9,7 @@ namespace ORM.Lines.Entities
     /// <summary>
     /// Немерные Пикеты
     /// </summary>
-    public class NM_Line : Entity<NM_Line>
+    public class NMLine : Entity<NMLine>
     {
         /// <summary>
         /// длина

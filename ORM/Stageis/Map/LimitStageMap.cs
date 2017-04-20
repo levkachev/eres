@@ -4,21 +4,21 @@ using ORM.Stageis.Entities;
 namespace ORM.Stageis.Map
 {
     /// <summary>
-    /// Профиль перегона
+    /// Ограничения перегона
     /// </summary>
-    public class Profil_StageMap : ClassMap<Profil_Stage>
+    public class LimitStageMap : ClassMap<LimitStage>
     {
         /// <summary>
         /// 
         /// </summary>
-        public Profil_StageMap()
+        public LimitStageMap()
         {
-            Table("Line.Profil_Stage");
+            Table("Line.LimitStage");
             Id(x => x.ID);
-            Map(x => x.Slope).Not.Nullable();
-            Map(x => x.End_Slope).Not.Nullable();
+            Map(x => x.Velocity).Not.Nullable();
+            Map(x => x.End_Velocity).Not.Nullable();
             References(x => x.Stage).ForeignKey("ID_Stage");
-           
+
         }
     }
 }

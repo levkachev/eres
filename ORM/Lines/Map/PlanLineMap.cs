@@ -6,11 +6,11 @@ namespace ORM.Lines.Map
     /// <summary>
     /// План линии
     /// </summary>
-    public class Plan_LineMap : ClassMap<Plan_Line>
+    public class PlanLineMap : ClassMap<PlanLine>
     {
-        public Plan_LineMap()
+        public PlanLineMap()
         {
-            Table("Line.Plan_Line");
+            Table("Line.PlanLine");
             Id(x => x.ID);
             Map(x => x.Radius).Not.Nullable();
             Map(x => x.Piketage_Start).Column("Piketag_Start");

@@ -5,20 +5,20 @@ using System.Collections.Generic;
 namespace ORM.Stageis.Entities
 {
     /// <summary>
-    /// Токораздел перегона
+    /// План перегона
     /// </summary>
-    public class Current_Section : Entity<Current_Section>
+    public class PlanStage : Entity<PlanStage>
     {
         /// <summary>
-        /// Начало
+        /// Радиус
         /// </summary>
-        public virtual Double Start { get; set; }
+        public virtual Double Radius { get; set; }
 
 
         /// <summary>
-        /// Конец
+        /// Граница радиуса
         /// </summary>
-        public virtual Double Finish { get; set; }
+        public virtual Double End_Radius { get; set; }
 
 
         /// <summary>
@@ -27,5 +27,12 @@ namespace ORM.Stageis.Entities
         public virtual Stage Stage { get; set; }
 
 
+
+
+
+
+
+
     }
 }
+

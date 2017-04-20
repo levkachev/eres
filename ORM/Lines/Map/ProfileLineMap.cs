@@ -6,11 +6,11 @@ namespace ORM.Lines.Map
     /// <summary>
     /// Профиль линии
     /// </summary>
-    public class Profil_LineMap : ClassMap<Profil_Line>
+    public class ProfileLineMap : ClassMap<ProfileLine>
     {
-        public Profil_LineMap()
+        public ProfileLineMap()
         {
-            Table("Line.Profil_Line");
+            Table("Line.ProfileLine");
             Id(x => x.ID);
             Map(x => x.Slope).Not.Nullable();
             Map(x => x.Piketage).Column("Piketag").Not.Nullable();

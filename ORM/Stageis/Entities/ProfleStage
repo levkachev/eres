@@ -7,7 +7,7 @@ namespace ORM.Stageis.Entities
     /// <summary>
     /// Профиль перегона
     /// </summary>
-    public class Profil_Stage : Entity<Profil_Stage>
+    public class ProfileStage : Entity<ProfileStage>
     {
         /// <summary>
         /// Уклон
