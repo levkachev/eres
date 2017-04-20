@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using ORM.Base;
+using ORM.Stageis.Entities;
 
-namespace ORM.Stageis.Entities
+namespace TrainMovement.Stages
 {
     /// <summary>
     /// DTO
