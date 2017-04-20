@@ -25,34 +25,34 @@ namespace ORM.Lines.Entities
         /// <summary>
         /// 
         /// </summary>
-        public virtual IList<NMLine> NM_Line { get; set; }
+        public virtual IList<NMLine> NMLine { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IList<OpenLine> Open_Line { get; set; }
+        public virtual IList<OpenLine> OpenLine { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IList<PlanLine> Plan_Line { get; set; }
+        public virtual IList<PlanLine> PlanLine { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IList<ProfileLine> Profil_Line { get; set; }
+        public virtual IList<ProfileLine> ProfilLine { get; set; }
 
 
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IList<CurrentSection> Current_Section { get; set; }
+        public virtual IList<CurrentSection> CurrentSection { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IList<LimitLine> Limit_Line { get; set; }
+        public virtual IList<LimitLine> LimitLine { get; set; }
 
 
         /// <summary>
@@ -62,12 +62,12 @@ namespace ORM.Lines.Entities
         public Track()
         {
             Station = new List<Station>();
-            NM_Line = new List<NMLine>();
-            Open_Line = new List<OpenLine> ();
-            Plan_Line = new List<PlanLine>();
-            Profil_Line = new List<ProfileLine>();
-            Current_Section = new List<CurrentSection>();
-            Limit_Line = new List<LimitLine>();
+            NMLine = new List<NMLine>();
+            OpenLine = new List<OpenLine> ();
+            PlanLine = new List<PlanLine>();
+            ProfilLine = new List<ProfileLine>();
+            CurrentSection = new List<CurrentSection>();
+            LimitLine = new List<LimitLine>();
             Stage = new List<Stage>();
         }
 
