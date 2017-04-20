@@ -8,7 +8,7 @@ namespace ORM.Stageis.Repository
     /// <summary>
     /// 
     /// </summary>
-    public class StageRepository : Repository<Stage>
+    public class StageRepository : Repository<Stages>
     {
         /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
         internal static StageRepository GetInstance()
@@ -21,7 +21,7 @@ namespace ORM.Stageis.Repository
         /// </summary>
         /// <param name="stageName"></param>
         /// <returns></returns>
-        public static Stage GetStage(String stageName)
+        public static Stages GetStage(String stageName)
         {
             //это, похоже, не нужно...
             var repository = StageRepository.GetInstance();
@@ -42,7 +42,7 @@ namespace ORM.Stageis.Repository
             var openSection = new SortedSet<LimitStructure>();
 
 
-            var tmpStage = new Stage(stageName, speedLimit, planLimit, profileLimit, currentSection,
+            var tmpStage = new Stages(stageName, speedLimit, planLimit, profileLimit, currentSection,
                 automaticSpeedControl, openSection);
             return tmpStage;
         }
