@@ -8,7 +8,7 @@ using ORM.Trains.Repository.Trains;
 namespace TrainMovement.Train
 {
     /// <summary>
-    /// Train
+    /// Train Base
     /// </summary>
     public abstract class BaseTrain
     {
