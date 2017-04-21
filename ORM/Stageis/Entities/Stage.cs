@@ -19,12 +19,12 @@ namespace ORM.Stageis.Entities
         /// <summary>
         /// станция отправления
         /// </summary>
-        public virtual String St_Department { get; set; }
+        public virtual Station Department { get; set; }
 
         /// <summary>
         /// станция назначения
         /// </summary>
-        public virtual String St_Arrival { get; set; }
+        public virtual Station Arrival { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -33,12 +33,12 @@ namespace ORM.Stageis.Entities
         /// <summary>
         /// 
         /// </summary>
-        public virtual IEnumerable<ProfileStage> ProfilStage { get; set; }
+        public virtual IEnumerable<ProfileStage> ProfilStages { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IEnumerable<PlanStage> PlanStage { get; set; }
+        public virtual IEnumerable<PlanStage> PlanStages { get; set; }
 
         /// <summary>
         /// 
@@ -48,26 +48,26 @@ namespace ORM.Stageis.Entities
         /// <summary>
         /// 
         /// </summary>
-        public virtual IEnumerable<LimitStage> LimitStage { get; set; }
+        public virtual IEnumerable<LimitStage> LimitStages { get; set; }
 
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IEnumerable<ASRStage> ASRStage { get; set; }
+        public virtual IEnumerable<ASRStage> ASRStages { get; set; }
 
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IEnumerable<OpenStage> OpenStage { get; set; }
+        public virtual IEnumerable<OpenStage> OpenStages { get; set; }
         public Stage()
         {
-            ProfilStage = new SortedSet<ProfileStage>();
-            PlanStage = new SortedSet<PlanStage>();
-            LimitStage = new SortedSet<LimitStage>();
-            ASRStage = new SortedSet<ASRStage>();
-            OpenStage = new SortedSet<OpenStage>();
+            ProfilStages = new SortedSet<ProfileStage>();
+            PlanStages = new SortedSet<PlanStage>();
+            LimitStages = new SortedSet<LimitStage>();
+            ASRStages = new SortedSet<ASRStage>();
+            OpenStages = new SortedSet<OpenStage>();
         }
 
         }

@@ -19,24 +19,29 @@ namespace ORM.Lines.Entities
         /// <summary>
         /// Пикетаж начала 
         /// </summary>
-        public virtual Double Piketage_Start { get; set; }
+        public virtual Double PiketageStart { get; set; }
 
         /// <summary>
         /// Пикетаж конец
         /// </summary>
-        public virtual Double Piketage_Finish { get; set; }
+        public virtual Double PiketageFinish { get; set; }
 
 
         /// <summary>
         /// номер пути
         /// </summary>
-        public virtual IEnumerable<Track> Track { get; set; }
+        public virtual IEnumerable<Track> Tracks { get; set; }
 
         public OpenLine()
         {
             
-            Track = new SortedSet<Track>();
+            Tracks = new SortedSet<Track>();
             
         }
+        public override String ToString()
+        {
+            return $" {KWosn} {PiketageStart} {PiketageFinish}";
+        }
+
     }
 }

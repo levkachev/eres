@@ -13,8 +13,8 @@ namespace ORM.Lines.Map
             Table("Line.PlanLine");
             Id(x => x.ID);
             Map(x => x.Radius).Not.Nullable();
-            Map(x => x.Piketage_Start).Column("Piketag_Start");
-            Map(x => x.Piketage_Finish).Column("Piketag_Finish");
+            Map(x => x.PiketageStart).Column("PiketagStart");
+            Map(x => x.PiketageFinish).Column("PiketagFinish");
             References(x => x.Track).ForeignKey("ID_Track");
 
         }

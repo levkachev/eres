@@ -15,7 +15,9 @@ namespace ORM.Lines.Map
             Map(x => x.Name).Length(45).Not.Nullable(); 
             Map(x => x.Piketage).Column("Piketag").Not.Nullable();
             Map(x => x.Short_Name).Length(20);
-            HasManyToMany(x => x.Track);
+            HasManyToMany(x => x.Track).Inverse();
+            References(x => x.Arrival);
+            References(x => x.Department);
 
         }
 

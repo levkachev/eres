@@ -27,6 +27,9 @@ namespace ORM.Lines.Entities
         /// </summary>
         public virtual Track Track { get; set; }
 
-       
+        public override String ToString()
+        {
+            return $" {Length} {Piketage}";
+        }
     }
 }

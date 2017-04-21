@@ -45,5 +45,10 @@ namespace ORM.Trains.Repository.Machine
                 uNominal = value;
             }
         }
+        public ACMachine(Double disassemblyPowerCircuitTime, Double assemblyBreakTime, String trainName, Double umax, Double uNominal) : base(disassemblyPowerCircuitTime, assemblyBreakTime, assemblyBreakTime, trainName)
+        {
+            Umax = umax;
+            Unominal = Unominal;
+        }
     }
 }

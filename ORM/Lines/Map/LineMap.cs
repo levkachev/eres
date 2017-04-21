@@ -16,9 +16,9 @@ namespace ORM.Lines.Map
             Id(x => x.ID);
             Map(x => x.Name).Length(45).Not.Nullable();
             References(x => x.Color);
-            HasMany(x => x.PowerSupplyStation);
-            HasMany(x => x.Track);
-            HasMany(x => x.Direction);
+            HasMany(x => x.PowerSupplyStations);
+            HasMany(x => x.Tracks);
+            HasMany(x => x.Directions);
         }
     }
 }

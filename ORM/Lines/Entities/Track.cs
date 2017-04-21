@@ -21,59 +21,66 @@ namespace ORM.Lines.Entities
         public virtual Line Line { get; set; }
 
 
-        public virtual ASRLine ASRLine { get; set; }
+        public virtual IEnumerable<ASRLine> ASRLines { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public virtual IEnumerable<Station> Station { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual IEnumerable<NMLine> NMLine { get; set; }
+        public virtual IEnumerable<Station> Stations { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual OpenLine OpenLine { get; set; }
+        public virtual IEnumerable<NMLine> NMLines { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IEnumerable<PlanLine> PlanLine { get; set; }
+        public virtual IEnumerable<OpenLine> OpenLines { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IEnumerable<ProfileLine> ProfileLine { get; set; }
-
-
+        public virtual IEnumerable<PlanLine> PlanLines { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IEnumerable<CurrentSectionLine> CurrentSectionLine { get; set; }
+        public virtual IEnumerable<ProfileLine> ProfileLines { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual IEnumerable<LimitLine> LimitLine { get; set; }
 
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IEnumerable<Stage> Stage { get; set; }
+        public virtual IEnumerable<CurrentSectionLine> CurrentSectionLines { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual IEnumerable<LimitLine> LimitLines { get; set; }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual IEnumerable<Stage> Stages{ get; set; }
         public Track()
         {
-            Station = new SortedSet<Station>();
-            NMLine = new SortedSet<NMLine>();
-            PlanLine = new SortedSet<PlanLine>();
-            ProfileLine = new SortedSet<ProfileLine>();
-            CurrentSectionLine = new SortedSet<CurrentSectionLine>();
-            LimitLine = new SortedSet<LimitLine>();
-            Stage = new SortedSet<Stage>();
+            Stations = new SortedSet<Station>();
+            NMLines = new SortedSet<NMLine>();
+            PlanLines = new SortedSet<PlanLine>();
+            ProfileLines = new SortedSet<ProfileLine>();
+            CurrentSectionLines = new SortedSet<CurrentSectionLine>();
+            LimitLines = new SortedSet<LimitLine>();
+            Stages = new SortedSet<Stage>();
+            OpenLines = new SortedSet<OpenLine>();
+            ASRLines = new SortedSet<ASRLine>();
         }
-
+       
+           public override String ToString()
+           {
+            return $"For {Tracks} ASRLines: {String.Join("; ", ASRLines)}{Environment.NewLine}NMLines: {String.Join("; ", NMLines)}{Environment.NewLine}PlanLines: {String.Join("; ", PlanLines)}{Environment.NewLine}ProfileLines: {String.Join("; ", ProfileLines)}{Environment.NewLine}CurrentSectionLines: {String.Join("; ", CurrentSectionLines)}{Environment.NewLine}LimitLines: {String.Join("; ", LimitLines)}{Environment.NewLine}";
+        }
     }
+   
 }

@@ -422,5 +422,51 @@ namespace ORM.Trains.Repository.Machine
                 weakPull2 = value;
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="disassemblyPowerCircuitTime"></param>
+        /// <param name="positionPull2"></param>
+        /// <param name="weakPull2"></param>
+        /// <param name="assemblyPullTime"></param>
+        /// <param name="trainName"></param>
+        /// <param name="assemblyPowerCircuitTime"></param>
+        /// <param name="assemblyPullResistance"></param>
+        /// <param name="assemblyBreakResistance"></param>
+        /// <param name="anchorResistance"></param>
+        /// <param name="mainPoleResistance"></param>
+        /// <param name="autoModeFactor1"></param>
+        /// <param name="autoModeFactor2"></param>
+        /// <param name="excitationTimeFactor2"></param>
+        /// <param name="excitationTimeFactor3"></param>
+        /// <param name="comPolesResistance"></param>
+        /// <param name="excitationTimeFactor1"></param>
+        /// <param name="maxExcitationTime"></param>
+        /// <param name="lowAutoModeRange"></param>
+        /// <param name="highAutoModeRange"></param>
+        /// <param name="linearGrowCurrentTime"></param>
+        /// <param name="connectionPull2"></param>
+        public DCMachine(Double disassemblyPowerCircuitTime, Double assemblyBreakTime, Double assemblyPullTime, String trainName, Double assemblyPowerCircuitTime, Double assemblyPullResistance, Double assemblyBreakResistance, Double anchorResistance, Double mainPoleResistance, Double comPolesResistance, Double autoModeFactor1, Double autoModeFactor2, Double excitationTimeFactor1, Double excitationTimeFactor2, Double excitationTimeFactor3, Double maxExcitationTime, Double lowAutoModeRange, Double highAutoModeRange, Double linearGrowCurrentTime, Int32 connectionPull2, Int32 positionPull2, Int32 weakPull2) : base(disassemblyPowerCircuitTime, assemblyBreakTime, assemblyBreakTime, trainName)
+        {
+            AssemblyPullTime = assemblyPullTime;
+            AssemblyPowerCircuitTime = assemblyPowerCircuitTime;
+            AssemblyPullResistance = assemblyPullResistance;
+            AssemblyBreakResistance = assemblyBreakResistance;
+            AnchorResistance = anchorResistance;
+            MainPoleResistance = mainPoleResistance;
+            ComPolesResistance = comPolesResistance;
+            AutoModeFactor1 = autoModeFactor1;
+            AutoModeFactor2 = autoModeFactor2;
+            ExcitationTimeFactor1 = excitationTimeFactor1;
+            ExcitationTimeFactor2 = excitationTimeFactor2;
+            ExcitationTimeFactor3 = excitationTimeFactor3;
+            MaxExcitationTime = maxExcitationTime;
+            LowAutoModeRange = lowAutoModeRange;
+            HighAutoModeRange = highAutoModeRange;
+            LinearGrowCurrentTime = linearGrowCurrentTime;
+            ConnectionPull2 = connectionPull2;
+            PositionPull2 = positionPull2;
+            WeakPull2 = weakPull2;
+        }
     }
 }

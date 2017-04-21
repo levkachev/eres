@@ -14,12 +14,12 @@ namespace ORM.Lines.Entities
         /// <summary>
         /// Пикетаж начала 
         /// </summary>
-        public virtual Double Piketage_Start { get; set; }
+        public virtual Double PiketageStart { get; set; }
 
         /// <summary>
         /// Пикетаж конец
         /// </summary>
-        public virtual Double Piketage_Finish { get; set; }
+        public virtual Double PiketageFinish { get; set; }
 
 
         /// <summary>
@@ -27,6 +27,9 @@ namespace ORM.Lines.Entities
         /// </summary>
         public virtual Track Track { get; set; }
 
-
+        public override String ToString()
+        {
+            return $" {PiketageStart} {PiketageFinish}";
+        }
     }
 }

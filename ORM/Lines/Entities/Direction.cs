@@ -18,18 +18,21 @@ namespace ORM.Lines.Entities
         /// <summary>
         /// пикетаж начало
         /// </summary>
-        public virtual Double Piketage_Start { get; set; }
+        public virtual Double PiketageStart { get; set; }
 
         /// <summary>
         /// пикетаж конец
         /// </summary>
-        public virtual Double Piketage_Finish { get; set; }
+        public virtual Double PiketageFinish { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public virtual Line Line { get; set; }
 
-
+        public override String ToString()
+        {
+            return $" {Directions} {PiketageStart} {PiketageFinish}";
+        }
     }
 }

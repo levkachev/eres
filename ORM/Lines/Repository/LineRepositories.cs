@@ -4,6 +4,7 @@ using System.Linq;
 using ORM.Base;
 using ORM.Energy.Entities;
 using ORM.Lines.Entities;
+using ORM.Stageis.Entities;
 
 namespace ORM.Lines.Repository
 {
@@ -67,7 +68,14 @@ namespace ORM.Lines.Repository
         {
             var tmp = GetAll()
                 .SingleOrDefault(line => line.Name.Equals(lineName));
-            return tmp.PowerSupplyStation;
+            return tmp.PowerSupplyStations;
+        }
+
+        public IEnumerable<Track> GetAllTrack(String lineName)
+        {
+            var tmp = GetAll()
+               .SingleOrDefault(line => line.Name.Equals(lineName));
+            return tmp.Tracks;
         }
     }
     

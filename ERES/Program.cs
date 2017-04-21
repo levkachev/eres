@@ -3,6 +3,8 @@ using ORM.Base;
 using System.Collections.Generic;
 using System;
 using ORM.Energy.Entities;
+using ORM.Stageis.Entities;
+using ORM.Lines.Entities;
 using TrainMovement.Train;
 using ORM.Train.Interpolation.Entities;
 using System.IO;
@@ -10,6 +12,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using ORM.Energies.Repository;
 using ORM.Lines.Repository;
+using ORM.Stageis.Repository;
 using ORM.Trains.Repository.Interpolation;
 using ORM.Trains.Repository.Trains;
 
@@ -89,6 +92,13 @@ namespace ERES
 
             //Console.WriteLine(name);
             //Console.WriteLine(piketag);
+
+            
+            var track = lineRepository.GetAllTrack(name);
+            ShowCollection<Track>(track, "Track");
+
+
+
             Console.ReadKey(true);
 
             //string pathToFile = @"G:\DSA\MS_VS_Projects\C#\ReadWrite File";
@@ -117,7 +127,7 @@ namespace ERES
 
             //SerializableObject obj = new SerializableObject();
             //obj.Energy = energyeneregy;
-            
+
             //MySerializer serializer = new MySerializer();
             ////serializer.SerializeObject("output.txt", obj);
             //IFormatter formatter = new BinaryFormatter();

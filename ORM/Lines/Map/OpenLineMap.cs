@@ -13,9 +13,9 @@ namespace ORM.Lines.Map
             Table("Line.OpenLine");
             Id(x => x.ID);
             Map(x => x.KWosn).Not.Nullable();
-            Map(x => x.Piketage_Start).Column("Piketag_Start");
-            Map(x => x.Piketage_Finish).Column("Piketag_Finish");
-            HasMany(x => x.Track);
+            Map(x => x.PiketageStart).Column("PiketagStart");
+            Map(x => x.PiketageFinish).Column("PiketagFinish");
+            HasMany(x => x.Tracks);
 
         }
 

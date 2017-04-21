@@ -1,6 +1,7 @@
 ﻿using System;
 using ORM.Base;
 using System.Collections.Generic;
+using ORM.Stageis.Entities;
 
 
 
@@ -31,10 +32,16 @@ namespace ORM.Lines.Entities
         /// </summary>
         public virtual IEnumerable<Track> Track { get; set; }
 
+        public virtual Stage Department { get; set; }
+        public virtual Stage Arrival { get; set; }
         public Station()
         {
             Track = new SortedSet<Track>();
             
+        }
+        public override String ToString()
+        {
+            return $" {Name} {Piketage} {Department} {Arrival}";
         }
     }
 }

@@ -16,15 +16,15 @@ namespace ORM.Stageis.Map
             Table("Stage.Stage");
             Id(x => x.ID);
             Map(x => x.Length).Not.Nullable();
-            Map(x => x.St_Department).Length(45).Not.Nullable();
-            Map(x => x.St_Arrival).Length(45).Not.Nullable();
+            References(x => x.Arrival).ForeignKey("ID_Arrival");
+            References(x => x.Department).ForeignKey("ID_Department");
             References(x => x.Track).ForeignKey("ID_Track");
-            HasMany(x => x.ProfilStage);
-            HasMany(x => x.PlanStage);
+            HasMany(x => x.ProfilStages);
+            HasMany(x => x.PlanStages);
             References(x => x.CurrentSectionStage);
-            HasMany(x => x.LimitStage);
-            HasMany(x => x.ASRStage);
-            HasMany(x => x.OpenStage);
+            HasMany(x => x.LimitStages);
+            HasMany(x => x.ASRStages);
+            HasMany(x => x.OpenStages);
         }
     }
 }
