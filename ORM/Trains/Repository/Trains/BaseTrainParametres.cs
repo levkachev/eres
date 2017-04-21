@@ -9,12 +9,15 @@ namespace ORM.Trains.Repository.Trains
     {
         #region Fields
 
+        /// <summary>
+        /// 
+        /// </summary>
+        protected String name;
 
-        private String name;
         /// <summary>
         /// количество вагонов
         /// </summary>
-        private Int32 numberCars;
+        protected Int32 numberCars;
 
 
         /// <summary>
@@ -100,7 +103,7 @@ namespace ORM.Trains.Repository.Trains
             public Double CarLength
         {
             get { return carLength; }
-            private set
+            protected set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -115,7 +118,7 @@ namespace ORM.Trains.Repository.Trains
         public Double UnladenWeight
         {
             get { return unladenWeight; }
-            private set
+            protected set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -130,7 +133,7 @@ namespace ORM.Trains.Repository.Trains
         public Int32 NumberCars
         {
             get { return numberCars; }
-            private set
+            protected set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -145,7 +148,7 @@ namespace ORM.Trains.Repository.Trains
         public Double BAverage
         {
             get { return breakAverage; }
-            private set
+            protected set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -160,7 +163,7 @@ namespace ORM.Trains.Repository.Trains
         public Double NetResistencePullFactor
         {
             get { return netResistancePullFactor; }
-            private set
+            protected set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -175,7 +178,7 @@ namespace ORM.Trains.Repository.Trains
         public Double AerodynamicDragFactor
         {
             get { return aerodynamicDragFactor; }
-            private set
+            protected set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -190,7 +193,7 @@ namespace ORM.Trains.Repository.Trains
         public Double NetResistenceCoastingFactor1
         {
             get { return netResistenceCoastingFactor1; }
-            private set
+            protected set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -205,7 +208,7 @@ namespace ORM.Trains.Repository.Trains
         public Double NetResistenceCoastingFactor2
         {
             get { return netResistenceCoastingFactor2; }
-            private set
+            protected set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -220,7 +223,7 @@ namespace ORM.Trains.Repository.Trains
         public Double NetResistenceCoastingFactor3
         {
             get { return netResistenceCoastingFactor3; }
-            private set
+            protected set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -235,7 +238,7 @@ namespace ORM.Trains.Repository.Trains
         public Double TrainEqvivalentSurface
         {
             get { return trainEqvivalentSurface; }
-            private set
+            protected set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -250,7 +253,7 @@ namespace ORM.Trains.Repository.Trains
         public Double InertiaRotationFactor
         {
             get { return inertiaRotationFactor; }
-            private set
+            protected set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -265,7 +268,7 @@ namespace ORM.Trains.Repository.Trains
         public Double OwnNeedsElectricPower
         {
             get { return ownNeedsElectricPower; }
-            private set
+            protected set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));

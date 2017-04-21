@@ -23,7 +23,7 @@ namespace ORM.Trains.Repository.Machine
         public Double Umax
         {
             get { return umax; }
-            set
+            private set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -44,6 +44,12 @@ namespace ORM.Trains.Repository.Machine
                     throw new ArgumentOutOfRangeException(nameof(value));
                 uNominal = value;
             }
+        }
+
+        public ACMachine(Double disassemblyPowerCircuitTime, Double assemblyBreakTime, String trainName, Double umax, Double uNominal) : base(disassemblyPowerCircuitTime, assemblyBreakTime, assemblyBreakTime, trainName)
+        {
+            Umax = umax;
+            Unominal = Unominal;
         }
     }
 }

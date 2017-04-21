@@ -129,13 +129,9 @@
     <Compile Include="Stageis\Map\ProfileStageMap.cs" />
     <Compile Include="Stageis\Map\StageMap.cs" />
     <Compile Include="Stageis\Repository\StageRepository.cs" />
-    <Compile Include="Trains\Entities\ACParametres.cs" />
-    <Compile Include="Trains\Entities\DCParametres.cs" />
-    <Compile Include="Trains\Entities\MachineBaseParametres.cs" />
     <Compile Include="Trains\Entities\MassMass.cs" />
     <Compile Include="Trains\Entities\Mode_Control.cs" />
     <Compile Include="Trains\Entities\Motor_Type.cs" />
-    <Compile Include="Trains\Entities\BaseTrainParametres.cs" />
     <Compile Include="Trains\Entities\TrainType.cs" />
     <Compile Include="Trains\Entities\Train_Name.cs" />
     <Compile Include="Trains\Entities\АdditionalParameter.cs" />

@@ -98,59 +98,6 @@ namespace ORM.Trains.Repository.Machine
         /// </summary>
         private Int32 weakPull2;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private Double disassemblyPowerCircuitTime;
-        /// <summary>
-        /// 
-        /// </summary>
-        private Double assemblyPullTime;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private Double assemblyBreakTime;
-
-
-        /// <summary>
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
-        public Double DisassemblyPowerCircuitTime
-        {
-            get { return disassemblyPowerCircuitTime; }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException(nameof(value));
-                disassemblyPowerCircuitTime = value;
-            }
-        }
-
-        /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
-        public Double AssemblyPullTime
-        {
-            get { return assemblyPullTime; }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException(nameof(value));
-                assemblyPullTime = value;
-            }
-        }
-
-        /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
-        public Double AssemblyBreakTime
-        {
-            get { return assemblyBreakTime; }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException(nameof(value));
-                assemblyBreakTime = value;
-            }
-        }
-
 
         /// <summary>
         /// </summary>
@@ -159,7 +106,7 @@ namespace ORM.Trains.Repository.Machine
         public Double AssemblyPowerCircuitTime
         {
             get { return assemblyPowerCircuitTime; }
-            set
+            private set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -174,7 +121,7 @@ namespace ORM.Trains.Repository.Machine
         public Double AssemblyPullResistance
         {
             get { return assemblyPullResistance; }
-            set
+            private set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -189,7 +136,7 @@ namespace ORM.Trains.Repository.Machine
         public Double AssemblyBreakResistance
         {
             get { return assemblyBreakResistance; }
-            set
+            private set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -204,7 +151,7 @@ namespace ORM.Trains.Repository.Machine
         public Double AnchorResistance
         {
             get { return anchorResistance; }
-            set
+            private set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -219,7 +166,7 @@ namespace ORM.Trains.Repository.Machine
         public Double MainPoleResistance
         {
             get { return mainPoleResistance; }
-            set
+            private set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -234,7 +181,7 @@ namespace ORM.Trains.Repository.Machine
         public Double ComPolesResistance
         {
             get { return comPolesResistance; }
-            set
+            private set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -249,7 +196,7 @@ namespace ORM.Trains.Repository.Machine
         public Double AutoModeFactor1
         {
             get { return autoModeFactor1; }
-            set
+            private set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -264,7 +211,7 @@ namespace ORM.Trains.Repository.Machine
         public Double AutoModeFactor2
         {
             get { return autoModeFactor2; }
-            set
+            private set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -279,7 +226,7 @@ namespace ORM.Trains.Repository.Machine
         public Double ExcitationTimeFactor1
         {
             get { return excitationTimeFactor1; }
-            set
+            private set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -294,7 +241,7 @@ namespace ORM.Trains.Repository.Machine
         public Double ExcitationTimeFactor2
         {
             get { return excitationTimeFactor2; }
-            set
+            private set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -309,7 +256,7 @@ namespace ORM.Trains.Repository.Machine
         public Double ExcitationTimeFactor3
         {
             get { return excitationTimeFactor3; }
-            set
+            private set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -324,7 +271,7 @@ namespace ORM.Trains.Repository.Machine
         public Double MaxExcitationTime
         {
             get { return maxExcitationTime; }
-            set
+            private set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -339,7 +286,7 @@ namespace ORM.Trains.Repository.Machine
         public Double LowAutoModeRange
         {
             get { return lowAutoModeRange; }
-            set
+            private set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -354,7 +301,7 @@ namespace ORM.Trains.Repository.Machine
         public Double HighAutoModeRange
         {
             get { return highAutoModeRange; }
-            set
+            private set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -369,7 +316,7 @@ namespace ORM.Trains.Repository.Machine
         public Double LinearGrowCurrentTime
         {
             get { return linearGrowCurrentTime; }
-            set
+            private set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -384,7 +331,7 @@ namespace ORM.Trains.Repository.Machine
         public Int32 ConnectionPull2
         {
             get { return connectionPull2; }
-            set
+            private set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -399,7 +346,7 @@ namespace ORM.Trains.Repository.Machine
         public Int32 PositionPull2
         {
             get { return positionPull2; }
-            set
+            private set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -415,12 +362,59 @@ namespace ORM.Trains.Repository.Machine
         public Int32 WeakPull2
         {
             get { return weakPull2; }
-            set
+            private set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
                 weakPull2 = value;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="disassemblyPowerCircuitTime"></param>
+        /// <param name="positionPull2"></param>
+        /// <param name="weakPull2"></param>
+        /// <param name="assemblyPullTime"></param>
+        /// <param name="trainName"></param>
+        /// <param name="assemblyPowerCircuitTime"></param>
+        /// <param name="assemblyPullResistance"></param>
+        /// <param name="assemblyBreakResistance"></param>
+        /// <param name="anchorResistance"></param>
+        /// <param name="mainPoleResistance"></param>
+        /// <param name="autoModeFactor1"></param>
+        /// <param name="autoModeFactor2"></param>
+        /// <param name="excitationTimeFactor2"></param>
+        /// <param name="excitationTimeFactor3"></param>
+        /// <param name="comPolesResistance"></param>
+        /// <param name="excitationTimeFactor1"></param>
+        /// <param name="maxExcitationTime"></param>
+        /// <param name="lowAutoModeRange"></param>
+        /// <param name="highAutoModeRange"></param>
+        /// <param name="linearGrowCurrentTime"></param>
+        /// <param name="connectionPull2"></param>
+        public DCMachine(Double disassemblyPowerCircuitTime, Double assemblyBreakTime, Double assemblyPullTime, String trainName, Double assemblyPowerCircuitTime, Double assemblyPullResistance,Double assemblyBreakResistance, Double anchorResistance,Double mainPoleResistance,Double comPolesResistance, Double autoModeFactor1, Double autoModeFactor2, Double excitationTimeFactor1,Double excitationTimeFactor2, Double excitationTimeFactor3, Double maxExcitationTime, Double lowAutoModeRange,Double highAutoModeRange, Double linearGrowCurrentTime, Int32 connectionPull2, Int32 positionPull2,Int32 weakPull2) : base(disassemblyPowerCircuitTime, assemblyBreakTime, assemblyBreakTime, trainName)
+        {
+            AssemblyPullTime = assemblyPullTime;
+            AssemblyPowerCircuitTime = assemblyPowerCircuitTime;
+            AssemblyPullResistance = assemblyPullResistance;
+            AssemblyBreakResistance = assemblyBreakResistance;
+            AnchorResistance = anchorResistance;
+            MainPoleResistance = mainPoleResistance;
+            ComPolesResistance = comPolesResistance;
+            AutoModeFactor1 = autoModeFactor1;
+            AutoModeFactor2 = autoModeFactor2;
+            ExcitationTimeFactor1 = excitationTimeFactor1;
+            ExcitationTimeFactor2 = excitationTimeFactor2;
+            ExcitationTimeFactor3 = excitationTimeFactor3;
+            MaxExcitationTime = maxExcitationTime;
+            LowAutoModeRange = lowAutoModeRange;
+            HighAutoModeRange = highAutoModeRange;
+            LinearGrowCurrentTime = linearGrowCurrentTime;
+            ConnectionPull2 = connectionPull2;
+            PositionPull2 = positionPull2;
+            WeakPull2 = weakPull2;
         }
     }
 }

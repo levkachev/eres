@@ -10,27 +10,27 @@ namespace ORM.Trains.Repository.Machine
         /// <summary>
         /// Время сбора силовой цепи на ход tsborp
         /// </summary>
-        private Double assemblyPullTime;
+        protected Double assemblyPullTime;
 
         /// <summary>
         /// 
         /// </summary>
-        private String name;
+        protected String name;
 
         /// <summary>
         /// Время сбора силовой цепи на Тормоз
         /// </summary>
-        private Double assemblyBreakTime;
+        protected Double assemblyBreakTime;
 
         /// <summary>
         /// Время разбора силовой цепи
         /// </summary>
-        private Double disassemblyPowerCircuitTime;
+        protected Double disassemblyPowerCircuitTime;
 
         /// <summary>
         /// </summary>
         /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
-        /// 
+        /// <exception cref="ArgumentOutOfRangeException" accessor="set">Condition.</exception>
         public String Name
         {
             get { return name; }
@@ -66,7 +66,7 @@ namespace ORM.Trains.Repository.Machine
         public Double AssemblyBreakTime
         {
             get { return assemblyBreakTime; }
-            private set
+            protected set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -81,7 +81,7 @@ namespace ORM.Trains.Repository.Machine
         public Double DisassemblyPowerCircuitTime
         {
             get { return disassemblyPowerCircuitTime; }
-            private set
+            protected set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
