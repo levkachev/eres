@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ORM.Base;
 using ORM.Lines.Entities;
+using ORM.Stageis.Entities;
 
 namespace ORM.Lines.Repository
 {
@@ -21,8 +22,9 @@ namespace ORM.Lines.Repository
             return GetInstance<TrackRepository>(SessionWrapper.GetInstance().Factory);
         }
 
+        
    
-        
-        
+
+
     }
 }

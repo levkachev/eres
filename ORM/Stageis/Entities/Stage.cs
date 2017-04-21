@@ -70,5 +70,10 @@ namespace ORM.Stageis.Entities
             OpenStages = new SortedSet<OpenStage>();
         }
 
+        public override String ToString()
+        {
+            return $"For {Length} ";
         }
+
+    }
 }

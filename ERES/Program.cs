@@ -97,7 +97,12 @@ namespace ERES
             var track = lineRepository.GetAllTrack(name);
             ShowCollection<Track>(track, "Track");
 
-
+            //var stationRepository = StationRepository.GetInstance();
+            //var arrival = stationRepository.GetIDByName("Площадь Ильича");
+            //var department = stationRepository.GetIDByName("Шоссе Энтузиастов");
+            //var stageRepository = StageRepository.GetInstance();
+            // var st = stageRepository.GetAllStage(arrival, department);
+            //ShowCollection<Double>(st, "Stage");
 
             Console.ReadKey(true);
 
