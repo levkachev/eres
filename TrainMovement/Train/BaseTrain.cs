@@ -1,9 +1,9 @@
 ﻿using System;
 using TrainMovement.ModeControl;
-using ORM.Train.Entities;
+using ORM.Trains.Repository.Trains;
 using ORM.Trains.Repository.Machine;
 using TrainMovement.PhisicalHelper;
-using ORM.Stageis.Entities;
+using TrainMovement.Stages;
 
 
 namespace TrainMovement.Train
@@ -486,8 +486,9 @@ namespace TrainMovement.Train
 
         /// <summary>
         /// Перегон
+        /// StageTry ??? 
         /// </summary>
-        public Stages CurrentStage { get; set; }
+        public StageTry CurrentStage { get; set; }
 
         /// <summary>
         /// СИла тяги

@@ -66,7 +66,7 @@ namespace ORM.Trains.Repository.Trains
         /// <summary>
         /// 
         /// </summary>
-        private Double eaxExcitationTime;
+        private Double maxExcitationTime;
         /// <summary>
         /// 
         /// </summary>
@@ -90,7 +90,7 @@ namespace ORM.Trains.Repository.Trains
         /// <summary>
         /// 
         /// </summary>
-        private Int32wWeakPull2;
+        private Int32 weakPull2;
 
         #region Properties
 
@@ -205,120 +205,120 @@ namespace ORM.Trains.Repository.Trains
         }
 
 
-        public Double compolesResistance
+        public Double CompolesResistance
         {
-            get { return CompolesResistance; }
+            get { return compolesResistance; }
             set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
-                CompolesResistance = value;
+                compolesResistance = value;
             }
         }
 
-        public Double automodeFactor1
+        public Double AutomodeFactor1
         {
-            get { return AutomodeFactor1; }
+            get { return automodeFactor1; }
             set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
-                AutomodeFactor1 = value;
+                automodeFactor1 = value;
             }
         }
 
-        public Double automodeFactor2
+        public Double AutomodeFactor2
         {
-            get { return AutomodeFactor2; }
+            get { return automodeFactor2; }
             set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
-                AutomodeFactor2 = value;
+                automodeFactor2 = value;
             }
         }
 
 
-        public Double excitationTimeFactor1
+        public Double ExcitationTimeFactor1
         {
-            get { return ExcitationTimeFactor1; }
+            get { return excitationTimeFactor1; }
             set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
-                ExcitationTimeFactor1 = value;
+                excitationTimeFactor1 = value;
             }
         }
 
-        public Double excitationTimeFactor2
+        public Double ExcitationTimeFactor2
         {
-            get { return ExcitationTimeFactor2; }
+            get { return excitationTimeFactor2; }
             set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
-                ExcitationTimeFactor2 = value;
+                excitationTimeFactor2 = value;
             }
         }
 
-        public Double excitationTimeFactor3
+        public Double ExcitationTimeFactor3
         {
-            get { return ExcitationTimeFactor3; }
+            get { return excitationTimeFactor3; }
             set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
-                ExcitationTimeFactor3 = value;
+                excitationTimeFactor3 = value;
             }
         }
 
-        public Double maxExcitationTime
+        public Double MaxExcitationTime
         {
-            get { return MaxExcitationTime; }
+            get { return maxExcitationTime; }
             set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
-                MaxExcitationTime = value;
+                maxExcitationTime = value;
             }
         }
 
-        public Double lowAutoModeRange
+        public Double LowAutoModeRange
         {
-            get { return LowAutoModeRange; }
+            get { return lowAutoModeRange; }
             set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
-                LowAutoModeRange = value;
+                lowAutoModeRange = value;
             }
         }
 
-        public Double highAutoModeRange
+        public Double HighAutoModeRange
         {
-            get { return HighAutoModeRange; }
+            get { return highAutoModeRange; }
             set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
-                HighAutoModeRange = value;
+                highAutoModeRange = value;
             }
         }
 
-        public Double linearGrowCurrentTime
+        public Double LinearGrowCurrentTime
         {
-            get { return LinearGrowCurrentTime; }
+            get { return linearGrowCurrentTime; }
             set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
-                LinearGrowCurrentTime = value;
+                linearGrowCurrentTime = value;
             }
         }
 
-        public Int32 connectionPull2;
-        public Int32 positionPull2;
-        public Int32 weakPull2;
+        public Int32 ConnectionPull2;
+        public Int32 PositionPull2;
+        public Int32 WeakPull2;
         #endregion
 
     }

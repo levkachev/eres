@@ -1,5 +1,6 @@
 ﻿using System;
 using TrainMovement.Train;
+using TrainMovement.Stages;
 
 namespace TrainMovement.ModeControl
 {

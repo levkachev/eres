@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ORM.Stageis.Entities
+namespace TrainMovement.Stages
 {
     /// <summary>
     /// У перегона имеется несколько типов ограничений, таких как ограничения скорости, профиль, план и т.д

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using ORM.Base;
 
-namespace ORM.Stageis.Entities
+namespace TrainMovement.Stages
 {
     /// <summary>
     /// 
@@ -22,6 +22,6 @@ namespace ORM.Stageis.Entities
         /// <summary>
         /// 
         /// </summary>
-        public virtual Stages Stage { get; set; }
+        public virtual Stage Stage { get; set; }
     }
 }

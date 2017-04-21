@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ORM.Stageis.Entities;
+
 
 
 namespace TrainMovement.Stages
@@ -9,14 +9,14 @@ namespace TrainMovement.Stages
     /// <summary>
     /// Логика работы с перегоном
     /// </summary>
-    public sealed class StageTry: ORM.Stageis.Entities.Stage
+    public sealed class StageTry: Stage
     {
         /// <summary>
         /// Возвращает текущий коэффициент сопротивления для открытого участка
         /// </summary>
         /// <param name="space"></param>
         /// <returns></returns>
-        internal Double GetCoefficientOpenStage(Double space)
+          internal Double GetCoefficientOpenStage(Double space)
         {
             return GetLimit(space, OpenSection);
         }

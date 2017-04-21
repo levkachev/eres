@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using ORM.Base;
 
-namespace ORM.Stageis.Entities
+namespace TrainMovement.Stages
 {
     /// <summary>
     /// DTO
