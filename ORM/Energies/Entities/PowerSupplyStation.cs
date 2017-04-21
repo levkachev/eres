@@ -28,20 +28,20 @@ namespace ORM.Energy.Entities
         /// <summary>
         /// 
         /// </summary>
-        public virtual IList<Unit> Units { get; set; }
+        public virtual IEnumerable<Unit> Units { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IList<Feeder> Feeders { get; set; }
+        public virtual IEnumerable<Feeder> Feeders { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public PowerSupplyStation()
         {
-            Units = new List<Unit>();
-            Feeders = new List<Feeder>();
+            Units = new SortedSet<Unit>();
+            Feeders = new SortedSet<Feeder>();
         }
 
         public override String ToString()

@@ -38,20 +38,20 @@ namespace ORM.Energy.Entities
         /// <summary>
         /// Выпрямители
         /// </summary>
-        public virtual IList<Diod> Diods { get; set; }
+        public virtual IEnumerable<Diod> Diods { get; set; }
 
         /// <summary>
         /// Трансформаторы
         /// </summary>
-        public virtual IList<PowerConvert> PowerConverts { get; set; }
+        public virtual IEnumerable<PowerConvert> PowerConverts { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public Unit()
         {
-            Diods = new List<Diod>();
-            PowerConverts = new List<PowerConvert>();
+            Diods = new SortedSet<Diod>();
+            PowerConverts = new SortedSet<PowerConvert>();
 
         }
 

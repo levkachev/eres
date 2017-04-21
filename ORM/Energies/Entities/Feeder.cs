@@ -32,7 +32,7 @@ namespace ORM.Energy.Entities
         /// <summary>
         /// 
         /// </summary>
-        public virtual IList<Resistance> Resistances { get; set; }
+        public virtual IEnumerable<Resistance> Resistances { get; set; }
 
         /// <summary>
         /// Тяговая подстанция
@@ -50,7 +50,7 @@ namespace ORM.Energy.Entities
 
         public Feeder()
         {
-            Resistances = new List<Resistance>();
+            Resistances = new SortedSet<Resistance>();
         }
     }
 }

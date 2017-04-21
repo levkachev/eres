@@ -17,6 +17,10 @@ namespace ORM.Lines.Entities
         /// RGB цвета линии
         /// </summary>
         public virtual String RGBvalue { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual Line Line { get; set; }
 
     }
 }

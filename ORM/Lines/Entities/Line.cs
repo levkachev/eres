@@ -24,26 +24,26 @@ namespace ORM.Lines.Entities
         /// <summary>
         /// 
         /// </summary>
-        public virtual IList<PowerSupplyStation> PowerSupplyStation { get; set; }
+        public virtual IEnumerable<PowerSupplyStation> PowerSupplyStation { get; set; }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //public virtual IList<Track> Track { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual IEnumerable<Track> Track { get; set; }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //public virtual IList<Direction> Direction { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual IEnumerable<Direction> Direction { get; set; }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
+        /// <summary>
+        /// 
+        /// </summary>
         public Line()
         {
-            PowerSupplyStation = new List<PowerSupplyStation>();
-            //Track = new List<Track>();
-            //Direction = new List<Direction>();
+            PowerSupplyStation = new SortedSet<PowerSupplyStation>();
+            Track = new SortedSet<Track>();
+            Direction = new SortedSet<Direction>();
         }
     }
 }

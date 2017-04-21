@@ -14,6 +14,7 @@ namespace ORM.Lines.Map
             Id(x => x.ID);
             Map(x => x.Colors).Length(45).Not.Nullable();
             Map(x => x.RGBvalue);
+            References(x => x.Line);
         }
     }
 }
