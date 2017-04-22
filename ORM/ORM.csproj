@@ -134,17 +134,16 @@
     <Compile Include="Stageis\Repository\StageRepository.cs" />
     <Compile Include="Stageis\Repository\StageSRepository.cs" />
     <Compile Include="Trains\Entities\MassMass.cs" />
-    <Compile Include="Trains\Entities\Mode_Control.cs" />
-    <Compile Include="Trains\Entities\Motor_Type.cs" />
-    <Compile Include="Trains\Entities\TrainType.cs" />
-    <Compile Include="Trains\Entities\Train_Name.cs" />
+    <Compile Include="Trains\Entities\ModeControls.cs" />
+    <Compile Include="Trains\Entities\MotorTypes.cs" />
+    <Compile Include="Trains\Entities\TrainName.cs" />
     <Compile Include="Trains\Entities\АdditionalParameter.cs" />
     <Compile Include="Trains\Interpolation\Entities\VFI.cs" />
     <Compile Include="Trains\Interpolation\Map\VFIMap.cs" />
     <Compile Include="Trains\Map\MassMassMap.cs" />
-    <Compile Include="Trains\Map\Mode_ControlMap.cs" />
-    <Compile Include="Trains\Map\Motor_TypeMap.cs" />
-    <Compile Include="Trains\Map\Train_NameMap.cs" />
+    <Compile Include="Trains\Map\ModeControlsMap.cs" />
+    <Compile Include="Trains\Map\MotorTypesMap.cs" />
+    <Compile Include="Trains\Map\TrainNameMap.cs" />
     <Compile Include="Trains\Map\АdditionalParameterMap.cs" />
     <Compile Include="Trains\Repository\Interpolation\VFIRepository.cs" />
     <Compile Include="Trains\Repository\Machine\ACMachine.cs" />
@@ -155,8 +154,8 @@
     <Compile Include="Trains\Repository\Trains\BaseTrainParametres.cs" />
     <Compile Include="Trains\Repository\Trains\DCParametres.cs" />
     <Compile Include="Trains\Repository\Trains\MassRepository.cs" />
-    <Compile Include="Trains\Repository\Trains\ModeControlRepository.cs" />
-    <Compile Include="Trains\Repository\Trains\MotorTypeRepository.cs" />
+    <Compile Include="Trains\Repository\Trains\ModeControlsRepository.cs" />
+    <Compile Include="Trains\Repository\Trains\MotorTypesRepository.cs" />
     <Compile Include="Trains\Repository\Trains\TrainNameRepository.cs" />
     <Compile Include="Trains\Repository\АdditionalParameterRepository.cs" />
   </ItemGroup>

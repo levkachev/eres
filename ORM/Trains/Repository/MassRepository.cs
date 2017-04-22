@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using ORM.Base;
-using ORM.Train.Entities;
+using ORM.Trains.Entities;
 using ORM.Helpers;
 
 namespace ORM.Trains.Repository

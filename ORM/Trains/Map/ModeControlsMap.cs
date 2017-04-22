@@ -1,11 +1,11 @@
-﻿using ORM.Train.Entities;
+﻿using ORM.Trains.Entities;
 using FluentNHibernate.Mapping;
 
-namespace ORM.Train.Map
+namespace ORM.Trains.Map
 {
-    public class Mode_ControlMap: ClassMap<Mode_Control>
+    public class ModeControlsMap: ClassMap<ModeControls>
     {
-        public Mode_ControlMap()
+        public ModeControlsMap()
         {
             Table("Train.ModeControl");
             Id(x => x.ID);

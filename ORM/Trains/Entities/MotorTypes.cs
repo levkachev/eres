@@ -1,12 +1,12 @@
 ﻿using System;
 using ORM.Base;
 
-namespace ORM.Train.Entities
+namespace ORM.Trains.Entities
 {
     /// <summary>
     /// тип двигателя
     /// </summary>
-    public class Motor_Type : Entity<Motor_Type>
+    public class MotorTypes : Entity<MotorTypes>
     {
         /// <summary>
         /// тип двигателя (АС, DC)

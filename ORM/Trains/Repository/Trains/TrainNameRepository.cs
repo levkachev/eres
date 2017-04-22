@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Linq;
 using ORM.Base;
-using ORM.Train.Entities;
+using ORM.Trains.Entities;
 
 namespace ORM.Trains.Repository.Trains
 {
     /// <summary>
     /// 
     /// </summary>
-    public class TrainNameRepository : Repository<Train_Name>
+    public class TrainNameRepository : Repository<TrainName>
     {
         /// <summary>
         /// 
@@ -40,7 +40,7 @@ namespace ORM.Trains.Repository.Trains
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
-        public Motor_Type GetIDMotorTypeByName(String name)
+        public MotorTypes GetIDMotorTypeByName(String name)
         {
             var tmp = GetAll()
                 .SingleOrDefault(tr => tr.Name == name);

@@ -1,12 +1,12 @@
 ﻿using System;
 using ORM.Base;
 
-namespace ORM.Train.Entities
+namespace ORM.Trains.Entities
 {
     /// <summary>
     /// режим управления
     /// </summary>
-    public class Mode_Control : Entity<Mode_Control>
+    public class ModeControls : Entity<ModeControls>
     {
         /// <summary>
         /// режим управления
@@ -16,7 +16,7 @@ namespace ORM.Train.Entities
         /// <summary>
         /// тип двигателя
         /// </summary>
-        public virtual Motor_Type MotorType { get; set; }
+        public virtual MotorTypes MotorType { get; set; }
 
     }
 }

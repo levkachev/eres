@@ -1,8 +1,8 @@
 ﻿using System;
 using ORM.Base;
-using ORM.Train.Entities;
+using ORM.Trains.Entities;
 
-namespace ORM.Train.Interpolation.Entities
+namespace ORM.Trains.Interpolation.Entities
 {
     /// <summary>
     /// характеристики 
@@ -37,7 +37,7 @@ namespace ORM.Train.Interpolation.Entities
         /// <summary>
         /// режим управления
         /// </summary>
-        public virtual Mode_Control ModeControl { get; set; }
+        public virtual ModeControls ModeControl { get; set; }
 
         /// <summary>
         /// масса поезда
@@ -47,7 +47,7 @@ namespace ORM.Train.Interpolation.Entities
         /// <summary>
         /// наименование поезда
         /// </summary>
-        public virtual Train_Name Train { get; set; }
+        public virtual TrainName Train { get; set; }
 
 
 

@@ -2,7 +2,7 @@
 using ORM.Base;
 
 
-namespace ORM.Train.Entities
+namespace ORM.Trains.Entities
 {
     /// <summary>
     /// масса поезда

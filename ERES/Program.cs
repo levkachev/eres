@@ -6,7 +6,7 @@ using ORM.Energy.Entities;
 using ORM.Stageis.Entities;
 using ORM.Lines.Entities;
 using TrainMovement.Train;
-using ORM.Train.Interpolation.Entities;
+using ORM.Trains.Interpolation.Entities;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -64,7 +64,7 @@ namespace ERES
             /// 
             var testTrainName = "81-740.4";
 
-            var motortypeRepository = MotorTypeRepository.GetInstance();
+            var motortypeRepository = MotorTypesRepository.GetInstance();
             var motortype = motortypeRepository.GetByType("AC");
 
             var trainnameRepository = TrainNameRepository.GetInstance();
@@ -73,7 +73,7 @@ namespace ERES
             var massRepository = MassRepository.GetInstance();
             var mass = massRepository.GetByMass(100);
 
-            var modecontrolRepository = ModeControlRepository.GetInstance();
+            var modecontrolRepository = ModeControlsRepository.GetInstance();
             var modecontrol = modecontrolRepository.GetByModeControl("Pull1");
 
             var vfiRepository = VFIRepository.GetInstance();

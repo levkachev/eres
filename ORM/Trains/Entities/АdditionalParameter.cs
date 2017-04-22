@@ -1,7 +1,7 @@
 ﻿using System;
 using ORM.Base;
 
-namespace ORM.Train.Entities
+namespace ORM.Trains.Entities
 {
     /// <summary>
     /// Параметры поезда
@@ -191,6 +191,6 @@ namespace ORM.Train.Entities
         /// <summary>
         /// Наименование поезда
         /// </summary>
-        public virtual Train_Name TrainName { get; set; }
+        public virtual TrainName TrainName { get; set; }
     }
 }

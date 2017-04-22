@@ -1,13 +1,13 @@
-﻿using ORM.Train.Entities;
+﻿using ORM.Trains.Entities;
 using FluentNHibernate.Mapping;
 
-namespace ORM.Train.Map
+namespace ORM.Trains.Map
 {
-    public class Train_NameMap : ClassMap<Train_Name>
+    public class TrainNameMap : ClassMap<TrainName>
     {
-        public Train_NameMap()
+        public TrainNameMap()
         {
-            Table("Train.Train_Name");
+            Table("Train.TrainName");
             Id(x => x.ID);
             Map(x => x.Name).Length(25).Not.Nullable();
             References(x => x.MotorType);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ORM.Base;
-using ORM.Train.Entities;
+using ORM.Trains.Entities;
 using ORM.Trains.Repository.Machine;
 using ORM.Trains.Repository.Trains;
 

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using ORM.Base;
-using ORM.Train.Entities;
-using ORM.Train.Interpolation.Entities;
+using ORM.Trains.Entities;
+using ORM.Trains.Interpolation.Entities;
 
 namespace ORM.Trains.Repository.Interpolation
 {
@@ -21,7 +21,7 @@ namespace ORM.Trains.Repository.Interpolation
         /// <param name="powerSupplyStation"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public IList<VFI> GetVFI(String trainName, Mode_Control motorcontrol, MassMass mass)
+        public IList<VFI> GetVFI(String trainName, ModeControls motorcontrol, MassMass mass)
         {
             return GetAll()
                  .Where(vfi => vfi.Train.Name == trainName)

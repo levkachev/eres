@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Linq;
 using ORM.Base;
-using ORM.Train.Entities;
+using ORM.Trains.Entities;
 
 namespace ORM.Trains.Repository.Trains
 {
     /// <summary>
     /// 
     /// </summary>
-   public class MotorTypeRepository: Repository<Motor_Type>
+   public class MotorTypesRepository: Repository<MotorTypes>
     {
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public static MotorTypeRepository GetInstance()
+        public static MotorTypesRepository GetInstance()
         {
-            return GetInstance<MotorTypeRepository>(SessionWrapper.GetInstance().Factory);
+            return GetInstance<MotorTypesRepository>(SessionWrapper.GetInstance().Factory);
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace ORM.Trains.Repository.Trains
         /// <param name="type"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
-        public Motor_Type GetByType(String type)
+        public MotorTypes GetByType(String type)
         {
             return GetAll()
                 .SingleOrDefault(mt => mt.MotorType == type);

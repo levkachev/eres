@@ -1,12 +1,12 @@
 ﻿using System;
 using ORM.Base;
 
-namespace ORM.Train.Entities
+namespace ORM.Trains.Entities
 {
     /// <summary>
     /// поезд
     /// </summary>
-    public class Train_Name : Entity<Train_Name>
+    public class TrainName : Entity<TrainName>
     {
         /// <summary>
         /// наименование поезда 
@@ -15,7 +15,7 @@ namespace ORM.Train.Entities
         /// <summary>
         /// тип двигателя
         /// </summary>
-        public virtual Motor_Type MotorType { get; set; }
+        public virtual MotorTypes MotorType { get; set; }
     }
     
 }

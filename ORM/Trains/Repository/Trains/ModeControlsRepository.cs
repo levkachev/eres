@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Linq;
 using ORM.Base;
-using ORM.Train.Entities;
+using ORM.Trains.Entities;
 
 namespace ORM.Trains.Repository.Trains
 {
     /// <summary>
     /// 
     /// </summary>
-    public class ModeControlRepository : Repository<Mode_Control>
+    public class ModeControlsRepository : Repository<ModeControls>
 
     {
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public static ModeControlRepository GetInstance()
+        public static ModeControlsRepository GetInstance()
         {
-            return GetInstance<ModeControlRepository>(SessionWrapper.GetInstance().Factory);
+            return GetInstance<ModeControlsRepository>(SessionWrapper.GetInstance().Factory);
         }
 
         
@@ -33,7 +33,7 @@ namespace ORM.Trains.Repository.Trains
         /// <param name="modecontrol"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
-        public Mode_Control GetByModeControl(String modecontrol)
+        public ModeControls GetByModeControl(String modecontrol)
         {
             return GetAll()
                 .SingleOrDefault(tmodecontrol => tmodecontrol.ModeControl == modecontrol);

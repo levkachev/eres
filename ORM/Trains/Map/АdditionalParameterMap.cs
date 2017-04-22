@@ -1,7 +1,7 @@
-﻿using ORM.Train.Entities;
+﻿using ORM.Trains.Entities;
 using FluentNHibernate.Mapping;
 
-namespace ORM.Train.Map
+namespace ORM.Trains.Map
 {
     public class АdditionalParameterMap : ClassMap<АdditionalParameter>
     {
