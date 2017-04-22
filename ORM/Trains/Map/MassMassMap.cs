@@ -10,7 +10,8 @@ namespace ORM.Trains.Map
             Table("Train.Mass");
             Id(x => x.ID);
             Map(x => x.Mass).Not.Nullable().Unique();
-            
+            HasMany(x => x.VFIs);
+
         }
     }
 }

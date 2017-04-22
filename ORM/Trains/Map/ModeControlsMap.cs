@@ -11,6 +11,7 @@ namespace ORM.Trains.Map
             Id(x => x.ID);
             Map(x => x.ModeControl).Length(25).Not.Nullable();
             References(x => x.MotorType);
+            HasMany(x => x.VFIs);
 
         }
     }

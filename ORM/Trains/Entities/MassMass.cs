@@ -1,5 +1,7 @@
 ﻿using System;
 using ORM.Base;
+using ORM.Trains.Interpolation.Entities;
+using System.Collections.Generic;
 
 
 namespace ORM.Trains.Entities
@@ -13,6 +15,17 @@ namespace ORM.Trains.Entities
         /// масс поезда
         /// </summary>
         public virtual Double Mass { get; set; }
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual IEnumerable<VFI> VFIs { get; set; }
+        public MassMass()
+        {
+          
+            VFIs = new SortedSet<VFI>();
+
+
+        }
     }
 }

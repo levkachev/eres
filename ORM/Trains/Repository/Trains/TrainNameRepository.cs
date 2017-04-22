@@ -48,5 +48,7 @@ namespace ORM.Trains.Repository.Trains
                 throw new ArgumentOutOfRangeException(paramName: nameof(name));
             return tmp.MotorType;
         }
+
+       
     }
 }

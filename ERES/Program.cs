@@ -88,7 +88,7 @@ namespace ERES
             var PSS = lineRepository.GetAllPowerSupplyStations(name);
             ShowCollection<PowerSupplyStation>(PSS, "PowerSupplyStations");
 
-            Console.WriteLine("Press any key to close the program");
+          
 
             //Console.WriteLine(name);
             //Console.WriteLine(piketag);
@@ -103,6 +103,8 @@ namespace ERES
             //var stageRepository = StageRepository.GetInstance();
             // var st = stageRepository.GetAllStage(arrival, department);
             //ShowCollection<Double>(st, "Stage");
+
+            Console.WriteLine("Press any key to close the program");
 
             Console.ReadKey(true);
 

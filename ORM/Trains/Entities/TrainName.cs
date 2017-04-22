@@ -1,6 +1,8 @@
 ﻿using System;
 using ORM.Base;
-
+using System.Collections.Generic;
+using ORM.Trains.Interpolation.Entities;
+    
 namespace ORM.Trains.Entities
 {
     /// <summary>
@@ -16,6 +18,26 @@ namespace ORM.Trains.Entities
         /// тип двигателя
         /// </summary>
         public virtual MotorTypes MotorType { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual IEnumerable<АdditionalParameter> АdditionalParameters { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual IEnumerable<VFI> VFIs { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public TrainName()
+        {
+            АdditionalParameters = new SortedSet<АdditionalParameter>();
+            VFIs= new SortedSet<VFI>();
+
+
+        }
     }
     
 }

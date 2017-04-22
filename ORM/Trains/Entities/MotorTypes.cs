@@ -1,5 +1,6 @@
 ﻿using System;
 using ORM.Base;
+using System.Collections.Generic;
 
 namespace ORM.Trains.Entities
 {
@@ -13,5 +14,14 @@ namespace ORM.Trains.Entities
         /// </summary>
         public virtual String MotorType { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual IEnumerable<ModeControls> ModeControls { get; set; }
+        public MotorTypes()
+        {
+            ModeControls = new SortedSet<ModeControls>();
+
+        }
     }
 }

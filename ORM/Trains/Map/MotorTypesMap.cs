@@ -10,7 +10,8 @@ namespace ORM.Trains.Map
             Table("Train.MotorType");
             Id(x => x.ID);
             Map(x => x.MotorType).Length(10).Not.Nullable().Unique();
-           
+            HasMany(x => x.ModeControls);
+
 
         }
     }
