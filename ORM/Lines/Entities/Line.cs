@@ -36,6 +36,11 @@ namespace ORM.Lines.Entities
         /// </summary>
         public virtual IEnumerable<Direction> Directions { get; set; }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual IEnumerable<Station> Stations { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -44,6 +49,7 @@ namespace ORM.Lines.Entities
             PowerSupplyStations = new SortedSet<PowerSupplyStation>();
             Tracks = new SortedSet<Track>();
             Directions = new SortedSet<Direction>();
+            Stations = new SortedSet<Station>();
         }
     }
 }

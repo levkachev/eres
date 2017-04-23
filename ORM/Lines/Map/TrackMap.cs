@@ -14,7 +14,6 @@ namespace ORM.Lines.Map
             Id(x => x.ID);
             Map(x => x.Tracks).Column("Track");
             References(x => x.Line).ForeignKey("ID_Line");
-            HasManyToMany(x => x.Stations);
             HasMany(x => x.NMLines);
             HasMany(x => x.OpenLines);
             HasMany(x => x.PlanLines);

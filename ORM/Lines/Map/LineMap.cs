@@ -19,6 +19,7 @@ namespace ORM.Lines.Map
             HasMany(x => x.PowerSupplyStations);
             HasMany(x => x.Tracks);
             HasMany(x => x.Directions);
+            HasMany(x => x.Stations);
         }
     }
 }

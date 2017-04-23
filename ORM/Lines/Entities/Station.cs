@@ -25,23 +25,20 @@ namespace ORM.Lines.Entities
         /// <summary>
         /// сокращенное наименование
         /// </summary>
-        public virtual String Short_Name { get; set; }
+        public virtual String ShortName { get; set; }
 
         /// <summary>
-        /// номер пути
+        /// линия
         /// </summary>
-        public virtual IEnumerable<Track> Track { get; set; }
+        public virtual Line Line{ get; set; }
 
-        public virtual Stage Department { get; set; }
-        public virtual Stage Arrival { get; set; }
-        public Station()
-        {
-            Track = new SortedSet<Track>();
-            
-        }
+        //  public virtual Stage Departure { get; set; }
+        //   public virtual Stage Arrival { get; set; }
+
         public override String ToString()
         {
-            return $" {Name} {Piketage} {Department} {Arrival}";
+            return $" {Name} {Piketage}";
+//{Departure} {Arrival}";
         }
     }
 }

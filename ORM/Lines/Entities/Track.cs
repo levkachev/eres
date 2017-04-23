@@ -22,11 +22,7 @@ namespace ORM.Lines.Entities
 
 
         public virtual IEnumerable<ASRLine> ASRLines { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual IEnumerable<Station> Stations { get; set; }
-
+       
         /// <summary>
         /// 
         /// </summary>
@@ -66,7 +62,7 @@ namespace ORM.Lines.Entities
         public virtual IEnumerable<Stage> Stages{ get; set; }
         public Track()
         {
-            Stations = new SortedSet<Station>();
+            
             NMLines = new SortedSet<NMLine>();
             PlanLines = new SortedSet<PlanLine>();
             ProfileLines = new SortedSet<ProfileLine>();

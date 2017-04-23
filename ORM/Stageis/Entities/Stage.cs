@@ -19,7 +19,7 @@ namespace ORM.Stageis.Entities
         /// <summary>
         /// станция отправления
         /// </summary>
-        public virtual Station Department { get; set; }
+        public virtual Station Departure { get; set; }
 
         /// <summary>
         /// станция назначения
@@ -43,7 +43,7 @@ namespace ORM.Stageis.Entities
         /// <summary>
         /// 
         /// </summary>
-        public virtual CurrentSectionStage CurrentSectionStage { get; set; }
+   //     public virtual CurrentSectionStage CurrentSectionStage { get; set; }
 
         /// <summary>
         /// 

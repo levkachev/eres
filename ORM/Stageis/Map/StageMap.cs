@@ -17,11 +17,11 @@ namespace ORM.Stageis.Map
             Id(x => x.ID);
             Map(x => x.Length).Not.Nullable();
             References(x => x.Arrival).ForeignKey("ID_Arrival");
-            References(x => x.Department).ForeignKey("ID_Department");
+            References(x => x.Departure).ForeignKey("ID_Departure");
             References(x => x.Track).ForeignKey("ID_Track");
             HasMany(x => x.ProfilStages);
             HasMany(x => x.PlanStages);
-            References(x => x.CurrentSectionStage);
+           // References(x => x.CurrentSectionStage);
             HasMany(x => x.LimitStages);
             HasMany(x => x.ASRStages);
             HasMany(x => x.OpenStages);

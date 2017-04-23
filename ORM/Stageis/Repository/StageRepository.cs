@@ -19,18 +19,26 @@ namespace ORM.Stageis.Repository
             return GetInstance<StageRepository>(SessionWrapper.GetInstance().Factory);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="arrival"></param>
+        /// <param name="department"></param>
+        /// <returns></returns>
         public Guid GetAllStage(Guid arrival, Guid department)
         {
             var tmp = GetAll()
-
-               // .Where(st => st.Arrival.ID == arrival)
-               // .Where(st => st.Department.ID == department);
-               .SingleOrDefault(st => st.Arrival.ID == arrival);
-               //.SingleOrDefault(st => st.Department.ID == department);
+       
+                .Where(st => st.Arrival.ID == arrival)
+                .Where(st => st.Departure.ID == department)
+                
+                .SingleOrDefault();
+            //.SingleOrDefault(st => st.Arrival.ID == arrival);
+            //.SingleOrDefault(st => st.Department.ID == department);
             return tmp.ID;
         }
 
-        public Double GetAllPowerSupplyStations(Guid stage)
+        public Double GetAllST(Guid stage)
         {
             var tmp = GetAll()
                 .SingleOrDefault(st => st.ID == stage);
