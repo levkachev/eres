@@ -16,7 +16,7 @@ namespace ORM.Stageis.Map
             Table("Stage.LimitStage");
             Id(x => x.ID);
             Map(x => x.Velocity).Not.Nullable();
-            Map(x => x.End_Velocity).Not.Nullable();
+            Map(x => x.EndVelocity).Not.Nullable();
             References(x => x.Stage).ForeignKey("ID_Stage");
 
         }

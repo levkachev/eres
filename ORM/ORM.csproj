@@ -131,6 +131,8 @@
     <Compile Include="Stageis\Map\PlanStageMap.cs" />
     <Compile Include="Stageis\Map\ProfileStageMap.cs" />
     <Compile Include="Stageis\Map\StageMap.cs" />
+    <Compile Include="Stageis\Repository\LimitStageRepository.cs" />
+    <Compile Include="Stageis\Repository\OpenStageRepository.cs" />
     <Compile Include="Stageis\Repository\StageRepository.cs" />
     <Compile Include="Stageis\Repository\StageSRepository.cs" />
     <Compile Include="Trains\Entities\MassMass.cs" />

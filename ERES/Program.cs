@@ -96,9 +96,9 @@ namespace ERES
             var arrival = stationRepository.GetIDByName("Площадь Ильича");
             var department = stationRepository.GetIDByName("Марксистская");
             var stageRepository = StageRepository.GetInstance();
-            var st = stageRepository.GetAllStage(arrival, department);
-            var st1 = stageRepository.GetAllST(st);
-            Console.WriteLine(Convert.ToString(st1), "Stage");
+            var st = stageRepository.GetStageByNameStation(arrival, department);
+            var lenght = stageRepository.GetStageLenght(st);
+            Console.WriteLine(Convert.ToString(lenght), "StageLenght");
 
             var station = lineRepository.GetAllStation(nameLine);
             ShowCollection<Station>(station, "Station");
@@ -109,6 +109,17 @@ namespace ERES
 
             var nmlinetrack2 = trackRepository.GetNMLinesTrack(nameLine, 2);
             ShowCollection<NMLine>(nmlinetrack2, "NMLineTrack2");
+
+            //var limitStageRepository = LimitStageRepository.GetInstance();
+            var limitStage = stageRepository.GetStageLimitStage(st);
+            ShowCollection<LimitStage>(limitStage, "StageVelocity");
+
+            var ARSStage = stageRepository.GetStageASRStage(st);
+            ShowCollection<ASRStage>(ARSStage, "ASRStage");
+
+            //var endvelocity = limitStageRepository.GetStageEndVelocity(st);
+            //ShowCollection<Double>(endvelocity, "StageEndVelocity");
+
 
             string pathToFile = @"C:\Users\Valeriyа\Desktop";
             string nameFile = "StationPiketage";

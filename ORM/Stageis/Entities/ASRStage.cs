@@ -18,7 +18,7 @@ namespace ORM.Stageis.Entities
         /// <summary>
         /// Граница скорости
         /// </summary>
-        public virtual Double End_Velocity { get; set; }
+        public virtual Double EndVelocity { get; set; }
 
 
         /// <summary>
@@ -26,6 +26,10 @@ namespace ORM.Stageis.Entities
         /// </summary>
         public virtual Stage Stage { get; set; }
 
+        public override String ToString()
+        {
+            return $" {Velocity} {EndVelocity}";
 
+        }
     }
 }
