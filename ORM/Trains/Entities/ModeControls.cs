@@ -24,7 +24,7 @@ namespace ORM.Trains.Entities
         public ModeControls()
         {
 
-            VFIs = new SortedSet<VFI>();
+            VFIs = new List<VFI>();
 
 
         }

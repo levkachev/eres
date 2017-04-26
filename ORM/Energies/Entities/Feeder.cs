@@ -50,7 +50,7 @@ namespace ORM.Energy.Entities
 
         public Feeder()
         {
-            Resistances = new SortedSet<Resistance>();
+            Resistances = new List<Resistance>();
         }
     }
 }

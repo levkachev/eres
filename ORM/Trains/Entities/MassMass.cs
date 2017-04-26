@@ -23,7 +23,7 @@ namespace ORM.Trains.Entities
         public MassMass()
         {
           
-            VFIs = new SortedSet<VFI>();
+            VFIs = new List<VFI>();
 
 
         }

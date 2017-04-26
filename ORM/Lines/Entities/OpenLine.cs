@@ -35,7 +35,7 @@ namespace ORM.Lines.Entities
         public OpenLine()
         {
             
-            Tracks = new SortedSet<Track>();
+            Tracks = new List<Track>();
             
         }
         public override String ToString()

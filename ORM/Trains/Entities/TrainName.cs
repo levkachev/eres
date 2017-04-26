@@ -33,8 +33,8 @@ namespace ORM.Trains.Entities
         /// </summary>
         public TrainName()
         {
-            АdditionalParameters = new SortedSet<АdditionalParameter>();
-            VFIs= new SortedSet<VFI>();
+            АdditionalParameters = new List<АdditionalParameter>();
+            VFIs= new List<VFI>();
 
 
         }

@@ -63,11 +63,11 @@ namespace ORM.Stageis.Entities
         public virtual IEnumerable<OpenStage> OpenStages { get; set; }
         public Stage()
         {
-            ProfilStages = new SortedSet<ProfileStage>();
-            PlanStages = new SortedSet<PlanStage>();
-            LimitStages = new SortedSet<LimitStage>();
-            ASRStages = new SortedSet<ASRStage>();
-            OpenStages = new SortedSet<OpenStage>();
+            ProfilStages = new List<ProfileStage>();
+            PlanStages = new List<PlanStage>();
+            LimitStages = new List<LimitStage>();
+            ASRStages = new List<ASRStage>();
+            OpenStages = new List<OpenStage>();
         }
 
         public override String ToString()

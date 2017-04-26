@@ -20,7 +20,7 @@ namespace ORM.Trains.Entities
         public virtual IEnumerable<ModeControls> ModeControls { get; set; }
         public MotorTypes()
         {
-            ModeControls = new SortedSet<ModeControls>();
+            ModeControls = new List<ModeControls>();
 
         }
     }

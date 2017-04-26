@@ -50,8 +50,8 @@ namespace ORM.Energy.Entities
         /// </summary>
         public Unit()
         {
-            Diods = new SortedSet<Diod>();
-            PowerConverts = new SortedSet<PowerConvert>();
+            Diods = new List<Diod>();
+            PowerConverts = new List<PowerConvert>();
 
         }
 

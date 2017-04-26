@@ -127,15 +127,18 @@ namespace ERES
             else Console.WriteLine("File exist! Rename file!");
 
             //--тоже работает
-            //var str = new StringBuilder();
-            //foreach (var row in rows)
-            //    str.Append(row);
+            var str = new StringBuilder();
+            foreach (var row in rows)
+               {
+                str.Append(row);
+                File.WriteAllLines(path, rows);
+               }
             //--
 
             var strToFile = String.Join(" ", rows);
 
-            File.WriteAllText(path, strToFile);
-
+           // File.WriteAllText(path, strToFile);
+           
 
             //NMLines Track=1
             string nameFile1 = "NMLinesTrack1";
