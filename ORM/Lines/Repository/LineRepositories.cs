@@ -77,6 +77,16 @@ namespace ORM.Lines.Repository
                .SingleOrDefault(line => line.Name.Equals(lineName));
             return tmp.Tracks;
         }
+
+        public IEnumerable<Station> GetAllStation(String lineName)
+        {
+            var tmp = GetAll()
+               .SingleOrDefault(line => line.Name.Equals(lineName));
+            return tmp.Stations;
+        }
+    
+
+
     }
     
 }

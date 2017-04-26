@@ -22,10 +22,10 @@ namespace ERES
 {
     class Program
     {
-     //   public static ISessionFactory sessionFactory { get; protected set; }
+        //   public static ISessionFactory sessionFactory { get; protected set; }
         static void Main(string[] args)
         {
-          //  sessionFactory = SessionFactory.GetSessionFactory();
+            //  sessionFactory = SessionFactory.GetSessionFactory();
 
 
             /// <summary>
@@ -78,23 +78,17 @@ namespace ERES
             var modecontrol = modecontrolRepository.GetByModeControl("Pull1");
 
             var vfiRepository = VFIRepository.GetInstance();
-            ShowCollection<VFI>(vfiRepository.GetVFI(testTrainName, modecontrol, mass), "GetVFI") ;
+            ShowCollection<VFI>(vfiRepository.GetVFI(testTrainName, modecontrol, mass), "GetVFI");
 
             var nameLine = "Калининская";
-            var name = EnergyRepository.GetPST(nameLine).NameLine;
-            var piketag = EnergyRepository.GetPST(nameLine).Piketag;
 
-            
             var lineRepository = LineRepository.GetInstance();
             var PSS = lineRepository.GetAllPowerSupplyStations(nameLine);
             ShowCollection<PowerSupplyStation>(PSS, "PowerSupplyStations");
 
-          
 
-            //Console.WriteLine(name);
-            //Console.WriteLine(piketag);
 
-            
+
             var track = lineRepository.GetAllTrack(nameLine);
             ShowCollection<Track>(track, "Track");
 
@@ -106,17 +100,23 @@ namespace ERES
             var st1 = stageRepository.GetAllST(st);
             Console.WriteLine(Convert.ToString(st1), "Stage");
 
-          //  Console.WriteLine("Press any key to close the program");
+            var station = lineRepository.GetAllStation(nameLine);
+            ShowCollection<Station>(station, "Station");
 
-          //  Console.ReadKey(true);
+            var trackRepository = TrackRepository.GetInstance();
+            var nmlinetrack1 = trackRepository.GetNMLinesTrack(nameLine,1);
+            ShowCollection<NMLine>(nmlinetrack1, "NMLineTrack1");
+
+            var nmlinetrack2 = trackRepository.GetNMLinesTrack(nameLine, 2);
+            ShowCollection<NMLine>(nmlinetrack2, "NMLineTrack2");
 
             string pathToFile = @"C:\Users\Valeriyа\Desktop";
-            string nameFile = "Example";
+            string nameFile = "StationPiketage";
             string format = ".txt";
             string path = Path.Combine(pathToFile, nameFile) + format;
-
             
-            string[] rows = { name, Convert.ToString(piketag) };
+
+            string[] rows = { Convert.ToString(station) };
 
             FileInfo file = new FileInfo(path);
             if (file.Exists == false)
@@ -126,14 +126,50 @@ namespace ERES
             }
             else Console.WriteLine("File exist! Rename file!");
 
+            //--тоже работает
             //var str = new StringBuilder();
             //foreach (var row in rows)
             //    str.Append(row);
+            //--
 
             var strToFile = String.Join(" ", rows);
 
-            
             File.WriteAllText(path, strToFile);
+
+
+            //NMLines Track=1
+            string nameFile1 = "NMLinesTrack1";
+            string path1 = Path.Combine(pathToFile, nameFile1) + format;
+            string[] rows1 = { Convert.ToString(nmlinetrack1) };
+
+            FileInfo file1 = new FileInfo(path1);
+            if (file1.Exists == false)
+            {
+                file1.Create().Close();
+                Console.WriteLine("File add to path!");
+            }
+            else Console.WriteLine("File exist! Rename file!");
+            var strToFile1 = String.Join(" ", rows1);
+
+            File.WriteAllText(path1, strToFile1);
+
+
+            //NMLines Track=2
+            string nameFile2 = "NMLinesTrack2";
+            string path2 = Path.Combine(pathToFile, nameFile2) + format;
+            string[] rows2 = { Convert.ToString(nmlinetrack2) };
+
+            FileInfo file2 = new FileInfo(path2);
+            if (file1.Exists == false)
+            {
+                file1.Create().Close();
+                Console.WriteLine("File add to path!");
+            }
+            else Console.WriteLine("File exist! Rename file!");
+            var strToFile2 = String.Join(" ", rows2);
+
+            File.WriteAllText(path2, strToFile2);
+
             Console.ReadKey();
 
             //List<EnergyEnergy> energyeneregy = new List<EnergyEnergy>();

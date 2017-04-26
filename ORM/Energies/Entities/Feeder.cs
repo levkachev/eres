@@ -17,7 +17,7 @@ namespace ORM.Energy.Entities
         /// <summary>
         /// Пикетаж
         /// </summary>
-        public virtual Double Piketag { get; set; }
+        public virtual Double Piketage { get; set; }
 
         /// <summary>
         /// Тип фидера
@@ -45,7 +45,7 @@ namespace ORM.Energy.Entities
         /// <returns></returns>
         public override String ToString()
         {
-            return $"R = {Resistance}, Piketage = {Piketag}, Name = {Name}";
+            return $"R = {Resistance}, Piketage = {Piketage}, Name = {Name}";
         }
 
         public Feeder()

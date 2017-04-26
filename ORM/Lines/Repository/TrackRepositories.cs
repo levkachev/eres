@@ -22,8 +22,16 @@ namespace ORM.Lines.Repository
             return GetInstance<TrackRepository>(SessionWrapper.GetInstance().Factory);
         }
 
-        
-   
+        public IEnumerable<NMLine> GetNMLinesTrack(String lineName, Double track)
+        {
+            var tmp = GetAll()
+                .Where(nm => nm.Tracks==track)
+                .Where(nm => nm.Line.Name.Equals(lineName))
+
+                .SingleOrDefault();
+            return tmp.NMLines;
+        }
+
 
 
     }
