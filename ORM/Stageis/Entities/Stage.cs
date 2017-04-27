@@ -33,7 +33,7 @@ namespace ORM.Stageis.Entities
         /// <summary>
         /// 
         /// </summary>
-        public virtual IEnumerable<ProfileStage> ProfilStages { get; set; }
+        public virtual IEnumerable<ProfileStage> ProfileStages { get; set; }
 
         /// <summary>
         /// 
@@ -61,9 +61,10 @@ namespace ORM.Stageis.Entities
         /// 
         /// </summary>
         public virtual IEnumerable<OpenStage> OpenStages { get; set; }
+
         public Stage()
         {
-            ProfilStages = new List<ProfileStage>();
+            ProfileStages = new List<ProfileStage>();
             PlanStages = new List<PlanStage>();
             LimitStages = new List<LimitStage>();
             ASRStages = new List<ASRStage>();
