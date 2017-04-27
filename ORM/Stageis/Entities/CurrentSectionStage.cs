@@ -26,6 +26,10 @@ namespace ORM.Stageis.Entities
         /// </summary>
         public virtual Stage Stage { get; set; }
 
+        public override String ToString()
+        {
+            return $" {Start} {Finish} ";
 
+        }
     }
 }

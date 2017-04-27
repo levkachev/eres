@@ -18,16 +18,20 @@ namespace ORM.Stageis.Entities
         /// <summary>
         /// Граница уклона
         /// </summary>
-        public virtual Double End_Slope { get; set; }
+        public virtual Double EndSlope { get; set; }
 
         
         /// <summary>
-        /// 
+        /// перегон
         /// </summary>
         public virtual Stage Stage { get; set; }
-        
 
 
+        public override String ToString()
+        {
+            return $" {Slope} {EndSlope} ";
+
+        }
 
 
 

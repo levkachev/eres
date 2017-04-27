@@ -16,7 +16,7 @@ namespace ORM.Stageis.Map
             Table("Stage.PlanStage");
             Id(x => x.ID);
             Map(x => x.Radius).Not.Nullable();
-            Map(x => x.End_Radius).Not.Nullable();
+            Map(x => x.EndRadius).Not.Nullable();
             References(x => x.Stage).ForeignKey("ID_Stage");
 
         }

@@ -19,9 +19,9 @@ namespace ORM.Stageis.Map
             References(x => x.Arrival).ForeignKey("ID_Arrival");
             References(x => x.Departure).ForeignKey("ID_Departure");
             References(x => x.Track).ForeignKey("ID_Track");
-            HasMany(x => x.ProfilStages);
+            HasMany(x => x.ProfileStages);
             HasMany(x => x.PlanStages);
-           // References(x => x.CurrentSectionStage);
+            HasMany(x => x.CurrentSectionStages);
             HasMany(x => x.LimitStages);
             HasMany(x => x.ASRStages);
             HasMany(x => x.OpenStages);

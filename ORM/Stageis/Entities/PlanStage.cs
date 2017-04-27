@@ -17,13 +17,19 @@ namespace ORM.Stageis.Entities
         /// <summary>
         /// Граница радиуса
         /// </summary>
-        public virtual Double End_Radius { get; set; }
+        public virtual Double EndRadius { get; set; }
 
 
         /// <summary>
         /// 
         /// </summary>
         public virtual Stage Stage { get; set; }
+
+        public override String ToString()
+        {
+            return $" {Radius} {EndRadius} ";
+
+        }
     }
 }
 

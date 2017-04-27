@@ -49,7 +49,7 @@ namespace ORM.Stageis.Repository
         }
 
         /// <summary>
-        /// показать все ограничения перегона
+        /// показать все ограничения (скорость и граница скорости) перегона
         /// </summary>
         /// <param name="stage"></param>
         /// <returns></returns>
@@ -59,12 +59,63 @@ namespace ORM.Stageis.Repository
                 .SingleOrDefault(st => st.ID == stage);
             return tmp.LimitStages;
         }
-
+        /// <summary>
+        /// показать все ARS ограничения (скорость и граница скорости) перегона
+        /// </summary>
+        /// <param name="stage"></param>
+        /// <returns></returns>
         public IEnumerable<ASRStage> GetStageASRStage(Guid stage)
         {
             var tmp = GetAll()
                 .SingleOrDefault(st => st.ID == stage);
             return tmp.ASRStages;
+        }
+        /// <summary>
+        /// показать все характеристики открытыеого перегона (KWosn, начало, конец)
+        /// </summary>
+        /// <param name="stage"></param>
+        /// <returns></returns>
+        public IEnumerable<OpenStage> GetStageOpenStage (Guid stage)
+        {
+            var tmp = GetAll()
+                .SingleOrDefault(st => st.ID == stage);
+            return tmp.OpenStages;
+        }
+
+        /// <summary>
+        /// показать планы перегона (радиус, граница радиуса)
+        /// </summary>
+        /// <param name="stage"></param>
+        /// <returns></returns>
+        public IEnumerable<PlanStage> GetStagePlanStage(Guid stage)
+        {
+            var tmp = GetAll()
+                .SingleOrDefault(st => st.ID == stage);
+            return tmp.PlanStages;
+        }
+
+        /// <summary>
+        /// показать профили перегона (уклон, граница уклона)
+        /// </summary>
+        /// <param name="stage"></param>
+        /// <returns></returns>
+        public IEnumerable<ProfileStage> GetStageProfileStage(Guid stage)
+        {
+            var tmp = GetAll()
+                .SingleOrDefault(st => st.ID == stage);
+            return tmp.ProfileStages;
+        }
+
+        /// <summary>
+        /// показать токоразделы перегона (начало, конец)
+        /// </summary>
+        /// <param name="stage"></param>
+        /// <returns></returns>
+        public IEnumerable<CurrentSectionStage> GetStageCurrentSection(Guid stage)
+        {
+            var tmp = GetAll()
+                .SingleOrDefault(st => st.ID == stage);
+            return tmp.CurrentSectionStages;
         }
     }
 }

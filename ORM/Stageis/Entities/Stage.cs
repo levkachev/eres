@@ -43,7 +43,7 @@ namespace ORM.Stageis.Entities
         /// <summary>
         /// 
         /// </summary>
-   //     public virtual CurrentSectionStage CurrentSectionStage { get; set; }
+        public virtual IEnumerable<CurrentSectionStage> CurrentSectionStages { get; set; }
 
         /// <summary>
         /// 
@@ -69,6 +69,7 @@ namespace ORM.Stageis.Entities
             LimitStages = new List<LimitStage>();
             ASRStages = new List<ASRStage>();
             OpenStages = new List<OpenStage>();
+            CurrentSectionStages = new List<CurrentSectionStage>();
         }
 
         public override String ToString()

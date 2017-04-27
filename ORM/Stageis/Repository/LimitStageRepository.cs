@@ -14,31 +14,31 @@ namespace ORM.Stageis.Repository
         {
             return GetInstance<LimitStageRepository>(SessionWrapper.GetInstance().Factory);
         }
-        
-        /// <summary>
-        /// скорость
-        /// </summary>
-        /// <param name="stage"></param>
-        /// <returns></returns>
-        public IEnumerable<Double> GetStageVelocity(Guid stage)
-        {
+        /// запросы работают, но не используем
+        ///// <summary>
+        ///// скорость
+        ///// </summary>
+        ///// <param name="stage"></param>
+        ///// <returns></returns>
+        //public IEnumerable<Double> GetStageVelocity(Guid stage)
+        //{
            
-            return GetAll()
-                .Where(st => st.Stage.ID == stage)
-                .Select(st => st.Velocity).ToList();
-        }
+        //    return GetAll()
+        //        .Where(st => st.Stage.ID == stage)
+        //        .Select(st => st.Velocity).ToList();
+        //}
 
-        /// <summary>
-        /// Граница скорости
-        /// </summary>
-        /// <param name="stage"></param>
-        /// <returns></returns>
-        public IEnumerable<Double> GetStageEndVelocity(Guid stage)
-        {
+        ///// <summary>
+        ///// Граница скорости
+        ///// </summary>
+        ///// <param name="stage"></param>
+        ///// <returns></returns>
+        //public IEnumerable<Double> GetStageEndVelocity(Guid stage)
+        //{
 
-            return GetAll()
-                .Where(st => st.Stage.ID == stage)
-                .Select(st => st.EndVelocity).ToList();
-        }
+        //    return GetAll()
+        //        .Where(st => st.Stage.ID == stage)
+        //        .Select(st => st.EndVelocity).ToList();
+        //}
     }
 }

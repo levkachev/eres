@@ -110,16 +110,25 @@ namespace ERES
             var nmlinetrack2 = trackRepository.GetNMLinesTrack(nameLine, 2);
             ShowCollection<NMLine>(nmlinetrack2, "NMLineTrack2");
 
-            //var limitStageRepository = LimitStageRepository.GetInstance();
+           
             var limitStage = stageRepository.GetStageLimitStage(st);
-            ShowCollection<LimitStage>(limitStage, "StageVelocity");
+            ShowCollection<LimitStage>(limitStage, "LimitStage");
 
             var ARSStage = stageRepository.GetStageASRStage(st);
             ShowCollection<ASRStage>(ARSStage, "ASRStage");
 
-            //var endvelocity = limitStageRepository.GetStageEndVelocity(st);
-            //ShowCollection<Double>(endvelocity, "StageEndVelocity");
+            var openstage = stageRepository.GetStageOpenStage(st);
+            ShowCollection<OpenStage>(openstage, "OpenStage");
 
+            var planstage = stageRepository.GetStagePlanStage(st);
+            ShowCollection<PlanStage>(planstage, "PlanStage");
+
+            var profilestage = stageRepository.GetStageProfileStage(st);
+            ShowCollection<ProfileStage>(profilestage, "ProfileStage");
+
+
+            var currentstage = stageRepository.GetStageCurrentSection(st);
+            ShowCollection<CurrentSectionStage>(currentstage, "CurrentSectionStage");
 
             string pathToFile = @"C:\Users\Valeriyа\Desktop";
             string nameFile = "StationPiketage";

@@ -14,16 +14,17 @@ namespace ORM.Stageis.Repository
             return GetInstance<OpenStageRepository>(SessionWrapper.GetInstance().Factory);
         }
 
-        /// <summary>
-        /// KWosn
-        /// </summary>
-        /// <param name="stage"></param>
-        /// <returns></returns>
-        public IEnumerable<Double> GetStageKWosn(Guid stage)
-        {
-            return GetAll()
-           .Where(st => st.Stage.ID == stage)
-           .Select(st => st.KWosn).ToList();
-        }
+        ///запросы работают, но не используем
+        ///// <summary>
+        ///// KWosn
+        ///// </summary>
+        ///// <param name="stage"></param>
+        ///// <returns></returns>
+        //public IEnumerable<Double> GetStageKWosn(Guid stage)
+        //{
+        //    return GetAll()
+        //   .Where(st => st.Stage.ID == stage)
+        //   .Select(st => st.KWosn).ToList();
+        //}
     }
 }
