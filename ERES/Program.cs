@@ -100,7 +100,8 @@ namespace ERES
             var lenght = stageRepository.GetStageLenght(st);
             Console.WriteLine(Convert.ToString(lenght), "StageLenght");
 
-            var station = lineRepository.GetAllStation(nameLine);
+             var station = lineRepository.GetAllStation(nameLine);
+            //var station = stationRepository.GetLineStationName(nameLine);
             ShowCollection<Station>(station, "Station");
 
             var trackRepository = TrackRepository.GetInstance();
@@ -130,6 +131,10 @@ namespace ERES
             var currentstage = stageRepository.GetStageCurrentSection(st);
             ShowCollection<CurrentSectionStage>(currentstage, "CurrentSectionStage");
 
+            var tr = stageRepository.GetStageTrack(st);
+            Console.WriteLine("NumberTrack");
+            Console.WriteLine(Convert.ToString(tr));
+
             string pathToFile = @"C:\Users\Valeriyа\Desktop";
             string nameFile = "StationPiketage";
             string format = ".txt";
@@ -147,17 +152,16 @@ namespace ERES
             else Console.WriteLine("File exist! Rename file!");
 
             //--тоже работает
-            var str = new StringBuilder();
-            foreach (var row in rows)
-               {
-                str.Append(row);
-                File.WriteAllLines(path, rows);
-               }
-            //--
+            //var str = new StringBuilder();
+            //foreach (var row in rows)
+               
+            //    str.Append(row);
+                
+           //--
 
             var strToFile = String.Join(" ", rows);
 
-           // File.WriteAllText(path, strToFile);
+            File.WriteAllText(path, strToFile);
            
 
             //NMLines Track=1

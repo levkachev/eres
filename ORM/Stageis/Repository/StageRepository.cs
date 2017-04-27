@@ -117,5 +117,17 @@ namespace ORM.Stageis.Repository
                 .SingleOrDefault(st => st.ID == stage);
             return tmp.CurrentSectionStages;
         }
+
+        /// <summary>
+        /// показать номер пути для перегона
+        /// </summary>
+        /// <param name="stage"></param>
+        /// <returns></returns>
+        public Int32 GetStageTrack(Guid stage)
+        {
+            var tmp = GetAll()
+                .SingleOrDefault(st => st.ID == stage);
+            return tmp.Track.Tracks;
+        }
     }
 }

@@ -78,13 +78,20 @@ namespace ORM.Lines.Repository
             return tmp.Tracks;
         }
 
+        /// <summary>
+        /// показать для станции имя и пикетаж
+        /// </summary>
+        /// <param name="lineName"></param>
+        /// <returns></returns>
         public IEnumerable<Station> GetAllStation(String lineName)
         {
             var tmp = GetAll()
                .SingleOrDefault(line => line.Name.Equals(lineName));
             return tmp.Stations;
         }
-    
+
+     
+
 
 
     }
