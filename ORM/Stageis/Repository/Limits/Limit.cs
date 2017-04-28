@@ -1,4 +1,5 @@
 ﻿using System;
+using ORM.Helpers;
 
 namespace ORM.Stageis.Repository.Limits
 {
@@ -155,7 +156,7 @@ namespace ORM.Stageis.Repository.Limits
             if (ReferenceEquals(this, tmp))
                 return true;
 
-            return Math.Abs(Space - tmp.Space) < Double.Epsilon;
+            return MathHelper.IsEqual(Space, tmp.Space);
         }
 
         /// <summary>
