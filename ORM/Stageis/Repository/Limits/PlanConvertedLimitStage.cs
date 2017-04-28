@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ORM.Stageis.Entities;
+using ORM.Helpers;
 
 namespace ORM.Stageis.Repository.Limits
 {
@@ -38,7 +39,7 @@ namespace ORM.Stageis.Repository.Limits
             for (var i = 0; i < sortedLimits.Count; ++i)
             {
                 var current = tmpVector[i];
-                if (isZero(current.Value))
+                if (MathHelper.IsEqual(0,current.Value))
                     resultSet.Add(current);
                 else
                 {
@@ -50,27 +51,6 @@ namespace ORM.Stageis.Repository.Limits
             return resultSet;
         }
 
-        /// <summary>
-        /// Сравнение с нулем числа с плавающей точкой
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private static Boolean isZero(Double value)
-        {
-            return Math.Abs(value) < Double.Epsilon;
-        }
-
-        /// <summary>
-        /// Сравнение двух чисел с плавающей точкой
-        /// </summary>
-        /// <param name="lha"></param>
-        /// <param name="rha"></param>
-        /// <returns></returns>
-        private static Boolean isEqual(Double lha, Double rha)
-        {
-            return Math.Abs(lha - rha) < Double.Epsilon;
-        }
-
         protected override SortedSet<Limit> SetLimits()
         {
             var resultSortedSet = new SortedSet<Limit>();
@@ -78,7 +58,7 @@ namespace ORM.Stageis.Repository.Limits
             for (var i = 0; i < nativeLimits.Count; ++i)
             {
                 var current = tmpVector[i];
-                var speedLimit = new Limit(current.End_Radius, current.Radius);
+                var speedLimit = new Limit(current.EndRadius, current.Radius);
                 resultSortedSet.Add(speedLimit);
             }
             return resultSortedSet;
