@@ -22,7 +22,7 @@ namespace ORM.Stageis.Repository.Limits
             for (var i = 0; i < nativeLimits.Count; ++i)
             {
                 var current = tmpVector[i];
-                var speedLimit = new Limit(current.End_Slope, current.Slope);
+                var speedLimit = new Limit(current.EndSlope, current.Slope);
                 resultSortedSet.Add(speedLimit);
             }
             return resultSortedSet;
