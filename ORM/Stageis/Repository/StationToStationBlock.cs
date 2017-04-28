@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ORM.Stageis.Repository.Limits;
+using ORM.Helpers;
 
 namespace ORM.Stageis.Repository
 {
@@ -51,6 +52,46 @@ namespace ORM.Stageis.Repository
         public Double GetMaxVelocity(Double space)
         {
             return Limits.OfType<AllVelocityLimits>().First().GetLimit(space);
+        }
+
+        /// <summary>
+        /// По заданной координате рассчитывает дополнительнок сопротивление от клонов и кривых
+        /// </summary>
+        /// <param name="space"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">Параметр <paramref name="source" /> имеет значение null.</exception>
+        /// <exception cref="NotImplementedException">Condition.</exception>
+        /// <exception cref="InvalidOperationException">Исходная последовательность пуста.</exception>
+        public Double GetAdditionalResistance(Double space)
+        {
+            return Limits.OfType<ReliefLimits>().First().GetLimit(space);
+        }
+
+        /// <summary>
+        /// Рассчитать коэффициент, зависящий от открытых участков для расчета основного сопротивления движения
+        /// </summary>
+        /// <param name="space"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException">Исходная последовательность пуста.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
+        /// <exception cref="ArgumentNullException">Параметр <paramref name="source" /> имеет значение null.</exception>
+        public Double GetAerodynamicFactor(Double space)
+        {
+            return Limits.OfType<OpenLimits>().First().GetLimit(space);
+        }
+
+        /// <summary>
+        /// Возвращает возможность ехать в тяге (тормозе). Ехать можно в тяге, если поезд не на токоразделе. Метод возвращает true(1). Когда координата совпадает с токоразделом, метод возвращает false(0).
+        /// </summary>
+        /// <param name="space"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">value is <see langword="null"/></exception>
+        /// <exception cref="InvalidOperationException">Исходная последовательность пуста.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
+        public Boolean CanPull(Double space)
+        {
+            var tmp = Limits.OfType<CurrentBlockLimits>().First().GetLimit(space);
+            return MathHelper.IsEqual(1, tmp);
         }
     }
 }
