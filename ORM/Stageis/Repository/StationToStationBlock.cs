@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ORM.Stageis.Repository.Limits;
 using ORM.Helpers;
+using ORM.Lines.Entities;
 
 namespace ORM.Stageis.Repository
 {
@@ -15,6 +16,26 @@ namespace ORM.Stageis.Repository
         /// Список всех ограничений
         /// </summary>
         private List<ILimits> limits;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Station departer;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Station arrival;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Track trackNumber;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Double stageLength;
 
         /// <summary>
         /// Список всех ограничений
@@ -33,12 +54,89 @@ namespace ORM.Stageis.Repository
         }
 
         /// <summary>
-        /// 
+        /// Станция отправления
+        /// </summary>
+        /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
+        public Station Departer
+        {
+            get { return departer; }
+            private set
+            {
+                if (value == null) throw new ArgumentNullException(nameof(value));
+                departer = value;
+            }
+        }
+
+        /// <summary>
+        /// Станция прибытия
+        /// </summary>
+        /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
+        public Station Arrival
+        {
+            get { return arrival; }
+            private set
+            {
+                if (value == null) throw new ArgumentNullException(nameof(value));
+                arrival = value;
+            }
+        }
+
+        /// <summary>
+        /// Путь
+        /// </summary>
+        /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
+        public Track TrackNumber
+        {
+            get { return trackNumber; }
+            private set
+            {
+                if (value == null) throw new ArgumentNullException(nameof(value));
+                trackNumber = value;
+            }
+        }
+
+        ///<summary>
+        /// Длина перегона
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException" accessor="set">Condition.</exception>
+        public Double StageLength
+        {
+            get { return stageLength; }
+            private set
+            {
+                if (value < 0) throw new ArgumentOutOfRangeException(nameof(value));
+                stageLength = value;
+            }
+        }
+
+        /// <summary>
+        /// Закрытый конструктор
         /// </summary>
         /// <exception cref="ArgumentNullException">value is <see langword="null"/></exception>
-        internal StationToStationBlock(IEnumerable<ILimits> limits)
+        private StationToStationBlock(IEnumerable<ILimits> limits, Station departer, Station arrival, Track track, Double length)
         {
             Limits = limits;
+            Departer = departer;
+            Arrival = arrival;
+            TrackNumber = track;
+            StageLength = length;
+        }
+
+        /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
+        public static StationToStationBlock GetStage(Guid stage)
+        {
+            var stageRepository = StageRepository.GetInstance();
+            var track = stageRepository.GetStageTrack(stage);
+            var length = stageRepository.GetStageLenght(stage);
+            
+            var limitStageRepository = LimitStageRepository.GetInstance();
+            var limitStage = limitStageRepository.GetLimits(stage);
+            var limitSortedStage = new VelocityConvertLimitStage(limitStage);
+            var openStageRepository = OpenStageRepository.GetInstance();
+            var openStage = openStageRepository.GetLimits(stage);
+            var openSortedStage = new OpenConvertLimitStage(openStage);
+            var tmpList = new List<ILimits>();
+            //tmpList.Add()
         }
 
         /// <summary>
