@@ -148,7 +148,6 @@
     <Compile Include="Stageis\Repository\Limits\VelocityConvertLimitStage.cs" />
     <Compile Include="Stageis\Repository\OpenStageRepository.cs" />
     <Compile Include="Stageis\Repository\StageRepository.cs" />
-    <Compile Include="Stageis\Repository\StageSRepository.cs" />
     <Compile Include="Stageis\Repository\StationToStationBlock.cs" />
     <Compile Include="Trains\Entities\MassMass.cs" />
     <Compile Include="Trains\Entities\ModeControls.cs" />
