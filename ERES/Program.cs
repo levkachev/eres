@@ -112,24 +112,24 @@ namespace ERES
             ShowCollection<NMLine>(nmlinetrack2, "NMLineTrack2");
 
            
-            var limitStage = stageRepository.GetStageLimitStage(st);
-            ShowCollection<LimitStage>(limitStage, "LimitStage");
+            //var limitStage = stageRepository.GetStageLimitStage(st);
+            //ShowCollection<LimitStage>(limitStage, "LimitStage");
 
-            var ARSStage = stageRepository.GetStageASRStage(st);
-            ShowCollection<ASRStage>(ARSStage, "ASRStage");
+            //var ARSStage = stageRepository.GetStageASRStage(st);
+            //ShowCollection<ASRStage>(ARSStage, "ASRStage");
 
-            var openstage = stageRepository.GetStageOpenStage(st);
-            ShowCollection<OpenStage>(openstage, "OpenStage");
+            //var openstage = stageRepository.GetStageOpenStage(st);
+            //ShowCollection<OpenStage>(openstage, "OpenStage");
 
-            var planstage = stageRepository.GetStagePlanStage(st);
-            ShowCollection<PlanStage>(planstage, "PlanStage");
+            //var planstage = stageRepository.GetStagePlanStage(st);
+            //ShowCollection<PlanStage>(planstage, "PlanStage");
 
-            var profilestage = stageRepository.GetStageProfileStage(st);
-            ShowCollection<ProfileStage>(profilestage, "ProfileStage");
+            //var profilestage = stageRepository.GetStageProfileStage(st);
+            //ShowCollection<ProfileStage>(profilestage, "ProfileStage");
 
 
-            var currentstage = stageRepository.GetStageCurrentSection(st);
-            ShowCollection<CurrentSectionStage>(currentstage, "CurrentSectionStage");
+            //var currentstage = stageRepository.GetStageCurrentSection(st);
+            //ShowCollection<CurrentSectionStage>(currentstage, "CurrentSectionStage");
 
             var tr = stageRepository.GetStageTrack(st);
             Console.WriteLine("NumberTrack");
@@ -248,5 +248,19 @@ namespace ERES
                 //      Console.WriteLine($"In the {item.Key} where are {item.Value}");
                 Console.WriteLine($"{item.Key}, {item.Value}");
         }
+
+        private static void WriteFile<T>(IEnumerable<T> collection, String nameFile)
+        {
+            string pathToFile = @"C:\Users\Valeriyа\Desktop";
+            string path = Path.Combine(pathToFile, nameFile) + ".txt";
+            StreamWriter file = new StreamWriter(path, true);
+
+            foreach (var item in collection)
+            {
+                file.WriteLine(Convert.ToString(item).Replace(",", "."));
+            }
+            file.Close();
+        }
     }
+
 }
