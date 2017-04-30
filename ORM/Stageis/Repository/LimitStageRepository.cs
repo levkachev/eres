@@ -3,42 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using ORM.Base;
 using ORM.Stageis.Entities;
+using ORM.Stageis.Repository.Limits;
 
 
 namespace ORM.Stageis.Repository
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class LimitStageRepository : Repository<LimitStage>
     
     {
+        /// <summary>
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
         public static LimitStageRepository GetInstance()
         {
             return GetInstance<LimitStageRepository>(SessionWrapper.GetInstance().Factory);
         }
-        /// запросы работают, но не используем
-        ///// <summary>
-        ///// скорость
-        ///// </summary>
-        ///// <param name="stage"></param>
-        ///// <returns></returns>
-        //public IEnumerable<Double> GetStageVelocity(Guid stage)
-        //{
-           
-        //    return GetAll()
-        //        .Where(st => st.Stage.ID == stage)
-        //        .Select(st => st.Velocity).ToList();
-        //}
 
-        ///// <summary>
-        ///// Граница скорости
-        ///// </summary>
-        ///// <param name="stage"></param>
-        ///// <returns></returns>
-        //public IEnumerable<Double> GetStageEndVelocity(Guid stage)
-        //{
+        /// <summary>
+        /// скорость и Граница скорости
+        /// </summary>
+        /// <param name="stage"></param>
+        /// <returns></returns>
+        public IEnumerable<LimitStage> GetLimits(Guid stage)
+        {
 
-        //    return GetAll()
-        //        .Where(st => st.Stage.ID == stage)
-        //        .Select(st => st.EndVelocity).ToList();
-        //}
+            return  GetAll()
+                .Where(st => st.Stage.ID == stage)
+                .Select(st => new LimitStage());
+        }
     }
 }
