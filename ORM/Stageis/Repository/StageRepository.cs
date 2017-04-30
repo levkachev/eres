@@ -7,7 +7,7 @@ using ORM.Lines.Entities;
 
 namespace ORM.Stageis.Repository
 {
-    public class StageRepository : Repository<Stage>
+    public class  StageRepository : Repository<Stage>
 
     {
         /// <summary>
