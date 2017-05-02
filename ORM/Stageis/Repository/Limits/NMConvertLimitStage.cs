@@ -33,31 +33,33 @@ namespace ORM.Stageis.Repository.Limits
 
             var current = tmpVector[0];
             var next = tmpVector[1];
+            Double length;
 
             var direction = current.Piketage < next.Piketage;
             //Установили начало перегона 100 м от оси станции в сторону конца перегона
-            newPiketage = AddPiketage(current.Piketage, direction);
-            var newLimit = new Limit(space, newPiketage);
-            resultSortedSet.Add(newLimit);
-            for (var i = 0; i < nativeLimits.Count - 1; ++i)
+
+            for (var i = 0; i < tmpVector.Length - 1; ++i)
             {
-                newPiketage = AddPiketage(newPiketage, direction);
                 current = tmpVector[i];
                 next = tmpVector[i + 1];
-
-                while (newPiketage < next.Piketage && direction || newPiketage > next.Piketage && !direction)
+                newPiketage = current.Piketage;
+                
+                while (Math.Abs(Math.Truncate(newPiketage) - Math.Truncate(next.Piketage)) >= 1)
                 {
-                    if (MathHelper.IsEqual(current.Piketage, newPiketage))
-                        space = space + current.Length;
-                    else space = space + valuePiketage;
-                    newLimit = new Limit(space, newPiketage);
-                    resultSortedSet.Add(newLimit);
+                    length = Math.Abs(newPiketage - current.Piketage) < 1 ? current.Length : valuePiketage;
+
                     newPiketage = AddPiketage(newPiketage, direction);
+                    var limit = new Limit(space, newPiketage);   
+                                     
+                    space += length;
+                    
+                    resultSortedSet.Add(limit);
                 }
             }
-            current = tmpVector[nativeLimits.Count-1];
+
+            current = tmpVector[nativeLimits.Count - 1];
             space = space + current.Length;
-            newLimit = new Limit(space, newPiketage);
+            var newLimit = new Limit(space, current.Piketage);
             resultSortedSet.Add(newLimit);
 
             newPiketage = AddPiketage(current.Piketage, direction);
