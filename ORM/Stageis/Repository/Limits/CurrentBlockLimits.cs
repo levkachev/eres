@@ -8,6 +8,6 @@ namespace ORM.Stageis.Repository.Limits
     internal class CurrentBlockLimits : BaseLimits
     {
         /// <exception cref="ArgumentNullException"><paramref name="seriesOfLimits" /> is <see langword="null" /></exception>
-        internal CurrentBlockLimits(params ILimits[] seriesOfLimits): base(seriesOfLimits){}
+        internal CurrentBlockLimits(params ISortedSetLimits[] seriesOfLimits): base(seriesOfLimits){}
     }
 }
