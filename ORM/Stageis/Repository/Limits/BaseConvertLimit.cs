@@ -6,7 +6,7 @@ namespace ORM.Stageis.Repository.Limits
     /// <summary>
     /// Базовый класс для преобразования класса ограничения в отсортированное множество типа Limit -> (Double, Double) = (Координата, значение ограничения)
     /// </summary>
-    internal abstract class BaseConvertLimit<T>
+    internal abstract class BaseConvertLimit<T>: ISortedSetLimits
     {
         /// <summary>
         /// Список ограничений по координате для перегона
@@ -60,5 +60,10 @@ namespace ORM.Stageis.Repository.Limits
         {
             return String.Join(" ; ", sortedLimits);
         }
+
+        /// <summary>
+        /// Реализует интерфейс ISortedSetLimits
+        /// </summary>
+        public IEnumerable<Limit> Limits => sortedLimits;
     }
 }
