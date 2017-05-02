@@ -1,6 +1,5 @@
 ﻿using System;
 using ORM.Base;
-using System.Collections.Generic;
 
 namespace ORM.Stageis.Entities
 {
