@@ -4,6 +4,7 @@ using System.Linq;
 using ORM.Base;
 using ORM.Stageis.Entities;
 using ORM.Lines.Entities;
+using ORM.Stageis.Repository.Limits;
 
 namespace ORM.Stageis.Repository
 {
@@ -40,6 +41,26 @@ namespace ORM.Stageis.Repository
             return tmp.ID;
         }
 
+        /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
+        public Station GetDepartureByIDStage(Guid stage)
+        {
+            return GetAll()
+                .SingleOrDefault(st => st.ID == stage)
+                .Departure;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stage"></param>
+        /// <returns></returns>
+        public Station GetArrivalByIdStage(Guid stage)
+        {
+            return GetAll()
+                .SingleOrDefault(st => st.ID == stage)
+                .Arrival;
+        }
+
         /// <summary>
         /// длина перегона
         /// </summary>
@@ -53,76 +74,6 @@ namespace ORM.Stageis.Repository
             return tmp.Length;
         }
 
-        ///// <summary>
-        ///// показать все ограничения (скорость и граница скорости) перегона
-        ///// </summary>
-        ///// <param name="stage"></param>
-        ///// <returns></returns>
-        //public IEnumerable<LimitStage> GetStageLimitStage(Guid stage)
-        //{
-        //    var tmp = GetAll()
-        //        .SingleOrDefault(st => st.ID == stage);
-        //    return tmp.LimitStages;
-        //}
-        ///// <summary>
-        ///// показать все ARS ограничения (скорость и граница скорости) перегона
-        ///// </summary>
-        ///// <param name="stage"></param>
-        ///// <returns></returns>
-        //public IEnumerable<ASRStage> GetStageASRStage(Guid stage)
-        //{
-        //    var tmp = GetAll()
-        //        .SingleOrDefault(st => st.ID == stage);
-        //    return tmp.ASRStages;
-        //}
-        ///// <summary>
-        ///// показать все характеристики открытыеого перегона (KWosn, начало, конец)
-        ///// </summary>
-        ///// <param name="stage"></param>
-        ///// <returns></returns>
-        //public IEnumerable<OpenStage> GetStageOpenStage (Guid stage)
-        //{
-        //    var tmp = GetAll()
-        //        .SingleOrDefault(st => st.ID == stage);
-        //    return tmp.OpenStages;
-        //}
-
-        ///// <summary>
-        ///// показать планы перегона (радиус, граница радиуса)
-        ///// </summary>
-        ///// <param name="stage"></param>
-        ///// <returns></returns>
-        //public IEnumerable<PlanStage> GetStagePlanStage(Guid stage)
-        //{
-        //    var tmp = GetAll()
-        //        .SingleOrDefault(st => st.ID == stage);
-        //    return tmp.PlanStages;
-        //}
-
-        ///// <summary>
-        ///// показать профили перегона (уклон, граница уклона)
-        ///// </summary>
-        ///// <param name="stage"></param>
-        ///// <returns></returns>
-        //public IEnumerable<ProfileStage> GetStageProfileStage(Guid stage)
-        //{
-        //    var tmp = GetAll()
-        //        .SingleOrDefault(st => st.ID == stage);
-        //    return tmp.ProfileStages;
-        //}
-
-        ///// <summary>
-        ///// показать токоразделы перегона (начало, конец)
-        ///// </summary>
-        ///// <param name="stage"></param>
-        ///// <returns></returns>
-        //public IEnumerable<CurrentSectionStage> GetStageCurrentSection(Guid stage)
-        //{
-        //    var tmp = GetAll()
-        //        .SingleOrDefault(st => st.ID == stage);
-        //    return tmp.CurrentSectionStages;
-        //}
-
         /// <summary>
         /// показать номер пути для перегона
         /// </summary>
@@ -134,6 +85,101 @@ namespace ORM.Stageis.Repository
             var tmp = GetAll()
                 .SingleOrDefault(st => st.ID == stage);
             return tmp.Track.Tracks;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stage"></param>
+        /// <returns></returns>
+        public Track GetTrack(Guid stage)
+        {
+            return GetAll()
+                .SingleOrDefault(st => st.ID == stage)
+                .Track;
+        }
+
+        /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
+        internal IEnumerable<ILimits> GetAllLimitsForStage(Guid stage)
+        {
+            var limitStageRepository = LimitStageRepository.GetInstance();
+            var limitStage = limitStageRepository.GetLimits(stage);
+            var limitSortedStage = new VelocityConvertLimitStage(limitStage);
+
+            var openStageRepository = OpenStageRepository.GetInstance();
+            var openStage = openStageRepository.GetLimits(stage);
+            var openSortedStage = new OpenConvertLimitStage(openStage);
+
+            var asrStageRepository = ASRStageRepository.GetInstance();
+            var asrStage = asrStageRepository.GetLimits(stage);
+            var asrSortedStage = new ASRConvertLimitStage(asrStage);
+
+            var currentStageRepository = CurrentSectionStageRepository.GetInstance();
+            var currentStage = currentStageRepository.GetLimits(stage);
+            var currentSortedStage = new CurrentConvertLimits(currentStage);
+
+            var planStageRepository = PlanStageRepository.GetInstance();
+            var planStage = planStageRepository.GetLimits(stage);
+            var planSortedStage = new PlanConvertedLimitStage(planStage);
+
+            var profileStageRepository = ProfileStageRepository.GetInstance();
+            var profileStage = profileStageRepository.GetLimits(stage);
+            var profileSortedStage = new ProfileConvertLimitStage(profileStage);
+
+            var allVelocityLimits = new AllVelocityLimits(limitSortedStage, asrSortedStage);
+
+            var currentBlockLimits = new CurrentBlockLimits(currentSortedStage);
+
+            var reliefLimits = new ReliefLimits(planSortedStage, profileSortedStage);
+
+            var openLimits = new OpenLimits(openSortedStage);
+
+            var tmpList = new List<ILimits>();
+            tmpList.Add(allVelocityLimits);
+            tmpList.Add(currentBlockLimits);
+            tmpList.Add(reliefLimits);
+            tmpList.Add(openLimits);
+
+            return tmpList;
+        }
+
+        internal IEnumerable<ILimits> GetLimitsWithoutASRStage(Guid stage)
+        {
+            var limitStageRepository = LimitStageRepository.GetInstance();
+            var limitStage = limitStageRepository.GetLimits(stage);
+            var limitSortedStage = new VelocityConvertLimitStage(limitStage);
+
+            var openStageRepository = OpenStageRepository.GetInstance();
+            var openStage = openStageRepository.GetLimits(stage);
+            var openSortedStage = new OpenConvertLimitStage(openStage);
+
+            var currentStageRepository = CurrentSectionStageRepository.GetInstance();
+            var currentStage = currentStageRepository.GetLimits(stage);
+            var currentSortedStage = new CurrentConvertLimits(currentStage);
+
+            var planStageRepository = PlanStageRepository.GetInstance();
+            var planStage = planStageRepository.GetLimits(stage);
+            var planSortedStage = new PlanConvertedLimitStage(planStage);
+
+            var profileStageRepository = ProfileStageRepository.GetInstance();
+            var profileStage = profileStageRepository.GetLimits(stage);
+            var profileSortedStage = new ProfileConvertLimitStage(profileStage);
+
+            var allVelocityLimits = new AllVelocityLimits(limitSortedStage);
+
+            var currentBlockLimits = new CurrentBlockLimits(currentSortedStage);
+
+            var reliefLimits = new ReliefLimits(planSortedStage, profileSortedStage);
+
+            var openLimits = new OpenLimits(openSortedStage);
+
+            var tmpList = new List<ILimits>();
+            tmpList.Add(allVelocityLimits);
+            tmpList.Add(currentBlockLimits);
+            tmpList.Add(reliefLimits);
+            tmpList.Add(openLimits);
+
+            return tmpList;
         }
     }
 }
