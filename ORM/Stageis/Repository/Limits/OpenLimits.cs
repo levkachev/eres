@@ -11,6 +11,6 @@ namespace ORM.Stageis.Repository.Limits
         /// </summary>
         /// <param name="seriesOfLimits"></param>
         /// <exception cref="ArgumentNullException"><paramref name="seriesOfLimits"/> is <see langword="null"/></exception>
-        internal OpenLimits(params ILimits[] seriesOfLimits) : base(seriesOfLimits) {}
+        internal OpenLimits(params ISortedSetLimits[] seriesOfLimits) : base(seriesOfLimits) {}
     }
 }
