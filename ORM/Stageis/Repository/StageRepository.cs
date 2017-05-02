@@ -113,6 +113,15 @@ namespace ORM.Stageis.Repository
             var nmLines = trackRepository.GetNMForTrack(track);
             var departer = GetDepartureByIDStage(stage);
             var arrival = GetArrivalByIdStage(stage);
+            
+            var result = new SortedList<Double, NMLine>();
+
+            result.Add(departer.Piketage, new NMLine
+            {
+                Length = 100,
+                Piketage = departer.Piketage,
+                Track = track
+            });
 
             //едем от меньшего к большему
             var ascDirection = departer.Piketage < arrival.Piketage;
@@ -126,23 +135,25 @@ namespace ORM.Stageis.Repository
                     nm.Piketage >= arrival.Piketage);
 
             var tmp = nmLines.Where(predicate).ToList();
-            if (tmp.IsEmpty())
-                tmp.AddRange(new[]
-                {
-                    new NMLine
-                    {
-                        Length = 100,
-                        Piketage = departer.Piketage,
-                        Track = track
-                    },
-                    new NMLine
-                    {
-                        Length = 100,
-                        Piketage = arrival.Piketage,
-                        Track = track
-                    }
-                });
-        return tmp;
+
+            if (!tmp.IsEmpty())
+            {
+                foreach (var nm in tmp)
+                    result.Add(nm.Piketage, nm);
+            }
+            
+            result.Add(arrival.Piketage, new NMLine
+            {
+                Length = 100,
+                Piketage = arrival.Piketage,
+                Track = track
+            });
+
+            if (arrival.Piketage < departer.Piketage)
+            {
+                return result.OrderByDescending(item => item.Key).Select(item => item.Value);  
+            }
+        return result.Values;
         }
 
         /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>

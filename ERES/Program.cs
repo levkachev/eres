@@ -91,8 +91,8 @@ namespace ERES
             var department = stationRepository.GetIDByName("Марксистская");
             var stageRepository = StageRepository.GetInstance();
             var st = stageRepository.GetStageByNameStation(arrival, department);
-            var lenght = stageRepository.GetStageLenght(st);
-            Console.WriteLine(Convert.ToString(lenght), "StageLenght");
+            var length = stageRepository.GetStageLenght(st);
+            Console.WriteLine(Convert.ToString(length), "StageLenght");
 
              var station = lineRepository.GetAllStation(nameLine);
             //var station = stationRepository.GetLineStationName(nameLine);
