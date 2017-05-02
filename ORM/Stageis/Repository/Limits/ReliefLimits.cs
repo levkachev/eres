@@ -11,7 +11,7 @@ namespace ORM.Stageis.Repository.Limits
         /// <summary>
         /// </summary>
         /// <exception cref="ArgumentNullException"><paramref name="plan"/> is <see langword="null"/></exception>
-        internal ReliefLimits(ILimits plan, ILimits profile)
+        internal ReliefLimits(ISortedSetLimits plan, ISortedSetLimits profile)
         {
             Limits = reliefLimits(plan, profile);
         }
@@ -22,7 +22,7 @@ namespace ORM.Stageis.Repository.Limits
         /// <param name="planLimits"></param>
         /// <param name="profileLimits"></param>
         /// <returns></returns>
-        private static SortedSet<Limit> reliefLimits(ILimits planLimits, ILimits profileLimits)
+        private static SortedSet<Limit> reliefLimits(ISortedSetLimits planLimits, ISortedSetLimits profileLimits)
         {
             var tmpPlan = planLimits as List<Limit>;
             var tmpProfile = profileLimits as List<Limit>;
