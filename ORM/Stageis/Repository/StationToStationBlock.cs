@@ -123,20 +123,33 @@ namespace ORM.Stageis.Repository
         }
 
         /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
-        public static StationToStationBlock GetStage(Guid stage)
+        public static StationToStationBlock GetStageWithAllLimits(Guid stage)
         {
             var stageRepository = StageRepository.GetInstance();
-            var track = stageRepository.GetStageTrack(stage);
+            var track = stageRepository.GetTrack(stage);
             var length = stageRepository.GetStageLenght(stage);
-            
-            var limitStageRepository = LimitStageRepository.GetInstance();
-            var limitStage = limitStageRepository.GetLimits(stage);
-            var limitSortedStage = new VelocityConvertLimitStage(limitStage);
-            var openStageRepository = OpenStageRepository.GetInstance();
-            var openStage = openStageRepository.GetLimits(stage);
-            var openSortedStage = new OpenConvertLimitStage(openStage);
-            var tmpList = new List<ILimits>();
-            //tmpList.Add()
+            var departer = stageRepository.GetDepartureByIDStage(stage);
+            var arrival = stageRepository.GetArrivalByIdStage(stage);
+
+            var limits = stageRepository.GetAllLimitsForStage(stage);
+            return new StationToStationBlock(limits, departer, arrival, track, length);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stage"></param>
+        /// <returns></returns>
+        public static StationToStationBlock GetStageWithoutASR(Guid stage)
+        {
+            var stageRepository = StageRepository.GetInstance();
+            var track = stageRepository.GetTrack(stage);
+            var length = stageRepository.GetStageLenght(stage);
+            var departer = stageRepository.GetDepartureByIDStage(stage);
+            var arrival = stageRepository.GetArrivalByIdStage(stage);
+
+            var limits = stageRepository.GetLimitsWithoutASRStage(stage);
+            return new StationToStationBlock(limits, departer, arrival, track, length);
         }
 
         /// <summary>
