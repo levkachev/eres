@@ -4,7 +4,9 @@ using System.Linq;
 using ORM.Base;
 using ORM.Stageis.Entities;
 using ORM.Lines.Entities;
+using ORM.Lines.Repository;
 using ORM.Stageis.Repository.Limits;
+using ORM.Helpers;
 
 namespace ORM.Stageis.Repository
 {
@@ -99,6 +101,50 @@ namespace ORM.Stageis.Repository
                 .Track;
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="stage"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
+        public IEnumerable<NMLine> GetNMForStage(Guid stage)
+        {
+            var track = GetTrack(stage);
+            var trackRepository = TrackRepository.GetInstance();
+            var nmLines = trackRepository.GetNMForTrack(track);
+            var departer = GetDepartureByIDStage(stage);
+            var arrival = GetArrivalByIdStage(stage);
+
+            //едем от меньшего к большему
+            var ascDirection = departer.Piketage < arrival.Piketage;
+
+            var predicate = ascDirection
+                ? new Func<NMLine, Boolean>(nm =>
+                    nm.Piketage >= departer.Piketage &&
+                    nm.Piketage <= arrival.Piketage)
+                : new Func<NMLine, Boolean>(nm =>
+                    nm.Piketage <= departer.Piketage &&
+                    nm.Piketage >= arrival.Piketage);
+
+            var tmp = nmLines.Where(predicate).ToList();
+            if (tmp.IsEmpty())
+                tmp.AddRange(new[]
+                {
+                    new NMLine
+                    {
+                        Length = 100,
+                        Piketage = departer.Piketage,
+                        Track = track
+                    },
+                    new NMLine
+                    {
+                        Length = 100,
+                        Piketage = arrival.Piketage,
+                        Track = track
+                    }
+                });
+        return tmp;
+        }
+
         /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
         internal IEnumerable<ILimits> GetAllLimitsForStage(Guid stage)
         {
@@ -125,6 +171,8 @@ namespace ORM.Stageis.Repository
             var profileStageRepository = ProfileStageRepository.GetInstance();
             var profileStage = profileStageRepository.GetLimits(stage);
             var profileSortedStage = new ProfileConvertLimitStage(profileStage);
+
+            var nmLines = GetNMForStage(stage);
 
             var allVelocityLimits = new AllVelocityLimits(limitSortedStage, asrSortedStage);
 

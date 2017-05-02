@@ -88,6 +88,7 @@
     <Compile Include="Energies\Repository\ResistanceRepository.cs" />
     <Compile Include="Energies\Repository\UnitRepository.cs" />
     <Compile Include="Energies\Repository\Unit_NameRepository.cs" />
+    <Compile Include="Helpers\ExtensionMethods.cs" />
     <Compile Include="Lines\Entities\ASRLine.cs" />
     <Compile Include="Lines\Entities\Color.cs" />
     <Compile Include="Lines\Entities\CurrentSectionLine.cs" />
@@ -131,6 +132,8 @@
     <Compile Include="Stageis\Map\PlanStageMap.cs" />
     <Compile Include="Stageis\Map\ProfileStageMap.cs" />
     <Compile Include="Stageis\Map\StageMap.cs" />
+    <Compile Include="Stageis\Repository\ASRStageRepository.cs" />
+    <Compile Include="Stageis\Repository\CurrentSectionStageRepository.cs" />
     <Compile Include="Stageis\Repository\LimitStageRepository.cs" />
     <Compile Include="Stageis\Repository\Limits\AllVelocityLimits.cs" />
     <Compile Include="Stageis\Repository\Limits\ASRConvertLimitStage.cs" />
@@ -139,7 +142,9 @@
     <Compile Include="Stageis\Repository\Limits\CurrentBlockLimits.cs" />
     <Compile Include="Stageis\Repository\Limits\CurrentConvertLimits.cs" />
     <Compile Include="Stageis\Repository\Limits\ILimits.cs" />
+    <Compile Include="Stageis\Repository\Limits\ISortedSetLimits.cs" />
     <Compile Include="Stageis\Repository\Limits\Limit.cs" />
+    <Compile Include="Stageis\Repository\Limits\NMConvertLimitStage.cs" />
     <Compile Include="Stageis\Repository\Limits\OpenConvertLimitStage.cs" />
     <Compile Include="Stageis\Repository\Limits\OpenLimits.cs" />
     <Compile Include="Stageis\Repository\Limits\PlanConvertedLimitStage.cs" />
@@ -147,6 +152,8 @@
     <Compile Include="Stageis\Repository\Limits\ReliefLimits.cs" />
     <Compile Include="Stageis\Repository\Limits\VelocityConvertLimitStage.cs" />
     <Compile Include="Stageis\Repository\OpenStageRepository.cs" />
+    <Compile Include="Stageis\Repository\PlanStageRepository.cs" />
+    <Compile Include="Stageis\Repository\ProfileStageRepository.cs" />
     <Compile Include="Stageis\Repository\StageRepository.cs" />
     <Compile Include="Stageis\Repository\StationToStationBlock.cs" />
     <Compile Include="Trains\Entities\MassMass.cs" />

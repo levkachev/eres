@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using ORM.Helpers;
 
 namespace ORM.Stageis.Repository.Limits
@@ -8,7 +7,7 @@ namespace ORM.Stageis.Repository.Limits
     /// У перегона имеется несколько типов ограничений, таких как ограничения скорости, профиль, план и т.д
     /// Все эти ограничения вида: координата по пути от начала перегона и значение ограничения.
     /// </summary>
-    internal class Limit : IComparable<Limit>
+    public class Limit : IComparable<Limit>
     {
         /// <summary>
         /// координата по пути от начала перегона
@@ -167,6 +166,11 @@ namespace ORM.Stageis.Repository.Limits
         public override Int32 GetHashCode()
         {
             return base.GetHashCode();
+        }
+
+        public override String ToString()
+        {
+            return $"<space = {Space}; value = {Value}>";
         }
     }
 }

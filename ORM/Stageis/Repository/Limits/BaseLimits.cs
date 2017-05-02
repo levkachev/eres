@@ -7,7 +7,7 @@ namespace ORM.Stageis.Repository.Limits
     /// <summary>
     /// Абстрактный класс для ограничений одного типа. Реализует метод "Рассчитай ограничение"
     /// </summary>
-    internal abstract class BaseLimits : ILimits
+    public abstract class BaseLimits : ILimits
     {
         /// <summary>
         /// Список ограничений скорости

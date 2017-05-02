@@ -1,21 +1,15 @@
-﻿using NHibernate;
-using ORM.Base;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System;
 using ORM.Energy.Entities;
-using ORM.Stageis.Entities;
 using ORM.Lines.Entities;
-using TrainMovement.Train;
 using ORM.Trains.Interpolation.Entities;
 using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using ORM.Energies.Repository;
 using ORM.Lines.Repository;
 using ORM.Stageis.Repository;
 using ORM.Trains.Repository.Interpolation;
 using ORM.Trains.Repository.Trains;
-using System.Text;
+using ORM.Stageis.Repository.Limits;
 
 
 namespace ERES 
@@ -33,52 +27,52 @@ namespace ERES
             /// </summary>
             /// 
 
-            var linelineRepository = LineRepository.GetInstance();
-            var line = linelineRepository.GetIDByName("Калининская");
+            //var linelineRepository = LineRepository.GetInstance();
+            //var line = linelineRepository.GetIDByName("Калининская");
 
-            var powerSupplyStationRepository = PowerSupplyStationRepository.GetInstance();
-            var unitRepository = UnitRepository.GetInstance();
+            //var powerSupplyStationRepository = PowerSupplyStationRepository.GetInstance();
+            //var unitRepository = UnitRepository.GetInstance();
 
-            /// <summary>
-            /// Показать все подстанции на выбранной линии
-            /// </summary>
-            ShowDictionary(powerSupplyStationRepository.GetAllPSTbyLine(line), "GetAllPSTbyLine");
+            ///// <summary>
+            ///// Показать все подстанции на выбранной линии
+            ///// </summary>
+            //ShowDictionary(powerSupplyStationRepository.GetAllPSTbyLine(line), "GetAllPSTbyLine");
 
-            /// <summary>
-            /// Показать фидеры выбранного типа для выбранной подстанции на выбранной линии
-            /// </summary>
-            var powerSupplyStation = powerSupplyStationRepository.GetPSTbyLine(line, "88");
-            var feederRepository = FeederRepository.GetInstance();
-            //  ShowCollection<String>(feederRepository.GetFeeder(powerSupplyStation), "GetFeeder");
-            var type = "питание";
-            ShowCollection<Feeder>(feederRepository.GetFeeder(powerSupplyStation, type), "GetFeederTypeP");
-            var type1 = "отсос";
-            ShowCollection<Feeder>(feederRepository.GetFeeder(powerSupplyStation, type1), "GetFeederTypeO");
-            /// <summary>
-            /// Показать количество агрегатов, диодов, трансформаторов  для выбранной подстанции на выбранной линии
-            /// </summary>
-            ShowCollection<Unit>(unitRepository.GetUnit(powerSupplyStation), "GetUnit");
+            ///// <summary>
+            ///// Показать фидеры выбранного типа для выбранной подстанции на выбранной линии
+            ///// </summary>
+            //var powerSupplyStation = powerSupplyStationRepository.GetPSTbyLine(line, "88");
+            //var feederRepository = FeederRepository.GetInstance();
+            ////  ShowCollection<String>(feederRepository.GetFeeder(powerSupplyStation), "GetFeeder");
+            //var type = "питание";
+            //ShowCollection<Feeder>(feederRepository.GetFeeder(powerSupplyStation, type), "GetFeederTypeP");
+            //var type1 = "отсос";
+            //ShowCollection<Feeder>(feederRepository.GetFeeder(powerSupplyStation, type1), "GetFeederTypeO");
+            ///// <summary>
+            ///// Показать количество агрегатов, диодов, трансформаторов  для выбранной подстанции на выбранной линии
+            ///// </summary>
+            //ShowCollection<Unit>(unitRepository.GetUnit(powerSupplyStation), "GetUnit");
 
 
-            ///показать для выбранного типа мотора, имени поезда и массы все зависимости
-            /// </summary> 
-            /// 
-            var testTrainName = "81-740.4";
+            /////показать для выбранного типа мотора, имени поезда и массы все зависимости
+            ///// </summary> 
+            ///// 
+            //var testTrainName = "81-740.4";
 
-            var motortypeRepository = MotorTypesRepository.GetInstance();
-            var motortype = motortypeRepository.GetByType("AC");
+            //var motortypeRepository = MotorTypesRepository.GetInstance();
+            //var motortype = motortypeRepository.GetByType("AC");
 
-            var trainnameRepository = TrainNameRepository.GetInstance();
-            var trainname = trainnameRepository.GetIDByName("81-740.4");
+            //var trainnameRepository = TrainNameRepository.GetInstance();
+            //var trainname = trainnameRepository.GetIDByName("81-740.4");
 
-            var massRepository = MassRepository.GetInstance();
-            var mass = massRepository.GetByMass(100);
+            //var massRepository = MassRepository.GetInstance();
+            //var mass = massRepository.GetByMass(100);
 
-            var modecontrolRepository = ModeControlsRepository.GetInstance();
-            var modecontrol = modecontrolRepository.GetByModeControl("Pull1");
+            //var modecontrolRepository = ModeControlsRepository.GetInstance();
+            //var modecontrol = modecontrolRepository.GetByModeControl("Pull1");
 
-            var vfiRepository = VFIRepository.GetInstance();
-            ShowCollection<VFI>(vfiRepository.GetVFI(testTrainName, modecontrol, mass), "GetVFI");
+            //var vfiRepository = VFIRepository.GetInstance();
+            //ShowCollection<VFI>(vfiRepository.GetVFI(testTrainName, modecontrol, mass), "GetVFI");
 
             var nameLine = "Калининская";
 
@@ -135,21 +129,21 @@ namespace ERES
             Console.WriteLine("NumberTrack");
             Console.WriteLine(Convert.ToString(tr));
 
-            string pathToFile = @"C:\Users\Valeriyа\Desktop";
-            string nameFile = "StationPiketage";
-            string format = ".txt";
-            string path = Path.Combine(pathToFile, nameFile) + format;
+            //string pathToFile = @"C:\Users\Valeriyа\Desktop";
+            //string nameFile = "StationPiketage";
+            //string format = ".txt";
+            //string path = Path.Combine(pathToFile, nameFile) + format;
             
 
-            string[] rows = { Convert.ToString(station) };
+            //string[] rows = { Convert.ToString(station) };
 
-            FileInfo file = new FileInfo(path);
-            if (file.Exists == false)
-            {
-                file.Create().Close();
-                Console.WriteLine("File add to path!");
-            }
-            else Console.WriteLine("File exist! Rename file!");
+            //FileInfo file = new FileInfo(path);
+            //if (file.Exists == false)
+            //{
+            //    file.Create().Close();
+            //    Console.WriteLine("File add to path!");
+            //}
+            //else Console.WriteLine("File exist! Rename file!");
 
             //--тоже работает
             //var str = new StringBuilder();
@@ -159,43 +153,49 @@ namespace ERES
                 
            //--
 
-            var strToFile = String.Join(" ", rows);
+            //var strToFile = String.Join(" ", rows);
 
-            File.WriteAllText(path, strToFile);
+            //File.WriteAllText(path, strToFile);
            
 
-            //NMLines Track=1
-            string nameFile1 = "NMLinesTrack1";
-            string path1 = Path.Combine(pathToFile, nameFile1) + format;
-            string[] rows1 = { Convert.ToString(nmlinetrack1) };
+            ////NMLines Track=1
+            //string nameFile1 = "NMLinesTrack1";
+            //string path1 = Path.Combine(pathToFile, nameFile1) + format;
+            //string[] rows1 = { Convert.ToString(nmlinetrack1) };
 
-            FileInfo file1 = new FileInfo(path1);
-            if (file1.Exists == false)
-            {
-                file1.Create().Close();
-                Console.WriteLine("File add to path!");
-            }
-            else Console.WriteLine("File exist! Rename file!");
-            var strToFile1 = String.Join(" ", rows1);
+            //FileInfo file1 = new FileInfo(path1);
+            //if (file1.Exists == false)
+            //{
+            //    file1.Create().Close();
+            //    Console.WriteLine("File add to path!");
+            //}
+            //else Console.WriteLine("File exist! Rename file!");
+            //var strToFile1 = String.Join(" ", rows1);
 
-            File.WriteAllText(path1, strToFile1);
+            //File.WriteAllText(path1, strToFile1);
 
 
-            //NMLines Track=2
-            string nameFile2 = "NMLinesTrack2";
-            string path2 = Path.Combine(pathToFile, nameFile2) + format;
-            string[] rows2 = { Convert.ToString(nmlinetrack2) };
+            ////NMLines Track=2
+            //string nameFile2 = "NMLinesTrack2";
+            //string path2 = Path.Combine(pathToFile, nameFile2) + format;
+            //string[] rows2 = { Convert.ToString(nmlinetrack2) };
 
-            FileInfo file2 = new FileInfo(path2);
-            if (file1.Exists == false)
-            {
-                file1.Create().Close();
-                Console.WriteLine("File add to path!");
-            }
-            else Console.WriteLine("File exist! Rename file!");
-            var strToFile2 = String.Join(" ", rows2);
+            //FileInfo file2 = new FileInfo(path2);
+            //if (file1.Exists == false)
+            //{
+            //    file1.Create().Close();
+            //    Console.WriteLine("File add to path!");
+            //}
+            //else Console.WriteLine("File exist! Rename file!");
+            //var strToFile2 = String.Join(" ", rows2);
 
-            File.WriteAllText(path2, strToFile2);
+            //File.WriteAllText(path2, strToFile2);
+
+
+
+            var nmLines = stageRepository.GetNMForStage(st);
+            var nmConvertedLines = NMConvertLimitStage.GetLimits(nmLines);
+            Console.WriteLine(String.Join(";", nmConvertedLines));
 
             Console.ReadKey();
 

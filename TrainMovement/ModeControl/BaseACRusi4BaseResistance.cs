@@ -1,6 +1,5 @@
 ﻿using System;
 using TrainMovement.Train;
-using TrainMovement.Stages;
 
 namespace TrainMovement.ModeControl
 {
@@ -17,17 +16,18 @@ namespace TrainMovement.ModeControl
         /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
         public Double GetBaseResistance(BaseTrain train)
         {
-            const Double coefficient1 = 1.1;
-            const Double coefficient2 = 0.01;
-            const Double coefficient3 = 0.001;
+            //const Double coefficient1 = 1.1;
+            //const Double coefficient2 = 0.01;
+            //const Double coefficient3 = 0.001;
 
-            var coefficientOpenStage = train.CurrentStage.GetCoefficientOpenStage(train.Space);
+            //var coefficientOpenStage = train.CurrentStage.GetCoefficientOpenStage(train.Space);
 
-            var trainWeightFactor = train.UnladenWeight / (train.UnladenWeight + train.Mass);
+            //var trainWeightFactor = train.UnladenWeight / (train.UnladenWeight + train.Mass);
 
-            return coefficient1 * trainWeightFactor
-                + coefficient2 * train.Velocity 
-                + coefficient3 * trainWeightFactor * train.Velocity * train.Velocity * coefficientOpenStage;
+            //return coefficient1 * trainWeightFactor
+            //    + coefficient2 * train.Velocity 
+            //    + coefficient3 * trainWeightFactor * train.Velocity * train.Velocity * coefficientOpenStage;
+            return 0;
         }
     }
 }

@@ -43,7 +43,7 @@ namespace ORM.Lines.Repository
         /// <returns></returns>
         public IEnumerable<NMLine> GetNMForTrack(Track track)
         {
-            return = GetAll()
+            return GetAll()
                 .SingleOrDefault(tr => tr.ID == track.ID)
                 .NMLines;
         }
