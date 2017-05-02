@@ -46,7 +46,7 @@ namespace ORM.Stageis.Repository.Limits
         }
 
         /// <exception cref="ArgumentNullException"><paramref name="seriesOfLimits"/> is <see langword="null"/></exception>
-        protected BaseLimits(params ILimits[] seriesOfLimits)
+        protected BaseLimits(params ISortedSetLimits[] seriesOfLimits)
         {
             if (seriesOfLimits == null)
                 throw new ArgumentNullException(nameof(seriesOfLimits));
