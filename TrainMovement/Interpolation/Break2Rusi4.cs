@@ -5,14 +5,15 @@ using ORM.Trains.Repository.Interpolation;
 namespace TrainMovement.Interpolation
 {
     /// <summary>
-    /// Pull1
+    /// Break2
     /// </summary>
-    internal class Pull1Rusi4 : BaseModeRusi4
+    internal class Break2Rusi4 : BaseModeRusi4
     {
         /// <exception cref="ArgumentNullException">value is <see langword="null"/></exception>
-        internal Pull1Rusi4(MassMass mass)
+        internal Break2Rusi4(MassMass mass)
         {
-            ForceAndCurrent = VFIRepository.GetVfiRusi4Pull1(mass);
+            ForceAndCurrent = VFIRepository.GetVfiRusi4Break2(mass);
         }
     }
 }
+

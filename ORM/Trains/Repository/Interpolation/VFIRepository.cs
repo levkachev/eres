@@ -49,5 +49,93 @@ namespace ORM.Trains.Repository.Interpolation
             return vfiRepository.GetVFI(trainName, modecontrol, mass);
         }
 
+        /// <summary>
+        /// Pull2
+        /// </summary>
+        /// <param name="mass"></param>
+        /// <returns></returns>
+        public static IEnumerable<VFI> GetVfiRusi4Pull2(MassMass mass)
+        {
+            var modecontrolRepository = ModeControlsRepository.GetInstance();
+            var modecontrol = modecontrolRepository.GetByModeControl("Pull2");
+            const String trainName = "81-740.1(Rusi4)";
+            var vfiRepository = GetInstance();
+
+            return vfiRepository.GetVFI(trainName, modecontrol, mass);
+        }
+
+        /// <summary>
+        /// Pull3
+        /// </summary>
+        /// <param name="mass"></param>
+        /// <returns></returns>
+        public static IEnumerable<VFI> GetVfiRusi4Pull3(MassMass mass)
+        {
+            var modecontrolRepository = ModeControlsRepository.GetInstance();
+            var modecontrol = modecontrolRepository.GetByModeControl("Pull3");
+            const String trainName = "81-740.1(Rusi4)";
+            var vfiRepository = GetInstance();
+
+            return vfiRepository.GetVFI(trainName, modecontrol, mass);
+        }
+
+        /// <summary>
+        /// Pull4
+        /// </summary>
+        /// <param name="mass"></param>
+        /// <returns></returns>
+        public static IEnumerable<VFI> GetVfiRusi4Pull4(MassMass mass)
+        {
+            var modecontrolRepository = ModeControlsRepository.GetInstance();
+            var modecontrol = modecontrolRepository.GetByModeControl("Pull4");
+            const String trainName = "81-740.1(Rusi4)";
+            var vfiRepository = GetInstance();
+
+            return vfiRepository.GetVFI(trainName, modecontrol, mass);
+        }
+        /// <summary>
+        /// Break1
+        /// </summary>
+        /// <param name="mass"></param>
+        /// <returns></returns>
+        public static IEnumerable<VFI> GetVfiRusi4Break1(MassMass mass)
+        {
+            var modecontrolRepository = ModeControlsRepository.GetInstance();
+            var modecontrol = modecontrolRepository.GetByModeControl("Break1");
+            const String trainName = "81-740.1(Rusi4)";
+            var vfiRepository = GetInstance();
+
+            return vfiRepository.GetVFI(trainName, modecontrol, mass);
+        }
+
+        /// <summary>
+        /// Break2
+        /// </summary>
+        /// <param name="mass"></param>
+        /// <returns></returns>
+        public static IEnumerable<VFI> GetVfiRusi4Break2(MassMass mass)
+        {
+            var modecontrolRepository = ModeControlsRepository.GetInstance();
+            var modecontrol = modecontrolRepository.GetByModeControl("Break2");
+            const String trainName = "81-740.1(Rusi4)";
+            var vfiRepository = GetInstance();
+
+            return vfiRepository.GetVFI(trainName, modecontrol, mass);
+        }
+
+        /// <summary>
+        /// Break3
+        /// </summary>
+        /// <param name="mass"></param>
+        /// <returns></returns>
+        public static IEnumerable<VFI> GetVfiRusi4Break3(MassMass mass)
+        {
+            var modecontrolRepository = ModeControlsRepository.GetInstance();
+            var modecontrol = modecontrolRepository.GetByModeControl("Break3");
+            const String trainName = "81-740.1(Rusi4)";
+            var vfiRepository = GetInstance();
+
+            return vfiRepository.GetVFI(trainName, modecontrol, mass);
+        }
     }
 }
