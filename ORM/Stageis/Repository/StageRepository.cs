@@ -106,6 +106,7 @@ namespace ORM.Stageis.Repository
         /// <param name="stage"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
+        /// <exception cref="ArgumentException">Элемент с таким ключом уже существует в <see cref="T:System.Collections.Generic.SortedList`2" />.</exception>
         public IEnumerable<NMLine> GetNMForStage(Guid stage)
         {
             var track = GetTrack(stage);
@@ -157,6 +158,7 @@ namespace ORM.Stageis.Repository
         }
 
         /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
+        /// <exception cref="ArgumentException">Элемент с таким ключом уже существует в <see cref="T:System.Collections.Generic.SortedList`2" />.</exception>
         internal IEnumerable<ILimits> GetAllLimitsForStage(Guid stage)
         {
             var limitStageRepository = LimitStageRepository.GetInstance();
@@ -183,7 +185,9 @@ namespace ORM.Stageis.Repository
             var profileStage = profileStageRepository.GetLimits(stage);
             var profileSortedStage = new ProfileConvertLimitStage(profileStage);
 
-            var nmLines = GetNMForStage(stage);
+            var nmStageLimits = GetNMForStage(stage);
+            var nmConvertedLimits = new NMConvertLimitStage(nmStageLimits);
+            var nmLimits = new NMLimits(nmConvertedLimits);
 
             var allVelocityLimits = new AllVelocityLimits(limitSortedStage, asrSortedStage);
 
@@ -198,10 +202,13 @@ namespace ORM.Stageis.Repository
             tmpList.Add(currentBlockLimits);
             tmpList.Add(reliefLimits);
             tmpList.Add(openLimits);
+            tmpList.Add(nmLimits);
 
             return tmpList;
         }
 
+        /// <exception cref="ArgumentException">Элемент с таким ключом уже существует в <see cref="T:System.Collections.Generic.SortedList`2" />.</exception>
+        /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
         internal IEnumerable<ILimits> GetLimitsWithoutASRStage(Guid stage)
         {
             var limitStageRepository = LimitStageRepository.GetInstance();
@@ -232,11 +239,16 @@ namespace ORM.Stageis.Repository
 
             var openLimits = new OpenLimits(openSortedStage);
 
+            var nmStageLimits = GetNMForStage(stage);
+            var nmConvertedLimits = new NMConvertLimitStage(nmStageLimits);
+            var nmLimits = new NMLimits(nmConvertedLimits);
+
             var tmpList = new List<ILimits>();
             tmpList.Add(allVelocityLimits);
             tmpList.Add(currentBlockLimits);
             tmpList.Add(reliefLimits);
             tmpList.Add(openLimits);
+            tmpList.Add(nmLimits);
 
             return tmpList;
         }
