@@ -123,6 +123,7 @@ namespace ORM.Stageis.Repository
         }
 
         /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
+        /// <exception cref="ArgumentException">Элемент с таким ключом уже существует в <see cref="T:System.Collections.Generic.SortedList`2" />.</exception>
         public static StationToStationBlock GetStageWithAllLimits(Guid stage)
         {
             var stageRepository = StageRepository.GetInstance();
@@ -136,10 +137,11 @@ namespace ORM.Stageis.Repository
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="stage"></param>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
+        /// <exception cref="ArgumentException">Элемент с таким ключом уже существует в <see cref="T:System.Collections.Generic.SortedList`2" />.</exception>
         public static StationToStationBlock GetStageWithoutASR(Guid stage)
         {
             var stageRepository = StageRepository.GetInstance();
@@ -203,6 +205,14 @@ namespace ORM.Stageis.Repository
         {
             var tmp = Limits.OfType<CurrentBlockLimits>().First().GetLimit(space);
             return MathHelper.IsEqual(1, tmp);
+        }
+
+        /// <exception cref="ArgumentNullException">Параметр <paramref name="source" /> имеет значение null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
+        /// <exception cref="InvalidOperationException">Исходная последовательность пуста.</exception>
+        public Double GetPiketage(Double space)
+        {
+            return Limits.OfType<NMLimits>().First().GetLimit(space);
         }
     }
 }
