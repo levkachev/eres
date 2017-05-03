@@ -2,6 +2,8 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
+using System.Collections.Generic;
+
 namespace TrainMovement.Stuff
 {
     internal static class ExtensionMethods
@@ -19,6 +21,19 @@ namespace TrainMovement.Stuff
                 stream.Seek(0, SeekOrigin.Begin);
                 return (T)formatter.Deserialize(stream);
             }
+        }
+
+        /// <exception cref="Exception">A delegate callback throws an exception.</exception>
+        /// <exception cref="ArgumentNullException">Параметр <paramref name="key" /> имеет значение null.</exception>
+        public static SortedList<TKey, TValue> ToSortedList<TKey, TValue>(this IEnumerable<TValue> collection, Func<TValue, TKey> keyExtractor)
+        {
+            var result = new SortedList<TKey, TValue>();
+            foreach (var item in collection)
+            {
+                var current = item;
+                result.Add(keyExtractor(current), current);
+            }
+            return result;
         }
     }
 }
