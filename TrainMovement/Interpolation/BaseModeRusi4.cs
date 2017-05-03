@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ORM.Trains.Interpolation.Entities;
+using TrainMovement.Stuff;
 
 namespace TrainMovement.Interpolation
 {
@@ -12,15 +13,21 @@ namespace TrainMovement.Interpolation
         /// </summary>
         private SortedList<Double, VFI> vfi;
 
+        /// <summary>
+        /// 
+        /// </summary>
         /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
         public IEnumerable<VFI> ForceAndCurrent
         {
             get
-            { return vfi.Values; }
+            {
+                return vfi.Values;
+            }
             protected set
             {
                 if (value == null)
                     throw new ArgumentNullException(nameof(value));
+
                 vfi = SetForceAndCurrent(value);
             }
         }
@@ -32,18 +39,21 @@ namespace TrainMovement.Interpolation
         /// <returns></returns>
         private static SortedList<Double, VFI> SetForceAndCurrent(IEnumerable<VFI> value)
         {
-            var tmpList = value.ToList();
-            var result = new SortedList<Double, VFI>();
-            foreach (var item in tmpList)
-            {
-                var current = item;
-                result.Add(current.Velocity, current);
-            }
-            return result;
+            return value.ToSortedList(item => item.Velocity);
         }
 
         protected BaseModeRusi4()
         {
+        }
+
+        protected Double GetCurrent(KeyValuePair<Double, VFI> pair)
+        {
+            return (pair.Value.CurrentMax + pair.Value.CurrentMin) / 2;
+        }
+
+        protected Double GetForce(KeyValuePair<Double, VFI> pair)
+        {
+            return (pair.Value.ForceMax + pair.Value.ForceMin) / 2;
         }
 
         /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
@@ -52,17 +62,20 @@ namespace TrainMovement.Interpolation
         {
             var vfi1 = vfi.Last(v => v.Key <= velocity);
             var vfi2 = vfi.First(v => v.Key >= velocity);
+
             var v1 = vfi1.Key;
             var v2 = vfi2.Key;
-            var f1 = (vfi1.Value.ForceMax + vfi1.Value.ForceMin) / 2;
-            var f2 = (vfi2.Value.ForceMax + vfi2.Value.ForceMin) / 2;
-            var k = GetK(v1, v2, f1, f2);
-            var force = k * v1 + GetB(v1, k, f1);
 
-            var c1 = (vfi1.Value.CurrentMax + vfi1.Value.CurrentMin) / 2;
-            var c2 = (vfi2.Value.CurrentMax + vfi2.Value.CurrentMin) / 2;
-            k = GetK(v1, v2, c1, c2);
-            var current = k * v1 + GetB(v1, k, c1);
+            var f1 = GetForce(vfi1);
+            var f2 = GetForce(vfi2);
+            var k1 = GetK(v1, v2, f1, f2);
+            var force = k1 * v1 + GetB(v1, k1, f1);
+
+            var c1 = GetCurrent(vfi1);
+            var c2 = GetCurrent(vfi2);
+            var k2 = GetK(v1, v2, c1, c2);
+            var current = k2 * v1 + GetB(v1, k2, c1);
+
             return new Tuple<Double, Double>(force, current);
         }
 
