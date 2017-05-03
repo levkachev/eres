@@ -28,14 +28,14 @@ namespace ORM.Stageis.Repository.Limits
             var tmpVector = nativeLimits.ToArray();
            
             Double newPiketage;
-            Double space = 0.0;
+            var space = 0.0;
             const Double valuePiketage = 100.0;
 
             var current = tmpVector[0];
             var next = tmpVector[1];
             Double length;
             var lastWrittenPiketage = 0.0;
-            Boolean wasWritten = false;
+            var wasWritten = false;
 
             var direction = current.Piketage < next.Piketage;
 
@@ -53,7 +53,7 @@ namespace ORM.Stageis.Repository.Limits
                         if (wasWritten)
                             space -= Math.Abs(newPiketage - lastWrittenPiketage)*100;
                     }   
-                    /*length = Math.Abs(newPiketage - current.Piketage) < 1 ? */
+                  
                     else length = valuePiketage;
 
                     newPiketage = AddPiketage(newPiketage, direction);
