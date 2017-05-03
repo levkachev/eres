@@ -486,7 +486,6 @@ namespace TrainMovement.Train
 
         /// <summary>
         /// Перегон
-        /// StageTry ??? 
         /// </summary>
         public StationToStationBlock CurrentStage { get; set; }
 
@@ -509,6 +508,16 @@ namespace TrainMovement.Train
         /// Сила дополнительного сопротивления
         /// </summary>
         public Double ForceAdditionalResistance { get; set; }
+
+        /// <summary>
+        /// Коэффициент открытых участков
+        /// </summary>
+        public Double FactorOfOpenStage { get; set; }
+
+        /// <summary>
+        /// Возможность ехать в тяге
+        /// </summary>
+        public Boolean CanPullOrBreak { get; set; }
 
 
         #endregion
