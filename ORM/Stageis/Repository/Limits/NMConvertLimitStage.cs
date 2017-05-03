@@ -34,9 +34,10 @@ namespace ORM.Stageis.Repository.Limits
             var current = tmpVector[0];
             var next = tmpVector[1];
             Double length;
+            var lastWrittenPiketage = 0.0;
+            Boolean wasWritten = false;
 
             var direction = current.Piketage < next.Piketage;
-            //Установили начало перегона 100 м от оси станции в сторону конца перегона
 
             for (var i = 0; i < tmpVector.Length - 1; ++i)
             {
@@ -46,11 +47,20 @@ namespace ORM.Stageis.Repository.Limits
                 
                 while (Math.Abs(Math.Truncate(newPiketage) - Math.Truncate(next.Piketage)) >= 1)
                 {
-                    length = Math.Abs(newPiketage - current.Piketage) < 1 ? current.Length : valuePiketage;
+                    if (Math.Abs(newPiketage - current.Piketage) < 1)
+                    {
+                        length = current.Length;
+                        if (wasWritten)
+                            space -= Math.Abs(newPiketage - lastWrittenPiketage)*100;
+                    }   
+                    /*length = Math.Abs(newPiketage - current.Piketage) < 1 ? */
+                    else length = valuePiketage;
 
                     newPiketage = AddPiketage(newPiketage, direction);
                     var limit = new Limit(space, newPiketage);   
-                                     
+                    lastWrittenPiketage = newPiketage;
+                    wasWritten = true;
+
                     space += length;
                     
                     resultSortedSet.Add(limit);
@@ -58,12 +68,12 @@ namespace ORM.Stageis.Repository.Limits
             }
 
             current = tmpVector[nativeLimits.Count - 1];
-            space = space + current.Length;
+            space -= Math.Abs(current.Piketage - lastWrittenPiketage) * 100;
             var newLimit = new Limit(space, current.Piketage);
+            space = space + current.Length;
             resultSortedSet.Add(newLimit);
 
             newPiketage = AddPiketage(current.Piketage, direction);
-            space = space + valuePiketage;
             newLimit = new Limit(space, newPiketage);
             resultSortedSet.Add(newLimit);
 
