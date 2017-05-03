@@ -25,6 +25,7 @@ namespace TrainMovement.Stuff
 
         /// <exception cref="Exception">A delegate callback throws an exception.</exception>
         /// <exception cref="ArgumentNullException">Параметр <paramref name="key" /> имеет значение null.</exception>
+        /// <exception cref="ArgumentException">Элемент с таким ключом уже существует в <see cref="T:System.Collections.Generic.SortedList`2" />.</exception>
         public static SortedList<TKey, TValue> ToSortedList<TKey, TValue>(this IEnumerable<TValue> collection, Func<TValue, TKey> keyExtractor)
         {
             var result = new SortedList<TKey, TValue>();
