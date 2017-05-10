@@ -6,7 +6,7 @@ namespace ORM.Stageis.Repository.Limits
     /// <summary>
     /// Определение координаты на линии, зная расстояние от начала перегона
     /// </summary>
-    internal class NMLimits : BaseLimits
+    public class NMLimits : BaseLimits
     {
         /// <summary>
         /// Конструктор
