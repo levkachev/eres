@@ -13,6 +13,11 @@ namespace ORM.Stageis.Repository
     public class StationToStationBlock
     {
         /// <summary>
+        /// Ссылка на брокер событий
+        /// </summary>
+        private EventBroker broker;
+
+        /// <summary>
         /// Список всех ограничений
         /// </summary>
         private List<ILimits> limits;
@@ -113,18 +118,19 @@ namespace ORM.Stageis.Repository
         /// Закрытый конструктор
         /// </summary>
         /// <exception cref="ArgumentNullException">value is <see langword="null"/></exception>
-        private StationToStationBlock(IEnumerable<ILimits> limits, Station departer, Station arrival, Track track, Double length)
+        private StationToStationBlock(IEnumerable<ILimits> limits, Station departer, Station arrival, Track track, Double length, EventBroker broker)
         {
             Limits = limits;
             Departer = departer;
             Arrival = arrival;
             TrackNumber = track;
             StageLength = length;
+            this.broker = broker;
         }
 
         /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
         /// <exception cref="ArgumentException">Элемент с таким ключом уже существует в <see cref="T:System.Collections.Generic.SortedList`2" />.</exception>
-        public static StationToStationBlock GetStageWithAllLimits(Guid stage)
+        public static StationToStationBlock GetStageWithAllLimits(Guid stage, EventBroker broker)
         {
             var stageRepository = StageRepository.GetInstance();
             var track = stageRepository.GetTrack(stage);
@@ -133,7 +139,7 @@ namespace ORM.Stageis.Repository
             var arrival = stageRepository.GetArrivalByIdStage(stage);
 
             var limits = stageRepository.GetAllLimitsForStage(stage);
-            return new StationToStationBlock(limits, departer, arrival, track, length);
+            return new StationToStationBlock(limits, departer, arrival, track, length, broker);
         }
 
         /// <summary>
@@ -142,7 +148,7 @@ namespace ORM.Stageis.Repository
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
         /// <exception cref="ArgumentException">Элемент с таким ключом уже существует в <see cref="T:System.Collections.Generic.SortedList`2" />.</exception>
-        public static StationToStationBlock GetStageWithoutASR(Guid stage)
+        public static StationToStationBlock GetStageWithoutASR(Guid stage, EventBroker broker)
         {
             var stageRepository = StageRepository.GetInstance();
             var track = stageRepository.GetTrack(stage);
@@ -151,7 +157,7 @@ namespace ORM.Stageis.Repository
             var arrival = stageRepository.GetArrivalByIdStage(stage);
 
             var limits = stageRepository.GetLimitsWithoutASRStage(stage);
-            return new StationToStationBlock(limits, departer, arrival, track, length);
+            return new StationToStationBlock(limits, departer, arrival, track, length,broker);
         }
 
         /// <summary>
@@ -214,5 +220,23 @@ namespace ORM.Stageis.Repository
         {
             return Limits.OfType<NMLimits>().First().GetLimit(space);
         }
+
+        /// <summary>
+        /// Подписка на брокер событий
+        /// </summary>
+        public void Listen()
+        {
+            broker.SubSuscribe(new EventHandler(TrainChangingSpace));
+        }
+
+        private void TrainChangingSpace(Object sender, EventArgs e)
+        {
+            //var train = sender as Train;
+            //if (train == null) return;
+            //train.Piketage = GetPiketage();
+
+        }
     }
+
+
 }
