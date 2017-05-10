@@ -50,6 +50,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interpolation\BaseModeRusi4.cs" />
+    <Compile Include="Interpolation\Break1Rusi4.cs" />
+    <Compile Include="Interpolation\Break2Rusi4.cs" />
+    <Compile Include="Interpolation\Break3Rusi4.cs" />
+    <Compile Include="Interpolation\Pull1Rusi4.cs" />
+    <Compile Include="Interpolation\Pull2Rusi4.cs" />
+    <Compile Include="Interpolation\Pull3Rusi4.cs" />
+    <Compile Include="Interpolation\Pull4Rusi4.cs" />
     <Compile Include="ModeControl\BaseACRusi4BaseResistance.cs" />
     <Compile Include="ModeControl\IModeControl.cs" />
     <Compile Include="ModeControl\IResistance.cs" />

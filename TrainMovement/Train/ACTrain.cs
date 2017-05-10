@@ -1,4 +1,5 @@
 ﻿using System;
+using ORM.Stageis.Repository;
 using ORM.Trains.Repository.Machine;
 using ORM.Trains.Repository.Trains;
 
@@ -32,10 +33,11 @@ namespace TrainMovement.Train
         /// <param name="machine"></param>
         /// <param name="commonProperties"></param>
         /// <param name="trainName"></param>
+        /// <param name="broker"></param>
         /// <exception cref="ArgumentException">Train.Name != <paramref name="commonProperties"/>.TrainName</exception>
         /// <exception cref="ArgumentNullException">value is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">empty.</exception>
-        internal ACTrain(ACMachine machine, ACParametres commonProperties, String trainName)
+        internal ACTrain(ACMachine machine, ACParametres commonProperties, String trainName, EventBroker broker)
         {
             Name = trainName;
             
@@ -47,6 +49,7 @@ namespace TrainMovement.Train
                 throw new ArgumentException("Train.Name != machine.TrainName");
             Machine = machine;
             
+
         }
     }
 }

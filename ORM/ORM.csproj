@@ -145,6 +145,7 @@
     <Compile Include="Stageis\Repository\Limits\ISortedSetLimits.cs" />
     <Compile Include="Stageis\Repository\Limits\Limit.cs" />
     <Compile Include="Stageis\Repository\Limits\NMConvertLimitStage.cs" />
+    <Compile Include="Stageis\Repository\Limits\NMLimits.cs" />
     <Compile Include="Stageis\Repository\Limits\OpenConvertLimitStage.cs" />
     <Compile Include="Stageis\Repository\Limits\OpenLimits.cs" />
     <Compile Include="Stageis\Repository\Limits\PlanConvertedLimitStage.cs" />

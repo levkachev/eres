@@ -6,7 +6,7 @@ namespace ORM.Stageis.Repository.Limits
     /// <summary>
     /// План и профиль как одно ограничение
     /// </summary>
-    internal class ReliefLimits : BaseLimits
+    public class ReliefLimits : BaseLimits
     {
         /// <summary>
         /// </summary>

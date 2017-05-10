@@ -1,4 +1,5 @@
 ﻿using System;
+using ORM.Stageis.Repository;
 using ORM.Trains.Repository.Machine;
 using ORM.Trains.Repository.Trains;
 
@@ -9,16 +10,16 @@ namespace TrainMovement.Train
     /// </summary>
     public class DCTrain : BaseTrain
     {
-
         /// <summary>
         /// </summary>
         /// <param name="machine"></param>
         /// <param name="commonProperties"></param>
         /// <param name="trainName"></param>
+        /// <param name="broker"></param>
         /// <exception cref="ArgumentException">Train.Name != <paramref name="commonProperties"/>.TrainName</exception>
         /// <exception cref="ArgumentNullException">value is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">empty.</exception>
-        internal DCTrain(DCMachine machine, DCParametres commonProperties, String trainName)
+        internal DCTrain(DCMachine machine, DCParametres commonProperties, String trainName, EventBroker broker)
         {
             Name = trainName;
 

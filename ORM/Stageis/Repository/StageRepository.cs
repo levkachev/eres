@@ -106,6 +106,7 @@ namespace ORM.Stageis.Repository
         /// <param name="stage"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
+        /// <exception cref="ArgumentException">Элемент с таким ключом уже существует в <see cref="T:System.Collections.Generic.SortedList`2" />.</exception>
         public IEnumerable<NMLine> GetNMForStage(Guid stage)
         {
             var track = GetTrack(stage);
@@ -113,6 +114,15 @@ namespace ORM.Stageis.Repository
             var nmLines = trackRepository.GetNMForTrack(track);
             var departer = GetDepartureByIDStage(stage);
             var arrival = GetArrivalByIdStage(stage);
+            
+            var result = new SortedList<Double, NMLine>();
+
+            result.Add(departer.Piketage, new NMLine
+            {
+                Length = 100,
+                Piketage = departer.Piketage,
+                Track = track
+            });
 
             //едем от меньшего к большему
             var ascDirection = departer.Piketage < arrival.Piketage;
@@ -126,27 +136,30 @@ namespace ORM.Stageis.Repository
                     nm.Piketage >= arrival.Piketage);
 
             var tmp = nmLines.Where(predicate).ToList();
-            if (tmp.IsEmpty())
-                tmp.AddRange(new[]
-                {
-                    new NMLine
-                    {
-                        Length = 100,
-                        Piketage = departer.Piketage,
-                        Track = track
-                    },
-                    new NMLine
-                    {
-                        Length = 100,
-                        Piketage = arrival.Piketage,
-                        Track = track
-                    }
-                });
-        return tmp;
+
+            if (!tmp.IsEmpty())
+            {
+                foreach (var nm in tmp)
+                    result.Add(nm.Piketage, nm);
+            }
+            
+            result.Add(arrival.Piketage, new NMLine
+            {
+                Length = 100,
+                Piketage = arrival.Piketage,
+                Track = track
+            });
+
+            if (arrival.Piketage < departer.Piketage)
+            {
+                return result.OrderByDescending(item => item.Key).Select(item => item.Value);  
+            }
+        return result.Values;
         }
 
         /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
-        internal IEnumerable<ILimits> GetAllLimitsForStage(Guid stage)
+        /// <exception cref="ArgumentException">Элемент с таким ключом уже существует в <see cref="T:System.Collections.Generic.SortedList`2" />.</exception>
+        public IEnumerable<ILimits> GetAllLimitsForStage(Guid stage)
         {
             var limitStageRepository = LimitStageRepository.GetInstance();
             var limitStage = limitStageRepository.GetLimits(stage);
@@ -172,7 +185,9 @@ namespace ORM.Stageis.Repository
             var profileStage = profileStageRepository.GetLimits(stage);
             var profileSortedStage = new ProfileConvertLimitStage(profileStage);
 
-            var nmLines = GetNMForStage(stage);
+            var nmStageLimits = GetNMForStage(stage);
+            var nmConvertedLimits = new NMConvertLimitStage(nmStageLimits);
+            var nmLimits = new NMLimits(nmConvertedLimits);
 
             var allVelocityLimits = new AllVelocityLimits(limitSortedStage, asrSortedStage);
 
@@ -187,11 +202,14 @@ namespace ORM.Stageis.Repository
             tmpList.Add(currentBlockLimits);
             tmpList.Add(reliefLimits);
             tmpList.Add(openLimits);
+            tmpList.Add(nmLimits);
 
             return tmpList;
         }
 
-        internal IEnumerable<ILimits> GetLimitsWithoutASRStage(Guid stage)
+        /// <exception cref="ArgumentException">Элемент с таким ключом уже существует в <see cref="T:System.Collections.Generic.SortedList`2" />.</exception>
+        /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
+        public IEnumerable<ILimits> GetLimitsWithoutASRStage(Guid stage)
         {
             var limitStageRepository = LimitStageRepository.GetInstance();
             var limitStage = limitStageRepository.GetLimits(stage);
@@ -221,11 +239,16 @@ namespace ORM.Stageis.Repository
 
             var openLimits = new OpenLimits(openSortedStage);
 
+            var nmStageLimits = GetNMForStage(stage);
+            var nmConvertedLimits = new NMConvertLimitStage(nmStageLimits);
+            var nmLimits = new NMLimits(nmConvertedLimits);
+
             var tmpList = new List<ILimits>();
             tmpList.Add(allVelocityLimits);
             tmpList.Add(currentBlockLimits);
             tmpList.Add(reliefLimits);
             tmpList.Add(openLimits);
+            tmpList.Add(nmLimits);
 
             return tmpList;
         }

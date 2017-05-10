@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ORM.Helpers;
 using ORM.Lines.Entities;
 
 namespace ORM.Stageis.Repository.Limits
@@ -25,34 +26,66 @@ namespace ORM.Stageis.Repository.Limits
             var resultSortedSet = new SortedSet<Limit>();
 
             var tmpVector = nativeLimits.ToArray();
+           
+            Double newPiketage;
+            var space = 0.0;
+            const Double valuePiketage = 100.0;
+
             var current = tmpVector[0];
             var next = tmpVector[1];
-            Double newPiketage;
-            Double space = 0.0;
-            const Double valuePiketage = 100.0;
+            Double length;
+            var lastWrittenPiketage = 0.0;
+            var wasWritten = false;
+
             var direction = current.Piketage < next.Piketage;
-            newPiketage = AddPiketage(current.Piketage, direction);
-            var newLimit = new Limit(space, newPiketage);
-            resultSortedSet.Add(newLimit);
-            for (var i = 0; i < nativeLimits.Count - 1; ++i)
+
+            for (var i = 0; i < tmpVector.Length - 1; ++i)
             {
                 current = tmpVector[i];
                 next = tmpVector[i + 1];
-                space = space + current.Length;
-                newLimit = new Limit(space, current.Piketage);
-                resultSortedSet.Add(newLimit);
-                newPiketage = AddPiketage(current.Piketage, direction);
-                while (newPiketage < next.Piketage)
+                newPiketage = current.Piketage;
+                
+                while (Math.Abs(Math.Truncate(newPiketage) - Math.Truncate(next.Piketage)) >= 1)
                 {
-                    space = space + valuePiketage;
-                    newLimit = new Limit(space, current.Piketage);
-                    resultSortedSet.Add(newLimit);
-                    newPiketage = AddPiketage(current.Piketage, direction);
+                    if (Math.Abs(newPiketage - current.Piketage) < 1)
+                    {
+                        length = current.Length;
+                        if (wasWritten)
+                            space -= Math.Abs(newPiketage - lastWrittenPiketage)*100;
+                    }   
+                  
+                    else length = valuePiketage;
+
+                    newPiketage = AddPiketage(newPiketage, direction);
+                    var limit = new Limit(space, newPiketage);   
+                    lastWrittenPiketage = newPiketage;
+                    wasWritten = true;
+
+                    space += length;
+                    
+                    resultSortedSet.Add(limit);
                 }
             }
+
+            current = tmpVector[nativeLimits.Count - 1];
+            space -= Math.Abs(current.Piketage - lastWrittenPiketage) * 100;
+            var newLimit = new Limit(space, current.Piketage);
+            space = space + current.Length;
+            resultSortedSet.Add(newLimit);
+
+            newPiketage = AddPiketage(current.Piketage, direction);
+            newLimit = new Limit(space, newPiketage);
+            resultSortedSet.Add(newLimit);
+
             return resultSortedSet;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="limits"></param>
+        /// <returns></returns>
         public static IEnumerable<Limit> GetLimits(IEnumerable<NMLine> limits)
         {
             return new NMConvertLimitStage(limits).Limits;
@@ -66,7 +99,7 @@ namespace ORM.Stageis.Repository.Limits
         /// <returns></returns>
         private Double AddPiketage(Double piketage, Boolean direction)
         {
-            return direction ? piketage - 1.0 : piketage + 1.0;
+            return direction ? piketage + 1.0 : piketage - 1.0;
         }
     }
 }

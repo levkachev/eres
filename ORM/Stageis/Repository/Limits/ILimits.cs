@@ -6,7 +6,7 @@ namespace ORM.Stageis.Repository.Limits
     /// <summary>
     /// Все ограничения должны иметь свойство IEnumerable(Limit) для чтения и давать значение ограничения по координате.
     /// </summary>
-    internal interface ILimits
+    public interface ILimits
     {
         /// <summary>
         /// Ограничения.

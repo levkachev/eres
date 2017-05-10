@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reflection;
+using ORM.Helpers;
 using ORM.Stageis.Repository;
 using TrainMovement.ModeControl;
 using ORM.Trains.Repository.Trains;
@@ -14,6 +16,12 @@ namespace TrainMovement.Train
     public abstract class BaseTrain
     {
         #region Fields
+
+        /// <summary>
+        /// Ссылка на брокер событий
+        /// </summary>
+        private EventBroker broker;
+
         /// <summary>
         /// Ускорение
         /// </summary>
@@ -221,7 +229,7 @@ namespace TrainMovement.Train
             {
                 return velocity;
             }
-            private set
+            protected set
             {
                 if (!DomainHelper.CheckVelocity(value))
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -240,7 +248,7 @@ namespace TrainMovement.Train
             {
                 return voltage;
             }
-            private set
+           set
             {
                 if (!DomainHelper.CheckVoltage(value))
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -260,6 +268,8 @@ namespace TrainMovement.Train
             {
                 if (!DomainHelper.CheckSpace(value))
                     throw new ArgumentOutOfRangeException(nameof(value));
+                if (MathHelper.Equals(value, space)) return;
+                SpaceChanged();
                 space = value;
             }
         }
@@ -486,7 +496,6 @@ namespace TrainMovement.Train
 
         /// <summary>
         /// Перегон
-        /// StageTry ??? 
         /// </summary>
         public StationToStationBlock CurrentStage { get; set; }
 
@@ -510,17 +519,27 @@ namespace TrainMovement.Train
         /// </summary>
         public Double ForceAdditionalResistance { get; set; }
 
+        /// <summary>
+        /// Коэффициент открытых участков
+        /// </summary>
+        public Double FactorOfOpenStage { get; set; }
+
+        /// <summary>
+        /// Возможность ехать в тяге
+        /// </summary>
+        public Boolean CanPullOrBreak { get; set; }
+
 
         #endregion
-
 
         /// <summary>
         /// </summary>
         /// <param name="machine"></param>
         /// <param name="commonProperties"></param>
         /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
+        /// <exception cref="ArgumentNullException">value is <see langword="null"/></exception>
         protected BaseTrain(BaseMachine 
-            machine, BaseTrainParametres commonProperties)
+            machine, BaseTrainParametres commonProperties, EventBroker broker)
         {
             CarLength = commonProperties.CarLength;
             UnladenWeight = commonProperties.UnladenWeight;
@@ -536,7 +555,16 @@ namespace TrainMovement.Train
             OwnNeedsElectricPower = commonProperties.OwnNeedsElectricPower;
 
             Machine = machine;
+            this.broker = broker;
         }
+
+        /// <summary>
+        /// Изменение кординаты поезда на перегоне приводит к событию
+        /// </summary>
+        /// <exception cref="Exception">A delegate callback throws an exception.</exception>
+        /// <exception cref="MemberAccessException">Вызывающий код не имеет доступа к методу, представленному делегатом (например, если это закрытый метод).-или- Количество, порядок или тип параметров в списке <paramref name="args" /> является недопустимым. </exception>
+        /// <exception cref="TargetInvocationException">Представленный делегатом метод является методом экземпляра, а целевой объект имеет значение null.-или- Один из инкапсулированных методов выбрасывает исключение. </exception>
+        public void SpaceChanged() => broker.Publish(this, new EventArgs());
 
         /// <summary>
         /// 
