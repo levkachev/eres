@@ -159,7 +159,7 @@ namespace ORM.Stageis.Repository
 
         /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
         /// <exception cref="ArgumentException">Элемент с таким ключом уже существует в <see cref="T:System.Collections.Generic.SortedList`2" />.</exception>
-        internal IEnumerable<ILimits> GetAllLimitsForStage(Guid stage)
+        public IEnumerable<ILimits> GetAllLimitsForStage(Guid stage)
         {
             var limitStageRepository = LimitStageRepository.GetInstance();
             var limitStage = limitStageRepository.GetLimits(stage);
@@ -209,7 +209,7 @@ namespace ORM.Stageis.Repository
 
         /// <exception cref="ArgumentException">Элемент с таким ключом уже существует в <see cref="T:System.Collections.Generic.SortedList`2" />.</exception>
         /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
-        internal IEnumerable<ILimits> GetLimitsWithoutASRStage(Guid stage)
+        public IEnumerable<ILimits> GetLimitsWithoutASRStage(Guid stage)
         {
             var limitStageRepository = LimitStageRepository.GetInstance();
             var limitStage = limitStageRepository.GetLimits(stage);
