@@ -33,7 +33,7 @@ namespace ORM.Stageis.Entities
         /// <summary>
         /// 
         /// </summary>
-        public virtual IEnumerable<ProfileStage> ProfilStages { get; set; }
+        public virtual IEnumerable<ProfileStage> ProfileStages { get; set; }
 
         /// <summary>
         /// 
@@ -43,7 +43,7 @@ namespace ORM.Stageis.Entities
         /// <summary>
         /// 
         /// </summary>
-   //     public virtual CurrentSectionStage CurrentSectionStage { get; set; }
+        public virtual IEnumerable<CurrentSectionStage> CurrentSectionStages { get; set; }
 
         /// <summary>
         /// 
@@ -61,13 +61,15 @@ namespace ORM.Stageis.Entities
         /// 
         /// </summary>
         public virtual IEnumerable<OpenStage> OpenStages { get; set; }
+
         public Stage()
         {
-            ProfilStages = new SortedSet<ProfileStage>();
-            PlanStages = new SortedSet<PlanStage>();
-            LimitStages = new SortedSet<LimitStage>();
-            ASRStages = new SortedSet<ASRStage>();
-            OpenStages = new SortedSet<OpenStage>();
+            ProfileStages = new List<ProfileStage>();
+            PlanStages = new List<PlanStage>();
+            LimitStages = new List<LimitStage>();
+            ASRStages = new List<ASRStage>();
+            OpenStages = new List<OpenStage>();
+            CurrentSectionStages = new List<CurrentSectionStage>();
         }
 
         public override String ToString()

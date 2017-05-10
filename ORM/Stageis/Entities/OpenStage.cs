@@ -1,6 +1,5 @@
 ﻿using System;
 using ORM.Base;
-using System.Collections.Generic;
 
 namespace ORM.Stageis.Entities
 {
@@ -30,6 +29,11 @@ namespace ORM.Stageis.Entities
         public virtual Stage Stage { get; set; }
 
 
+        public override String ToString()
+        {
+            return $" {KWosn} {Start} {Finish}";
+
+        }
     }
 }
 

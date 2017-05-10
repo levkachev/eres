@@ -29,7 +29,7 @@ namespace ORM.Lines.Entities
 
         public override String ToString()
         {
-            return $" {Length} {Piketage}";
+            return $" {Length} {Piketage} ";
         }
     }
 }

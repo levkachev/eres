@@ -16,7 +16,7 @@ namespace ORM.Stageis.Map
             Table("Stage.ProfileStage");
             Id(x => x.ID);
             Map(x => x.Slope).Not.Nullable();
-            Map(x => x.End_Slope).Not.Nullable();
+            Map(x => x.EndSlope).Not.Nullable();
             References(x => x.Stage).ForeignKey("ID_Stage");
            
         }

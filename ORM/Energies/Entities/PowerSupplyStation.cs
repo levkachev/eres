@@ -40,8 +40,8 @@ namespace ORM.Energy.Entities
         /// </summary>
         public PowerSupplyStation()
         {
-            Units = new SortedSet<Unit>();
-            Feeders = new SortedSet<Feeder>();
+            Units = new List<Unit>();
+            Feeders = new List<Feeder>();
         }
 
         public override String ToString()

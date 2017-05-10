@@ -63,14 +63,14 @@ namespace ORM.Lines.Entities
         public Track()
         {
             
-            NMLines = new SortedSet<NMLine>();
-            PlanLines = new SortedSet<PlanLine>();
-            ProfileLines = new SortedSet<ProfileLine>();
-            CurrentSectionLines = new SortedSet<CurrentSectionLine>();
-            LimitLines = new SortedSet<LimitLine>();
-            Stages = new SortedSet<Stage>();
-            OpenLines = new SortedSet<OpenLine>();
-            ASRLines = new SortedSet<ASRLine>();
+            NMLines = new List<NMLine>();
+            PlanLines = new List<PlanLine>();
+            ProfileLines = new List<ProfileLine>();
+            CurrentSectionLines = new List<CurrentSectionLine>();
+            LimitLines = new List<LimitLine>();
+            Stages = new List<Stage>();
+            OpenLines = new List<OpenLine>();
+            ASRLines = new List<ASRLine>();
         }
        
            public override String ToString()

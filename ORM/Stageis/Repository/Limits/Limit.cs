@@ -1,36 +1,55 @@
 ﻿using System;
+using ORM.Helpers;
 
-namespace TrainMovement.Stages
+namespace ORM.Stageis.Repository.Limits
 {
     /// <summary>
     /// У перегона имеется несколько типов ограничений, таких как ограничения скорости, профиль, план и т.д
     /// Все эти ограничения вида: координата по пути от начала перегона и значение ограничения.
     /// </summary>
-    public class LimitStructure : IComparable<LimitStructure>
+    public class Limit : IComparable<Limit>
     {
         /// <summary>
         /// координата по пути от начала перегона
         /// </summary>
-        public Double Space;
+        private readonly Double space;
 
         /// <summary>
         /// значение ограничения
         /// </summary>
-        public Double Limit;
+        private readonly Double value;
+
+        /// <summary>
+        /// координата по пути от начала перегона
+        /// </summary>
+        internal Double Space => space;
+
+        /// <summary>
+        /// значение ограничения
+        /// </summary>
+        internal Double Value => value;
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="space"></param>
+        /// <param name="aValue"></param>
+        internal Limit(Double space, Double aValue)
+        {
+            this.space = space;
+            value = aValue;
+        }
 
         /// <summary>
         /// </summary>
         /// <param name="lha"></param>
         /// <param name="rha"></param>
         /// <returns></returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        public static Boolean operator ==(LimitStructure lha, LimitStructure rha)
+        public static Boolean operator ==(Limit lha, Limit rha)
         {
-            if (ReferenceEquals(lha, null))
-                throw new ArgumentNullException(nameof(lha));
-
-            if (ReferenceEquals(rha, null))
-                throw new ArgumentNullException(nameof(rha));
+            if (ReferenceEquals(lha, null) || ReferenceEquals(rha, null))
+                return false;
 
             return Math.Abs(lha.Space - rha.Space) < Double.Epsilon;
         }
@@ -40,7 +59,7 @@ namespace TrainMovement.Stages
         /// <param name="lha"></param>
         /// <param name="rha"></param>
         /// <returns></returns>
-        public static Boolean operator !=(LimitStructure lha, LimitStructure rha)
+        public static Boolean operator !=(Limit lha, Limit rha)
         {
             return !(lha == rha);
         }
@@ -51,7 +70,7 @@ namespace TrainMovement.Stages
         /// <param name="lha"></param>
         /// <param name="rha"></param>
         /// <returns></returns>
-        public static Boolean operator >(LimitStructure lha, LimitStructure rha)
+        public static Boolean operator >(Limit lha, Limit rha)
         {
             return lha.Space > rha.Space;
         }
@@ -62,7 +81,7 @@ namespace TrainMovement.Stages
         /// <param name="lha"></param>
         /// <param name="rha"></param>
         /// <returns></returns>
-        public static Boolean operator <(LimitStructure lha, LimitStructure rha)
+        public static Boolean operator <(Limit lha, Limit rha)
         {
             return lha.Space < rha.Space;
         }
@@ -72,7 +91,7 @@ namespace TrainMovement.Stages
         /// <param name="lha"></param>
         /// <param name="rha"></param>
         /// <returns></returns>
-        public static Boolean operator >=(LimitStructure lha, LimitStructure rha)
+        public static Boolean operator >=(Limit lha, Limit rha)
         {
             return !(lha < rha);
         }
@@ -82,7 +101,7 @@ namespace TrainMovement.Stages
         /// <param name="lha"></param>
         /// <param name="rha"></param>
         /// <returns></returns>
-        public static Boolean operator <=(LimitStructure lha, LimitStructure rha)
+        public static Boolean operator <=(Limit lha, Limit rha)
         {
             return !(lha > rha);
         }
@@ -92,13 +111,13 @@ namespace TrainMovement.Stages
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
-        public Int32 CompareTo(LimitStructure other)
+        public Int32 CompareTo(Limit other)
         {
-            if (this == other)
-                return 0;
             if (this > other)
                 return 1;
-            return -1;
+            if (this < other)
+                return -1;
+            return 0;
         }
 
         /// <summary>
@@ -107,7 +126,7 @@ namespace TrainMovement.Stages
         /// <param name="lha"></param>
         /// <param name="rha"></param>
         /// <returns></returns>
-        public static Boolean operator >(LimitStructure lha, Double rha)
+        public static Boolean operator >(Limit lha, Double rha)
         {
             return lha.Space > rha;
         }
@@ -118,7 +137,7 @@ namespace TrainMovement.Stages
         /// <param name="lha"></param>
         /// <param name="rha"></param>
         /// <returns></returns>
-        public static Boolean operator <(LimitStructure lha, Double rha)
+        public static Boolean operator <(Limit lha, Double rha)
         {
             return lha.Space < rha;
         }
@@ -130,13 +149,14 @@ namespace TrainMovement.Stages
         /// <returns></returns>
         public override Boolean Equals(Object obj)
         {
-            var tmp = (LimitStructure) obj;
+            var tmp = obj as Limit;
             if (tmp == null)
                 return false;
+
             if (ReferenceEquals(this, tmp))
                 return true;
 
-            return Math.Abs(this.Space - tmp.Space) < Double.Epsilon;
+            return MathHelper.IsEqual(Space, tmp.Space);
         }
 
         /// <summary>
@@ -146,6 +166,11 @@ namespace TrainMovement.Stages
         public override Int32 GetHashCode()
         {
             return base.GetHashCode();
+        }
+
+        public override String ToString()
+        {
+            return $"<space = {Space}; value = {Value}>";
         }
     }
 }

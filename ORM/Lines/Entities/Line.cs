@@ -46,10 +46,11 @@ namespace ORM.Lines.Entities
         /// </summary>
         public Line()
         {
-            PowerSupplyStations = new SortedSet<PowerSupplyStation>();
-            Tracks = new SortedSet<Track>();
-            Directions = new SortedSet<Direction>();
-            Stations = new SortedSet<Station>();
+            PowerSupplyStations = new List<PowerSupplyStation>();
+            Tracks = new List<Track>();
+            Directions = new List<Direction>();
+            Stations = new List<Station>();
+            
         }
     }
 }

@@ -30,5 +30,18 @@ namespace ORM.Lines.Repository
                 throw new ArgumentOutOfRangeException(paramName: nameof(name));
             return tmp.ID;
         }
+        /// <summary>
+        /// для записи в файл, показать все имена станций для выбранной линии (запрос работает, запись нет)
+        /// </summary>
+        /// <param name="stage"></param>
+        /// <returns></returns>
+        public IList<String> GetLineStationName(String lineName)
+        {
+
+            return GetAll()
+                .Where(line => line.Line.Name.Equals(lineName))
+                .Select(line => line.Name).ToList();
+        }
+
     }
 }
