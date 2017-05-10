@@ -5,7 +5,7 @@ namespace ORM.Stageis.Repository.Limits
     /// <summary>
     /// 
     /// </summary>
-    internal class OpenLimits : BaseLimits
+    public class OpenLimits : BaseLimits
     {
         /// <summary>
         /// </summary>
