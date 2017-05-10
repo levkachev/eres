@@ -1,13 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Security;
+using ORM.Trains.Entities;
 using ORM.Trains.Interpolation.Entities;
+using TrainMovement.ModeControl;
 using TrainMovement.Stuff;
+using TrainMovement.Train;
 
 namespace TrainMovement.Interpolation
 {
-    internal abstract class BaseModeRusi4
+    /// <summary>
+    /// 
+    /// </summary>
+    internal abstract class BaseModeRusi4<T> : IModeControl
     {
+        /// <summary>
+        /// Instance of singleton object.
+        /// </summary>
+        private static IModeControl instance;
+
+        protected static TBaseModeRusi4 GetInstance<TBaseModeRusi4>(MassMass mass) 
+            where TBaseModeRusi4 : class, IModeControl
+        {
+            if (instance == null)
+            {
+                var ctor = typeof(TBaseModeRusi4).GetConstructor(new Type[] {typeof(MassMass)});
+                if (ctor == null)
+                    throw new InvalidOperationException();
+
+                instance = ctor.Invoke(new Object[] {mass}) as TBaseModeRusi4;
+            }
+            return instance as TBaseModeRusi4;
+        }
+
         /// <summary>
         /// Характеристики
         /// </summary>
@@ -106,16 +133,57 @@ namespace TrainMovement.Interpolation
 
         /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
         /// <exception cref="InvalidOperationException">Ни один элемент не удовлетворяет условию предиката <paramref name="predicate" />.– или –Исходная последовательность пуста.</exception>
-        public Double GetForce(Double velocity)
+        public virtual Double GetForce(Double velocity)
         {
             return GetForceAndCurrent(velocity).Item1;
         }
 
         /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
         /// <exception cref="InvalidOperationException">Ни один элемент не удовлетворяет условию предиката <paramref name="predicate" />.– или –Исходная последовательность пуста.</exception>
-        public Double GetCurrent(Double velocity)
+        public virtual Double GetCurrent(Double velocity)
         {
             return GetForceAndCurrent(velocity).Item2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public Double GetBaseResistance(BaseTrain train)
+        {
+            var tara = train.UnladenWeight;
+            var massa = train.Mass;
+            var velocity = train.Velocity;
+            var openFactor = train.FactorOfOpenStage;
+            return GetBaseResistanceRusi4(tara, massa, velocity, openFactor);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mass"></param>
+        /// <returns></returns>
+        public abstract IModeControl Low(MassMass mass);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tara"></param>
+        /// <param name="massa"></param>
+        /// <param name="velocity"></param>
+        /// <param name="openFactor"></param>
+        /// <returns></returns>
+        private static Double GetBaseResistanceRusi4(Double tara, Double massa, Double velocity, Double openFactor)
+        {
+            const Double coefficient1 = 1.1;
+            const Double coefficient2 = 0.01;
+            const Double coefficient3 = 0.001;
+
+            var trainWeightFactor = tara / (tara + massa);
+
+            return coefficient1 * trainWeightFactor
+                + coefficient2 * velocity
+                + coefficient3 * trainWeightFactor * velocity * velocity * openFactor;
         }
     }
 }

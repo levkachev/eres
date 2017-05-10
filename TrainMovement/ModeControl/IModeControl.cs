@@ -1,4 +1,5 @@
 ﻿using System;
+using ORM.Trains.Entities;
 using TrainMovement.Train;
 
 namespace TrainMovement.ModeControl
@@ -11,16 +12,16 @@ namespace TrainMovement.ModeControl
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="train"></param>
+        /// <param name="velocity"></param>
         /// <returns></returns>
-        Double GetPullOrBreak(BaseTrain train);
+        Double GetForce(Double velocity);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="train"></param>
+        /// <param name="velocity"></param>
         /// <returns></returns>
-        Double GetCurrent(BaseTrain train);
+        Double GetCurrent(Double velocity);
 
         /// <summary>
         /// Расчет основного сопротивления
@@ -28,5 +29,12 @@ namespace TrainMovement.ModeControl
         /// <param name="train"></param>
         /// <returns></returns>
         Double GetBaseResistance(BaseTrain train);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mass"></param>
+        /// <returns></returns>
+        IModeControl Low(MassMass mass);
     }
 }

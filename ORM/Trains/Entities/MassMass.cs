@@ -20,12 +20,10 @@ namespace ORM.Trains.Entities
         /// 
         /// </summary>
         public virtual IEnumerable<VFI> VFIs { get; set; }
+
         public MassMass()
         {
-          
             VFIs = new List<VFI>();
-
-
         }
     }
 }

@@ -10,6 +10,9 @@ using ORM.Stageis.Repository;
 using ORM.Trains.Repository.Interpolation;
 using ORM.Trains.Repository.Trains;
 using ORM.Stageis.Repository.Limits;
+using TrainMovement;
+using TrainMovement.Stage;
+using TrainMovement.Train;
 
 
 namespace ERES 
@@ -90,112 +93,120 @@ namespace ERES
             var arrival = stationRepository.GetIDByName("Площадь Ильича");
             var department = stationRepository.GetIDByName("Марксистская");
             var stageRepository = StageRepository.GetInstance();
-            var st = stageRepository.GetStageByNameStation(arrival, department);
-            var length = stageRepository.GetStageLenght(st);
-            Console.WriteLine(Convert.ToString(length), "StageLenght");
-
-             var station = lineRepository.GetAllStation(nameLine);
-            //var station = stationRepository.GetLineStationName(nameLine);
-            ShowCollection<Station>(station, "Station");
-
-            var trackRepository = TrackRepository.GetInstance();
-            var nmlinetrack1 = trackRepository.GetNMLinesTrack(nameLine,1);
-            ShowCollection<NMLine>(nmlinetrack1, "NMLineTrack1");
-
-            var nmlinetrack2 = trackRepository.GetNMLinesTrack(nameLine, 2);
-            ShowCollection<NMLine>(nmlinetrack2, "NMLineTrack2");
-
-           
-            //var limitStage = stageRepository.GetStageLimitStage(st);
-            //ShowCollection<LimitStage>(limitStage, "LimitStage");
-
-            //var ARSStage = stageRepository.GetStageASRStage(st);
-            //ShowCollection<ASRStage>(ARSStage, "ASRStage");
-
-            //var openstage = stageRepository.GetStageOpenStage(st);
-            //ShowCollection<OpenStage>(openstage, "OpenStage");
-
-            //var planstage = stageRepository.GetStagePlanStage(st);
-            //ShowCollection<PlanStage>(planstage, "PlanStage");
-
-            //var profilestage = stageRepository.GetStageProfileStage(st);
-            //ShowCollection<ProfileStage>(profilestage, "ProfileStage");
+            var stageGuid = stageRepository.GetStageByNameStation(arrival, department);
 
 
-            //var currentstage = stageRepository.GetStageCurrentSection(st);
-            //ShowCollection<CurrentSectionStage>(currentstage, "CurrentSectionStage");
+            var broker = new EventBroker();
+            var stage = StationToStationBlock.GetStageWithoutASR(stageGuid, broker);
 
-            var tr = stageRepository.GetStageTrack(st);
-            Console.WriteLine("NumberTrack");
-            Console.WriteLine(Convert.ToString(tr));
+            const String trainName = "81-740.4";
+            var train = TrainFactory.GetACTrain(trainName, broker);
 
-            //string pathToFile = @"C:\Users\Valeriyа\Desktop";
-            //string nameFile = "StationPiketage";
-            //string format = ".txt";
-            //string path = Path.Combine(pathToFile, nameFile) + format;
-            
+            // var length = stageRepository.GetStageLenght(st);
+            // Console.WriteLine(Convert.ToString(length), "StageLenght");
 
-            //string[] rows = { Convert.ToString(station) };
+            //  var station = lineRepository.GetAllStation(nameLine);
+            // //var station = stationRepository.GetLineStationName(nameLine);
+            // ShowCollection<Station>(station, "Station");
 
-            //FileInfo file = new FileInfo(path);
-            //if (file.Exists == false)
-            //{
-            //    file.Create().Close();
-            //    Console.WriteLine("File add to path!");
-            //}
-            //else Console.WriteLine("File exist! Rename file!");
+            // var trackRepository = TrackRepository.GetInstance();
+            // var nmlinetrack1 = trackRepository.GetNMLinesTrack(nameLine,1);
+            // ShowCollection<NMLine>(nmlinetrack1, "NMLineTrack1");
 
-            //--тоже работает
-            //var str = new StringBuilder();
-            //foreach (var row in rows)
-               
-            //    str.Append(row);
-                
-           //--
-
-            //var strToFile = String.Join(" ", rows);
-
-            //File.WriteAllText(path, strToFile);
-           
-
-            ////NMLines Track=1
-            //string nameFile1 = "NMLinesTrack1";
-            //string path1 = Path.Combine(pathToFile, nameFile1) + format;
-            //string[] rows1 = { Convert.ToString(nmlinetrack1) };
-
-            //FileInfo file1 = new FileInfo(path1);
-            //if (file1.Exists == false)
-            //{
-            //    file1.Create().Close();
-            //    Console.WriteLine("File add to path!");
-            //}
-            //else Console.WriteLine("File exist! Rename file!");
-            //var strToFile1 = String.Join(" ", rows1);
-
-            //File.WriteAllText(path1, strToFile1);
+            // var nmlinetrack2 = trackRepository.GetNMLinesTrack(nameLine, 2);
+            // ShowCollection<NMLine>(nmlinetrack2, "NMLineTrack2");
 
 
-            ////NMLines Track=2
-            //string nameFile2 = "NMLinesTrack2";
-            //string path2 = Path.Combine(pathToFile, nameFile2) + format;
-            //string[] rows2 = { Convert.ToString(nmlinetrack2) };
+            // //var limitStage = stageRepository.GetStageLimitStage(st);
+            // //ShowCollection<LimitStage>(limitStage, "LimitStage");
 
-            //FileInfo file2 = new FileInfo(path2);
-            //if (file1.Exists == false)
-            //{
-            //    file1.Create().Close();
-            //    Console.WriteLine("File add to path!");
-            //}
-            //else Console.WriteLine("File exist! Rename file!");
-            //var strToFile2 = String.Join(" ", rows2);
+            // //var ARSStage = stageRepository.GetStageASRStage(st);
+            // //ShowCollection<ASRStage>(ARSStage, "ASRStage");
 
-            //File.WriteAllText(path2, strToFile2);
+            // //var openstage = stageRepository.GetStageOpenStage(st);
+            // //ShowCollection<OpenStage>(openstage, "OpenStage");
 
+            // //var planstage = stageRepository.GetStagePlanStage(st);
+            // //ShowCollection<PlanStage>(planstage, "PlanStage");
+
+            // //var profilestage = stageRepository.GetStageProfileStage(st);
+            // //ShowCollection<ProfileStage>(profilestage, "ProfileStage");
 
 
-            var nmLines = stageRepository.GetNMForStage(st);
-            var nmConvertedLines = NMConvertLimitStage.GetLimits(nmLines);
-            Console.WriteLine(String.Join(";", nmConvertedLines));
+            // //var currentstage = stageRepository.GetStageCurrentSection(st);
+            // //ShowCollection<CurrentSectionStage>(currentstage, "CurrentSectionStage");
+
+            // var tr = stageRepository.GetStageTrack(st);
+            // Console.WriteLine("NumberTrack");
+            // Console.WriteLine(Convert.ToString(tr));
+
+            // //string pathToFile = @"C:\Users\Valeriyа\Desktop";
+            // //string nameFile = "StationPiketage";
+            // //string format = ".txt";
+            // //string path = Path.Combine(pathToFile, nameFile) + format;
+
+
+            // //string[] rows = { Convert.ToString(station) };
+
+            // //FileInfo file = new FileInfo(path);
+            // //if (file.Exists == false)
+            // //{
+            // //    file.Create().Close();
+            // //    Console.WriteLine("File add to path!");
+            // //}
+            // //else Console.WriteLine("File exist! Rename file!");
+
+            // //--тоже работает
+            // //var str = new StringBuilder();
+            // //foreach (var row in rows)
+
+            // //    str.Append(row);
+
+            ////--
+
+            // //var strToFile = String.Join(" ", rows);
+
+            // //File.WriteAllText(path, strToFile);
+
+
+            // ////NMLines Track=1
+            // //string nameFile1 = "NMLinesTrack1";
+            // //string path1 = Path.Combine(pathToFile, nameFile1) + format;
+            // //string[] rows1 = { Convert.ToString(nmlinetrack1) };
+
+            // //FileInfo file1 = new FileInfo(path1);
+            // //if (file1.Exists == false)
+            // //{
+            // //    file1.Create().Close();
+            // //    Console.WriteLine("File add to path!");
+            // //}
+            // //else Console.WriteLine("File exist! Rename file!");
+            // //var strToFile1 = String.Join(" ", rows1);
+
+            // //File.WriteAllText(path1, strToFile1);
+
+
+            // ////NMLines Track=2
+            // //string nameFile2 = "NMLinesTrack2";
+            // //string path2 = Path.Combine(pathToFile, nameFile2) + format;
+            // //string[] rows2 = { Convert.ToString(nmlinetrack2) };
+
+            // //FileInfo file2 = new FileInfo(path2);
+            // //if (file1.Exists == false)
+            // //{
+            // //    file1.Create().Close();
+            // //    Console.WriteLine("File add to path!");
+            // //}
+            // //else Console.WriteLine("File exist! Rename file!");
+            // //var strToFile2 = String.Join(" ", rows2);
+
+            // //File.WriteAllText(path2, strToFile2);
+
+
+
+            // var nmLines = stageRepository.GetNMForStage(st);
+            // var nmConvertedLines = NMConvertLimitStage.GetLimits(nmLines);
+            // Console.WriteLine(String.Join(";", nmConvertedLines));
 
             Console.ReadKey();
 
