@@ -31,10 +31,17 @@ namespace TrainMovement.ModeControl
         Double GetBaseResistance(BaseTrain train);
 
         /// <summary>
-        /// 
+        /// Понижение режимы ведения
         /// </summary>
         /// <param name="mass"></param>
         /// <returns></returns>
         IModeControl Low(MassMass mass);
+
+        /// <summary>
+        /// Повышение режима ведения
+        /// </summary>
+        /// <param name="mass"></param>
+        /// <returns></returns>
+        IModeControl High(MassMass mass);
     }
 }

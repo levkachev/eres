@@ -14,9 +14,12 @@ namespace TrainMovement.Train
         /// </summary>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">less zero.</exception>
-        public static BaseTrain GetACTrain(String trainName,EventBroker broker)
+        public static BaseTrain GetACTrain(String trainName, EventBroker broker)
         {
-            return new ACTrain(АdditionalParameterRepository.GetACMachineParametres(trainName), АdditionalParameterRepository.GetACTrainParametres(trainName), trainName, broker);
+            var machine = АdditionalParameterRepository.GetACMachineParametres(trainName);
+            var train = АdditionalParameterRepository.GetACTrainParametres(trainName);
+            var result = new ACTrain(machine, train, trainName, broker);
+            return result;
         }
 
         /// <summary>

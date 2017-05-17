@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ORM.Stageis.Repository.Limits
@@ -13,7 +14,7 @@ namespace ORM.Stageis.Repository.Limits
         /// </summary>
         /// <param name="seriesOfLimits"></param>
         /// <exception cref="ArgumentNullException"><paramref name="seriesOfLimits" /> is <see langword="null" /></exception>
-        internal NMLimits(params ISortedSetLimits[] seriesOfLimits) : base(seriesOfLimits) { }
+        internal NMLimits(params IEnumerable<Limit>[] seriesOfLimits) : base(seriesOfLimits) { }
 
         /// <summary>
         /// Дает координату на линии по проехавшему от начала перегона пути

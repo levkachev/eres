@@ -7,9 +7,6 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Reflection;
 
-
-
-
 namespace ORM.Base
 {
     /// <summary>
@@ -20,18 +17,14 @@ namespace ORM.Base
         /// <exception cref="ArgumentException">Представлен недопустимый аргумент строки 
         public static ISessionFactory GetSessionFactory()
         {
-           
-
-            var Builder = new SqlConnectionStringBuilder
+            var builder = new SqlConnectionStringBuilder
             {
                 DataSource = ConfigurationManager.AppSettings["DatabaseLocation"],
                 InitialCatalog = ConfigurationManager.AppSettings["DatabaseName"],
                 IntegratedSecurity = true
             };
-
-
-                       
-            var configure = MsSqlConfiguration.MsSql2008.ConnectionString(Builder.ConnectionString);
+           
+            var configure = MsSqlConfiguration.MsSql2008.ConnectionString(builder.ConnectionString);
 
             var configuration = Fluently.Configure()
                         .Database(configure)
@@ -42,6 +35,5 @@ namespace ORM.Base
                         .BuildConfiguration();
             return configuration.BuildSessionFactory();
         }
-
     }
 }

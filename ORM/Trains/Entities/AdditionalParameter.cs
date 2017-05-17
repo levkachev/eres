@@ -6,7 +6,7 @@ namespace ORM.Trains.Entities
     /// <summary>
     /// Параметры поезда
     /// </summary>
-    public class АdditionalParameter : Entity<АdditionalParameter>
+    public class AdditionalParameter : Entity<AdditionalParameter>
     {
         /// <summary>
         /// Длина вагона

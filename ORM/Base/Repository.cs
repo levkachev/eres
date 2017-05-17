@@ -11,9 +11,14 @@ namespace ORM.Base
     /// <typeparam name="T"></typeparam>
     public class Repository<T> : IRepository<T> where T : Entity<T>
     {
-       
+        /// <summary>
+        /// 
+        /// </summary>
         private static volatile Repository<T> repository;
 
+        /// <summary>
+        /// 
+        /// </summary>
         private static readonly Object SynchronizationRoot = new Object();
 
         /// <summary>
@@ -33,17 +38,21 @@ namespace ORM.Base
                 lock (SynchronizationRoot)
                     if (repository == null)
                         repository = new TRepository { sessionFactory = factory };
-            return repository as TRepository;
+            var tmp = (TRepository)repository;// as TRepository;
+            return tmp;
         }
         /// <summary>
         /// store session factory
         /// </summary>
         private ISessionFactory sessionFactory;
 
+        /// <summary>
+        /// 
+        /// </summary>
         private ISession session;
 
         /// <summary>
-        /// open session in the session factory
+        /// Open session in the session factory
         /// </summary>
         protected virtual ISession Session
         {
@@ -74,6 +83,7 @@ namespace ORM.Base
 
             sessionFactory = factory;
         }
+
         /// <summary>
         /// realization CRUD
         /// </summary>
@@ -84,7 +94,6 @@ namespace ORM.Base
           return Transact(() => Session.Get<T>(id));
         }
       
-
         /// <summary>
         /// realization CRUD
         /// </summary>

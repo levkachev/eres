@@ -53,6 +53,14 @@ namespace TrainMovement.PhisicalHelper
         {
             return forceKgC * secPerHour / (k * k);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static Double GetFactor()
+        {
+            return g*secPerHour/(k*k);
+        }
     }
 }
 

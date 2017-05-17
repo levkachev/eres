@@ -29,10 +29,7 @@ namespace ORM.Stageis.Repository
         /// <returns></returns>
         public IEnumerable<LimitStage> GetLimits(Guid stage)
         {
-
-            return  GetAll()
-                .Where(st => st.Stage.ID == stage)
-                .Select(st => new LimitStage());
+            return GetAll().Where(st => st.Stage.ID == stage);
         }
     }
 }

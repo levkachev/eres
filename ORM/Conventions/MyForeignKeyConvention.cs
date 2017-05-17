@@ -9,7 +9,7 @@ namespace ORM.Conventions
         protected override String GetKeyName(Member property, Type type)
         {
             var refName = property == null ? type.Name : property.Name;
-            return String.Format("ID_{0}", refName);
+            return $"ID_{refName}";
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ORM.Stageis.Repository.Limits
 {
@@ -11,7 +12,7 @@ namespace ORM.Stageis.Repository.Limits
         /// <summary>
         /// </summary>
         /// <exception cref="ArgumentNullException"><paramref name="plan"/> is <see langword="null"/></exception>
-        internal ReliefLimits(ISortedSetLimits plan, ISortedSetLimits profile)
+        internal ReliefLimits(IEnumerable<Limit> plan, IEnumerable<Limit> profile)
         {
             Limits = reliefLimits(plan, profile);
         }
@@ -22,10 +23,10 @@ namespace ORM.Stageis.Repository.Limits
         /// <param name="planLimits"></param>
         /// <param name="profileLimits"></param>
         /// <returns></returns>
-        private static SortedSet<Limit> reliefLimits(ISortedSetLimits planLimits, ISortedSetLimits profileLimits)
+        private static SortedSet<Limit> reliefLimits(IEnumerable<Limit> planLimits, IEnumerable<Limit> profileLimits)
         {
-            var tmpPlan = planLimits as List<Limit>;
-            var tmpProfile = profileLimits as List<Limit>;
+            var tmpPlan = planLimits.ToList();
+            var tmpProfile = profileLimits.ToList();
             if (tmpPlan == null)
                 throw new ArgumentNullException(nameof(planLimits));
 
@@ -60,13 +61,16 @@ namespace ORM.Stageis.Repository.Limits
         }
 
         /// <summary>
+        /// Выдает все ограничения в диапазоне
         /// </summary>
-        /// <param name="space"></param>
+        /// <param name="head"></param>
+        /// <param name="tail"></param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException">Condition.</exception>
-        public override Double GetLimit(Double space)
+        public IEnumerable<Limit> GetReliefLimitsIn(Double head, Double tail)
         {
-            throw new NotImplementedException();
+            return Limits
+                .TakeWhile(s => s.Space>=head && s.Space <=tail);
+
         }
     }
 }

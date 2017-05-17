@@ -18,11 +18,26 @@ namespace TrainMovement.PhisicalHelper
             Constraints = new Dictionary<String, Range>
             {
                 {"acceleration", new Range(-10, 10)},
-                {"current", new Range(-2000, 2000)},
-                {"mass", new Range(0, 20)},
-                {"velocity", new Range(0, 200)},
+                {"carLength", new Range(0, 200)},
+                {"current", new Range(-10000, 10000)},
+                {"mass", new Range(0, 200)},
+                {"velocity", new Range(-10, 200)},
                 {"voltage", new Range(400, 900)},
                 {"time", new Range(0, 36000)},
+                {"space", new Range(0,5000) },
+
+                 {"unladenWeight", new Range(20,60)},
+                 {"ownNeedsElectricPower", new Range(0,50)},
+                 {"netResistancePullFactor", new Range(0,1)},
+                 {"aerodynamicDragFactor", new Range(0,0.1)},
+                 {"netResistenceCoastingFactor1", new Range(0,1)},
+                 {"netResistenceCoastingFactor2", new Range(0,1)},
+                 {"netResistenceCoastingFactor3", new Range(0,1)},
+                 {"trainEquivalentSurface", new Range(0,250)},
+                 {"inertiaRotationFactor", new Range(0,0.1)},
+                 {"numberCars", new Range(1,8)},
+                 {"breakAverage", new Range(0,0.9)},
+                
             };
         }
 

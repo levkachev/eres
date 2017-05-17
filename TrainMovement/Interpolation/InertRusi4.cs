@@ -7,7 +7,7 @@ namespace TrainMovement.Interpolation
     /// <summary>
     /// 
     /// </summary>
-    internal class InertRusi4 : BaseModeRusi4<InertRusi4>
+    public class InertRusi4 : BaseModeRusi4<InertRusi4>, IInert
     {
         /// <summary>
         /// 
@@ -24,9 +24,21 @@ namespace TrainMovement.Interpolation
             return Break1Rusi4.GetInstance(mass);
         }
 
+        public override IModeControl High(MassMass mass)
+        {
+            throw new NotImplementedException();
+        }
+
         public static InertRusi4 GetInstance(MassMass mass)
         {
             return GetInstance<InertRusi4>(mass);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private InertRusi4(MassMass mass)
+        {
         }
 
         /// <summary>

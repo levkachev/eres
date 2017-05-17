@@ -24,12 +24,19 @@ namespace ORM.Base
         /// <summary>
         /// 
         /// </summary>
+        protected static SessionWrapper Wrapper;
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns>
         /// 
         /// </returns>
         public static SessionWrapper GetInstance()
         {
-            return new SessionWrapper(SessionFactory.GetSessionFactory());
+            if (Wrapper == null)
+                Wrapper = new SessionWrapper(SessionFactory.GetSessionFactory());
+            return Wrapper;
         }
     }
 }

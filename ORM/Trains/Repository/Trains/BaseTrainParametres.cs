@@ -292,8 +292,9 @@ namespace ORM.Trains.Repository.Trains
         /// <param name="trainEqvivalentSurface"></param>
         /// <param name="inertiaRotationFactor"></param>
         /// <param name="ownNeedsElectricPower"></param>
+        /// <param name="name"></param>
         /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
-        internal BaseTrainParametres(Int32 numberCars, Double carLength, Double unladenWeight, Double breakAverage, Double netResistancePullFactor, Double aerodynamicDragFactor, Double netResistenceCoastingFactor1, Double netResistenceCoastingFactor2, Double netResistenceCoastingFactor3, Double trainEqvivalentSurface, Double inertiaRotationFactor, Double ownNeedsElectricPower)
+        internal BaseTrainParametres(Int32 numberCars, Double carLength, Double unladenWeight, Double breakAverage, Double netResistancePullFactor, Double aerodynamicDragFactor, Double netResistenceCoastingFactor1, Double netResistenceCoastingFactor2, Double netResistenceCoastingFactor3, Double trainEqvivalentSurface, Double inertiaRotationFactor, Double ownNeedsElectricPower, String name)
         {
             CarLength = carLength;
             UnladenWeight = unladenWeight;
@@ -307,6 +308,7 @@ namespace ORM.Trains.Repository.Trains
             TrainEqvivalentSurface = trainEqvivalentSurface;
             InertiaRotationFactor = inertiaRotationFactor;
             OwnNeedsElectricPower = ownNeedsElectricPower;
+            Name = name;
         }
 
         /// <summary>

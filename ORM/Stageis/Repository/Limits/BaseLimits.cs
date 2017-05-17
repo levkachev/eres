@@ -10,12 +10,12 @@ namespace ORM.Stageis.Repository.Limits
     public abstract class BaseLimits : ILimits
     {
         /// <summary>
-        /// Список ограничений скорости
+        /// Список ограничений
         /// </summary>
         private SortedSet<Limit> limits;
 
         /// <summary>
-        /// Список ограничений скорости
+        /// Список ограничений
         /// </summary>
         /// <exception cref="ArgumentNullException" accessor="set">Thrown when the arguments are <see langword="null"/></exception>
         public IEnumerable<Limit> Limits
@@ -46,11 +46,11 @@ namespace ORM.Stageis.Repository.Limits
         }
 
         /// <exception cref="ArgumentNullException"><paramref name="seriesOfLimits"/> is <see langword="null"/></exception>
-        protected BaseLimits(params ISortedSetLimits[] seriesOfLimits)
+        protected BaseLimits(params IEnumerable<Limit>[] seriesOfLimits)
         {
             if (seriesOfLimits == null)
                 throw new ArgumentNullException(nameof(seriesOfLimits));
-            Limits = seriesOfLimits.Where(series => series != null).SelectMany(series => series.Limits);
+            Limits = seriesOfLimits.Where(series => series != null).SelectMany(series => series);
         }
     }
 }

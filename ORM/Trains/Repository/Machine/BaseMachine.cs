@@ -30,7 +30,7 @@ namespace ORM.Trains.Repository.Machine
         /// <summary>
         /// </summary>
         /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
-        /// 
+        /// <exception cref="ArgumentOutOfRangeException" accessor="set"><paramref name="value"/> length is zero.</exception>
         public String Name
         {
             get { return name; }

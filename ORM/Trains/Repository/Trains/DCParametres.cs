@@ -409,11 +409,11 @@ namespace ORM.Trains.Repository.Trains
         public DCParametres(Int32 numberCars, Double carLength, Double unladenWeight, Double breakAverage,
             Double netResistancePullFactor, Double aerodynamicDragFactor, Double netResistenceCoastingFactor1,
             Double netResistenceCoastingFactor2, Double netResistenceCoastingFactor3, Double trainEqvivalentSurface,
-            Double inertiaRotationFactor, Double ownNeedsElectricPower, Double assemblyPowerCircuitTime, Double disassemblyPowerCircuitTime, Double assemblyPullTime, Double assemblyPullResistance, Double autoModeFactor1, Double lowAutoModeRange, Double highAutoModeRange, Double linearGrowCurrentTime, Int32 connectionPull2, Int32 positionPull2, Int32 weakPull2)
+            Double inertiaRotationFactor, Double ownNeedsElectricPower, Double assemblyPowerCircuitTime, Double disassemblyPowerCircuitTime, Double assemblyPullTime, Double assemblyPullResistance, Double autoModeFactor1, Double lowAutoModeRange, Double highAutoModeRange, Double linearGrowCurrentTime, Int32 connectionPull2, Int32 positionPull2, Int32 weakPull2, String trainName)
             : base(
                 numberCars, carLength, unladenWeight, breakAverage, netResistancePullFactor, aerodynamicDragFactor,
                 netResistenceCoastingFactor1, netResistenceCoastingFactor2, netResistenceCoastingFactor3,
-                trainEqvivalentSurface, inertiaRotationFactor, ownNeedsElectricPower)
+                trainEqvivalentSurface, inertiaRotationFactor, ownNeedsElectricPower, trainName)
         {
             AssemblyPowerCircuitTime = assemblyPowerCircuitTime;
             DisassemblyPowerCircuitTime = disassemblyPowerCircuitTime;

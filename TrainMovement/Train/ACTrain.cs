@@ -37,7 +37,7 @@ namespace TrainMovement.Train
         /// <exception cref="ArgumentException">Train.Name != <paramref name="commonProperties"/>.TrainName</exception>
         /// <exception cref="ArgumentNullException">value is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">empty.</exception>
-        internal ACTrain(ACMachine machine, ACParametres commonProperties, String trainName, EventBroker broker)
+        internal ACTrain(ACMachine machine, ACParameters commonProperties, String trainName, EventBroker broker) : base (machine, commonProperties, broker)
         {
             Name = trainName;
             
@@ -45,11 +45,11 @@ namespace TrainMovement.Train
                 throw new ArgumentException("Train.Name != commonProperties.TrainName");
             NbAuto = commonProperties.NBAuto;
 
-            if (!Name.Equals(machine.Name))
-                throw new ArgumentException("Train.Name != machine.TrainName");
-            Machine = machine;
-            
+            //if (!Name.Equals(machine.Name))
+            //    throw new ArgumentException("Train.Name != machine.TrainName");
+            //Machine = machine;
 
+            //Broker = broker;
         }
     }
 }

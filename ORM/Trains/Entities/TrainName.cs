@@ -22,7 +22,7 @@ namespace ORM.Trains.Entities
         /// <summary>
         /// 
         /// </summary>
-        public virtual IEnumerable<АdditionalParameter> АdditionalParameters { get; set; }
+        public virtual IEnumerable<AdditionalParameter> АdditionalParameters { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -33,7 +33,7 @@ namespace ORM.Trains.Entities
         /// </summary>
         public TrainName()
         {
-            АdditionalParameters = new List<АdditionalParameter>();
+            АdditionalParameters = new List<AdditionalParameter>();
             VFIs= new List<VFI>();
 
 

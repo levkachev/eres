@@ -11,7 +11,7 @@ namespace ORM.Trains.Repository
     /// <summary>
     /// Класс для создания объектов двигателя и поезда
     /// </summary>
-    public class АdditionalParameterRepository : Repository<АdditionalParameter>
+    public class АdditionalParameterRepository : Repository<AdditionalParameter>
     {
         /// <summary>
         /// Создает экземляр репозиторий для дополнительных параметров
@@ -28,24 +28,21 @@ namespace ORM.Trains.Repository
         /// </summary>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Параметр <paramref name="source" /> имеет значение null.</exception>
-        private static IList<АdditionalParameter> GetАdditionalParameter() => АdditionalParameterRepository.GetInstance().GetAll();
+        private static IList<AdditionalParameter> GetАdditionalParameter() => АdditionalParameterRepository.GetInstance().GetAll();
 
         /// <summary>
         /// Создает объект для AC поезда с дополнительными параметрами
         /// </summary>
         /// <param name="trainName"></param>
         /// <returns></returns>
-        public static ACParametres GetACTrainParametres(String trainName)
+        /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
+        public static ACParameters GetACTrainParametres(String trainName)
         {
-            var repository = АdditionalParameterRepository.GetInstance();
-
-            var baseParametres = repository.GetTrainBaseParametres(trainName);
-
-            var acTrainParametres = (ACParametres)baseParametres;
-
-            acTrainParametres.NBAuto = repository.GetAdditionalParametresByTrainName(trainName).nbAuto;
-
-            return acTrainParametres;
+            var repository = GetInstance();
+            var baseTrainParameters = repository.GetTrainBaseParametres(trainName);
+            var nbAuto = repository.GetAdditionalParametresByTrainName(trainName).nbAuto;
+            var acTrainParameters = new ACParameters(baseTrainParameters, nbAuto);
+            return acTrainParameters;
         }
         /// <summary>
         /// Создает объект для DC поезда с дополнительными параметрами 
@@ -54,40 +51,43 @@ namespace ORM.Trains.Repository
         /// <returns></returns>
         public static DCParametres GetDCTrainParametres(String trainName)
         {
-            var repository = АdditionalParameterRepository.GetInstance();
+            var repository = GetInstance();
 
-            var baseParametres = repository.GetTrainBaseParametres(trainName);
-
-            var dcTrainParametres = (DCParametres)baseParametres;
-
-           
+            var baseTrainParametres = repository.GetTrainBaseParametres(trainName);
+            var dcTrainParametres = (DCParametres)baseTrainParametres;
 
             return dcTrainParametres;
         }
-         
-           
-          
+
 
         /// <summary>
         /// Создает объект для  AC двигателя
         /// </summary>
         /// <param name="trainName"></param>
         /// <returns></returns>
-        /// <exception cref="ArgumentOutOfRangeException">less zero.</exception>
+        /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
         public static ACMachine GetACMachineParametres(String trainName)
         {
-            var repository = АdditionalParameterRepository.GetInstance();
+            #region Old code
+            //var repository = GetInstance();
 
-            var baseMachine = repository.GetBaseMachineParametres(trainName);
+            //var baseMachine = repository.GetBaseMachineParametres(trainName);
 
-            var acMachine = (ACMachine)baseMachine;
+            //var acMachine = baseMachine as ACMachine;
+            //if (acMachine == null)
+            //    throw new InvalidCastException();
 
-            acMachine.Umax = repository.GetAdditionalParametresByTrainName(trainName).Umax;
-            acMachine.Unominal = repository.GetAdditionalParametresByTrainName(trainName).Unom;
+            //acMachine.Umax = repository.GetAdditionalParametresByTrainName(trainName).Umax;
+            //acMachine.Unominal = repository.GetAdditionalParametresByTrainName(trainName).Unom;
 
-            return acMachine;
+            // return acMachine;
+            #endregion
 
+            return new ACMachine(GetInstance().GetAdditionalParametresByTrainName(trainName));
         }
+
+
+
 
         /// <summary>
         /// Создает объект для  DC двигателя (Не сделан!)
@@ -145,7 +145,6 @@ namespace ORM.Trains.Repository
             dcMachine.LinearGrowCurrentTime = repository.GetAdditionalParametresByTrainName(trainName).LinearGrowCurrentTime;
 
             return dcMachine;
-
         }
 
         /// <summary>
@@ -158,7 +157,8 @@ namespace ORM.Trains.Repository
             var assemblyPullTime = GetAdditionalParametresByTrainName(trainName).AssemblyPullTime;
             var disassemblyPowerCircuitTime = GetAdditionalParametresByTrainName(trainName).AssemblyBreakResistance;
             var assemblyBreakTime = GetAdditionalParametresByTrainName(trainName).AssemblyBreakTime;
-            return new BaseMachine (assemblyPullTime, assemblyBreakTime, assemblyPullTime, trainName);
+
+            return new BaseMachine(disassemblyPowerCircuitTime, assemblyBreakTime, assemblyPullTime, trainName);
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace ORM.Trains.Repository
 
             var numberCars = GetAdditionalParametresByTrainName(trainName).NumberCars;
 
-            var breakAverage = GetAdditionalParametresByTrainName(trainName).NumberCars;
+            var breakAverage = GetAdditionalParametresByTrainName(trainName).BAverage;
 
             var netResistencePullFactor = GetAdditionalParametresByTrainName(trainName).NetResistencePullFactor;
 
@@ -192,7 +192,7 @@ namespace ORM.Trains.Repository
 
             var ownNeedsElectricPower = GetAdditionalParametresByTrainName(trainName).OwnNeedsElectricPower;
 
-            return new BaseTrainParametres (numberCars, carLength, unladenWeight, breakAverage, netResistencePullFactor, aerodynamicDragFactor, netResistenceCoastingFactor1, netResistenceCoastingFactor2, netResistenceCoastingFactor3, trainEqvivalentSurface, inertiaRotationFactor, ownNeedsElectricPower);
+            return new BaseTrainParametres (numberCars, carLength, unladenWeight, breakAverage, netResistencePullFactor, aerodynamicDragFactor, netResistenceCoastingFactor1, netResistenceCoastingFactor2, netResistenceCoastingFactor3, trainEqvivalentSurface, inertiaRotationFactor, ownNeedsElectricPower, trainName);
 
         }
 
@@ -201,10 +201,9 @@ namespace ORM.Trains.Repository
         /// </summary>
         /// <param name="trainName"></param>
         /// <returns></returns>
-        private АdditionalParameter GetAdditionalParametresByTrainName(String trainName)
+        private AdditionalParameter GetAdditionalParametresByTrainName(String trainName)
         {
-            return GetAll()
-              .SingleOrDefault(baseTrain => baseTrain.TrainName.Name == trainName);
+            return GetAll().SingleOrDefault(baseTrain => baseTrain.TrainName.Name == trainName);
         }
     }
 }

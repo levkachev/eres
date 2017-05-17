@@ -13,12 +13,10 @@ namespace ORM.Stageis.Entities
         /// </summary>
         public virtual Double Velocity { get; set; }
 
-
         /// <summary>
         /// Граница скорости
         /// </summary>
         public virtual Double EndVelocity { get; set; }
-
 
         /// <summary>
         /// 

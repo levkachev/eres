@@ -10,7 +10,7 @@ namespace TrainMovement.Interpolation
     /// <summary>
     /// Pull1
     /// </summary>
-    internal class Pull1Rusi4 : BaseModeRusi4<Pull1Rusi4>
+    public class Pull1Rusi4 : BaseModeRusi4<Pull1Rusi4>, IPull
     {
        
         /// <exception cref="ArgumentNullException">value is <see langword="null"/></exception>
@@ -30,9 +30,24 @@ namespace TrainMovement.Interpolation
             return GetInstance<Pull1Rusi4>(mass);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mass"></param>
+        /// <returns></returns>
         public override IModeControl Low(MassMass mass)
         {
-            return InertRusi4.GetInstance(mass);
+            return BaseModeRusi4<InertRusi4>.GetInstance<InertRusi4>(mass);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mass"></param>
+        /// <returns></returns>
+        public override IModeControl High(MassMass mass)
+        {
+            throw new NotImplementedException();
         }
     }
 }

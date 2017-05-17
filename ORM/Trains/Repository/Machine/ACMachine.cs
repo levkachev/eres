@@ -1,4 +1,5 @@
 ﻿using System;
+using ORM.Trains.Entities;
 
 namespace ORM.Trains.Repository.Machine
 {
@@ -7,6 +8,7 @@ namespace ORM.Trains.Repository.Machine
     /// </summary>
     public class ACMachine : BaseMachine
     {
+
         /// <summary>
         /// 
         /// </summary>
@@ -45,10 +47,17 @@ namespace ORM.Trains.Repository.Machine
                 uNominal = value;
             }
         }
-        public ACMachine(Double disassemblyPowerCircuitTime, Double assemblyBreakTime, String trainName, Double umax, Double uNominal) : base(disassemblyPowerCircuitTime, assemblyBreakTime, assemblyBreakTime, trainName)
+
+        public ACMachine(Double disassemblyPowerCircuitTime, Double assemblyBreakTime, Double assemblyPullTime, String trainName, Double umax, Double uNominal) : base(disassemblyPowerCircuitTime, assemblyBreakTime, assemblyPullTime, trainName)
         {
             Umax = umax;
-            Unominal = Unominal;
+            Unominal = uNominal;
+        }
+
+        public ACMachine(AdditionalParameter parameters) : base(parameters.DisassemblyPowerCircuitTime, parameters.AssemblyBreakTime, parameters.AssemblyPullTime, parameters.TrainName.Name)
+        {
+            Umax = parameters.Umax;
+            Unominal = parameters.Unom;
         }
     }
 }

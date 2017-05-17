@@ -150,11 +150,9 @@ namespace ORM.Stageis.Repository
                 Track = track
             });
 
-            if (arrival.Piketage < departer.Piketage)
-            {
-                return result.OrderByDescending(item => item.Key).Select(item => item.Value);  
-            }
-        return result.Values;
+            return arrival.Piketage < departer.Piketage 
+                ? result.OrderByDescending(item => item.Key).Select(item => item.Value) 
+                : result.Values;
         }
 
         /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
@@ -164,45 +162,53 @@ namespace ORM.Stageis.Repository
             var limitStageRepository = LimitStageRepository.GetInstance();
             var limitStage = limitStageRepository.GetLimits(stage);
             var limitSortedStage = new VelocityConvertLimitStage(limitStage);
+            var velocityLimits = limitSortedStage.Limits;
 
             var openStageRepository = OpenStageRepository.GetInstance();
             var openStage = openStageRepository.GetLimits(stage);
             var openSortedStage = new OpenConvertLimitStage(openStage);
+            var openSortedLimits = openSortedStage.Limits;
 
             var asrStageRepository = ASRStageRepository.GetInstance();
             var asrStage = asrStageRepository.GetLimits(stage);
             var asrSortedStage = new ASRConvertLimitStage(asrStage);
+            var asrLimits = asrSortedStage.Limits;
 
             var currentStageRepository = CurrentSectionStageRepository.GetInstance();
             var currentStage = currentStageRepository.GetLimits(stage);
             var currentSortedStage = new CurrentConvertLimits(currentStage);
+            var currentSortedLimits = currentSortedStage.Limits;
 
             var planStageRepository = PlanStageRepository.GetInstance();
             var planStage = planStageRepository.GetLimits(stage);
             var planSortedStage = new PlanConvertedLimitStage(planStage);
+            var planLimits = planSortedStage.Limits;
 
             var profileStageRepository = ProfileStageRepository.GetInstance();
             var profileStage = profileStageRepository.GetLimits(stage);
             var profileSortedStage = new ProfileConvertLimitStage(profileStage);
+            var profileLimits = profileSortedStage.Limits;
 
             var nmStageLimits = GetNMForStage(stage);
             var nmConvertedLimits = new NMConvertLimitStage(nmStageLimits);
-            var nmLimits = new NMLimits(nmConvertedLimits);
+            var nmLimits = new NMLimits(nmConvertedLimits.Limits);
 
-            var allVelocityLimits = new AllVelocityLimits(limitSortedStage, asrSortedStage);
+            var allVelocityLimits = new AllVelocityLimits(velocityLimits, asrLimits);
 
-            var currentBlockLimits = new CurrentBlockLimits(currentSortedStage);
+            var currentBlockLimits = new CurrentBlockLimits(currentSortedLimits);
 
-            var reliefLimits = new ReliefLimits(planSortedStage, profileSortedStage);
+            var reliefLimits = new ReliefLimits(planLimits, profileLimits);
 
-            var openLimits = new OpenLimits(openSortedStage);
+            var openLimits = new OpenLimits(openSortedLimits);
 
-            var tmpList = new List<ILimits>();
-            tmpList.Add(allVelocityLimits);
-            tmpList.Add(currentBlockLimits);
-            tmpList.Add(reliefLimits);
-            tmpList.Add(openLimits);
-            tmpList.Add(nmLimits);
+            var tmpList = new List<ILimits>
+            {
+                allVelocityLimits,
+                currentBlockLimits,
+                reliefLimits,
+                openLimits,
+                nmLimits
+            };
 
             return tmpList;
         }
@@ -214,41 +220,48 @@ namespace ORM.Stageis.Repository
             var limitStageRepository = LimitStageRepository.GetInstance();
             var limitStage = limitStageRepository.GetLimits(stage);
             var limitSortedStage = new VelocityConvertLimitStage(limitStage);
+            var velocityLimits = limitSortedStage.Limits;
 
             var openStageRepository = OpenStageRepository.GetInstance();
             var openStage = openStageRepository.GetLimits(stage);
             var openSortedStage = new OpenConvertLimitStage(openStage);
+            var openSortedLimits = openSortedStage.Limits;
 
             var currentStageRepository = CurrentSectionStageRepository.GetInstance();
             var currentStage = currentStageRepository.GetLimits(stage);
             var currentSortedStage = new CurrentConvertLimits(currentStage);
+            var currentSortedLimits = currentSortedStage.Limits;
 
             var planStageRepository = PlanStageRepository.GetInstance();
             var planStage = planStageRepository.GetLimits(stage);
             var planSortedStage = new PlanConvertedLimitStage(planStage);
+            var planLimits = planSortedStage.Limits;
 
             var profileStageRepository = ProfileStageRepository.GetInstance();
             var profileStage = profileStageRepository.GetLimits(stage);
             var profileSortedStage = new ProfileConvertLimitStage(profileStage);
-
-            var allVelocityLimits = new AllVelocityLimits(limitSortedStage);
-
-            var currentBlockLimits = new CurrentBlockLimits(currentSortedStage);
-
-            var reliefLimits = new ReliefLimits(planSortedStage, profileSortedStage);
-
-            var openLimits = new OpenLimits(openSortedStage);
+            var profileLimits = profileSortedStage.Limits;
 
             var nmStageLimits = GetNMForStage(stage);
             var nmConvertedLimits = new NMConvertLimitStage(nmStageLimits);
-            var nmLimits = new NMLimits(nmConvertedLimits);
+            var nmLimits = new NMLimits(nmConvertedLimits.Limits);
 
-            var tmpList = new List<ILimits>();
-            tmpList.Add(allVelocityLimits);
-            tmpList.Add(currentBlockLimits);
-            tmpList.Add(reliefLimits);
-            tmpList.Add(openLimits);
-            tmpList.Add(nmLimits);
+            var allVelocityLimits = new AllVelocityLimits(velocityLimits);
+
+            var currentBlockLimits = new CurrentBlockLimits(currentSortedLimits);
+
+            var reliefLimits = new ReliefLimits(planLimits, profileLimits);
+
+            var openLimits = new OpenLimits(openSortedLimits);
+
+            var tmpList = new List<ILimits>
+            {
+                allVelocityLimits,
+                currentBlockLimits,
+                reliefLimits,
+                openLimits,
+                nmLimits
+            };
 
             return tmpList;
         }

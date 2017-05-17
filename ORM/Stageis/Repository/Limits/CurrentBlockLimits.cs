@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ORM.Stageis.Repository.Limits
 {
@@ -8,6 +9,6 @@ namespace ORM.Stageis.Repository.Limits
     public class CurrentBlockLimits : BaseLimits
     {
         /// <exception cref="ArgumentNullException"><paramref name="seriesOfLimits" /> is <see langword="null" /></exception>
-        internal CurrentBlockLimits(params ISortedSetLimits[] seriesOfLimits): base(seriesOfLimits){}
+        internal CurrentBlockLimits(params IEnumerable<Limit>[] seriesOfLimits): base(seriesOfLimits){}
     }
 }

@@ -2,23 +2,24 @@
 using System;
 using ORM.Energy.Entities;
 using ORM.Lines.Entities;
-using ORM.Trains.Interpolation.Entities;
 using System.IO;
-using ORM.Energies.Repository;
 using ORM.Lines.Repository;
 using ORM.Stageis.Repository;
-using ORM.Trains.Repository.Interpolation;
-using ORM.Trains.Repository.Trains;
-using ORM.Stageis.Repository.Limits;
+using ORM.Trains.Repository;
 using TrainMovement;
 using TrainMovement.Stage;
 using TrainMovement.Train;
 
 
-namespace ERES 
+namespace ERES
 {
     class Program
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public const Double IntegrStep = 0.1;
+
         //   public static ISessionFactory sessionFactory { get; protected set; }
         static void Main(string[] args)
         {
@@ -68,8 +69,8 @@ namespace ERES
             //var trainnameRepository = TrainNameRepository.GetInstance();
             //var trainname = trainnameRepository.GetIDByName("81-740.4");
 
-            //var massRepository = MassRepository.GetInstance();
-            //var mass = massRepository.GetByMass(100);
+            var massRepository = MassRepository.GetInstance();
+            var mass = massRepository.GetByMass(100);
 
             //var modecontrolRepository = ModeControlsRepository.GetInstance();
             //var modecontrol = modecontrolRepository.GetByModeControl("Pull1");
@@ -80,14 +81,14 @@ namespace ERES
             var nameLine = "Калининская";
 
             var lineRepository = LineRepository.GetInstance();
-            var PSS = lineRepository.GetAllPowerSupplyStations(nameLine);
-            ShowCollection<PowerSupplyStation>(PSS, "PowerSupplyStations");
+            //var PSS = lineRepository.GetAllPowerSupplyStations(nameLine);
+            //ShowCollection<PowerSupplyStation>(PSS, "PowerSupplyStations");
 
 
 
 
             var track = lineRepository.GetAllTrack(nameLine);
-            ShowCollection<Track>(track, "Track");
+            //ShowCollection<Track>(track, "Track");
 
             var stationRepository = StationRepository.GetInstance();
             var arrival = stationRepository.GetIDByName("Площадь Ильича");
@@ -99,9 +100,13 @@ namespace ERES
             var broker = new EventBroker();
             var stage = StationToStationBlock.GetStageWithoutASR(stageGuid, broker);
 
-            const String trainName = "81-740.4";
+            const String trainName = "81-740.1(Rusi4)";
             var train = TrainFactory.GetACTrain(trainName, broker);
-
+            var modeControl = TrainMovement.Interpolation.Pull1Rusi4.GetInstance(mass);
+            train.Start(stageGuid, 100);
+            train.Move(350, modeControl);
+            Console.WriteLine("the end");
+            
             // var length = stageRepository.GetStageLenght(st);
             // Console.WriteLine(Convert.ToString(length), "StageLenght");
 

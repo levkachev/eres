@@ -15,7 +15,6 @@ namespace ORM.Stageis.Entities
         /// </summary>
         public virtual Double Length { get; set; }
 
-
         /// <summary>
         /// станция отправления
         /// </summary>

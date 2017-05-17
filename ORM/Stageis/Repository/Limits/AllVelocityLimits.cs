@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ORM.Stageis.Repository.Limits
 {
@@ -12,6 +13,6 @@ namespace ORM.Stageis.Repository.Limits
         /// </summary>
         /// <param name="seriesOfLimits"></param>
         /// <exception cref="ArgumentNullException"><paramref name="seriesOfLimits"/> is <see langword="null"/></exception>
-        public AllVelocityLimits(params ISortedSetLimits[] seriesOfLimits) : base(seriesOfLimits){}
+        public AllVelocityLimits(params IEnumerable<Limit>[] seriesOfLimits) : base(seriesOfLimits){}
     }
 }

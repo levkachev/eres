@@ -22,12 +22,12 @@ namespace ORM.Stageis.Repository.Limits
         /// <summary>
         /// координата по пути от начала перегона
         /// </summary>
-        internal Double Space => space;
+        public Double Space => space;
 
         /// <summary>
         /// значение ограничения
         /// </summary>
-        internal Double Value => value;
+        public Double Value => value;
 
 
         /// <summary>

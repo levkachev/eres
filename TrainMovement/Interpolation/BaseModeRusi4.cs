@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Security;
+using ORM.Helpers;
 using ORM.Trains.Entities;
 using ORM.Trains.Interpolation.Entities;
 using TrainMovement.ModeControl;
@@ -14,23 +15,51 @@ namespace TrainMovement.Interpolation
     /// <summary>
     /// 
     /// </summary>
-    internal abstract class BaseModeRusi4<T> : IModeControl
+    public abstract class BaseModeRusi4<T> : IModeControl
+        where T : IModeControl
     {
         /// <summary>
         /// Instance of singleton object.
         /// </summary>
-        private static IModeControl instance;
+        private static BaseModeRusi4<T> instance;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public MassMass Mass;// { get; protected set; }
+
+        /// <exception cref="InvalidOperationException">Condition.</exception>
         protected static TBaseModeRusi4 GetInstance<TBaseModeRusi4>(MassMass mass) 
-            where TBaseModeRusi4 : class, IModeControl
+            where TBaseModeRusi4 :  BaseModeRusi4<T>//, new()
         {
             if (instance == null)
             {
-                var ctor = typeof(TBaseModeRusi4).GetConstructor(new Type[] {typeof(MassMass)});
+               // instance = new TBaseModeRusi4 { Mass = mass };
+
+                //var methodName = "GetInstance";
+                //var getInstance = typeof(TBaseModeRusi4).GetMethod(
+                //    methodName,
+                //    BindingFlags.Static | BindingFlags.Public,
+                //    null,
+                //    new Type[] { typeof(MassMass) },
+                //    null);
+
+                //if (getInstance == null)
+                //    throw new InvalidOperationException($"Method \"{methodName}\" cannot find!");
+
+                //instance = getInstance.Invoke(null, new Object[] { mass }) as TBaseModeRusi4;
+
+                var list = typeof(TBaseModeRusi4).GetConstructors();
+
+                var ctor = typeof(TBaseModeRusi4).GetConstructor(
+                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
+                    null,
+                    new Type[] { typeof(MassMass) },
+                    null);
                 if (ctor == null)
                     throw new InvalidOperationException();
 
-                instance = ctor.Invoke(new Object[] {mass}) as TBaseModeRusi4;
+                instance = ctor.Invoke(new Object[] { mass }) as BaseModeRusi4<T>;
             }
             return instance as TBaseModeRusi4;
         }
@@ -87,23 +116,37 @@ namespace TrainMovement.Interpolation
         /// <exception cref="InvalidOperationException">Ни один элемент не удовлетворяет условию предиката <paramref name="predicate" />.– или –Исходная последовательность пуста.</exception>
         private Tuple<Double, Double> GetForceAndCurrent(Double velocity)
         {
-            var vfi1 = vfi.Last(v => v.Key <= velocity);
-            var vfi2 = vfi.First(v => v.Key >= velocity);
+            try
+            {
+                var vfi1 = vfi.Last(v => v.Key <= velocity);
+                var vfi2 = vfi.First(v => v.Key >= velocity);
 
-            var v1 = vfi1.Key;
-            var v2 = vfi2.Key;
+                var v1 = vfi1.Key;
+                var v2 = vfi2.Key;
 
-            var f1 = GetForce(vfi1);
-            var f2 = GetForce(vfi2);
-            var k1 = GetK(v1, v2, f1, f2);
-            var force = k1 * v1 + GetB(v1, k1, f1);
+                var f1 = GetForce(vfi1);
+                var f2 = GetForce(vfi2);
 
-            var c1 = GetCurrent(vfi1);
-            var c2 = GetCurrent(vfi2);
-            var k2 = GetK(v1, v2, c1, c2);
-            var current = k2 * v1 + GetB(v1, k2, c1);
+                var c1 = GetCurrent(vfi1);
+                var c2 = GetCurrent(vfi2);
 
-            return new Tuple<Double, Double>(force, current);
+                if (MathHelper.IsEqual(vfi1.Key, vfi2.Key))
+                    return new Tuple<Double, Double>(f1, c1);
+
+                var k1 = GetK(v1, v2, f1, f2);
+                var force = k1*v1 + GetB(v1, k1, f1);
+
+                var k2 = GetK(v1, v2, c1, c2);
+                var current = k2*v1 + GetB(v1, k2, c1);
+
+                if (current < 0)
+                    force = -force;
+                return new Tuple<Double, Double>(force, current);
+            }
+            catch
+            {
+                throw new ArgumentOutOfRangeException(nameof(velocity));
+            }
         }
 
         /// <summary>
@@ -159,11 +202,18 @@ namespace TrainMovement.Interpolation
         }
 
         /// <summary>
-        /// 
+        /// Переход на низкий уровень Тяга-> Выбег ->Тормоз
         /// </summary>
         /// <param name="mass"></param>
         /// <returns></returns>
         public abstract IModeControl Low(MassMass mass);
+
+        /// <summary>
+        /// Переход из торможения в выбег
+        /// </summary>
+        /// <param name="mass"></param>
+        /// <returns></returns>
+        public abstract IModeControl High(MassMass mass);
 
         /// <summary>
         /// 

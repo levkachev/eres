@@ -7,7 +7,7 @@ namespace TrainMovement.Interpolation
 {/// <summary>
  /// Pull2
  /// </summary>
-    internal class Pull2Rusi4 : BaseModeRusi4<Pull2Rusi4>
+    public class Pull2Rusi4 : BaseModeRusi4<Pull2Rusi4>, IPull
     {
         /// <exception cref="ArgumentNullException">value is <see langword="null"/></exception>
         internal Pull2Rusi4(MassMass mass)
@@ -15,11 +15,26 @@ namespace TrainMovement.Interpolation
             ForceAndCurrent = VFIRepository.GetVfiRusi4Pull2(mass);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mass"></param>
+        /// <returns></returns>
         public override IModeControl Low(MassMass mass)
         {
             return InertRusi4.GetInstance(mass);
         }
 
+        public override IModeControl High(MassMass mass)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mass"></param>
+        /// <returns></returns>
         public static Pull2Rusi4 GetInstance(MassMass mass)
         {
             return GetInstance<Pull2Rusi4>(mass);

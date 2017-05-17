@@ -3,11 +3,11 @@ using FluentNHibernate.Mapping;
 
 namespace ORM.Trains.Map
 {
-    public class АdditionalParameterMap : ClassMap<АdditionalParameter>
+    public class АdditionalParameterMap : ClassMap<AdditionalParameter>
     {
         public АdditionalParameterMap ()
         {
-            Table("Train.АdditionalParameterMap");
+            Table("[Train].[АdditionalParameter]");
             Id(x => x.ID);
             Map(x => x.CarLength).Not.Nullable();
             Map(x => x.UnladenWeight).Not.Nullable();

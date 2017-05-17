@@ -11,18 +11,16 @@ namespace ORM.Base
         {
             return Equals(obj as Entity<T>);
         }
+
         public virtual Boolean Equals(Entity<T> other)
         {
-           
             if (other == null)
                 return false;
 
-
-            if (ReferenceEquals (this, other))
+            if (ReferenceEquals(this, other))
                 return true;
 
-           if (!IsTransient (this) &&
-                !IsTransient (other) &&
+           if (!IsTransient(this) && !IsTransient (other) &&
                 Equals(ID, other.ID))
             {
                 var otherType = other.GetUnproxiedType();
@@ -33,10 +31,14 @@ namespace ORM.Base
             return false;
         }
 
+        private static Boolean IsStaticNew(Entity<T> obj)
+        {
+            return obj != null && obj.ID == Guid.Empty;
+        }
+
         private static Boolean IsTransient (Entity<T> obj)
         {
-            return obj != null &&
-                 Equals(obj.ID, default(T));
+            return obj != null && Equals(obj.ID, default(T));
         }
 
         private Type GetUnproxiedType()
