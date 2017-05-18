@@ -9,7 +9,7 @@ namespace TrainMovement.Interpolation
     /// <summary>
     /// Break3
     /// </summary>
-    public class Break3Rusi4 : BaseModeRusi4<Break3Rusi4>, IBreak
+    public class Break3Rusi4 : BaseModeRusi4<Break3Rusi4>, IRecuperationBreak
     {
         /// <exception cref="ArgumentNullException">value is <see langword="null"/></exception>
         private Break3Rusi4(MassMass mass)
@@ -39,13 +39,22 @@ namespace TrainMovement.Interpolation
 
 
         /// <summary>
-        /// 
+        /// Переход в режим торможения со средним замедлением
         /// </summary>
         /// <param name="mass"></param>
         /// <returns></returns>
         public override IModeControl High(MassMass mass)
         {
-            return BaseModeRusi4<InertRusi4>.GetInstance<InertRusi4>(mass);
+            return BreakAverageRusi4.GetInstance();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override String ToString()
+        {
+            return $"Break3";
         }
     }
 }

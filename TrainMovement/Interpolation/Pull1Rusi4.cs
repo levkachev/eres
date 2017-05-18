@@ -49,5 +49,16 @@ namespace TrainMovement.Interpolation
         {
             throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override String ToString()
+        {
+            return $"Pull1";
+        }
     }
+
+
 }

@@ -39,5 +39,14 @@ namespace TrainMovement.Interpolation
         {
             return GetInstance<Pull2Rusi4>(mass);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override String ToString()
+        {
+            return $"Pull2";
+        }
     }
 }

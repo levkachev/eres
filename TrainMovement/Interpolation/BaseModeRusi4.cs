@@ -34,21 +34,6 @@ namespace TrainMovement.Interpolation
         {
             if (instance == null)
             {
-               // instance = new TBaseModeRusi4 { Mass = mass };
-
-                //var methodName = "GetInstance";
-                //var getInstance = typeof(TBaseModeRusi4).GetMethod(
-                //    methodName,
-                //    BindingFlags.Static | BindingFlags.Public,
-                //    null,
-                //    new Type[] { typeof(MassMass) },
-                //    null);
-
-                //if (getInstance == null)
-                //    throw new InvalidOperationException($"Method \"{methodName}\" cannot find!");
-
-                //instance = getInstance.Invoke(null, new Object[] { mass }) as TBaseModeRusi4;
-
                 var list = typeof(TBaseModeRusi4).GetConstructors();
 
                 var ctor = typeof(TBaseModeRusi4).GetConstructor(
@@ -98,15 +83,28 @@ namespace TrainMovement.Interpolation
             return value.ToSortedList(item => item.Velocity);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected BaseModeRusi4()
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pair"></param>
+        /// <returns></returns>
         protected Double GetCurrent(KeyValuePair<Double, VFI> pair)
         {
             return (pair.Value.CurrentMax + pair.Value.CurrentMin) / 2;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pair"></param>
+        /// <returns></returns>
         protected Double GetForce(KeyValuePair<Double, VFI> pair)
         {
             return (pair.Value.ForceMax + pair.Value.ForceMin) / 2;

@@ -50,5 +50,14 @@ namespace TrainMovement.Interpolation
         {
             return 0;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override String ToString()
+        {
+            return $"Inert";
+        }
     }
 }
