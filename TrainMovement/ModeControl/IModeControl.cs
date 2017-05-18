@@ -37,8 +37,9 @@ namespace TrainMovement.ModeControl
         /// <returns></returns>
         IModeControl Low(MassMass mass);
 
+
         /// <summary>
-        /// Повышение режима ведения
+        /// Понижение режимы ведения
         /// </summary>
         /// <param name="mass"></param>
         /// <returns></returns>
