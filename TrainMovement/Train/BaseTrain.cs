@@ -639,7 +639,7 @@ namespace TrainMovement.Train
 
                 }
                 Step(IntegrStep, byMass);
-                var step = new OutTrainParameters(ModeControl, Current, Space, Time, SpacePiketage, Velocity);
+                var step = new OutTrainParameters(ModeControl, Current, Space, Time, SpacePiketage, Converter.GetVelocityKmPerHour(Velocity));
                 result.Add(step);
             }
             return result;
