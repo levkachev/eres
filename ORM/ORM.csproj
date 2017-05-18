@@ -156,12 +156,11 @@
     <Compile Include="Stageis\Repository\PlanStageRepository.cs" />
     <Compile Include="Stageis\Repository\ProfileStageRepository.cs" />
     <Compile Include="Stageis\Repository\StageRepository.cs" />
-    <Compile Include="Stageis\Repository\StationToStationBlock.cs" />
     <Compile Include="Trains\Entities\MassMass.cs" />
     <Compile Include="Trains\Entities\ModeControls.cs" />
     <Compile Include="Trains\Entities\MotorTypes.cs" />
     <Compile Include="Trains\Entities\TrainName.cs" />
-    <Compile Include="Trains\Entities\АdditionalParameter.cs" />
+    <Compile Include="Trains\Entities\AdditionalParameter.cs" />
     <Compile Include="Trains\Interpolation\Entities\VFI.cs" />
     <Compile Include="Trains\Interpolation\Map\VFIMap.cs" />
     <Compile Include="Trains\Map\MassMassMap.cs" />
@@ -174,10 +173,9 @@
     <Compile Include="Trains\Repository\Machine\BaseMachine.cs" />
     <Compile Include="Trains\Repository\Machine\DCMachine.cs" />
     <Compile Include="Trains\Repository\MassRepository.cs" />
-    <Compile Include="Trains\Repository\Trains\ACParametres.cs" />
+    <Compile Include="Trains\Repository\Trains\ACParameters.cs" />
     <Compile Include="Trains\Repository\Trains\BaseTrainParametres.cs" />
     <Compile Include="Trains\Repository\Trains\DCParametres.cs" />
-    <Compile Include="Trains\Repository\Trains\MassRepository.cs" />
     <Compile Include="Trains\Repository\Trains\ModeControlsRepository.cs" />
     <Compile Include="Trains\Repository\Trains\MotorTypesRepository.cs" />
     <Compile Include="Trains\Repository\Trains\TrainNameRepository.cs" />
