@@ -19,7 +19,7 @@ namespace TrainMovement.PhisicalHelper
             {
                 {"acceleration", new Range(-10, 10)},
                 {"carLength", new Range(0, 200)},
-                {"current", new Range(-10000, 10000)},
+                {"current", new Range(-20000, 20000)},
                 {"mass", new Range(0, 200)},
                 {"velocity", new Range(-10, 200)},
                 {"voltage", new Range(400, 900)},

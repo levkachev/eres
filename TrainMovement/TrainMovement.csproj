@@ -55,12 +55,15 @@
     <Compile Include="Interpolation\Break1Rusi4.cs" />
     <Compile Include="Interpolation\Break2Rusi4.cs" />
     <Compile Include="Interpolation\Break3Rusi4.cs" />
+    <Compile Include="Interpolation\BreakAverageRusi4.cs" />
     <Compile Include="Interpolation\InertRusi4.cs" />
     <Compile Include="Interpolation\Pull1Rusi4.cs" />
     <Compile Include="Interpolation\Pull2Rusi4.cs" />
     <Compile Include="Interpolation\Pull3Rusi4.cs" />
     <Compile Include="Interpolation\Pull4Rusi4.cs" />
+    <Compile Include="ModeControl\IAverageBreak.cs" />
     <Compile Include="ModeControl\IBreak.cs" />
+    <Compile Include="ModeControl\IRecuperationBreak.cs" />
     <Compile Include="ModeControl\IInert.cs" />
     <Compile Include="ModeControl\IModeControl.cs" />
     <Compile Include="ModeControl\IPull.cs" />
@@ -74,6 +77,7 @@
     <Compile Include="Train\ACTrain.cs" />
     <Compile Include="Train\BaseTrain.cs" />
     <Compile Include="Train\DCTrain.cs" />
+    <Compile Include="Train\OutTrainParametres.cs" />
     <Compile Include="Train\TrainFactory.cs" />
   </ItemGroup>
   <ItemGroup>
