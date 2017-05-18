@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using ORM.Stageis.Repository.Limits;
 using ORM.Helpers;
 using ORM.Lines.Entities;
+using ORM.Stageis.Repository;
+using ORM.Stageis.Repository.Limits;
+using TrainMovement.Train;
 
-namespace ORM.Stageis.Repository
+namespace TrainMovement.Stage
 {
     /// <summary>
     /// Класс перегон, имеющий логику взаимодействия с поездом
@@ -25,12 +28,7 @@ namespace ORM.Stageis.Repository
         /// <summary>
         /// 
         /// </summary>
-        private Station departer;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private Station arrival;
+        private Guid current;
 
         /// <summary>
         /// 
@@ -59,30 +57,14 @@ namespace ORM.Stageis.Repository
         }
 
         /// <summary>
-        /// Станция отправления
         /// </summary>
         /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
-        public Station Departer
-        {
-            get { return departer; }
+        public Guid CurrentStage {
+            get { return current; }
             private set
             {
                 if (value == null) throw new ArgumentNullException(nameof(value));
-                departer = value;
-            }
-        }
-
-        /// <summary>
-        /// Станция прибытия
-        /// </summary>
-        /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
-        public Station Arrival
-        {
-            get { return arrival; }
-            private set
-            {
-                if (value == null) throw new ArgumentNullException(nameof(value));
-                arrival = value;
+                current = value;
             }
         }
 
@@ -118,14 +100,14 @@ namespace ORM.Stageis.Repository
         /// Закрытый конструктор
         /// </summary>
         /// <exception cref="ArgumentNullException">value is <see langword="null"/></exception>
-        private StationToStationBlock(IEnumerable<ILimits> limits, Station departer, Station arrival, Track track, Double length, EventBroker broker)
+        private StationToStationBlock(IEnumerable<ILimits> limits, Guid current, Track track, Double length, EventBroker broker)
         {
             Limits = limits;
-            Departer = departer;
-            Arrival = arrival;
             TrackNumber = track;
             StageLength = length;
+            CurrentStage = current;
             this.broker = broker;
+            Listen();
         }
 
         /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
@@ -135,16 +117,16 @@ namespace ORM.Stageis.Repository
             var stageRepository = StageRepository.GetInstance();
             var track = stageRepository.GetTrack(stage);
             var length = stageRepository.GetStageLenght(stage);
-            var departer = stageRepository.GetDepartureByIDStage(stage);
-            var arrival = stageRepository.GetArrivalByIdStage(stage);
+            
 
             var limits = stageRepository.GetAllLimitsForStage(stage);
-            return new StationToStationBlock(limits, departer, arrival, track, length, broker);
+            return new StationToStationBlock(limits, stage, track, length, broker);
         }
 
         /// <summary>
         /// </summary>
         /// <param name="stage"></param>
+        /// <param name="broker"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
         /// <exception cref="ArgumentException">Элемент с таким ключом уже существует в <see cref="T:System.Collections.Generic.SortedList`2" />.</exception>
@@ -157,7 +139,7 @@ namespace ORM.Stageis.Repository
             var arrival = stageRepository.GetArrivalByIdStage(stage);
 
             var limits = stageRepository.GetLimitsWithoutASRStage(stage);
-            return new StationToStationBlock(limits, departer, arrival, track, length,broker);
+            return new StationToStationBlock(limits, stage, track, length, broker);
         }
 
         /// <summary>
@@ -174,17 +156,18 @@ namespace ORM.Stageis.Repository
         }
 
         /// <summary>
-        /// По заданной координате рассчитывает дополнительнок сопротивление от клонов и кривых
+        /// По заданной координате головы  и хвоста возвращает ограничения от уклонов и кривых
         /// </summary>
         /// <param name="space"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Параметр <paramref name="source" /> имеет значение null.</exception>
         /// <exception cref="NotImplementedException">Condition.</exception>
         /// <exception cref="InvalidOperationException">Исходная последовательность пуста.</exception>
-        public Double GetAdditionalResistance(Double space)
+        private IEnumerable<Limit> GetAdditionalLimits(Double head, Double tail)
         {
-            return Limits.OfType<ReliefLimits>().First().GetLimit(space);
+            return Limits.OfType<ReliefLimits>().First().GetReliefLimitsIn(head, tail);
         }
+
 
         /// <summary>
         /// Рассчитать коэффициент, зависящий от открытых участков для расчета основного сопротивления движения
@@ -226,15 +209,40 @@ namespace ORM.Stageis.Repository
         /// </summary>
         public void Listen()
         {
-            broker.SubSuscribe(new EventHandler(TrainChangingSpace));
+            broker.Subscribe(new EventHandler(TrainChangingSpace));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TrainChangingSpace(Object sender, EventArgs e)
         {
-            //var train = sender as Train;
-            //if (train == null) return;
-            //train.Piketage = GetPiketage();
+            var train = sender as BaseTrain;
+            if (train == null || train.CurrentStage != CurrentStage)
+                return;
+            var space = train.Space;
+            train.SpacePiketage = GetPiketage(space);
+            train.CanPullOrBreak = CanPull(space);
+            
+            var trainLength = train.CarLength*train.NumberCars;
+            train.ForceAdditionalResistance = GetAdditionalResistance(space, trainLength);
+            train.FactorOfOpenStage = GetAerodynamicFactor(space);
+            train.MaxVelocity = GetMaxVelocity(space);
+        }
 
+        private Double GetAdditionalResistance(Double head, Double trainLength)
+        {
+            var tail = head - trainLength;
+            var releifLimits = GetAdditionalLimits(head, tail).ToList();
+            var result = 0.0;
+            foreach (var limit in releifLimits)
+            {
+                result += limit.Value * (limit.Space - tail)/trainLength;
+                tail = limit.Space;
+            }
+            return result;
         }
     }
 
