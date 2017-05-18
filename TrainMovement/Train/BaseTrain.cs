@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using ORM.Helpers;
 using ORM.Trains.Entities;
 using ORM.Trains.Repository;
@@ -614,8 +616,9 @@ namespace TrainMovement.Train
         /// Move by a <paramref name="distance"/> with definite modeControl 
         /// </summary>
         /// <exception cref="ArgumentNullException"></exception>
-        public void Move(Double distance, IModeControl modeControl, Double IntegrStep = 0.1)
+        public IEnumerable<OutTrainParameters> Move(Double distance, IModeControl modeControl, Double IntegrStep = 0.1)
         {
+            var result = new List<OutTrainParameters>();
             ModeControl = modeControl;
             var massRepository = MassRepository.GetInstance();
             var byMass = massRepository.GetByMass(Mass);
@@ -627,16 +630,19 @@ namespace TrainMovement.Train
                 if (Converter.GetVelocityKmPerHour(Velocity) >= MaxVelocity && ModeControl is IPull)
                     ModeControl = ModeControl.Low(byMass);
 
-                if (!CanPullOrBreak)
+                if (!CanPullOrBreak && (ModeControl is IPull || ModeControl is IRecuperationBreak))
                 {
                     if (ModeControl is IPull)
                         ModeControl = ModeControl.Low(byMass);
-                    else if (ModeControl is IBreak)
+                    else
                         ModeControl = ModeControl.High(byMass);
 
                 }
                 Step(IntegrStep, byMass);
+                var step = new OutTrainParameters(ModeControl, Current, Space, Time, SpacePiketage, Velocity);
+                result.Add(step);
             }
+            return result;
         }
 
         /// <summary>
@@ -663,7 +669,9 @@ namespace TrainMovement.Train
             ForceBaseResistance = ModeControl.GetBaseResistance(this);
             var a = Force - ForceAdditionalResistance - ForceBaseResistance;
             var dV = factor * a;
-            Acceleration = Converter.GetVelocityMeterPerSec(dV)/IntegrStep;
+            if (ModeControl is IAverageBreak)
+                Acceleration = BreakAverage;
+            else Acceleration = Converter.GetVelocityMeterPerSec(dV)/IntegrStep;
             Velocity += dV;
             Space += Converter.GetVelocityMeterPerSec(Velocity)*IntegrStep;
             Time += IntegrStep;
