@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Reflection;
 using ORM.Helpers;
-using ORM.Stageis.Repository;
+using ORM.Trains.Entities;
+using ORM.Trains.Repository;
 using TrainMovement.ModeControl;
 using ORM.Trains.Repository.Trains;
 using ORM.Trains.Repository.Machine;
@@ -18,82 +18,84 @@ namespace TrainMovement.Train
         #region Fields
 
         /// <summary>
-        /// Ссылка на брокер событий
+        /// Количество моторов в вагоне поезда.
         /// </summary>
-        private EventBroker broker;
+        private const Int16 motorCount = 4;
 
         /// <summary>
-        /// Ускорение
+        /// Коэффициент перевода инерции вращающихся масс и массы поезда в СИ.
+        /// </summary>
+        private readonly Double factor;
+
+        /// <summary>
+        /// Ускорение.
         /// </summary>
         private Double acceleration;
 
         /// <summary>
-        /// Имя поезда
+        /// Имя поезда.
         /// </summary>
         private String name;
 
         /// <summary>
-        /// Ток
+        /// Ток.
         /// </summary>
         private Double current;
 
         /// <summary>
-        /// Масса
+        /// Масса людей в вагоне.
         /// </summary>
         private Double mass;
 
         /// <summary>
-        /// Скорость
+        /// Скорость.
         /// </summary>
         private Double velocity;
 
         /// <summary>
-        /// Напряжение
+        /// Напряжение.
         /// </summary>
         private Double voltage;
 
         /// <summary>
-        /// Время
+        /// Время.
         /// </summary>
         private Double time;
 
         /// <summary>
-        /// Расстояние от начала перегона в метрах
+        /// Расстояние, пройденное от начала перегона, в метрах.
         /// </summary>
         private Double space;
 
-
         /// <summary>
-        /// Параметр двигателя
+        /// Параметр двигателя.
         /// </summary>
         private BaseMachine machine;
 
-
         /// <summary>
-        /// 
+        /// Количество вагонов.
         /// </summary>
         private Int32 numberCars;
 
-
         /// <summary>
-        /// Длина вагона
+        /// Длина вагона.
         /// </summary>
         private Double carLength;
 
         /// <summary>
-        /// Масса порожнего вагона
+        /// Масса порожнего вагона.
         /// </summary>
         private Double unladenWeight;
+
         /// <summary>
-        /// 
+        /// Среднее замедление.
         /// </summary>
         private Double breakAverage;
 
         /// <summary>
-        /// /
+        /// Коэффициент основного сопротивления для тяги.
         /// </summary>
         private Double netResistencePullFactor;
-
 
         /// <summary>
         /// 
@@ -101,17 +103,17 @@ namespace TrainMovement.Train
         private Double aerodynamicDragFactor;
 
         /// <summary>
-        /// 
+        /// Первой коэффициент основного сопротивления для выбега.
         /// </summary>
         private Double netResistenceCoastingFactor1;
 
         /// <summary>
-        /// 
+        /// Второй коэффициент основного сопротивления для выбега.
         /// </summary>
         private Double netResistenceCoastingFactor2;
 
         /// <summary>
-        /// 
+        /// Третий коэффициент основного сопротивления для выбега.
         /// </summary>
         private Double netResistenceCoastingFactor3;
 
@@ -130,7 +132,15 @@ namespace TrainMovement.Train
         /// </summary>
         private Double ownNeedsElectricPower;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private Guid currentStage;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private EventBroker broker;
 
         #endregion
 
@@ -233,7 +243,8 @@ namespace TrainMovement.Train
             {
                 if (!DomainHelper.CheckVelocity(value))
                     throw new ArgumentOutOfRangeException(nameof(value));
-
+                if (value < 0)
+                    value = 0.0;
                 velocity = value;
             }
         }
@@ -261,6 +272,7 @@ namespace TrainMovement.Train
         /// Расстояние
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
+        /// <exception cref="TargetInvocationException" accessor="set">Представленный делегатом метод является методом экземпляра, а целевой объект имеет значение null.-или- Один из инкапсулированных методов выбрасывает исключение. </exception>
         public Double Space
         {
             get { return space; }
@@ -268,9 +280,10 @@ namespace TrainMovement.Train
             {
                 if (!DomainHelper.CheckSpace(value))
                     throw new ArgumentOutOfRangeException(nameof(value));
-                if (MathHelper.Equals(value, space)) return;
-                SpaceChanged();
+                if (MathHelper.IsEqual(value, space) && (!MathHelper.IsEqual(space,0.0))) return;
+                
                 space = value;
+                SpaceChanged();
             }
         }
 
@@ -286,6 +299,21 @@ namespace TrainMovement.Train
                 if (!DomainHelper.CheckTime(value))
                     throw new ArgumentOutOfRangeException(nameof(value));
                 time = value;
+            }
+        }
+
+        /// <summary>
+        /// Ссылка на брокер событий
+        /// </summary>
+        /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
+        protected EventBroker Broker
+        {
+            get { return broker; }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException(nameof(value));
+                broker = value;
             }
         }
 
@@ -497,17 +525,22 @@ namespace TrainMovement.Train
         /// <summary>
         /// Перегон
         /// </summary>
-        public StationToStationBlock CurrentStage { get; set; }
+        /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
+        public Guid CurrentStage
+        {
+            get { return currentStage; }
+            private set
+            {
+                if (value == null)
+                    throw new ArgumentNullException(nameof(value));
+                currentStage = value;
+            }
+        }
 
         /// <summary>
-        /// СИла тяги
+        /// СИла тяги или торможения
         /// </summary>
-        public Double ForcePull { get; set; }
-
-        /// <summary>
-        /// Сила торможения
-        /// </summary>
-        public Double ForceBreak { get; set; }
+        public Double Force { get; set; }
 
         /// <summary>
         /// Сила основного сопротивления
@@ -529,6 +562,10 @@ namespace TrainMovement.Train
         /// </summary>
         public Boolean CanPullOrBreak { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public Double MaxVelocity { get; set; }
 
         #endregion
 
@@ -536,6 +573,7 @@ namespace TrainMovement.Train
         /// </summary>
         /// <param name="machine"></param>
         /// <param name="commonProperties"></param>
+        /// <param name="broker"></param>
         /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
         /// <exception cref="ArgumentNullException">value is <see langword="null"/></exception>
         protected BaseTrain(BaseMachine 
@@ -556,6 +594,7 @@ namespace TrainMovement.Train
 
             Machine = machine;
             this.broker = broker;
+            factor = Converter.GetFactor() * InertiaRotationFactor * UnladenWeight / (UnladenWeight + Mass);
         }
 
         /// <summary>
@@ -564,7 +603,7 @@ namespace TrainMovement.Train
         /// <exception cref="Exception">A delegate callback throws an exception.</exception>
         /// <exception cref="MemberAccessException">Вызывающий код не имеет доступа к методу, представленному делегатом (например, если это закрытый метод).-или- Количество, порядок или тип параметров в списке <paramref name="args" /> является недопустимым. </exception>
         /// <exception cref="TargetInvocationException">Представленный делегатом метод является методом экземпляра, а целевой объект имеет значение null.-или- Один из инкапсулированных методов выбрасывает исключение. </exception>
-        public void SpaceChanged() => broker.Publish(this, new EventArgs());
+        public void SpaceChanged() => Broker.Publish(this, new EventArgs());
 
         /// <summary>
         /// 
@@ -574,8 +613,63 @@ namespace TrainMovement.Train
         /// <summary>
         /// Move by a <paramref name="distance"/> with definite modeControl 
         /// </summary>
-        public void Move(Double distance, IModeControl modeControl)
+        /// <exception cref="ArgumentNullException"></exception>
+        public void Move(Double distance, IModeControl modeControl, Double IntegrStep = 0.1)
         {
+            ModeControl = modeControl;
+            var massRepository = MassRepository.GetInstance();
+            var byMass = massRepository.GetByMass(Mass);
+            if (byMass == null)
+                throw new ArgumentNullException(nameof(byMass));
+            while ((Space <= distance) || (MathHelper.IsEqual(Velocity, 0)))
+            {
+
+                if (Converter.GetVelocityKmPerHour(Velocity) >= MaxVelocity && ModeControl is IPull)
+                    ModeControl = ModeControl.Low(byMass);
+
+                if (!CanPullOrBreak)
+                {
+                    if (ModeControl is IPull)
+                        ModeControl = ModeControl.Low(byMass);
+                    else if (ModeControl is IBreak)
+                        ModeControl = ModeControl.High(byMass);
+
+                }
+                Step(IntegrStep, byMass);
+            }
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
+        /// <exception cref="TargetInvocationException">Представленный делегатом метод является методом экземпляра, а целевой объект имеет значение null.-или- Один из инкапсулированных методов выбрасывает исключение. </exception>
+        public void Start(Guid stage, Double massa)
+        {
+            CurrentStage = stage;
+            Velocity = 0.0;
+            Space = 0.0;
+            Mass = massa;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modeControl"></param>
+        /// <returns></returns>
+        private void Step(Double IntegrStep, MassMass byMass)
+        {
+            Current = ModeControl.GetCurrent(Converter.GetVelocityKmPerHour(Velocity)) * motorCount * NumberCars;
+            Force = Converter.GetForceKgC(ModeControl.GetForce(Converter.GetVelocityKmPerHour(Velocity))) * motorCount / (UnladenWeight + Mass);
+            ForceBaseResistance = ModeControl.GetBaseResistance(this);
+            var a = Force - ForceAdditionalResistance - ForceBaseResistance;
+            var dV = factor * a;
+            Acceleration = Converter.GetVelocityMeterPerSec(dV)/IntegrStep;
+            Velocity += dV;
+            Space += Converter.GetVelocityMeterPerSec(Velocity)*IntegrStep;
+            Time += IntegrStep;
+
+            if (Converter.GetVelocityKmPerHour(Velocity) >= MaxVelocity && ModeControl is IInert && dV > 0)
+                ModeControl = ModeControl.Low(byMass);
         }
 
     }

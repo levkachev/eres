@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 
-namespace ORM.Stageis.Repository
+namespace TrainMovement
 {
     /// <summary>
     /// 
@@ -32,7 +33,7 @@ namespace ORM.Stageis.Repository
         /// 
         /// </summary>
         /// <param name="handler"></param>
-        public void SubSuscribe(Delegate handler)
+        public void Subscribe(Delegate handler)
         {
             subscribtions.Add(handler);
         }

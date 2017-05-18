@@ -50,22 +50,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventBroker.cs" />
     <Compile Include="Interpolation\BaseModeRusi4.cs" />
     <Compile Include="Interpolation\Break1Rusi4.cs" />
     <Compile Include="Interpolation\Break2Rusi4.cs" />
     <Compile Include="Interpolation\Break3Rusi4.cs" />
+    <Compile Include="Interpolation\InertRusi4.cs" />
     <Compile Include="Interpolation\Pull1Rusi4.cs" />
     <Compile Include="Interpolation\Pull2Rusi4.cs" />
     <Compile Include="Interpolation\Pull3Rusi4.cs" />
     <Compile Include="Interpolation\Pull4Rusi4.cs" />
-    <Compile Include="ModeControl\BaseACRusi4BaseResistance.cs" />
+    <Compile Include="ModeControl\IBreak.cs" />
+    <Compile Include="ModeControl\IInert.cs" />
     <Compile Include="ModeControl\IModeControl.cs" />
+    <Compile Include="ModeControl\IPull.cs" />
     <Compile Include="ModeControl\IResistance.cs" />
-    <Compile Include="ModeControl\Pull1ACRusi4.cs" />
     <Compile Include="PhisicalHelper\Converter.cs" />
     <Compile Include="PhisicalHelper\DomainHelper.cs" />
     <Compile Include="PhisicalHelper\Range.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stage\StationToStationBlock.cs" />
     <Compile Include="Stuff\ExtensionMethods.cs" />
     <Compile Include="Train\ACTrain.cs" />
     <Compile Include="Train\BaseTrain.cs" />
