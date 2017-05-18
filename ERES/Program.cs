@@ -3,6 +3,7 @@ using System;
 using ORM.Energy.Entities;
 using ORM.Lines.Entities;
 using System.IO;
+using System.Linq;
 using ORM.Lines.Repository;
 using ORM.Stageis.Repository;
 using ORM.Trains.Repository;
@@ -102,9 +103,15 @@ namespace ERES
 
             const String trainName = "81-740.1(Rusi4)";
             var train = TrainFactory.GetACTrain(trainName, broker);
-            var modeControl = TrainMovement.Interpolation.Pull1Rusi4.GetInstance(mass);
+            var modeControl = TrainMovement.Interpolation.Pull4Rusi4.GetInstance(mass);
             train.Start(stageGuid, 100);
-            train.Move(350, modeControl);
+            var move = new List<OutTrainParameters>();
+            var step = train.Move(350, modeControl).ToList();
+            move.AddRange(step);
+            modeControl = TrainMovement.Interpolation.Pull4Rusi4.GetInstance(mass);
+            step = train.Move(700, modeControl).ToList();
+            move.AddRange(step);
+            ShowCollection<OutTrainParameters>(move, "moving");
             Console.WriteLine("the end");
             
             // var length = stageRepository.GetStageLenght(st);
