@@ -34,6 +34,21 @@ namespace TrainMovement.Train
         public Double Velocity;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public Double AdditionalResistance;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Double BaseResistance;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Double Force;
+
+        /// <summary>
         /// ctor
         /// </summary>
         /// <param name="modeControl"></param>
@@ -42,7 +57,10 @@ namespace TrainMovement.Train
         /// <param name="time"></param>
         /// <param name="piketage"></param>
         /// <param name="velocity"></param>
-        public OutTrainParameters(IModeControl modeControl, Double current, Double space, Double time, Double piketage,Double velocity)
+        /// <param name="baseResistance"></param>
+        /// <param name="force"></param>
+        /// <param name="additionalResistance"></param>
+        public OutTrainParameters(IModeControl modeControl, Double current, Double space, Double time, Double piketage,Double velocity , Double additionalResistance, Double baseResistance, Double force)
         {
             ModeControl = modeControl;
             Current = current;
@@ -50,6 +68,9 @@ namespace TrainMovement.Train
             Time = time;
             Piketage = piketage;
             Velocity = velocity;
+            AdditionalResistance = additionalResistance;
+            BaseResistance = baseResistance;
+            Force = force;
         }
 
         /// <summary>
@@ -58,7 +79,7 @@ namespace TrainMovement.Train
         /// <returns></returns>
         public override String ToString()
         {
-            return $"{ModeControl} I = {Current} S = {Space} t = {Time} Piketage = {Piketage} v = {Velocity}";
+            return $"{ModeControl} I = {Current} F = {Force} S = {Space} t = {Time} Piketage = {Piketage} v = {Velocity} wd = {AdditionalResistance} wb = {BaseResistance}";
         }
     }
 }
