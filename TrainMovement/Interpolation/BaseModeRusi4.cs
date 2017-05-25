@@ -7,6 +7,7 @@ using ORM.Helpers;
 using ORM.Trains.Entities;
 using ORM.Trains.Interpolation.Entities;
 using TrainMovement.ModeControl;
+using TrainMovement.PhisicalHelper;
 using TrainMovement.Stuff;
 using TrainMovement.Train;
 
@@ -128,14 +129,22 @@ namespace TrainMovement.Interpolation
                 var c1 = GetCurrent(vfi1);
                 var c2 = GetCurrent(vfi2);
 
-                if (MathHelper.IsEqual(vfi1.Key, vfi2.Key))
-                    return new Tuple<Double, Double>(f1, c1);
+                var k1 = 0.0;
+                var k2 = 0.0;
+                
 
-                var k1 = GetK(v1, v2, f1, f2);
-                var force = k1*v1 + GetB(v1, k1, f1);
+                //только при скорости 0 MathHelper.IsEqual(vfi1.Key, vfi2.Key)!!! если будет выше 85 - УПАДЕМ!!!
 
-                var k2 = GetK(v1, v2, c1, c2);
-                var current = k2*v1 + GetB(v1, k2, c1);
+                if (!MathHelper.IsEqual(vfi1.Key, vfi2.Key))
+                {
+                    k1 = GetK(v1, v2, f1, f2);
+                    
+                    k2 = GetK(v1, v2, c1, c2);
+                    
+                }
+
+                var force = k1 * velocity + GetB(v1, k1, f1);
+                var current = k2 * velocity + GetB(v1, k2, c1);
 
                 if (current < 0)
                     force = -force;
@@ -194,7 +203,7 @@ namespace TrainMovement.Interpolation
         {
             var tara = train.UnladenWeight;
             var massa = train.Mass;
-            var velocity = train.Velocity;
+            var velocity = Converter.GetVelocityKmPerHour(train.Velocity);
             var openFactor = train.FactorOfOpenStage;
             return GetBaseResistanceRusi4(tara, massa, velocity, openFactor);
         }
