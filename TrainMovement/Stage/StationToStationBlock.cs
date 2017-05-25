@@ -168,6 +168,16 @@ namespace TrainMovement.Stage
             return Limits.OfType<ReliefLimits>().First().GetReliefLimitsIn(head, tail);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        private Limit GetFirstAdditionalLimits(Double head)
+        {
+            return Limits.OfType<ReliefLimits>().First().GetFirstLimit(head);
+        }
+
 
         /// <summary>
         /// Рассчитать коэффициент, зависящий от открытых участков для расчета основного сопротивления движения
@@ -235,13 +245,22 @@ namespace TrainMovement.Stage
         private Double GetAdditionalResistance(Double head, Double trainLength)
         {
             var tail = head - trainLength;
-            var releifLimits = GetAdditionalLimits(head, tail).ToList();
             var result = 0.0;
-            foreach (var limit in releifLimits)
+            Limit firstLimit;
+            var releifLimits = GetAdditionalLimits(head, tail).ToList();
+            if (releifLimits.Any())
             {
-                result += limit.Value * (limit.Space - tail)/trainLength;
-                tail = limit.Space;
+                firstLimit = releifLimits.First();
+                foreach (var limit in releifLimits)
+                {
+                    result += limit.Value*(limit.Space - tail)/trainLength;
+                    tail = limit.Space;
+                }
             }
+            else
+                firstLimit = GetFirstAdditionalLimits(head);
+
+            result = result + firstLimit.Value * (head - tail)/ trainLength;
             return result;
         }
     }
