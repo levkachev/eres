@@ -232,6 +232,11 @@ namespace TrainMovement.Train
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public MassMass ByMass;
+
+        /// <summary>
         /// Скорость
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
@@ -621,27 +626,29 @@ namespace TrainMovement.Train
             var result = new List<OutTrainParameters>();
             ModeControl = modeControl;
             var massRepository = MassRepository.GetInstance();
-            var byMass = massRepository.GetByMass(Mass);
-            if (byMass == null)
-                throw new ArgumentNullException(nameof(byMass));
-            while ((Space <= distance) || (MathHelper.IsEqual(Velocity, 0)))
+            ByMass = massRepository.GetByMass(100);
+            if (ByMass == null)
+                throw new ArgumentNullException(nameof(ByMass));
+            
+            while (Space <= distance && (Time > 1 && Converter.GetVelocityKmPerHour(Velocity) > 0.1) || (Time <= 1))
             {
-
                 if (Converter.GetVelocityKmPerHour(Velocity) >= MaxVelocity && ModeControl is IPull)
-                    ModeControl = ModeControl.Low(byMass);
+                    ModeControl = ModeControl.Low(ByMass);
 
                 if (!CanPullOrBreak && (ModeControl is IPull || ModeControl is IRecuperationBreak))
                 {
                     if (ModeControl is IPull)
-                        ModeControl = ModeControl.Low(byMass);
+                        ModeControl = ModeControl.Low(ByMass);
                     else
-                        ModeControl = ModeControl.High(byMass);
+                        ModeControl = ModeControl.High(ByMass);
 
                 }
-                Step(IntegrStep, byMass);
-                var step = new OutTrainParameters(ModeControl, Current, Space, Time, SpacePiketage, Converter.GetVelocityKmPerHour(Velocity));
+
+                Step(IntegrStep);
+                var step = new OutTrainParameters(ModeControl, Current, Space, Time, SpacePiketage, Converter.GetVelocityKmPerHour(Velocity), ForceAdditionalResistance, ForceBaseResistance, Force);
                 result.Add(step);
             }
+
             return result;
         }
 
@@ -662,9 +669,15 @@ namespace TrainMovement.Train
         /// </summary>
         /// <param name="modeControl"></param>
         /// <returns></returns>
-        private void Step(Double IntegrStep, MassMass byMass)
+        private void Step(Double IntegrStep)
         {
-            Current = ModeControl.GetCurrent(Converter.GetVelocityKmPerHour(Velocity)) * motorCount * NumberCars;
+            Current = ModeControl.GetCurrent(Converter.GetVelocityKmPerHour(Velocity)) * NumberCars;//* motorCount
+
+            //var vInkmPerHour = Converter.GetVelocityKmPerHour(Velocity);
+            //var force = ModeControl.GetForce(vInkmPerHour);
+            //var forceInKg = Converter.GetForceKgC(force);
+            //Force = forceInKg * motorCount / (UnladenWeight + Mass);
+
             Force = Converter.GetForceKgC(ModeControl.GetForce(Converter.GetVelocityKmPerHour(Velocity))) * motorCount / (UnladenWeight + Mass);
             ForceBaseResistance = ModeControl.GetBaseResistance(this);
             var a = Force - ForceAdditionalResistance - ForceBaseResistance;
@@ -677,7 +690,7 @@ namespace TrainMovement.Train
             Time += IntegrStep;
 
             if (Converter.GetVelocityKmPerHour(Velocity) >= MaxVelocity && ModeControl is IInert && dV > 0)
-                ModeControl = ModeControl.Low(byMass);
+                ModeControl = ModeControl.Low(ByMass);
         }
 
     }
