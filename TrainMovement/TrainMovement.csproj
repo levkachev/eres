@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Energy\ICountVoltage.cs" />
+    <Compile Include="Energy\SimpleVoltage.cs" />
     <Compile Include="EventBroker.cs" />
     <Compile Include="Interpolation\BaseModeRusi4.cs" />
     <Compile Include="Interpolation\Break1Rusi4.cs" />

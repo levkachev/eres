@@ -219,7 +219,7 @@ namespace TrainMovement.Stage
         /// </summary>
         public void Listen()
         {
-            broker.Subscribe(new EventHandler(TrainChangingSpace));
+            broker.Subscribe(new EventHandler(OnTrainChangingSpace));
         }
 
         /// <summary>
@@ -227,7 +227,7 @@ namespace TrainMovement.Stage
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TrainChangingSpace(Object sender, EventArgs e)
+        private void OnTrainChangingSpace(Object sender, EventArgs e)
         {
             var train = sender as BaseTrain;
             if (train == null || train.CurrentStage != CurrentStage)

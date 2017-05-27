@@ -678,7 +678,7 @@ namespace TrainMovement.Train
             //var forceInKg = Converter.GetForceKgC(force);
             //Force = forceInKg * motorCount / (UnladenWeight + Mass);
 
-            Force = Converter.GetForceKgC(ModeControl.GetForce(Converter.GetVelocityKmPerHour(Velocity))) * motorCount / (UnladenWeight + Mass);
+            Force = Converter.GetForceKgC(ModeControl.GetForce(Converter.GetVelocityKmPerHour(Velocity))) * motorCount / (UnladenWeight + Mass)*1.5;
             ForceBaseResistance = ModeControl.GetBaseResistance(this);
             var a = Force - ForceAdditionalResistance - ForceBaseResistance;
             var dV = factor * a;
