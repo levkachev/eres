@@ -68,9 +68,18 @@ namespace ORM.Stageis.Repository.Limits
         /// <returns></returns>
         public IEnumerable<Limit> GetReliefLimitsIn(Double head, Double tail)
         {
-            return Limits
-                .TakeWhile(s => s.Space>=head && s.Space <=tail);
+            return  Limits
+                .TakeWhile(s => s.Space<=head && s.Space >=tail);
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public Limit GetFirstLimit(Double head)
+        {
+            return Limits.FirstOrDefault(s => s.Space >= head);
         }
     }
 }
