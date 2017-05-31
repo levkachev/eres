@@ -42,6 +42,15 @@ namespace TrainMovement.PhisicalHelper
         {
             return forceNewton * k / g;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="forceNewton"></param>
+        /// <returns></returns>
+        public static Double GetForceH(Double forceNewton)
+        {
+            return forceNewton * g / k;
+        }
 
         /// <summary>
         /// 
