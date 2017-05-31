@@ -8,6 +8,7 @@ namespace TrainMovement.Energy
     /// </summary>
     public class SimpleVoltage : ICountVoltage
     {
+
         /// <summary>
         /// 
         /// </summary>
@@ -38,6 +39,31 @@ namespace TrainMovement.Energy
         }
 
         /// <summary>
+        /// </summary>
+        /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
+        public EventBroker Broker
+        {
+            get { return broker; }
+            private set
+            {
+                if (value == null)
+                    throw new ArgumentNullException(nameof(value));
+                broker = value;
+                Listen();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="broker"></param>
+        /// <param name="voltage"></param>
+        public SimpleVoltage(EventBroker broker, Double voltage)
+        {
+            Broker = broker;
+            Voltage = voltage;
+        }
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="current"></param>
@@ -51,19 +77,9 @@ namespace TrainMovement.Energy
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="voltage"></param>
-        /// <param name="broker"></param>
-        public SimpleVoltage(Double voltage, EventBroker broker)
-        {
-            Voltage = voltage;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public void Listen()
         {
-            broker.Subscribe(new EventHandler(OnTrainChangingSpace));
+            Broker.Subscribe(new EventHandler(OnTrainChangingSpace));
         }
 
         /// <summary>
