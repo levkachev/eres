@@ -104,7 +104,7 @@ namespace ERES
             const String trainName = "81-740.1(Rusi4)";
             var train = TrainFactory.GetACTrain(trainName, broker);
             var modeControl = TrainMovement.Interpolation.Pull4Rusi4.GetInstance(mass);
-            train.Start(stageGuid, 100);
+            train.Start(stageGuid, 13);
             var move = new List<OutTrainParameters>();
             var step = train.Move(350, modeControl).ToList();
             move.AddRange(step);
