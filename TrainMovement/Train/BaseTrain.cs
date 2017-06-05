@@ -733,14 +733,14 @@ namespace TrainMovement.Train
                 ForceKGC = lastForce + Math.Sign(ForceKGC - lastForce)*IntegrStep*dF;
                 var kpd = ModeControl.GetKPD(Velocity);
                 if (kpd > 0)
-                    Current = Converter.GetVelocityMeterPerSec(ForceKGC) *Velocity/kpd/Voltage*motorCount;
+                    Current = Converter.GetVelocityMeterPerSec(Velocity) * Converter.GetForceInK(ForceKGC)/kpd/Voltage*motorCount;
                 else Current = 0.0;
             }
             if (Math.Abs(Math.Abs(Current)- Math.Abs(lastCurrent)) > (dIc*IntegrStep))
             {
                 Current = lastCurrent + Math.Sign(Current - lastCurrent)* dIc * IntegrStep;
             }
-            Force = Converter.GetForceKN(ForceKGC) * motorCount / (UnladenWeight + Mass) * kF;
+            Force = Converter.GetForceInKNewton(ForceKGC) * motorCount / (UnladenWeight + Mass);
             ForceBaseResistance = ModeControl.GetBaseResistance(this);
             var a = Force - ForceAdditionalResistance - ForceBaseResistance;
             var dV = factor * a;
