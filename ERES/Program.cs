@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿/**
+ * Comment by const_phi.
+ */
+
+using System.Collections.Generic;
 using System;
 using ORM.Energy.Entities;
 using ORM.Lines.Entities;
@@ -111,19 +115,19 @@ namespace ERES
             IModeControl modeControl = TrainMovement.Interpolation.Pull4Rusi4.GetInstance(mass);
             train.Start(stageGuid, 13);
             var move = new List<OutTrainParameters>();
-            var step = train.Move(250, modeControl).ToList();
+            var step = train.Move(500, modeControl).ToList();
             move.AddRange(step);
 
             modeControl = TrainMovement.Interpolation.InertRusi4.GetInstance(mass);
-            step = train.Move(400, modeControl).ToList();
+            step = train.Move(1500, modeControl).ToList();
             move.AddRange(step);
 
             modeControl = TrainMovement.Interpolation.Pull3Rusi4.GetInstance(mass);
-            step = train.Move(850, modeControl).ToList();
+            step = train.Move(2000, modeControl).ToList();
             move.AddRange(step);
 
             modeControl = TrainMovement.Interpolation.InertRusi4.GetInstance(mass);
-            step = train.Move(2046, modeControl).ToList();
+            step = train.Move(2055, modeControl).ToList();
             move.AddRange(step);
 
             modeControl = TrainMovement.Interpolation.Break1Rusi4.GetInstance(mass);
