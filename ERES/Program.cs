@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿/**
+ * Comment by const_phi.
+ */
+
+using System.Collections.Generic;
 using System;
 using ORM.Energy.Entities;
 using ORM.Lines.Entities;
