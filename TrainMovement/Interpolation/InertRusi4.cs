@@ -1,6 +1,7 @@
 ﻿using System;
 using ORM.Trains.Entities;
 using TrainMovement.ModeControl;
+using TrainMovement.Train;
 
 namespace TrainMovement.Interpolation
 {
@@ -14,7 +15,7 @@ namespace TrainMovement.Interpolation
         /// </summary>
         /// <param name="velocity"></param>
         /// <returns></returns>
-        public override Double GetCurrent(Double velocity)
+        public override Double GetCurrent(Double velocity, BaseTrain train)
         {
             return 0;
         }
@@ -46,7 +47,7 @@ namespace TrainMovement.Interpolation
         /// </summary>
         /// <param name="velocity"></param>
         /// <returns></returns>
-        public override Double GetForce(Double velocity)
+        public override Double GetForce(Double velocity, BaseTrain train)
         {
             return 0;
         }

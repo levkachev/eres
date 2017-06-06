@@ -21,7 +21,7 @@ namespace TrainMovement.Interpolation
         /// </summary>
         /// <param name="velocity"></param>
         /// <returns></returns>
-        public Double GetForce(Double velocity)
+        public Double GetForce(Double velocity, BaseTrain train)
         {
             return 0;
         }
@@ -31,7 +31,7 @@ namespace TrainMovement.Interpolation
         /// </summary>
         /// <param name="velocity"></param>
         /// <returns></returns>
-        public Double GetCurrent(Double velocity)
+        public Double GetCurrent(Double velocity, BaseTrain train)
         {
             return 0;
         }
@@ -84,6 +84,17 @@ namespace TrainMovement.Interpolation
             if (instance == null)
                 instance = new BreakAverageRusi4();
             return instance;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="velocity"></param>
+        /// <returns></returns>
+        public Double GetKPD(Double velocity)
+        {
+           
+            return 0;
+
         }
     }
 }
