@@ -108,29 +108,29 @@ namespace ERES
 
             var stage = StationToStationBlock.GetStageWithoutASR(stageGuid, broker);
 
-            ICountVoltage voltage = new SimpleVoltage(broker, 850);
+            ICountVoltage voltage = new SimpleVoltage(broker, 825);
 
             const String trainName = "81-740.1(Rusi4)";
             var train = TrainFactory.GetACTrain(trainName, broker);
             IModeControl modeControl = TrainMovement.Interpolation.Pull4Rusi4.GetInstance(mass);
-            train.Start(stageGuid, 13);
+            train.Start(stageGuid, 11);
             var move = new List<OutTrainParameters>();
             var step = train.Move(500, modeControl).ToList();
             move.AddRange(step);
 
+            //modeControl = TrainMovement.Interpolation.InertRusi4.GetInstance(mass);
+            //step = train.Move(1500, modeControl).ToList();
+            //move.AddRange(step);
+
+            //modeControl = TrainMovement.Interpolation.Pull3Rusi4.GetInstance(mass);
+            //step = train.Move(2000, modeControl).ToList();
+            //move.AddRange(step);
+
             modeControl = TrainMovement.Interpolation.InertRusi4.GetInstance(mass);
-            step = train.Move(1500, modeControl).ToList();
+            step = train.Move(1960, modeControl).ToList();
             move.AddRange(step);
 
-            modeControl = TrainMovement.Interpolation.Pull3Rusi4.GetInstance(mass);
-            step = train.Move(2000, modeControl).ToList();
-            move.AddRange(step);
-
-            modeControl = TrainMovement.Interpolation.InertRusi4.GetInstance(mass);
-            step = train.Move(2055, modeControl).ToList();
-            move.AddRange(step);
-
-            modeControl = TrainMovement.Interpolation.Break1Rusi4.GetInstance(mass);
+            modeControl = TrainMovement.Interpolation.Break2Rusi4.GetInstance(mass);
             step = train.Move(2055, modeControl).ToList();
             move.AddRange(step);
 
