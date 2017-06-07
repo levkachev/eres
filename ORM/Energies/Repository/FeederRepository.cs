@@ -10,7 +10,6 @@ namespace ORM.Energies.Repository
     /// 
     /// </summary>
     public class FeederRepository : Repository<Feeder>
-
     {
         /// <summary>
         /// 
@@ -20,7 +19,6 @@ namespace ORM.Energies.Repository
         {
             return GetInstance<FeederRepository>(SessionWrapper.GetInstance().Factory);
         }
-
         /// <summary>
         /// координаты и сопротивление фидеров (определенного типа) для выбранной подстанции
         /// </summary>
@@ -34,7 +32,5 @@ namespace ORM.Energies.Repository
                  .Where (feeder => feeder.FeederType == name)
                  .Select(feeder => feeder).ToList();             
         }
-
-
     }
 }

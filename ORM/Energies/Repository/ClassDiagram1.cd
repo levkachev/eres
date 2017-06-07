@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ORM.Base.Repository&lt;T&gt;" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAUAAAAEAAAAABAAAAAAAAgBQEAAAAIA=</HashCode>
+      <FileName>Base\Repository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ORM.Energies.Repository.FeederRepository" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Energies\Repository\FeederRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ORM.Energies.Repository.PowerSupplyStationRepository" Collapsed="true">
+    <Position X="3.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAACAAAQEABAAAQAAAAAAAAAEEIAA=</HashCode>
+      <FileName>Energies\Repository\PowerSupplyStationRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ORM.Energies.Repository.ResistanceRepository" Collapsed="true">
+    <Position X="5.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Energies\Repository\ResistanceRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="ORM.Base.IRepository&lt;T&gt;" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAIA=</HashCode>
+      <FileName>Base\IRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

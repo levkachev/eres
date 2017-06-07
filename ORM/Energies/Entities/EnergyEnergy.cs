@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-
 namespace ORM.Energy.Entities
 {
     /// <summary>

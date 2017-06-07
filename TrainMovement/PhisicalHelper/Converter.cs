@@ -63,11 +63,11 @@ namespace TrainMovement.PhisicalHelper
         /// <summary>
         /// Перевод в килоСилу
         /// </summary>
-        /// <param name="force"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
-        public static Double GetForceInK(Double force)
+        public static Double GetInKilo(Double value)
         {
-            return force * k;
+            return value * k;
         }
     }
 }
