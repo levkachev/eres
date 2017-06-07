@@ -153,8 +153,8 @@ namespace TrainMovement.Interpolation
                 var force = k1 * velocity + GetB(v1, k1, f1);
                 var current = k2 * velocity + GetB(v1, k2, c1);
 
-                if (current < 0)
-                    force = -force;
+                //if (current < 0)
+                //    force = -force;
 
                 return new Tuple<Double, Double>(force, current);
             }
@@ -235,7 +235,7 @@ namespace TrainMovement.Interpolation
         {
             var tara = train.UnladenWeight;
             var massa = train.Mass;
-            var velocity = Converter.GetVelocityKmPerHour(train.Velocity);
+            var velocity =train.Velocity;
             var openFactor = train.FactorOfOpenStage;
             return GetBaseResistanceRusi4(tara, massa, velocity, openFactor);
         }
