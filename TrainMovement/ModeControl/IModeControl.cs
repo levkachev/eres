@@ -14,15 +14,21 @@ namespace TrainMovement.ModeControl
         /// </summary>
         /// <param name="velocity"></param>
         /// <returns></returns>
-        Double GetForce(Double velocity);
+        Double GetForce(Double velocity, BaseTrain train);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="velocity"></param>
         /// <returns></returns>
-        Double GetCurrent(Double velocity);
+        Double GetCurrent(Double velocity, BaseTrain train);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="velocity"></param>
+        /// <returns></returns>
+        Double GetKPD(Double velocity);
         /// <summary>
         /// Расчет основного сопротивления
         /// </summary>

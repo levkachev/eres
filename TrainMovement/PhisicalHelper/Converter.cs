@@ -35,23 +35,21 @@ namespace TrainMovement.PhisicalHelper
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="forceNewton"></param>
+        /// <param name="kgForce"></param>
         /// <returns></returns>
 
-        public static Double GetForceKgC(Double forceNewton)
+        public static Double GetForceInKNewton(Double kgForce)
         {
-            return forceNewton * k / g;
+            return kgForce * k / g;
         }
-
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="forceKgC"></param>
+        /// <param name="forceNewton"></param>
         /// <returns></returns>
-
-        public static Double GetForceKN(Double forceKgC)
+        public static Double GetForceH(Double forceNewton)
         {
-            return forceKgC * secPerHour / (k * k);
+            return forceNewton * g / k;
         }
 
         /// <summary>
@@ -60,6 +58,16 @@ namespace TrainMovement.PhisicalHelper
         public static Double GetFactor()
         {
             return g*secPerHour/(k*k);
+        }
+
+        /// <summary>
+        /// Перевод в килоСилу
+        /// </summary>
+        /// <param name="force"></param>
+        /// <returns></returns>
+        public static Double GetForceInK(Double force)
+        {
+            return force * k;
         }
     }
 }

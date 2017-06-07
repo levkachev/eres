@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿/**
+ * Comment by const_phi.
+ */
+
+using System.Collections.Generic;
 using System;
 using ORM.Energy.Entities;
 using ORM.Lines.Entities;
@@ -8,6 +12,8 @@ using ORM.Lines.Repository;
 using ORM.Stageis.Repository;
 using ORM.Trains.Repository;
 using TrainMovement;
+using TrainMovement.Energy;
+using TrainMovement.ModeControl;
 using TrainMovement.Stage;
 using TrainMovement.Train;
 
@@ -99,21 +105,48 @@ namespace ERES
 
 
             var broker = new EventBroker();
+
             var stage = StationToStationBlock.GetStageWithoutASR(stageGuid, broker);
+
+            ICountVoltage voltage = new SimpleVoltage(broker, 850);
 
             const String trainName = "81-740.1(Rusi4)";
             var train = TrainFactory.GetACTrain(trainName, broker);
-            var modeControl = TrainMovement.Interpolation.Pull4Rusi4.GetInstance(mass);
-            train.Start(stageGuid, 100);
+            IModeControl modeControl = TrainMovement.Interpolation.Pull4Rusi4.GetInstance(mass);
+            train.Start(stageGuid, 13);
             var move = new List<OutTrainParameters>();
-            var step = train.Move(350, modeControl).ToList();
+            var step = train.Move(500, modeControl).ToList();
             move.AddRange(step);
-            modeControl = TrainMovement.Interpolation.Pull4Rusi4.GetInstance(mass);
-            step = train.Move(700, modeControl).ToList();
+
+            modeControl = TrainMovement.Interpolation.InertRusi4.GetInstance(mass);
+            step = train.Move(1500, modeControl).ToList();
             move.AddRange(step);
-            ShowCollection<OutTrainParameters>(move, "moving");
+
+            modeControl = TrainMovement.Interpolation.Pull3Rusi4.GetInstance(mass);
+            step = train.Move(2000, modeControl).ToList();
+            move.AddRange(step);
+
+            modeControl = TrainMovement.Interpolation.InertRusi4.GetInstance(mass);
+            step = train.Move(2055, modeControl).ToList();
+            move.AddRange(step);
+
+            modeControl = TrainMovement.Interpolation.Break1Rusi4.GetInstance(mass);
+            step = train.Move(2055, modeControl).ToList();
+            move.AddRange(step);
+
+            //modeControl = TrainMovement.Interpolation.InertRusi4.GetInstance(mass);
+            //step = train.Move(1765, modeControl).ToList();
+            //move.AddRange(step);
+
+            //modeControl = TrainMovement.Interpolation.Break2Rusi4.GetInstance(mass);
+            //step = train.Move(2048, modeControl).ToList();
+            //move.AddRange(step);
+
+            PrintToFile<OutTrainParameters>(move, "moving");
+
+            //ShowCollection<OutTrainParameters>(move, "moving");
             Console.WriteLine("the end");
-            
+
             // var length = stageRepository.GetStageLenght(st);
             // Console.WriteLine(Convert.ToString(length), "StageLenght");
 
@@ -252,8 +285,24 @@ namespace ERES
             //    Console.ReadKey(true);
 
         }
-       
 
+        private static void PrintToFile<T>(IEnumerable<T> collection, String name)
+        {
+            var filename = $"{DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss.ffffff")}.log";
+            PrintToFile<T>(filename, collection, name);
+        }
+
+        private static void PrintToFile<T>(String filename, IEnumerable<T> collection, String name)
+        {
+            using (TextWriter writer = new StreamWriter(filename))
+            {
+                writer.WriteLine(new String('_', Environment.CommandLine.Length / 2));
+                writer.WriteLine("{1}{0}", name, Environment.NewLine);
+                foreach (var item in collection)
+                    writer.WriteLine(item);
+                writer.Flush();
+            }
+        }
 
         private static void ShowCollection<T>(IEnumerable<T> collection, String name)
         {

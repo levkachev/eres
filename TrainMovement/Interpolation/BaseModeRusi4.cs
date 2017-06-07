@@ -13,12 +13,14 @@ using TrainMovement.Train;
 
 namespace TrainMovement.Interpolation
 {
+
     /// <summary>
     /// 
     /// </summary>
     public abstract class BaseModeRusi4<T> : IModeControl
         where T : IModeControl
     {
+        
         /// <summary>
         /// Instance of singleton object.
         /// </summary>
@@ -53,7 +55,7 @@ namespace TrainMovement.Interpolation
         /// <summary>
         /// Характеристики
         /// </summary>
-        private SortedList<Double, VFI> vfi;
+        protected SortedList<Double, VFI> vfi;
 
         /// <summary>
         /// 
@@ -113,7 +115,7 @@ namespace TrainMovement.Interpolation
 
         /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
         /// <exception cref="InvalidOperationException">Ни один элемент не удовлетворяет условию предиката <paramref name="predicate" />.– или –Исходная последовательность пуста.</exception>
-        private Tuple<Double, Double> GetForceAndCurrent(Double velocity)
+        private Tuple<Double, Double> GetForceAndCurrent(Double velocity, Double mass)
         {
             try
             {
@@ -129,18 +131,23 @@ namespace TrainMovement.Interpolation
                 var c1 = GetCurrent(vfi1);
                 var c2 = GetCurrent(vfi2);
 
+                //const Double maxMass = 18.5;
+
+                //var force = (f2 - f1) / maxMass * mass + f1;
+                //var current = (c2 - c1) / maxMass * mass + c1;
+
                 var k1 = 0.0;
                 var k2 = 0.0;
-                
+
 
                 //только при скорости 0 MathHelper.IsEqual(vfi1.Key, vfi2.Key)!!! если будет выше 85 - УПАДЕМ!!!
 
                 if (!MathHelper.IsEqual(vfi1.Key, vfi2.Key))
                 {
                     k1 = GetK(v1, v2, f1, f2);
-                    
+
                     k2 = GetK(v1, v2, c1, c2);
-                    
+
                 }
 
                 var force = k1 * velocity + GetB(v1, k1, f1);
@@ -148,6 +155,7 @@ namespace TrainMovement.Interpolation
 
                 if (current < 0)
                     force = -force;
+
                 return new Tuple<Double, Double>(force, current);
             }
             catch
@@ -181,18 +189,42 @@ namespace TrainMovement.Interpolation
             return y1 - k * x1;
         }
 
-        /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
-        /// <exception cref="InvalidOperationException">Ни один элемент не удовлетворяет условию предиката <paramref name="predicate" />.– или –Исходная последовательность пуста.</exception>
-        public virtual Double GetForce(Double velocity)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="velocity"></param>
+        /// <param name="train"></param>
+        /// <returns></returns>
+        public virtual Double GetForce(Double velocity, BaseTrain train)
         {
-            return GetForceAndCurrent(velocity).Item1;
+            if (train.TimeInModeControl < train.Machine.AssemblyPullTime)
+                return 0.0;
+            return GetForceAndCurrent(velocity, train.Mass).Item1;
+
         }
 
         /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
         /// <exception cref="InvalidOperationException">Ни один элемент не удовлетворяет условию предиката <paramref name="predicate" />.– или –Исходная последовательность пуста.</exception>
-        public virtual Double GetCurrent(Double velocity)
+        public virtual Double GetCurrent(Double velocity, BaseTrain train)
         {
-            return GetForceAndCurrent(velocity).Item2;
+
+            return GetForceAndCurrent(velocity, train.Mass).Item2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="velocity"></param>
+        /// <returns></returns>
+        public Double GetKPD(Double velocity)
+        {
+            var n = (15370*velocity - 161)/(Math.Pow(velocity, 3) - 70.71*Math.Pow(velocity, 2) + 14180);
+            if (n < 0)
+                n = 0;
+            else if (n > 1)
+                n = 1;
+            return n;
+
         }
 
         /// <summary>

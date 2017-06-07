@@ -18,16 +18,45 @@ namespace TrainMovement.Train
     public abstract class BaseTrain
     {
         #region Fields
+        /// <summary>
+        /// Мелешин 2016
+        /// </summary>
+        private Double kF;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private const Double dF = 7.2;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private const Double dIc = 850;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Double ForceKGC;
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private const Double VoltageNominal = 750;
         /// <summary>
         /// Количество моторов в вагоне поезда.
         /// </summary>
         private const Int16 motorCount = 4;
 
         /// <summary>
+        /// Время хода в текщем режиме
+        /// </summary>
+        private Double tPos;
+
+        /// <summary>
         /// Коэффициент перевода инерции вращающихся масс и массы поезда в СИ.
         /// </summary>
-        private readonly Double factor;
+        private Double factor;
 
         /// <summary>
         /// Ускорение.
@@ -574,6 +603,20 @@ namespace TrainMovement.Train
         /// </summary>
         public Double MaxVelocity { get; set; }
 
+        /// <summary>
+        /// Время хода в текщем режиме
+        /// </summary>
+        public Double TimeInModeControl
+        {
+            get { return tPos; }
+            private set
+            {
+                if (value < 0 && value >Time)
+                    throw new ArgumentOutOfRangeException(nameof(value));
+                tPos = value;
+            }
+        }
+
         #endregion
 
         /// <summary>
@@ -600,8 +643,7 @@ namespace TrainMovement.Train
             OwnNeedsElectricPower = commonProperties.OwnNeedsElectricPower;
 
             Machine = machine;
-            this.broker = broker;
-            factor = Converter.GetFactor() * InertiaRotationFactor * UnladenWeight / (UnladenWeight + Mass);
+            Broker = broker;
         }
 
         /// <summary>
@@ -633,7 +675,10 @@ namespace TrainMovement.Train
             while (Space <= distance && (Time > 1 && Converter.GetVelocityKmPerHour(Velocity) > 0.1) || (Time <= 1))
             {
                 if (Converter.GetVelocityKmPerHour(Velocity) >= MaxVelocity && ModeControl is IPull)
+                {
                     ModeControl = ModeControl.Low(ByMass);
+                    TimeInModeControl = 0;
+                }
 
                 if (!CanPullOrBreak && (ModeControl is IPull || ModeControl is IRecuperationBreak))
                 {
@@ -641,6 +686,7 @@ namespace TrainMovement.Train
                         ModeControl = ModeControl.Low(ByMass);
                     else
                         ModeControl = ModeControl.High(ByMass);
+                    TimeInModeControl = 0;
 
                 }
 
@@ -662,23 +708,39 @@ namespace TrainMovement.Train
             Velocity = 0.0;
             Space = 0.0;
             Mass = massa;
+            factor = Converter.GetFactor() * InertiaRotationFactor * UnladenWeight / (UnladenWeight + Mass);
+            if (Mass < 20)
+                kF = (1 + Mass / UnladenWeight * 0.93);
+            else
+                kF = (1 + 20 / UnladenWeight);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="modeControl"></param>
         /// <returns></returns>
         private void Step(Double IntegrStep)
-        {
-            Current = ModeControl.GetCurrent(Converter.GetVelocityKmPerHour(Velocity)) * NumberCars;//* motorCount
-
-            //var vInkmPerHour = Converter.GetVelocityKmPerHour(Velocity);
-            //var force = ModeControl.GetForce(vInkmPerHour);
-            //var forceInKg = Converter.GetForceKgC(force);
-            //Force = forceInKg * motorCount / (UnladenWeight + Mass);
-
-            Force = Converter.GetForceKgC(ModeControl.GetForce(Converter.GetVelocityKmPerHour(Velocity))) * motorCount / (UnladenWeight + Mass);
+        {            
+            var lastForce = ForceKGC;
+            var lastCurrent = Current;
+            Current = ModeControl.GetCurrent(Converter.GetVelocityKmPerHour(Velocity),this) *NumberCars;
+            if (Voltage > 750)
+                Current = Current * VoltageNominal / Voltage;
+            ForceKGC = ModeControl.GetForce(Converter.GetVelocityKmPerHour(Velocity), this);
+           
+            if (Math.Abs(ForceKGC - lastForce) > IntegrStep*dF)
+            {
+                ForceKGC = lastForce + Math.Sign(ForceKGC - lastForce)*IntegrStep*dF;
+                var kpd = ModeControl.GetKPD(Velocity);
+                if (kpd > 0)
+                    Current = Converter.GetVelocityMeterPerSec(Velocity) * Converter.GetForceInK(ForceKGC)/kpd/Voltage*motorCount;
+                else Current = 0.0;
+            }
+            if (Math.Abs(Math.Abs(Current)- Math.Abs(lastCurrent)) > (dIc*IntegrStep))
+            {
+                Current = lastCurrent + Math.Sign(Current - lastCurrent)* dIc * IntegrStep;
+            }
+            Force = Converter.GetForceInKNewton(ForceKGC) * motorCount / (UnladenWeight + Mass);
             ForceBaseResistance = ModeControl.GetBaseResistance(this);
             var a = Force - ForceAdditionalResistance - ForceBaseResistance;
             var dV = factor * a;
@@ -688,9 +750,12 @@ namespace TrainMovement.Train
             Velocity += dV;
             Space += Converter.GetVelocityMeterPerSec(Velocity)*IntegrStep;
             Time += IntegrStep;
-
+            TimeInModeControl+= IntegrStep;
             if (Converter.GetVelocityKmPerHour(Velocity) >= MaxVelocity && ModeControl is IInert && dV > 0)
+            {
                 ModeControl = ModeControl.Low(ByMass);
+                TimeInModeControl = 0;
+            }
         }
 
     }
