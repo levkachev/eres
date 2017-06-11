@@ -98,8 +98,8 @@ namespace ERES
             //ShowCollection<Track>(track, "Track");
 
             var stationRepository = StationRepository.GetInstance();
-            var arrival = stationRepository.GetIDByName("Площадь Ильича");
-            var department = stationRepository.GetIDByName("Марксистская");
+            var arrival = stationRepository.GetIDByName("Новогиреево");
+            var department = stationRepository.GetIDByName("Перово");
             var stageRepository = StageRepository.GetInstance();
             var stageGuid = stageRepository.GetStageByNameStation(arrival, department);
 
@@ -115,7 +115,7 @@ namespace ERES
             IModeControl modeControl = TrainMovement.Interpolation.Pull4Rusi4.GetInstance(mass);
             train.Start(stageGuid, 11);
             var move = new List<OutTrainParameters>();
-            var step = train.Move(500, modeControl).ToList();
+            var step = train.Move(475, modeControl).ToList();
             move.AddRange(step);
 
             //modeControl = TrainMovement.Interpolation.InertRusi4.GetInstance(mass);
@@ -126,12 +126,14 @@ namespace ERES
             //step = train.Move(2000, modeControl).ToList();
             //move.AddRange(step);
 
+            
+
             modeControl = TrainMovement.Interpolation.InertRusi4.GetInstance(mass);
-            step = train.Move(1960, modeControl).ToList();
+            step = train.Move(1796, modeControl).ToList();
             move.AddRange(step);
 
             modeControl = TrainMovement.Interpolation.Break2Rusi4.GetInstance(mass);
-            step = train.Move(2055, modeControl).ToList();
+            step = train.Move(1936, modeControl).ToList();
             move.AddRange(step);
 
             //modeControl = TrainMovement.Interpolation.InertRusi4.GetInstance(mass);
@@ -288,7 +290,7 @@ namespace ERES
 
         private static void PrintToFile<T>(IEnumerable<T> collection, String name)
         {
-            var filename = $"{DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss.ffffff")}.log";
+            var filename = $"{DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss.ffffff")}.xls";
             PrintToFile<T>(filename, collection, name);
         }
 
