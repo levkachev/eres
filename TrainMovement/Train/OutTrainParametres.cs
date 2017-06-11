@@ -79,7 +79,9 @@ namespace TrainMovement.Train
         /// <returns></returns>
         public override String ToString()
         {
-            return $"{ModeControl} I = {Current} F = {Force} S = {Space} t = {Time} Piketage = {Piketage} v = {Velocity} wd = {AdditionalResistance} wb = {BaseResistance}";
+            //var enCulture = new System.Globalization.CultureInfo("en-en");
+            //return $"{Time.ToString("0.00", enCulture)};{Current.ToString("0.00", enCulture)}";
+            return $"{ModeControl}; I = {Current}; F = {Force}; S = {Space}; t = {Time}; Piketage = {Piketage}; v = {Velocity}; wd = {AdditionalResistance}; wb = {BaseResistance};";
         }
     }
 }
