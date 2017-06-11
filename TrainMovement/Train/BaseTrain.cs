@@ -691,12 +691,19 @@ namespace TrainMovement.Train
         {
             var result = new List<OutTrainParameters>();
             ModeControl = modeControl;
+
             var massRepository = MassRepository.GetInstance();
             ByMass = massRepository.GetByMass(100);
+
             if (ByMass == null)
                 throw new ArgumentNullException(nameof(ByMass));
             
-            while (Space <= distance && (Time > 1 && Converter.GetVelocityKmPerHour(Velocity) > 0.1) || (Time <= 1))
+            while (
+                (distance - Space) > Converter.GetVelocityMeterPerSec(Velocity) * IntegrStep
+                && Time > 1 
+                && Velocity > 0.1 
+                || Time <= 1
+                )
             {
                 if (Velocity >= MaxVelocity && ModeControl is IPull)
                 {
@@ -711,10 +718,9 @@ namespace TrainMovement.Train
                     else
                         ModeControl = ModeControl.High(ByMass);
                     TimeInModeControl = 0;
-
                 }
 
-                Step(IntegrStep);
+                Step(IntegrStep, distance);
                 var step = new OutTrainParameters(ModeControl, Current, Space, Time, SpacePiketage, Velocity, ForceAdditionalResistance, ForceBaseResistance, Force);
                 result.Add(step);
             }
@@ -743,7 +749,7 @@ namespace TrainMovement.Train
         /// 
         /// </summary>
         /// <returns></returns>
-        private void Step(Double IntegrStep)
+        private void Step(Double IntegrStep, Double distance)
         {
             TimeInModeControl += IntegrStep;
             var lastForce = ForceKGC;
@@ -763,7 +769,7 @@ namespace TrainMovement.Train
             Ip = Current;
             
             var dA = Voltage*Current;
-           var dAeown = Converter.GetInKilo(OwnNeedsElectricPower)*IntegrStep;
+            var dAeown = Converter.GetInKilo(OwnNeedsElectricPower)*IntegrStep;
             A += dAeown;
             Current = Current + dAeown/Voltage;
             Current *= NumberCars;
@@ -780,18 +786,25 @@ namespace TrainMovement.Train
             }
             if (ModeControl is IAverageBreak)
                 Acceleration = BreakAverage;
-            else Acceleration = Converter.GetVelocityMeterPerSec(dV)/IntegrStep;
+            else
+                Acceleration = Converter.GetVelocityMeterPerSec(dV) / IntegrStep;
+
             Velocity += dV;
-            Space += Converter.GetVelocityMeterPerSec(Velocity)*IntegrStep;
             Time += IntegrStep;
-            
-            A += dA*IntegrStep;
+
+            A += dA * IntegrStep;
 
             if (Velocity >= MaxVelocity && ModeControl is IInert && dV > 0)
             {
                 ModeControl = ModeControl.Low(ByMass);
                 TimeInModeControl = 0;
             }
+            var dS = Converter.GetVelocityMeterPerSec(Velocity) * IntegrStep;
+            if (distance - space >= dS)
+                Space += dS;
+            else
+               return;
+
         }
 
     }
