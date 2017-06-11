@@ -48,6 +48,9 @@ namespace ORM.Stageis.Repository.Limits
         /// <returns></returns>
         public static Boolean operator ==(Limit lha, Limit rha)
         {
+            if (ReferenceEquals(lha, rha))
+                return true;
+
             if (ReferenceEquals(lha, null) || ReferenceEquals(rha, null))
                 return false;
 
