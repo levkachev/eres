@@ -8,6 +8,7 @@ using ORM.Energy.Entities;
 using ORM.Lines.Entities;
 using System.IO;
 using System.Linq;
+using ORM.Helpers;
 using ORM.Lines.Repository;
 using ORM.Stageis.Repository;
 using ORM.Trains.Repository;
@@ -98,42 +99,47 @@ namespace ERES
             //ShowCollection<Track>(track, "Track");
 
             var stationRepository = StationRepository.GetInstance();
-            var arrival = stationRepository.GetIDByName("Площадь Ильича");
-            var department = stationRepository.GetIDByName("Марксистская");
+            //var arrival = stationRepository.GetIDByName("Площадь Ильича");
+            //var department = stationRepository.GetIDByName("Марксистская");
+
+            var arrival = stationRepository.GetIDByName("Новогиреево");
+            var department = stationRepository.GetIDByName("Перово"); 
+
             var stageRepository = StageRepository.GetInstance();
             var stageGuid = stageRepository.GetStageByNameStation(arrival, department);
-
+            var length = stageRepository.GetStageLenght(stageGuid);
 
             var broker = new EventBroker();
 
             var stage = StationToStationBlock.GetStageWithoutASR(stageGuid, broker);
 
-            ICountVoltage voltage = new SimpleVoltage(broker, 825);
+            ICountVoltage voltage = new ConstantVoltageProvider(broker, 825);
+           // ICountVoltage voltage = new FileVoltageProvider(broker, "UmaxXX.txt", "\t");
+            
+            try
+            {
 
-            const String trainName = "81-740.1(Rusi4)";
-            var train = TrainFactory.GetACTrain(trainName, broker);
-            IModeControl modeControl = TrainMovement.Interpolation.Pull4Rusi4.GetInstance(mass);
-            train.Start(stageGuid, 11);
-            var move = new List<OutTrainParameters>();
-            var step = train.Move(500, modeControl).ToList();
-            move.AddRange(step);
+                const String trainName = "81-740.1(Rusi4)";
+                var train = TrainFactory.GetACTrain(trainName, broker);
+                IModeControl modeControl = TrainMovement.Interpolation.Pull4Rusi4.GetInstance(mass);
+                train.Start(stageGuid, 11);
+                var move = new List<OutTrainParameters>();
+                var step = train.Move(500, modeControl).ToList();
+                move.AddRange(step);
 
-            //modeControl = TrainMovement.Interpolation.InertRusi4.GetInstance(mass);
-            //step = train.Move(1500, modeControl).ToList();
-            //move.AddRange(step);
+                modeControl = TrainMovement.Interpolation.InertRusi4.GetInstance(mass);
+                step = train.Move(1650, modeControl).ToList();
+                move.AddRange(step);
 
-            //modeControl = TrainMovement.Interpolation.Pull3Rusi4.GetInstance(mass);
-            //step = train.Move(2000, modeControl).ToList();
-            //move.AddRange(step);
-
-            modeControl = TrainMovement.Interpolation.InertRusi4.GetInstance(mass);
-            step = train.Move(1960, modeControl).ToList();
-            move.AddRange(step);
-
-            modeControl = TrainMovement.Interpolation.Break2Rusi4.GetInstance(mass);
-            step = train.Move(2055, modeControl).ToList();
-            move.AddRange(step);
-
+                modeControl = TrainMovement.Interpolation.Break2Rusi4.GetInstance(mass);
+                step = train.Move(length, modeControl).ToList();
+                move.AddRange(step);
+                PrintToFile<OutTrainParameters>(move, "moving");
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
             //modeControl = TrainMovement.Interpolation.InertRusi4.GetInstance(mass);
             //step = train.Move(1765, modeControl).ToList();
             //move.AddRange(step);
@@ -142,11 +148,26 @@ namespace ERES
             //step = train.Move(2048, modeControl).ToList();
             //move.AddRange(step);
 
-            PrintToFile<OutTrainParameters>(move, "moving");
+            
 
             //ShowCollection<OutTrainParameters>(move, "moving");
-            Console.WriteLine("the end");
 
+
+            //const Double piketage = 25.50;
+            //var filename = "UmaxXX.txt";
+            //try
+            //{
+            //    var factory = new VoltageProviderFactory(broker);
+            //    var voltageProvider = factory.GetVoltageProvider(filename, "\t");
+            //    var value = voltageProvider[piketage];
+            //    Console.WriteLine($"voltage for piketage = {piketage} is {value}");
+            //}
+            //catch (Exception exception)
+            //{
+            //    Console.WriteLine(exception);
+            //}
+
+            Console.WriteLine("the end");
             // var length = stageRepository.GetStageLenght(st);
             // Console.WriteLine(Convert.ToString(length), "StageLenght");
 
@@ -323,7 +344,7 @@ namespace ERES
 
         private static void WriteFile<T>(IEnumerable<T> collection, String nameFile)
         {
-            string pathToFile = @"C:\Users\Valeriyа\Desktop";
+            string pathToFile = @"C:\Users\Людмила\Desktop";
             string path = Path.Combine(pathToFile, nameFile) + ".txt";
             StreamWriter file = new StreamWriter(path, true);
 
