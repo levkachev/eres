@@ -129,11 +129,11 @@ namespace ERES
             
 
             modeControl = TrainMovement.Interpolation.InertRusi4.GetInstance(mass);
-            step = train.Move(1796, modeControl).ToList();
+            step = train.Move(1790, modeControl).ToList();
             move.AddRange(step);
 
             modeControl = TrainMovement.Interpolation.Break2Rusi4.GetInstance(mass);
-            step = train.Move(1936, modeControl).ToList();
+            step = train.Move(1935, modeControl).ToList();
             move.AddRange(step);
 
             //modeControl = TrainMovement.Interpolation.InertRusi4.GetInstance(mass);
