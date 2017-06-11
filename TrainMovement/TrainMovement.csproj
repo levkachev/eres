@@ -50,8 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Energy\BaseVoltageProvider.cs" />
     <Compile Include="Energy\ICountVoltage.cs" />
-    <Compile Include="Energy\SimpleVoltage.cs" />
+    <Compile Include="Energy\ConstantVoltageProvider.cs" />
+    <Compile Include="Energy\VoltageProviderFactory.cs" />
+    <Compile Include="Energy\FileVoltageProvider.cs" />
+    <Compile Include="Energy\VoltageOnPiketage.cs" />
     <Compile Include="EventBroker.cs" />
     <Compile Include="Interpolation\BaseModeRusi4.cs" />
     <Compile Include="Interpolation\Break1Rusi4.cs" />
@@ -90,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Energy\VoltageProvidersHierarhy.cd" />
     <None Include="packages.config" />
     <None Include="Train\Graph1.dgml" />
   </ItemGroup>
