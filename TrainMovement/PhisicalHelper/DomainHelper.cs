@@ -22,7 +22,7 @@ namespace TrainMovement.PhisicalHelper
                 {"current", new Range(-20000, 20000)},
                 {"mass", new Range(0, 200)},
                 {"velocity", new Range(-10, 200)},
-                {"voltage", new Range(400, 900)},
+                {"voltage", new Range(400, 950)},
                 {"time", new Range(0, 36000)},
                 {"space", new Range(0,5000) },
 
