@@ -79,7 +79,8 @@ namespace TrainMovement.Train
         /// <returns></returns>
         public override String ToString()
         {
-            return $"{ModeControl} I = {Current} F = {Force} S = {Space} t = {Time} Piketage = {Piketage} v = {Velocity} wd = {AdditionalResistance} wb = {BaseResistance}";
+            //return $"{ModeControl} I = {Current} F = {Force} S = {Space} t = {Time} Piketage = {Piketage} v = {Velocity} wd = {AdditionalResistance} wb = {BaseResistance
+            return $"{ModeControl}   {Current}   {Space}    {Velocity}";
         }
     }
 }
