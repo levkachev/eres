@@ -24,12 +24,27 @@ namespace ERES
     class Program
     {
         /// <summary>
-        /// 
+        /// Шаг, с которым изменяется значение времени в модели (постоянная интегрирования, dt). 
+        /// Измеряется в секундах. 
+        /// Исторически сложившаяся константа для решения дифференциального уравнения движения поезда по перегону (dv = F / m * dt) методом Эйлера первого порядка.
+        /// Меньшее значение не рассматривается, так как НЕ учитываются переходные процесы в электрических цепях двигателя вагона (di/dt).
+        /// Большее значение не рассматривается, так как учитываются переходные процессы в силовой цепи вагона (смена режима ведения не происходит мгновенно).
         /// </summary>
         public const Double IntegrStep = 0.1;
 
+        /// <summary>
+        /// Масса загрузки поезда. Измеряется в тоннах. 
+        /// Исторически сложившаяся константа, так как нет других экспериментальных данных для поезда с ассинхронным двигателем.
+        /// </summary>
+        public const Double DefaultMass = 100;
+
+        /// <summary>
+        /// Среднее значение напряжения на контактном рельсе. Измеряется в Вольтах.
+        /// </summary>
+        public const Double DefaultVoltage = 825;
+
         //   public static ISessionFactory sessionFactory { get; protected set; }
-        static void Main(string[] args)
+        static void Main()
         {
             //  sessionFactory = SessionFactory.GetSessionFactory();
 
@@ -78,7 +93,8 @@ namespace ERES
             //var trainname = trainnameRepository.GetIDByName("81-740.4");
 
             var massRepository = MassRepository.GetInstance();
-            var mass = massRepository.GetByMass(100);
+            
+            var mass = massRepository.GetByMass(DefaultMass);
 
             //var modecontrolRepository = ModeControlsRepository.GetInstance();
             //var modecontrol = modecontrolRepository.GetByModeControl("Pull1");
@@ -93,9 +109,7 @@ namespace ERES
             //ShowCollection<PowerSupplyStation>(PSS, "PowerSupplyStations");
 
 
-
-
-            var track = lineRepository.GetAllTrack(nameLine);
+            var tracks = lineRepository.GetAllTrack(nameLine);
             //ShowCollection<Track>(track, "Track");
 
             var stationRepository = StationRepository.GetInstance();
@@ -103,7 +117,7 @@ namespace ERES
             //var department = stationRepository.GetIDByName("Марксистская");
 
             var arrival = stationRepository.GetIDByName("Новогиреево");
-            var department = stationRepository.GetIDByName("Перово"); 
+            var department = stationRepository.GetIDByName("Перово");
 
             var stageRepository = StageRepository.GetInstance();
             var stageGuid = stageRepository.GetStageByNameStation(arrival, department);
@@ -113,25 +127,31 @@ namespace ERES
 
             var stage = StationToStationBlock.GetStageWithoutASR(stageGuid, broker);
 
-            ICountVoltage voltage = new ConstantVoltageProvider(broker, 825);
-           // ICountVoltage voltage = new FileVoltageProvider(broker, "UmaxXX.txt", "\t");
-            
+            ICountVoltage voltage = new ConstantVoltageProvider(broker, DefaultVoltage);
+            // ICountVoltage voltage = new FileVoltageProvider(broker, "UmaxXX.txt", "\t");
+
             try
             {
-
+                // данные и алгоритм есть только на РУСИЧ!
                 const String trainName = "81-740.1(Rusi4)";
                 var train = TrainFactory.GetACTrain(trainName, broker);
                 IModeControl modeControl = TrainMovement.Interpolation.Pull4Rusi4.GetInstance(mass);
-                train.Start(stageGuid, 11);
+                // не много и не мало (зависит от заселённости вагона)
+                const Double tonsPerCar = 11;
+                train.Start(stageGuid, tonsPerCar);
+                // траектория:
                 var move = new List<OutTrainParameters>();
-                var step = train.Move(500, modeControl).ToList();
+                // едем один квант (до 500 метров с выбранным режимом ведения)
+                var step = train.Move(500, modeControl, IntegrStep).ToList();
                 move.AddRange(step);
 
                 modeControl = TrainMovement.Interpolation.InertRusi4.GetInstance(mass);
+                // едем один квант (до 1650 метров с выбранным режимом ведения)
                 step = train.Move(1650, modeControl).ToList();
                 move.AddRange(step);
 
                 modeControl = TrainMovement.Interpolation.Break2Rusi4.GetInstance(mass);
+                // едем один квант (до конца перегона с выбранным режимом ведения)
                 step = train.Move(length, modeControl).ToList();
                 move.AddRange(step);
                 PrintToFile<OutTrainParameters>(move, "moving");
@@ -148,7 +168,6 @@ namespace ERES
             //step = train.Move(2048, modeControl).ToList();
             //move.AddRange(step);
 
-            
 
             //ShowCollection<OutTrainParameters>(move, "moving");
 
@@ -269,7 +288,6 @@ namespace ERES
             // //File.WriteAllText(path2, strToFile2);
 
 
-
             // var nmLines = stageRepository.GetNMForStage(st);
             // var nmConvertedLines = NMConvertLimitStage.GetLimits(nmLines);
             // Console.WriteLine(String.Join(";", nmConvertedLines));
@@ -304,12 +322,11 @@ namespace ERES
             //     }
 
             //    Console.ReadKey(true);
-
         }
 
         private static void PrintToFile<T>(IEnumerable<T> collection, String name)
         {
-            var filename = $"{DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss.ffffff")}.log";
+            var filename = $"{DateTime.Now:yyyy-MM-dd hh-mm-ss.ffffff}.log";
             PrintToFile<T>(filename, collection, name);
         }
 
@@ -344,16 +361,16 @@ namespace ERES
 
         private static void WriteFile<T>(IEnumerable<T> collection, String nameFile)
         {
-            string pathToFile = @"C:\Users\Людмила\Desktop";
-            string path = Path.Combine(pathToFile, nameFile) + ".txt";
-            StreamWriter file = new StreamWriter(path, true);
+            String pathToFile = @"C:\Users\Людмила\Desktop"; 
+            String path = Path.Combine(pathToFile, nameFile) + ".txt";
+            //StreamWriter file = new StreamWriter(path, true);
+            //foreach (var item in collection)
+            //    file.WriteLine(Convert.ToString(item).Replace(",", "."));
+            //file.Close();
 
-            foreach (var item in collection)
-            {
-                file.WriteLine(Convert.ToString(item).Replace(",", "."));
-            }
-            file.Close();
+            using (var file = new StreamWriter(path, true))
+                foreach (var item in collection)
+                    file.WriteLine(Convert.ToString(item).Replace(",", "."));
         }
     }
-
 }
