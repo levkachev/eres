@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace ORM.Trains.Repository.Trains
+namespace ORM.Trains.Entities
 {
     /// <summary>
     /// 
     /// </summary>
-   public class DCParameters : BaseTrainParameters
+    public class DCParameters : BaseTrainParameters
     {
         /// <summary>
         /// 

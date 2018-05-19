@@ -173,9 +173,9 @@
     <Compile Include="Trains\Repository\Machine\BaseMachine.cs" />
     <Compile Include="Trains\Repository\Machine\DCMachine.cs" />
     <Compile Include="Trains\Repository\MassRepository.cs" />
-    <Compile Include="Trains\Repository\Trains\ACParameters.cs" />
-    <Compile Include="Trains\Repository\Trains\BaseTrainParameters.cs" />
-    <Compile Include="Trains\Repository\Trains\DCParameters.cs" />
+    <Compile Include="Trains\Entities\ACParameters.cs" />
+    <Compile Include="Trains\Entities\BaseTrainParameters.cs" />
+    <Compile Include="Trains\Entities\DCParameters.cs" />
     <Compile Include="Trains\Repository\Trains\ModeControlRepository.cs" />
     <Compile Include="Trains\Repository\Trains\MotorTypeRepository.cs" />
     <Compile Include="Trains\Repository\Trains\TrainNameRepository.cs" />

@@ -1,7 +1,6 @@
 ﻿using System;
-using ORM.Stageis.Repository;
+using ORM.Trains.Entities;
 using ORM.Trains.Repository.Machine;
-using ORM.Trains.Repository.Trains;
 
 namespace TrainMovement.Train
 {

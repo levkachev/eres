@@ -1,7 +1,7 @@
 ﻿using System;
 using Helpers.Physical;
 
-namespace ORM.Trains.Repository.Trains
+namespace ORM.Trains.Entities
 {
     /// <summary>
     /// Базовые параметры для описания модели электроподвижного состава (ЭПС).

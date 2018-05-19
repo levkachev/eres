@@ -1,4 +1,5 @@
 ﻿using System;
+using ORM.Trains.Entities;
 using ORM.Trains.Repository.Machine;
 using ORM.Trains.Repository.Trains;
 

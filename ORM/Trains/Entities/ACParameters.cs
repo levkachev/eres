@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ORM.Trains.Repository.Trains
+namespace ORM.Trains.Entities
 {
     /// <summary>
     /// 
