@@ -1,8 +1,5 @@
 ﻿using System;
 using ORM.Base;
-using System.Collections.Generic;
-
-
 
 namespace ORM.Lines.Entities
 {
@@ -20,17 +17,16 @@ namespace ORM.Lines.Entities
         /// Пикетаж  
         /// </summary>
         public virtual Double Piketage { get; set; }
-
       
         /// <summary>
         /// номер пути
         /// </summary>
         public virtual Track Track { get; set; }
 
-        public override String ToString()
-        {
-            return $" {Slope} {Piketage} ";
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override String ToString() => $" {Slope} {Piketage} ";
     }
 }

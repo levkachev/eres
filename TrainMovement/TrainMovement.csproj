@@ -42,6 +42,9 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,16 +60,18 @@
     <Compile Include="Energy\FileVoltageProvider.cs" />
     <Compile Include="Energy\VoltageOnPiketage.cs" />
     <Compile Include="EventBroker.cs" />
-    <Compile Include="Interpolation\BaseModeRusi4.cs" />
-    <Compile Include="Interpolation\Break1Rusi4.cs" />
-    <Compile Include="Interpolation\Break2Rusi4.cs" />
-    <Compile Include="Interpolation\Break3Rusi4.cs" />
-    <Compile Include="Interpolation\BreakAverageRusi4.cs" />
-    <Compile Include="Interpolation\InertRusi4.cs" />
-    <Compile Include="Interpolation\Pull1Rusi4.cs" />
-    <Compile Include="Interpolation\Pull2Rusi4.cs" />
-    <Compile Include="Interpolation\Pull3Rusi4.cs" />
-    <Compile Include="Interpolation\Pull4Rusi4.cs" />
+    <Compile Include="Interpolation\Rusi4\BaseBreak.cs" />
+    <Compile Include="Interpolation\Rusi4\BaseModeControl.cs" />
+    <Compile Include="Interpolation\Rusi4\BasePull.cs" />
+    <Compile Include="Interpolation\Rusi4\Break1.cs" />
+    <Compile Include="Interpolation\Rusi4\Break2.cs" />
+    <Compile Include="Interpolation\Rusi4\Break3.cs" />
+    <Compile Include="Interpolation\Rusi4\BreakAverage.cs" />
+    <Compile Include="Interpolation\Rusi4\Inert.cs" />
+    <Compile Include="Interpolation\Rusi4\Pull1.cs" />
+    <Compile Include="Interpolation\Rusi4\Pull2.cs" />
+    <Compile Include="Interpolation\Rusi4\Pull3.cs" />
+    <Compile Include="Interpolation\Rusi4\Pull4.cs" />
     <Compile Include="ModeControl\IAverageBreak.cs" />
     <Compile Include="ModeControl\IBreak.cs" />
     <Compile Include="ModeControl\IRecuperationBreak.cs" />
@@ -74,9 +79,6 @@
     <Compile Include="ModeControl\IModeControl.cs" />
     <Compile Include="ModeControl\IPull.cs" />
     <Compile Include="ModeControl\IResistance.cs" />
-    <Compile Include="PhisicalHelper\Converter.cs" />
-    <Compile Include="PhisicalHelper\DomainHelper.cs" />
-    <Compile Include="PhisicalHelper\Range.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stage\StationToStationBlock.cs" />
     <Compile Include="Stuff\ExtensionMethods.cs" />
@@ -87,6 +89,10 @@
     <Compile Include="Train\TrainFactory.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Helpers\Helpers.csproj">
+      <Project>{1f94cf55-9f79-44e8-a423-5b6d54a219d1}</Project>
+      <Name>Helpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ORM\ORM.csproj">
       <Project>{f38cf343-031f-4df6-a3d9-24ee55b2c065}</Project>
       <Name>ORM</Name>
@@ -95,9 +101,11 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Energy\VoltageProvidersHierarhy.cd" />
+    <None Include="Interpolation\Rusi4\ModeControls.cd" />
     <None Include="packages.config" />
     <None Include="Train\Graph1.dgml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

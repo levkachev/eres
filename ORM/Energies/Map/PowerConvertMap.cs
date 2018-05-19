@@ -1,7 +1,7 @@
 ﻿using FluentNHibernate.Mapping;
-using ORM.Energy.Entities;
+using ORM.Energies.Entities;
 
-namespace ORM.Energy.Map
+namespace ORM.Energies.Map
 {
     /// <summary>
     /// Справочник трансформаторов

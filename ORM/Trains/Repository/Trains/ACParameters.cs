@@ -1,13 +1,11 @@
 ﻿using System;
-using ORM.Trains.Entities;
-using ORM.Trains.Repository.Trains;
 
 namespace ORM.Trains.Repository.Trains
 {
     /// <summary>
     /// 
     /// </summary>
-    public class ACParameters : BaseTrainParametres
+    public class ACParameters : BaseTrainParameters
     {
         /// <summary>
         /// 
@@ -19,7 +17,7 @@ namespace ORM.Trains.Repository.Trains
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">Condition.</exception>
         public Int32 NBAuto
         {
-            get { return nbAuto; }
+            get => nbAuto;
             set
             {
                 if (value < 0)
@@ -35,9 +33,6 @@ namespace ORM.Trains.Repository.Trains
         /// </summary>
         /// <param name="parameters"></param>
         /// <param name="nbauto"></param>
-        public ACParameters(BaseTrainParametres parameters,  Int32 nbauto) : base(parameters.NumberCars, parameters.CarLength, parameters.UnladenWeight, parameters.BAverage, parameters.NetResistencePullFactor, parameters.AerodynamicDragFactor, parameters.NetResistenceCoastingFactor1, parameters.NetResistenceCoastingFactor2, parameters.NetResistenceCoastingFactor3, parameters.TrainEqvivalentSurface, parameters.InertiaRotationFactor, parameters.OwnNeedsElectricPower, parameters.Name)
-        {
-            NBAuto = nbauto;
-        }
+        public ACParameters(BaseTrainParameters parameters,  Int32 nbauto) : base(parameters) => NBAuto = nbauto;
     }
 }

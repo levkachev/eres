@@ -1,8 +1,6 @@
 ﻿using System;
 using ORM.Base;
 
-
-
 namespace ORM.Lines.Entities
 {
     /// <summary>
@@ -13,7 +11,7 @@ namespace ORM.Lines.Entities
         /// <summary>
         /// напрвление (1 или 2)
         /// </summary>
-        public virtual Int32 Directions { get; set; }
+        public virtual Int32 Value { get; set; }
 
         /// <summary>
         /// пикетаж начало
@@ -30,9 +28,10 @@ namespace ORM.Lines.Entities
         /// </summary>
         public virtual Line Line { get; set; }
 
-        public override String ToString()
-        {
-            return $" {Directions} {PiketageStart} {PiketageFinish}";
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override String ToString() => $" {Value} {PiketageStart} {PiketageFinish}";
     }
 }

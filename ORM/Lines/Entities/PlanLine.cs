@@ -2,8 +2,6 @@
 using ORM.Base;
 using System.Collections.Generic;
 
-
-
 namespace ORM.Lines.Entities
 {
     /// <summary>
@@ -12,7 +10,7 @@ namespace ORM.Lines.Entities
     public class PlanLine : Entity<PlanLine>
     {
         /// <summary>
-        /// Радииус
+        /// Радиус
         /// </summary>
         public virtual Double Radius { get; set; }
 
@@ -26,15 +24,15 @@ namespace ORM.Lines.Entities
         /// </summary>
         public virtual Double PiketageFinish { get; set; }
 
-
         /// <summary>
         /// номер пути
         /// </summary>
         public virtual Track Track { get; set; }
-        public override String ToString()
-        {
-            return $" {Radius} {PiketageStart} {PiketageFinish}";
-        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override String ToString() => $" {Radius} {PiketageStart} {PiketageFinish}";
     }
 }

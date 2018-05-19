@@ -1,6 +1,6 @@
 ﻿using System;
 using ORM.Base;
-using ORM.Energy.Entities;
+using ORM.Energies.Entities;
 
 namespace ORM.Energies.Repository
 {
@@ -8,15 +8,16 @@ namespace ORM.Energies.Repository
     /// 
     /// </summary>
     public class ResistanceRepository : Repository<Resistance>
-
     {
         /// <summary>
         /// </summary>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
-        public static ResistanceRepository GetInstance()
+        public static ResistanceRepository GetInstance() => GetInstance<ResistanceRepository>(SessionWrapper.GetInstance().Factory);
+
+        public override Resistance GetByName(String name)
         {
-            return GetInstance<ResistanceRepository>(SessionWrapper.GetInstance().Factory);
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,23 +1,64 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
-using ORM.Helpers;
+
 using ORM.Trains.Entities;
 using ORM.Trains.Repository;
-using TrainMovement.ModeControl;
-using ORM.Trains.Repository.Trains;
 using ORM.Trains.Repository.Machine;
-using TrainMovement.PhisicalHelper;
+using ORM.Trains.Repository.Trains;
 
+using TrainMovement.ModeControl;
+
+using Helpers.Math;
+using Helpers.Physical;
 
 namespace TrainMovement.Train
 {
     /// <summary>
-    /// Train
+    /// Модель электроподвижного состава (ЭПС).
     /// </summary>
     public abstract class BaseTrain
     {
+        #region Constants
+
+        /// <summary>
+        /// Приращение силы, 
+        /// </summary>
+        private const Double dF = 7.2;
+
+        /// <summary>
+        /// Приращение тока, А.
+        /// </summary>
+        private const Double dIc = 850;
+
+        /// <summary>
+        /// Номинальное значение напряжения, В.
+        /// </summary>
+        private const Double voltageNominal = 750;
+
+        /// <summary>
+        /// Количество моторов в вагоне поезда, шт.
+        /// </summary>
+        private const Int16 motorCount = 4;
+
+        /// <summary>
+        /// Минимальное (для апроксимации) значение скорости в километрах в час [?] ("чтобы понять, что уже поехали").
+        /// </summary>
+        private const Double minimalVelocity = 0.1;
+
+        /// <summary>
+        /// Минимальное (для апроксимации) значение времени в секундах ("чтобы понять, что уже поехали").
+        /// </summary>
+        private const Double minimalTime = 1;
+
+        /// <summary>
+        /// Максимальная (для апроксимации) масса загруженности вагона в тоннах.
+        /// </summary>
+        private const Double maximalMassForCarInTonas = 20;
+
+        #endregion
+
         #region Fields
+
         /// <summary>
         /// Мелешин 2016
         /// </summary>
@@ -27,17 +68,6 @@ namespace TrainMovement.Train
         /// расход энергии
         /// </summary>
         private Double a;
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private const Double dF = 7.2;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private const Double dIc = 850;
 
         /// <summary>
         /// 
@@ -50,16 +80,7 @@ namespace TrainMovement.Train
         private Double Ip;
 
         /// <summary>
-        /// 
-        /// </summary>
-        private const Double VoltageNominal = 750;
-        /// <summary>
-        /// Количество моторов в вагоне поезда.
-        /// </summary>
-        private const Int16 motorCount = 4;
-
-        /// <summary>
-        /// Время хода в текщем режиме
+        /// Время хода в текщем режиме, с.
         /// </summary>
         private Double tPos;
 
@@ -69,37 +90,37 @@ namespace TrainMovement.Train
         private Double factor;
 
         /// <summary>
-        /// Ускорение.
+        /// Ускорение, м/с^2.
         /// </summary>
         private Double acceleration;
 
         /// <summary>
-        /// Имя поезда.
+        /// Название модели подвижного состава.
         /// </summary>
         private String name;
 
         /// <summary>
-        /// Ток.
+        /// Ток, А.
         /// </summary>
         private Double current;
 
         /// <summary>
-        /// Масса людей в вагоне.
+        /// Масса людей в вагоне, т.
         /// </summary>
         private Double mass;
 
         /// <summary>
-        /// Скорость.
+        /// Скорость, .
         /// </summary>
         private Double velocity;
 
         /// <summary>
-        /// Напряжение.
+        /// Напряжение, В.
         /// </summary>
         private Double voltage;
 
         /// <summary>
-        /// Время.
+        /// Время, с.
         /// </summary>
         private Double time;
 
@@ -109,54 +130,54 @@ namespace TrainMovement.Train
         private Double space;
 
         /// <summary>
-        /// Параметр двигателя.
+        /// Тип двигателя.
         /// </summary>
         private BaseMachine machine;
 
         /// <summary>
-        /// Количество вагонов.
+        /// Количество вагонов, шт.
         /// </summary>
         private Int32 numberCars;
 
         /// <summary>
-        /// Длина вагона.
+        /// Длина вагона, м.
         /// </summary>
         private Double carLength;
 
         /// <summary>
-        /// Масса порожнего вагона.
+        /// Масса порожнего вагона, т.
         /// </summary>
         private Double unladenWeight;
 
         /// <summary>
-        /// Среднее замедление.
+        /// Среднее замедление, м/с^2.
         /// </summary>
         private Double breakAverage;
 
         /// <summary>
         /// Коэффициент основного сопротивления для тяги.
         /// </summary>
-        private Double netResistencePullFactor;
+        private Double netResistancePullFactor;
 
         /// <summary>
-        /// 
+        /// Коэффициент аэродинамического сопротивления.
         /// </summary>
         private Double aerodynamicDragFactor;
 
         /// <summary>
-        /// Первой коэффициент основного сопротивления для выбега.
+        /// Первый коэффициент основного сопротивления для выбега.
         /// </summary>
-        private Double netResistenceCoastingFactor1;
+        private Double netResistanceCoastingFactor1;
 
         /// <summary>
         /// Второй коэффициент основного сопротивления для выбега.
         /// </summary>
-        private Double netResistenceCoastingFactor2;
+        private Double netResistanceCoastingFactor2;
 
         /// <summary>
         /// Третий коэффициент основного сопротивления для выбега.
         /// </summary>
-        private Double netResistenceCoastingFactor3;
+        private Double netResistanceCoastingFactor3;
 
         /// <summary>
         /// 
@@ -183,88 +204,82 @@ namespace TrainMovement.Train
         /// </summary>
         private EventBroker broker;
 
+        /// <summary>
+        /// Текущий режим ведения.
+        /// </summary>
+        private IModeControl currentModeControl;
+
+
         #endregion
 
         #region Properties
-
         /// <summary>
         /// Двигатель
         /// </summary>
         /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
         public BaseMachine Machine
         {
-            get { return machine; }
-            set
-            {
-                if(value == null)
-                    throw new ArgumentNullException(nameof(value));
-                machine = value;
-            }
+            get => machine;
+            set => machine = value ?? throw new ArgumentNullException(nameof(Machine));
         }
 
         /// <summary>
         /// Координата поезда на линии
         /// </summary>
-        public Double SpacePiketage {get; set; }
-
+        public Double SpacePiketage { get; set; }
 
         /// <summary>
-        /// Режим ведения
+        /// Текущий режим ведения.
         /// </summary>
-        public IModeControl ModeControl { get; set; }
+        public IModeControl CurrentModeControl
+        {
+            get => currentModeControl;
+            set => currentModeControl = value ?? throw new ArgumentNullException(nameof(CurrentModeControl));
+        } 
 
         /// <summary>
-        /// Ускорение.
+        /// Ускорение, м/с^2.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
         public Double Acceleration
         {
-            get
-            {
-                return acceleration;
-            }
+            get => acceleration;
             private set
             {
-                if (!DomainHelper.CheckAcceleration(value))
-                    throw new ArgumentOutOfRangeException(nameof(value));
+                if (!TrainHelper.CheckAcceleration(value))
+                    throw new ArgumentOutOfRangeException(nameof(Acceleration));
 
                 acceleration = value;
             }
         }
 
         /// <summary>
-        /// Ток
+        /// Ток, А.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
         public Double Current
         {
-            get
-            {
-                return current;
-            }
+            get => current;
             set
             {
-                if (!DomainHelper.CheckCurrent(value))
-                    throw new ArgumentOutOfRangeException(nameof(value));
+                if (!TrainHelper.CheckCurrent(value))
+                    throw new ArgumentOutOfRangeException(nameof(Current));
 
                 current = value;
             }
         }
 
         /// <summary>
-        /// Масса
+        /// Масса, т.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
         public Double Mass
         {
-            get
-            {
-                return mass;
-            }
+            get => mass;
             private set
             {
-                if (!DomainHelper.CheckMass(value))
-                    throw new ArgumentOutOfRangeException(nameof(value));
+                if (!TrainHelper.CheckMass(value))
+                    throw new ArgumentOutOfRangeException(nameof(Mass));
 
                 mass = value;
             }
@@ -273,60 +288,64 @@ namespace TrainMovement.Train
         /// <summary>
         /// 
         /// </summary>
-        public MassMass ByMass;
+        private Mass byMass;
 
         /// <summary>
-        /// Скорость
+        /// 
+        /// </summary>
+        public Mass ByMass
+        {
+            get => byMass;
+            set => byMass = value ?? throw new ArgumentNullException(nameof(ByMass));
+        }
+
+        /// <summary>
+        /// Скорость, км/ч.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
         public Double Velocity
         {
-            get
-            {
-                return velocity;
-            }
+            get => velocity;
             protected set
             {
-                if (!DomainHelper.CheckVelocity(value))
-                    throw new ArgumentOutOfRangeException(nameof(value));
-                if (value < 0)
-                    value = 0.0;
-                velocity = value;
+                if (!TrainHelper.CheckVelocity(value))
+                    throw new ArgumentOutOfRangeException(nameof(Velocity));
+                
+                velocity = value.ToNonNegativeValue();
             }
         }
 
         /// <summary>
-        /// Напряжение
+        /// Напряжение, В.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
         public Double Voltage
         {
-            get
+            get => voltage;
+            set
             {
-                return voltage;
-            }
-           set
-            {
-                if (!DomainHelper.CheckVoltage(value))
-                    throw new ArgumentOutOfRangeException(nameof(value));
+                if (!TrainHelper.CheckVoltage(value))
+                    throw new ArgumentOutOfRangeException(nameof(Voltage));
 
                 voltage = value;
             }
         }
 
         /// <summary>
-        /// Расстояние
+        /// Расстояние, м.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
-        /// <exception cref="TargetInvocationException" accessor="set">Представленный делегатом метод является методом экземпляра, а целевой объект имеет значение null.-или- Один из инкапсулированных методов выбрасывает исключение. </exception>
+        /// <exception cref="System.Reflection.TargetInvocationException" accessor="set">Представленный делегатом метод является методом экземпляра, а целевой объект имеет значение null.-или- Один из инкапсулированных методов выбрасывает исключение. </exception>
         public Double Space
         {
-            get { return space; }
+            get => space;
             set
             {
-                if (!DomainHelper.CheckSpace(value))
-                    throw new ArgumentOutOfRangeException(nameof(value));
-                if (MathHelper.IsEqual(value, space) && (!MathHelper.IsEqual(space,0.0))) return;
+                if (!TrainHelper.CheckSpace(value))
+                    throw new ArgumentOutOfRangeException(nameof(Space));
+
+                if (value.IsEqual(space) && !value.IsZero())
+                    return;
                 
                 space = value;
                 SpaceChanged();
@@ -334,204 +353,205 @@ namespace TrainMovement.Train
         }
 
         /// <summary>
-        /// Время
+        /// Время, с.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
         public Double Time
         {
-            get { return time; }
+            get => time;
             set
             {
-                if (!DomainHelper.CheckTime(value))
-                    throw new ArgumentOutOfRangeException(nameof(value));
+                if (!TrainHelper.CheckTime(value))
+                    throw new ArgumentOutOfRangeException(nameof(Time));
+
                 time = value;
             }
         }
 
         /// <summary>
-        /// Ссылка на брокер событий
+        /// Брокер событий.
         /// </summary>
         /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
         protected EventBroker Broker
         {
-            get { return broker; }
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException(nameof(value));
-                broker = value;
-            }
+            get => broker;
+            set => broker = value ?? throw new ArgumentNullException(nameof(Broker));
         }
 
         /// <summary>
+        /// Длина вагона, м.
         /// FLOAT NOT NULL --Длина вагона Lvag
         /// </summary>
         /// /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
         public Double CarLength
         {
-            get { return carLength; }
+            get => carLength;
             private set
             {
-                if (!DomainHelper.CheckCarLength(value))
-                    throw new ArgumentOutOfRangeException(nameof(value));
+                if (!TrainHelper.CheckCarLength(value))
+                    throw new ArgumentOutOfRangeException(nameof(CarLength));
                 carLength = value;
             }
         }
 
         /// <summary>
-        /// Масса порожнего вагона tara
+        /// Масса порожнего вагона, т.
+        /// (tara)
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException" accessor="set"/>
         public Double UnladenWeight
         {
-            get
-            {
-                return unladenWeight;
-            }
+            get => unladenWeight;
             private set
             {
-                if (!DomainHelper.CheckUnladenWeight(value))
-                    throw new ArgumentOutOfRangeException(nameof(value));
+                if (!TrainHelper.CheckUnladenWeight(value))
+                    throw new ArgumentOutOfRangeException(nameof(UnladenWeight));
 
                 unladenWeight = value;
             }
         }
 
         /// <summary>
-        /// Количество вагонов nb
+        /// Количество вагонов, шт.
+        /// nb
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException" accessor="set"/>
         public Int32 NumberCars
         {
-            get
-            {
-                return numberCars;
-            }
+            get => numberCars;
             private set
             {
-                if (!DomainHelper.CheckNumberCars(value))
-                    throw new ArgumentOutOfRangeException(nameof(value));
+                if (!TrainHelper.CheckNumberCars(value))
+                    throw new ArgumentOutOfRangeException(nameof(NumberCars));
 
                 numberCars = value;
             }
         }
 
         /// <summary>
-        /// Среднее замедление bsred FLOAT NOT NULL
+        /// Среднее замедление, м/с^2
+        /// bsred FLOAT NOT NULL
         /// </summary>
         /// /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
         public Double BreakAverage
         {
-            get { return breakAverage; }
+            get => breakAverage;
             private set
             {
-                if (!DomainHelper.CheckBreakAverage(value))
-                    throw new ArgumentOutOfRangeException(nameof(value));
+                if (!TrainHelper.CheckBreakAverage(value))
+                    throw new ArgumentOutOfRangeException(nameof(BreakAverage));
                 breakAverage = value;
             }
         }
 
         /// <summary>
+        /// Коэффициент основного сопротивления для тяги
         /// FLOAT NOT NULL --1-коэффициент основного сопротивления для тяги wwt1
         /// </summary>
         /// /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
-        public Double NetResistencePullFactor
+        public Double NetResistancePullFactor
         {
-            get { return netResistencePullFactor; }
+            get => netResistancePullFactor;
             private set
             {
-                if (!DomainHelper.CheckNetResistancePullFactor(value))
-                    throw new ArgumentOutOfRangeException(nameof(value));
-                netResistencePullFactor = value;
+                if (!TrainHelper.CheckNetResistancePullFactor(value))
+                    throw new ArgumentOutOfRangeException(nameof(NetResistancePullFactor));
+                netResistancePullFactor = value;
             }
         }
 
         /// <summary>
+        /// Коэффициент аэродинамического сопротивления
         /// FLOAT NOT NULL -- коэффициент аэродинамического сопротивления wwt2
         /// </summary>
         /// /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
         public Double AerodynamicDragFactor
         {
-            get { return aerodynamicDragFactor; }
+            get => aerodynamicDragFactor;
             private set
             {
-                if (!DomainHelper.CheckAerodynamicDragFactor(value))
-                    throw new ArgumentOutOfRangeException(nameof(value));
+                if (!TrainHelper.CheckAerodynamicDragFactor(value))
+                    throw new ArgumentOutOfRangeException(nameof(AerodynamicDragFactor));
                 aerodynamicDragFactor = value;
             }
         }
 
         /// <summary>
+        /// Первый коэффициент основного сопротивления для выбега
         /// FLOAT NOT NULL --1-коэффициент основного сопротивления для выбега wwi1
         /// </summary>
         /// /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
-        public Double NetResistenceCoastingFactor1
+        public Double NetResistanceCoastingFactor1
         {
-            get { return netResistenceCoastingFactor1; }
+            get => netResistanceCoastingFactor1;
             private set
             {
-                if (!DomainHelper.CheckNetResistanceCoastingFactor1(value))
-                    throw new ArgumentOutOfRangeException(nameof(value));
-                netResistenceCoastingFactor1 = value;
+                if (!TrainHelper.CheckNetResistanceCoastingFactor1(value))
+                    throw new ArgumentOutOfRangeException(nameof(NetResistanceCoastingFactor1));
+                netResistanceCoastingFactor1 = value;
             }
         }
 
         /// <summary>
+        /// Второй коэффициент основного сопротивления для выбега
         /// FLOAT NOT NULL --2-коэффициент основного сопротивления для выбега wwi2
         /// </summary>
         /// /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
-        public Double NetResistenceCoastingFactor2
+        public Double NetResistanceCoastingFactor2
         {
-            get { return netResistenceCoastingFactor2; }
+            get => netResistanceCoastingFactor2;
             private set
             {
-                if (!DomainHelper.CheckNetResistanceCoastingFactor2(value))
-                    throw new ArgumentOutOfRangeException(nameof(value));
-                netResistenceCoastingFactor2 = value;
+                if (!TrainHelper.CheckNetResistanceCoastingFactor2(value))
+                    throw new ArgumentOutOfRangeException(nameof(NetResistanceCoastingFactor2));
+                netResistanceCoastingFactor2 = value;
             }
         }
 
         /// <summary>
-        /// *FLOAT NOT NULL --3-коэффициент основного сопротивления для выбега wwi3
+        /// Третий коэффициент основного сопротивления для выбега
+        ///  *FLOAT NOT NULL --3-коэффициент основного сопротивления для выбега wwi3
         /// </summary>
         /// /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
-        public Double NetResistenceCoastingFactor3
+        public Double NetResistanceCoastingFactor3
         {
-            get { return netResistenceCoastingFactor3; }
+            get => netResistanceCoastingFactor3;
             private set
             {
-                if (!DomainHelper.CheckNetResistanceCoastingFactor3(value))
-                    throw new ArgumentOutOfRangeException(nameof(value));
-                netResistenceCoastingFactor3 = value;
+                if (!TrainHelper.CheckNetResistanceCoastingFactor3(value))
+                    throw new ArgumentOutOfRangeException(nameof(NetResistanceCoastingFactor3));
+                netResistanceCoastingFactor3 = value;
             }
         }
 
         /// <summary>
+        /// Эквивалентная поверхность состава
         /// FLOAT NOT NULL -- эквивалентная поверхность состава seq
         /// </summary>
         /// /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
-        public Double TrainEqvivalentSurface
+        public Double TrainEquivalentSurface
         {
-            get { return trainEquivalentSurface; }
+            get => trainEquivalentSurface;
             private set
             {
-                if (!DomainHelper.CheckTrainEquivalentSurface(value))
-                    throw new ArgumentOutOfRangeException(nameof(value));
+                if (!TrainHelper.CheckTrainEquivalentSurface(value))
+                    throw new ArgumentOutOfRangeException(nameof(TrainEquivalentSurface));
                 trainEquivalentSurface = value;
             }
         }
 
         /// <summary>
+        /// Коэффициент инерции вращающихся масс
         /// FLOAT --Коэффициент инерции вращающихся масс gamma0
         /// </summary>
         /// /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
         public Double InertiaRotationFactor
         {
-            get { return inertiaRotationFactor; }
+            get => inertiaRotationFactor;
             private set
             {
-                if (!DomainHelper.CheckInertiaRotationFactor(value))
-                    throw new ArgumentOutOfRangeException(nameof(value));
+                if (!TrainHelper.CheckInertiaRotationFactor(value))
+                    throw new ArgumentOutOfRangeException(nameof(InertiaRotationFactor));
                 inertiaRotationFactor = value;
             }
         }
@@ -542,28 +562,26 @@ namespace TrainMovement.Train
         /// /// <exception cref="ArgumentOutOfRangeException" accessor="set"></exception>
         public Double OwnNeedsElectricPower
         {
-            get { return ownNeedsElectricPower; }
+            get => ownNeedsElectricPower;
             private set
             {
-                if (!DomainHelper.CheckOwnNeedsElectricPower(value))
-                    throw new ArgumentOutOfRangeException(nameof(value));
+                if (!TrainHelper.CheckOwnNeedsElectricPower(value))
+                    throw new ArgumentOutOfRangeException(nameof(OwnNeedsElectricPower));
                 ownNeedsElectricPower = value;
             }
         }
 
         /// <summary>
+        /// Название типа элекроподвижного состава (ЭПС)
         /// </summary>
-        /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">empty.</exception>
         public String Name
         {
-            get { return name; }
+            get => name;
             protected set
             {
-                if (value == null)
-                    throw new ArgumentNullException(paramName: nameof(value));
-                if (value.Trim().Length == 0)
-                    throw new ArgumentOutOfRangeException(paramName: nameof(value));
+                if (!TrainHelper.CheckName(value))
+                    throw new ArgumentOutOfRangeException(nameof(Name));
                 name = value;
             }
         }
@@ -571,20 +589,14 @@ namespace TrainMovement.Train
         /// <summary>
         /// Перегон
         /// </summary>
-        /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
         public Guid CurrentStage
         {
-            get { return currentStage; }
-            private set
-            {
-                if (value == null)
-                    throw new ArgumentNullException(nameof(value));
-                currentStage = value;
-            }
+            get => currentStage;
+            private set => currentStage = value;
         }
 
         /// <summary>
-        /// СИла тяги или торможения
+        /// Сила тяги или торможения
         /// </summary>
         public Double Force { get; set; }
 
@@ -614,32 +626,34 @@ namespace TrainMovement.Train
         public Double MaxVelocity { get; set; }
 
         /// <summary>
-        /// Время хода в текщем режиме
+        /// Время хода в текщем режиме, с.
         /// </summary>
         public Double TimeInModeControl
         {
-            get { return tPos; }
+            get => tPos;
             private set
             {
-                if (value < 0 && value >Time)
-                    throw new ArgumentOutOfRangeException(nameof(value));
+                if (!value.IsIntoRange(0, Time))
+                    throw new ArgumentOutOfRangeException(nameof(TimeInModeControl));
                 tPos = value;
             }
         }
 
         /// <summary>
-        /// расход энергии
+        /// Расход энергии
         /// </summary>
         public Double A
         {
-            get { return a; }
+            get => a;
             set
             {
-                if (value <0)
-                    throw new ArgumentOutOfRangeException(nameof(value));
+                if (!TrainHelper.CheckEnergyConsumption(value))
+                    throw new ArgumentOutOfRangeException(nameof(A));
                 a = value;
             }
         }
+
+        public ISet<IModeControl> ModeControls { get; set; } = new SortedSet<IModeControl>();
 
         #endregion
 
@@ -650,24 +664,23 @@ namespace TrainMovement.Train
         /// <param name="broker"></param>
         /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
         /// <exception cref="ArgumentNullException">value is <see langword="null"/></exception>
-        protected BaseTrain(BaseMachine 
-            machine, BaseTrainParametres commonProperties, EventBroker broker)
+        protected BaseTrain(BaseMachine machine, BaseTrainParameters commonProperties, EventBroker broker)
         {
             CarLength = commonProperties.CarLength;
             UnladenWeight = commonProperties.UnladenWeight;
             NumberCars = commonProperties.NumberCars;
-            BreakAverage = commonProperties.BAverage;
-            NetResistencePullFactor = commonProperties.NetResistencePullFactor;
+            BreakAverage = commonProperties.BreakAverage;
+            NetResistancePullFactor = commonProperties.NetResistancePullFactor;
             AerodynamicDragFactor = commonProperties.AerodynamicDragFactor;
-            NetResistenceCoastingFactor1 = commonProperties.NetResistenceCoastingFactor1;
-            NetResistenceCoastingFactor2 = commonProperties.NetResistenceCoastingFactor2;
-            NetResistenceCoastingFactor3 = commonProperties.NetResistenceCoastingFactor3;
-            TrainEqvivalentSurface = commonProperties.TrainEqvivalentSurface;
+            NetResistanceCoastingFactor1 = commonProperties.NetResistanceCoastingFactor1;
+            NetResistanceCoastingFactor2 = commonProperties.NetResistanceCoastingFactor2;
+            NetResistanceCoastingFactor3 = commonProperties.NetResistanceCoastingFactor3;
+            TrainEquivalentSurface = commonProperties.TrainEquivalentSurface;
             InertiaRotationFactor = commonProperties.InertiaRotationFactor;
             OwnNeedsElectricPower = commonProperties.OwnNeedsElectricPower;
 
             Machine = machine;
-            Broker = broker;
+            Broker = broker;    
         }
 
         /// <summary>
@@ -675,7 +688,7 @@ namespace TrainMovement.Train
         /// </summary>
         /// <exception cref="Exception">A delegate callback throws an exception.</exception>
         /// <exception cref="MemberAccessException">Вызывающий код не имеет доступа к методу, представленному делегатом (например, если это закрытый метод).-или- Количество, порядок или тип параметров в списке <paramref name="args" /> является недопустимым. </exception>
-        /// <exception cref="TargetInvocationException">Представленный делегатом метод является методом экземпляра, а целевой объект имеет значение null.-или- Один из инкапсулированных методов выбрасывает исключение. </exception>
+        /// <exception cref="System.Reflection.TargetInvocationException">Представленный делегатом метод является методом экземпляра, а целевой объект имеет значение null.-или- Один из инкапсулированных методов выбрасывает исключение. </exception>
         public void SpaceChanged() => Broker.Publish(this, new EventArgs());
 
         /// <summary>
@@ -687,41 +700,31 @@ namespace TrainMovement.Train
         /// Move by a <paramref name="distance"/> with definite modeControl 
         /// </summary>
         /// <exception cref="ArgumentNullException"></exception>
-        public IEnumerable<OutTrainParameters> Move(Double distance, IModeControl modeControl, Double IntegrStep = 0.1)
+        public IEnumerable<OutTrainParameters> Move(Double distance, IModeControl modeControl, Double massForInterpolation, Double stepOfIntegration)
         {
             var result = new List<OutTrainParameters>();
-            ModeControl = modeControl;
+            CurrentModeControl = modeControl;
 
-            var massRepository = MassRepository.GetInstance();
-            ByMass = massRepository.GetByMass(100);
+            ByMass = MassRepository.GetInstance().GetByMass(massForInterpolation);
 
-            if (ByMass == null)
-                throw new ArgumentNullException(nameof(ByMass));
-            
-            while (
-                (distance - Space) > Converter.GetVelocityMeterPerSec(Velocity) * IntegrStep
-                && Time > 1 
-                && Velocity > 0.1 
-                || Time <= 1
-                )
+            while (IsAlreadyMoving(distance, stepOfIntegration))
             {
-                if (Velocity >= MaxVelocity && ModeControl is IPull)
+                if (Velocity >= MaxVelocity && CurrentModeControl is IPull)
                 {
-                    ModeControl = ModeControl.Low(ByMass);
+                    CurrentModeControl = CurrentModeControl.Low(ByMass);
                     TimeInModeControl = 0;
                 }
 
-                if (!CanPullOrBreak && (ModeControl is IPull || ModeControl is IRecuperationBreak))
+                if (!CanPullOrBreak && (CurrentModeControl is IPull || CurrentModeControl is IRecuperationBreak))
                 {
-                    if (ModeControl is IPull)
-                        ModeControl = ModeControl.Low(ByMass);
-                    else
-                        ModeControl = ModeControl.High(ByMass);
+                    CurrentModeControl = CurrentModeControl is IPull 
+                        ? CurrentModeControl.Low(ByMass) 
+                        : CurrentModeControl.High(ByMass);
                     TimeInModeControl = 0;
                 }
 
-                Step(IntegrStep, distance);
-                var step = new OutTrainParameters(ModeControl, Current, Space, Time, SpacePiketage, Velocity, ForceAdditionalResistance, ForceBaseResistance, Force);
+                Step(stepOfIntegration, distance);
+                var step = new OutTrainParameters(CurrentModeControl, Current, Space, Time, SpacePiketage, Velocity, ForceAdditionalResistance, ForceBaseResistance, Force);
                 result.Add(step);
             }
 
@@ -729,83 +732,90 @@ namespace TrainMovement.Train
         }
 
         /// <summary>
+        /// 
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
-        /// <exception cref="TargetInvocationException">Представленный делегатом метод является методом экземпляра, а целевой объект имеет значение null.-или- Один из инкапсулированных методов выбрасывает исключение. </exception>
-        public void Start(Guid stage, Double massa)
+        /// <param name="distance"></param>
+        /// <param name="stepOfIntegration"></param>
+        /// <returns></returns>
+        private Boolean IsAlreadyMoving(Double distance, Double stepOfIntegration) => 
+            distance - Space > Converter.GetVelocityMeterPerSec(Velocity) * stepOfIntegration 
+            && Time > minimalTime 
+            && Velocity > minimalVelocity 
+            || Time <= minimalTime;
+
+        /// <summary>
+        /// </summary>
+        /// <exception cref="System.ArgumentOutOfRangeException">Condition.</exception>
+        /// <exception cref="System.Reflection.TargetInvocationException">Представленный делегатом метод является методом экземпляра, а целевой объект имеет значение null.-или- Один из инкапсулированных методов выбрасывает исключение. </exception>
+        public void Start(Guid stage, Double mass)
         {
             CurrentStage = stage;
             Velocity = 0.0;
             Space = 0.0;
-            Mass = massa;
-            factor = Converter.GetFactor() /(1+InertiaRotationFactor * UnladenWeight / (UnladenWeight + Mass));
-            if (Mass < 20)
-                kF = (1 + Mass / UnladenWeight * 0.93);
-            else
-                kF = (1 + 20 / UnladenWeight);
+            Mass = mass;
+            factor = Converter.GetFactor() / ( 1 + InertiaRotationFactor * UnladenWeight / (UnladenWeight + Mass));
+            kF = Mass < maximalMassForCarInTonas ? 1 + Mass / UnladenWeight * 0.93 : 1 + maximalMassForCarInTonas / UnladenWeight;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        private void Step(Double IntegrStep, Double distance)
+        private void Step(Double stepOfIntegration, Double distance)
         {
-            TimeInModeControl += IntegrStep;
             var lastForce = ForceKGC;
             var lastCurrent = Ip;
-            Current = ModeControl.GetCurrent(Velocity, this);
+
+            Current = CurrentModeControl.GetCurrent(Velocity, this);
             if (Voltage > 750)
-                Current = Current * VoltageNominal / Voltage;
-            ForceKGC = ModeControl.GetForce(Velocity, this);
-            if (Math.Abs(ForceKGC - lastForce) > IntegrStep*dF)
-            {
-                ForceKGC = lastForce + Math.Sign(ForceKGC - lastForce)*IntegrStep*dF;
-            }
-            if (Math.Abs(Math.Abs(Current)- Math.Abs(lastCurrent)) > (dIc*IntegrStep))
-            {
-                Current = lastCurrent + Math.Sign(Current - lastCurrent)* dIc * IntegrStep;
-            }
+                Current = Current * voltageNominal / Voltage;
+
+            ForceKGC = CurrentModeControl.GetForce(Velocity, this);
+            if (Math.Abs(ForceKGC - lastForce) > stepOfIntegration * dF)
+                ForceKGC = lastForce + Math.Sign(ForceKGC - lastForce) * stepOfIntegration * dF;
+
+            if (Math.Abs(Math.Abs(Current) - Math.Abs(lastCurrent)) > dIc * stepOfIntegration)
+                Current = lastCurrent + Math.Sign(Current - lastCurrent) * dIc * stepOfIntegration;
+
             Ip = Current;
             
             var dA = Voltage*Current;
-            var dAeown = Converter.GetInKilo(OwnNeedsElectricPower)*IntegrStep;
+            var dAeown = Converter.GetInKilo(OwnNeedsElectricPower)*stepOfIntegration;
             A += dAeown;
             Current = Current + dAeown/Voltage;
             Current *= NumberCars;
             Force = Converter.GetForceInKNewton(ForceKGC) * motorCount / (UnladenWeight + Mass);
        
-            ForceBaseResistance = ModeControl.GetBaseResistance(this);
+            ForceBaseResistance = CurrentModeControl.GetBaseResistance(this);
             var acc = Force - ForceAdditionalResistance - ForceBaseResistance;
-            var dV = factor * IntegrStep * acc;
-            if (ModeControl is IBreak)
+            var dV = factor * stepOfIntegration * acc;
+            if (CurrentModeControl is IBreak)
             {
                 Current *= -1 * 2.5 * kF;
                 Force *= -1;
-                dV = -BreakAverage*IntegrStep*3.6;
+                dV = -BreakAverage*stepOfIntegration*3.6;
             }
-            if (ModeControl is IAverageBreak)
+
+            if (CurrentModeControl is IAverageBreak)
                 Acceleration = BreakAverage;
             else
-                Acceleration = Converter.GetVelocityMeterPerSec(dV) / IntegrStep;
+                Acceleration = Converter.GetVelocityMeterPerSec(dV) / stepOfIntegration;
 
             Velocity += dV;
-            Time += IntegrStep;
+            Time += stepOfIntegration;
+            TimeInModeControl += stepOfIntegration;
 
-            A += dA * IntegrStep;
+            A += dA * stepOfIntegration;
 
-            if (Velocity >= MaxVelocity && ModeControl is IInert && dV > 0)
+            if (Velocity >= MaxVelocity && CurrentModeControl is IInert && dV > 0)
             {
-                ModeControl = ModeControl.Low(ByMass);
+                CurrentModeControl = CurrentModeControl.Low(ByMass);
                 TimeInModeControl = 0;
             }
-            var dS = Converter.GetVelocityMeterPerSec(Velocity) * IntegrStep;
+
+            var dS = Converter.GetVelocityMeterPerSec(Velocity) * stepOfIntegration;
             if (distance - space >= dS)
                 Space += dS;
-            else
-               return;
-
         }
-
     }
 }

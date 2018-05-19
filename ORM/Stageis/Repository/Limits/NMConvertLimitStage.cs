@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using ORM.Helpers;
+using ORM.OldHelpers;
 using ORM.Lines.Entities;
+using static System.Math;
 
 namespace ORM.Stageis.Repository.Limits
 {
@@ -14,11 +15,10 @@ namespace ORM.Stageis.Repository.Limits
         /// </summary>
         /// <param name="nmStage"></param>
         /// <exception cref="ArgumentNullException">value is <see langword="null" /></exception>
-        internal NMConvertLimitStage(IEnumerable<NMLine> nmStage) : base(nmStage)
-        {}
+        internal NMConvertLimitStage(IEnumerable<NMLine> nmStage) : base(nmStage) {}
 
+        /// <inheritdoc />
         /// <summary>
-        /// 
         /// </summary>
         /// <returns></returns>
         protected override SortedSet<Limit> SetLimits()
@@ -33,7 +33,6 @@ namespace ORM.Stageis.Repository.Limits
 
             var current = tmpVector[0];
             var next = tmpVector[1];
-            Double length;
             var lastWrittenPiketage = 0.0;
             var wasWritten = false;
 
@@ -45,40 +44,45 @@ namespace ORM.Stageis.Repository.Limits
                 next = tmpVector[i + 1];
                 newPiketage = current.Piketage;
                 
-                while (Math.Abs(Math.Truncate(newPiketage) - Math.Truncate(next.Piketage)) >= 1)
+                while (Abs(Truncate(newPiketage) - Truncate(next.Piketage)) >= 1)
                 {
-                    if (Math.Abs(newPiketage - current.Piketage) < 1)
+                    Double length;
+                    if (Abs(newPiketage - current.Piketage) < 1)
                     {
                         length = current.Length;
                         if (wasWritten)
-                            space -= Math.Abs(newPiketage - lastWrittenPiketage)*100;
-                    }   
-                  
-                    else length = valuePiketage;
+                            space -= GetDistanceInMeters(newPiketage, lastWrittenPiketage);
+                    }
+                    else
+                    {
+                        length = valuePiketage;
+                    }
 
                     newPiketage = AddPiketage(newPiketage, direction);
-                    var limit = new Limit(space, newPiketage);   
+                      
                     lastWrittenPiketage = newPiketage;
                     wasWritten = true;
 
                     space += length;
-                    
-                    resultSortedSet.Add(limit);
+
+                    resultSortedSet.Add(new Limit(space, newPiketage));
                 }
             }
 
             current = tmpVector[nativeLimits.Count - 1];
-            space -= Math.Abs(current.Piketage - lastWrittenPiketage) * 100;
-            var newLimit = new Limit(space, current.Piketage);
-            space = space + current.Length;
-            resultSortedSet.Add(newLimit);
+            space -= GetDistanceInMeters(current.Piketage, lastWrittenPiketage);
+            resultSortedSet.Add(new Limit(space, current.Piketage));
+            space += current.Length;
+            
+
 
             newPiketage = AddPiketage(current.Piketage, direction);
-            newLimit = new Limit(space, newPiketage);
-            resultSortedSet.Add(newLimit);
+            resultSortedSet.Add(new Limit(space, newPiketage));
 
             return resultSortedSet;
         }
+
+        private static Double GetDistanceInMeters(Double newPiketage, Double lastWrittenPiketage) => Abs(newPiketage - lastWrittenPiketage) * 100;
 
 
         /// <summary>
@@ -86,10 +90,7 @@ namespace ORM.Stageis.Repository.Limits
         /// </summary>
         /// <param name="limits"></param>
         /// <returns></returns>
-        public static IEnumerable<Limit> GetLimits(IEnumerable<NMLine> limits)
-        {
-            return new NMConvertLimitStage(limits).Limits;
-        }
+        public static IEnumerable<Limit> GetLimits(IEnumerable<NMLine> limits) => new NMConvertLimitStage(limits).Limits;
 
         /// <summary>
         /// 
@@ -97,9 +98,6 @@ namespace ORM.Stageis.Repository.Limits
         /// <param name="piketage"></param>
         /// <param name="direction"></param>
         /// <returns></returns>
-        private Double AddPiketage(Double piketage, Boolean direction)
-        {
-            return direction ? piketage + 1.0 : piketage - 1.0;
-        }
+        private static Double AddPiketage(Double piketage, Boolean direction) => direction ? piketage + 1.0 : piketage - 1.0;
     }
 }

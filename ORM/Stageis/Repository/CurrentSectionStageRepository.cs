@@ -6,8 +6,8 @@ using ORM.Stageis.Entities;
 
 namespace ORM.Stageis.Repository
 {
+    /// <inheritdoc />
     /// <summary>
-    /// 
     /// </summary>
     public class CurrentSectionStageRepository : Repository<CurrentSectionStage>
     {
@@ -15,19 +15,23 @@ namespace ORM.Stageis.Repository
         /// </summary>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
-        public static CurrentSectionStageRepository GetInstance()
-        {
-            return GetInstance<CurrentSectionStageRepository>(SessionWrapper.GetInstance().Factory);
-        }
+        public static CurrentSectionStageRepository GetInstance() => GetInstance<CurrentSectionStageRepository>(SessionWrapper.GetInstance().Factory);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="stage"></param>
+        /// <param name="stageId"></param>
         /// <returns></returns>
-        public IEnumerable<CurrentSectionStage> GetLimits(Guid stage)
+        public IEnumerable<CurrentSectionStage> GetLimits(Guid stageId) => GetAll().Where(st => st.Stage.ID == stageId);
+
+        /// <inheritdoc />
+        /// <summary>
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public override CurrentSectionStage GetByName(String name)
         {
-            return GetAll().Where(st => st.Stage.ID == stage);
+            throw new NotImplementedException();
         }
     }
 }

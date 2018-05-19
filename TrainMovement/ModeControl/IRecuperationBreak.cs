@@ -1,10 +1,8 @@
 ﻿namespace TrainMovement.ModeControl
 {
+    /// <inheritdoc />
     /// <summary>
-    /// Торможение  с рекуперацией.
+    /// Marker interface — "Торможение  с рекуперацией".
     /// </summary>
-    public interface IRecuperationBreak : IBreak
-    {
-        
-    }
+    public interface IRecuperationBreak : IBreak { }
 }

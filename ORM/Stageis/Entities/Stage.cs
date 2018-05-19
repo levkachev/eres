@@ -32,49 +32,39 @@ namespace ORM.Stageis.Entities
         /// <summary>
         /// 
         /// </summary>
-        public virtual IEnumerable<ProfileStage> ProfileStages { get; set; }
+        public virtual IEnumerable<ProfileStage> ProfileStages { get; set; } = new List<ProfileStage>();
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IEnumerable<PlanStage> PlanStages { get; set; }
+        public virtual IEnumerable<PlanStage> PlanStages { get; set; } = new List<PlanStage>();
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IEnumerable<CurrentSectionStage> CurrentSectionStages { get; set; }
+        public virtual IEnumerable<CurrentSectionStage> CurrentSectionStages { get; set; } = new List<CurrentSectionStage>();
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IEnumerable<LimitStage> LimitStages { get; set; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual IEnumerable<ASRStage> ASRStages { get; set; }
+        public virtual IEnumerable<LimitStage> LimitStages { get; set; } = new List<LimitStage>();
 
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IEnumerable<OpenStage> OpenStages { get; set; }
+        public virtual IEnumerable<ASRStage> ASRStages { get; set; } = new List<ASRStage>();
 
-        public Stage()
-        {
-            ProfileStages = new List<ProfileStage>();
-            PlanStages = new List<PlanStage>();
-            LimitStages = new List<LimitStage>();
-            ASRStages = new List<ASRStage>();
-            OpenStages = new List<OpenStage>();
-            CurrentSectionStages = new List<CurrentSectionStage>();
-        }
 
-        public override String ToString()
-        {
-            return $"For {Length} ";
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual IEnumerable<OpenStage> OpenStages { get; set; } = new List<OpenStage>();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override String ToString() => $"For {Length} ";
     }
 }

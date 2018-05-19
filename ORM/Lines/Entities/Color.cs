@@ -6,21 +6,16 @@ namespace ORM.Lines.Entities
     /// <summary>
     /// Цвет линии
     /// </summary>
-    public class Color : Entity<Color>
+    public class Color : NamedEntity<Color>
     {
-        /// <summary>
-        /// Наименование цвета линии
-        /// </summary>
-        public virtual String Colors { get; set; }
-
         /// <summary>
         /// RGB цвета линии
         /// </summary>
-        public virtual String RGBvalue { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual Line Line { get; set; }
+        public virtual String RGB { get; protected set; }
 
+        /// <summary>
+        /// Линия
+        /// </summary>
+        public virtual Line Line { get; protected set; }
     }
 }

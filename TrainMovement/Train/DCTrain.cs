@@ -19,7 +19,7 @@ namespace TrainMovement.Train
         /// <exception cref="ArgumentException">Train.Name != <paramref name="commonProperties"/>.TrainName</exception>
         /// <exception cref="ArgumentNullException">value is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">empty.</exception>
-        internal DCTrain(DCMachine machine, DCParametres commonProperties, String trainName, EventBroker broker)
+        internal DCTrain(DCMachine machine, DCParameters commonProperties, String trainName, EventBroker broker)
         {
             Name = trainName;
 

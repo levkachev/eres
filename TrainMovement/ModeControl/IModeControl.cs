@@ -10,45 +10,47 @@ namespace TrainMovement.ModeControl
     public interface IModeControl
     {
         /// <summary>
-        /// 
+        /// Получение силы
         /// </summary>
         /// <param name="velocity"></param>
+        /// <param name="train"></param>
         /// <returns></returns>
         Double GetForce(Double velocity, BaseTrain train);
 
         /// <summary>
-        /// 
+        /// Получение тока
         /// </summary>
         /// <param name="velocity"></param>
+        /// <param name="train"></param>
         /// <returns></returns>
         Double GetCurrent(Double velocity, BaseTrain train);
 
         /// <summary>
-        /// 
+        /// Получение К.П.Д.
         /// </summary>
         /// <param name="velocity"></param>
         /// <returns></returns>
-        Double GetKPD(Double velocity);
+        Double GetEfficiency(Double velocity);
+        
         /// <summary>
-        /// Расчет основного сопротивления
+        /// Расчёт основного сопротивления
         /// </summary>
         /// <param name="train"></param>
         /// <returns></returns>
         Double GetBaseResistance(BaseTrain train);
 
         /// <summary>
-        /// Понижение режимы ведения
+        /// Понижение режима ведения
         /// </summary>
-        /// <param name="mass"></param>
+        /// <param name="characteristics"></param>
         /// <returns></returns>
-        IModeControl Low(MassMass mass);
-
+        IModeControl Low(Mass characteristics);
 
         /// <summary>
-        /// Понижение режимы ведения
+        /// Повышение режима ведения
         /// </summary>
-        /// <param name="mass"></param>
+        /// <param name="characteristics"></param>
         /// <returns></returns>
-        IModeControl High(MassMass mass);
+        IModeControl High(Mass characteristics);
     }
 }

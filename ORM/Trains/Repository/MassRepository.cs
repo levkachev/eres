@@ -2,35 +2,37 @@
 using System.Linq;
 using ORM.Base;
 using ORM.Trains.Entities;
-using ORM.Helpers;
+using ORM.OldHelpers;
 
 namespace ORM.Trains.Repository
 {
+    /// <inheritdoc />
     /// <summary>
-    /// 
+    /// Хранилище масс.
     /// </summary>
-    public class MassRepository : Repository<MassMass>
+    public class MassRepository : Repository<Mass>
     {
         /// <summary>
+        /// Получение экземпляра хранилища.
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
-        public static MassRepository GetInstance()
-        {
-            return GetInstance<MassRepository>(SessionWrapper.GetInstance().Factory);
-        }
+        public static MassRepository GetInstance() => GetInstance<MassRepository>(SessionWrapper.GetInstance().Factory);
 
         /// <summary>
+        /// Получение объекта записи о массе поезда по её величине.
         /// </summary>
         /// <param name="mass"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
-        public MassMass GetByMass(Double mass)
-        {
-            return GetAll()
-                .SingleOrDefault(tmass => MathHelper.IsEqual(tmass.Mass, mass));
-        }
+        /// <returns>Объект или <see langword="null"/></returns>
+        public Mass GetByMass(Double mass) => GetAll().SingleOrDefault(x => x.Value.IsEqual(mass));
 
-       
+        /// <inheritdoc />
+        /// <summary>
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public override Mass GetByName(String name)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

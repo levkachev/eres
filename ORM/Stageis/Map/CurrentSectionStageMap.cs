@@ -3,6 +3,7 @@ using ORM.Stageis.Entities;
 
 namespace ORM.Stageis.Map
 {
+    /// <inheritdoc />
     /// <summary>
     /// Токораздел перегона
     /// </summary>
@@ -13,12 +14,11 @@ namespace ORM.Stageis.Map
         /// </summary>
         public CurrentSectionStageMap()
         {
-            Table("Stage.CurrentSectionStage");
+            Table(@"Stage.CurrentSectionStage");
             Id(x => x.ID);
             Map(x => x.Start).Not.Nullable();
             Map(x => x.Finish).Not.Nullable();
-            References(x => x.Stage).ForeignKey("ID_Stage");
-
+            References(x => x.Stage).ForeignKey(@"ID_Stage");
         }
     }
 }

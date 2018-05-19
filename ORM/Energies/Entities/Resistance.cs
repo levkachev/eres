@@ -1,7 +1,7 @@
 ﻿using System;
 using ORM.Base;
 
-namespace ORM.Energy.Entities
+namespace ORM.Energies.Entities
 {
     /// <summary>
     /// Сопротивление фидера
@@ -9,31 +9,28 @@ namespace ORM.Energy.Entities
     public class Resistance : Entity<Resistance>
     {
         /// <summary>
-        /// Количество кабелей
+        /// Количество кабелей, шт
         /// </summary>
-        public virtual Int32 Count { get; set; }
+        public virtual Int32 Count { get; protected set; }
 
         /// <summary>
         /// Площадь поперечного сечения кабеля, мм2
         /// </summary>
-        public virtual Int32 Square { get; set; }
+        public virtual Int32 Square { get; protected set; }
 
         /// <summary>
         /// Длина фидера, м
         /// </summary>
-        public virtual Double Length { get; set; }
+        public virtual Double Length { get; protected set; }
 
         /// <summary>
         /// Тип кабеля
         /// </summary>
-        public virtual Type_Resistance Type_Resistance { get; set; }
+        public virtual ResistanceType ResistanceType { get; protected set; }
 
         /// <summary>
         /// Фидер
         /// </summary>
-        public virtual Feeder Feeder  { get; set; }
-
-
-       
+        public virtual Feeder Feeder { get; protected set; }
     }
 }

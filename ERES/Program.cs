@@ -4,11 +4,12 @@
 
 using System.Collections.Generic;
 using System;
-using ORM.Energy.Entities;
+using ORM.Energies.Entities;
 using ORM.Lines.Entities;
 using System.IO;
 using System.Linq;
-using ORM.Helpers;
+using System.Windows;
+using ORM.OldHelpers;
 using ORM.Lines.Repository;
 using ORM.Stageis.Repository;
 using ORM.Trains.Repository;
@@ -17,27 +18,44 @@ using TrainMovement.Energy;
 using TrainMovement.ModeControl;
 using TrainMovement.Stage;
 using TrainMovement.Train;
-
+using Helpers.Math;
+using ORM.Trains.Repository.Interpolation;
+using ORM.Trains.Repository.Trains;
+using Point = Helpers.Math.Point;
 
 namespace ERES
 {
-    class Program
+    internal class Program
     {
         /// <summary>
-        /// 
+        /// Шаг моделирования в секундах.
         /// </summary>
-        public const Double IntegrStep = 0.1;
+        public const Double StepOfIntegration = 0.1;
+
+        /// <summary>
+        /// Масса масса состава в тоннах (для 81-740.1 в БД есть кривые ТОЛЬКО для этого значения).
+        /// </summary>
+        public const Double MassForInterpolation = 100;
 
         //   public static ISessionFactory sessionFactory { get; protected set; }
-        static void Main(string[] args)
+
+        private static void Main()
         {
+            //var sll = new SortedLinkedList<Int32>(SortedLinkedList<Int32>.SortingOrder.Ascending, null, 5, 3, 7, 10, -11, 24);
+            //foreach (var i in sll)
+            //    Console.WriteLine(i);
+
+            //Console.WriteLine($"{{{String.Join("; ", sll)}}}");
+
+
+
+            Test_PiecewiseLinerFunction();
+
+
             //  sessionFactory = SessionFactory.GetSessionFactory();
 
+            // Показать фидеры выбранного типа для выбранной подстанции на выбранной линии
 
-            /// <summary>
-            /// Показать фидеры выбранного типа для выбранной подстанции на выбранной линии
-            /// </summary>
-            /// 
 
             //var linelineRepository = LineRepository.GetInstance();
             //var line = linelineRepository.GetIDByName("Калининская");
@@ -71,84 +89,87 @@ namespace ERES
             ///// 
             //var testTrainName = "81-740.4";
 
-            //var motortypeRepository = MotorTypesRepository.GetInstance();
-            //var motortype = motortypeRepository.GetByType("AC");
+            //var motortypeRepository = MotorTypeRepository.GetInstance();
+            //var motortype = motortypeRepository.GetByName("AC");
 
             //var trainnameRepository = TrainNameRepository.GetInstance();
             //var trainname = trainnameRepository.GetIDByName("81-740.4");
 
-            var massRepository = MassRepository.GetInstance();
-            var mass = massRepository.GetByMass(100);
+            var mass = MassRepository.GetInstance().GetByMass(MassForInterpolation);
 
-            //var modecontrolRepository = ModeControlsRepository.GetInstance();
-            //var modecontrol = modecontrolRepository.GetByModeControl("Pull1");
+            //var modecontrolRepository = ModeControlRepository.GetInstance();
+            //var modecontrol = modecontrolRepository.GetByName("Pull1");
 
-            //var vfiRepository = VFIRepository.GetInstance();
-            //ShowCollection<VFI>(vfiRepository.GetVFI(testTrainName, modecontrol, mass), "GetVFI");
+            //var vfiRepository = ElectricTractionCharacteristicsRepository.GetInstance();
+            //ShowCollection<ElectricTractionCharacteristics>(vfiRepository.GetCharacteristics(testTrainName, modecontrol, mass), "GetCharacteristics");
 
-            var nameLine = "Калининская";
+            const String nameLine = "Калининская";
 
             var lineRepository = LineRepository.GetInstance();
             //var PSS = lineRepository.GetAllPowerSupplyStations(nameLine);
             //ShowCollection<PowerSupplyStation>(PSS, "PowerSupplyStations");
 
-
-
-
             var track = lineRepository.GetAllTrack(nameLine);
             //ShowCollection<Track>(track, "Track");
 
             var stationRepository = StationRepository.GetInstance();
-            //var arrival = stationRepository.GetIDByName("Площадь Ильича");
-            //var department = stationRepository.GetIDByName("Марксистская");
+            //var arrival = stationRepository.GetIdByName("Площадь Ильича");
+            //var department = stationRepository.GetIdByName("Марксистская");
 
-            var arrival = stationRepository.GetIDByName("Новогиреево");
-            var department = stationRepository.GetIDByName("Перово"); 
+            const String arrivalStationName = "Новогиреево";
+            var arrival = stationRepository.GetIdByName(arrivalStationName);
+
+            const String departureStationName = "Перово";
+            var department = stationRepository.GetIdByName(departureStationName); 
 
             var stageRepository = StageRepository.GetInstance();
-            var stageGuid = stageRepository.GetStageByNameStation(arrival, department);
-            var length = stageRepository.GetStageLenght(stageGuid);
+            var stageId = stageRepository.GetStageByNameStation(arrival, department);
+            var length = stageRepository.GetStageLength(stageId);
 
             var broker = new EventBroker();
 
-            var stage = StationToStationBlock.GetStageWithoutASR(stageGuid, broker);
+            var stage = StationToStationBlock.GetStageWithoutASR(stageId, broker);
 
             ICountVoltage voltage = new ConstantVoltageProvider(broker, 825);
            // ICountVoltage voltage = new FileVoltageProvider(broker, "UmaxXX.txt", "\t");
             
             try
             {
-
                 const String trainName = "81-740.1(Rusi4)";
                 var train = TrainFactory.GetACTrain(trainName, broker);
-                IModeControl modeControl = TrainMovement.Interpolation.Pull4Rusi4.GetInstance(mass);
-                train.Start(stageGuid, 11);
+                IModeControl modeControl = TrainMovement.Interpolation.Rusi4.Pull4.GetInstance(mass);
+                train.Start(stageId, 11);
                 var move = new List<OutTrainParameters>();
-                var step = train.Move(500, modeControl).ToList();
+                var step = train.Move(500, modeControl, MassForInterpolation, StepOfIntegration).ToList();
                 move.AddRange(step);
 
-                modeControl = TrainMovement.Interpolation.InertRusi4.GetInstance(mass);
-                step = train.Move(1650, modeControl).ToList();
+                modeControl = TrainMovement.Interpolation.Rusi4.Inert.GetInstance(mass);
+                step = train.Move(1650, modeControl, MassForInterpolation, StepOfIntegration).ToList();
                 move.AddRange(step);
 
-                modeControl = TrainMovement.Interpolation.Break2Rusi4.GetInstance(mass);
-                step = train.Move(length, modeControl).ToList();
+                modeControl = TrainMovement.Interpolation.Rusi4.Break2.GetInstance(mass);
+                step = train.Move(length, modeControl, MassForInterpolation, StepOfIntegration).ToList();
                 move.AddRange(step);
-                PrintToFile<OutTrainParameters>(move, "moving");
+                PrintToFile(move, "moving");
+
+                //var bat = new OptimalTrajectory.BranchesAndTreesMethod();
+                //var solver = new OptimalTrajectory.Solver();
+                //var trajectory = solver.Solve(train, stage, bat);
             }
             catch (Exception exception)
             {
                 Console.WriteLine(exception);
             }
-            //modeControl = TrainMovement.Interpolation.InertRusi4.GetInstance(mass);
+
+            //modeControl = TrainMovement.Interpolation.Inert.GetInstance(mass);
             //step = train.Move(1765, modeControl).ToList();
             //move.AddRange(step);
 
-            //modeControl = TrainMovement.Interpolation.Break2Rusi4.GetInstance(mass);
+            //modeControl = TrainMovement.Interpolation.Break2.GetInstance(mass);
             //step = train.Move(2048, modeControl).ToList();
             //move.AddRange(step);
 
-            
+
 
             //ShowCollection<OutTrainParameters>(move, "moving");
 
@@ -167,12 +188,16 @@ namespace ERES
             //    Console.WriteLine(exception);
             //}
 
+
+
+
+
             Console.WriteLine("the end");
-            // var length = stageRepository.GetStageLenght(st);
+            // var length = stageRepository.GetStageLength(st);
             // Console.WriteLine(Convert.ToString(length), "StageLenght");
 
             //  var station = lineRepository.GetAllStation(nameLine);
-            // //var station = stationRepository.GetLineStationName(nameLine);
+            // //var station = stationRepository.GetStationsNamesByLineName(nameLine);
             // ShowCollection<Station>(station, "Station");
 
             // var trackRepository = TrackRepository.GetInstance();
@@ -207,9 +232,9 @@ namespace ERES
             // Console.WriteLine(Convert.ToString(tr));
 
             // //string pathToFile = @"C:\Users\Valeriyа\Desktop";
-            // //string nameFile = "StationPiketage";
+            // //string filename = "StationPiketage";
             // //string format = ".txt";
-            // //string path = Path.Combine(pathToFile, nameFile) + format;
+            // //string path = Path.Combine(pathToFile, filename) + format;
 
 
             // //string[] rows = { Convert.ToString(station) };
@@ -279,7 +304,7 @@ namespace ERES
             //List<EnergyEnergy> energyeneregy = new List<EnergyEnergy>();
 
             //SerializableObject obj = new SerializableObject();
-            //obj.Energy = energyeneregy;
+            //obj.Energies = energyeneregy;
 
             //MySerializer serializer = new MySerializer();
             ////serializer.SerializeObject("output.txt", obj);
@@ -289,7 +314,7 @@ namespace ERES
             //stream.Close();
 
             //obj = serializer.DeserializeObject("output.txt");
-            //energyeneregy = obj.Energy;
+            //energyeneregy = obj.Energies;
 
 
             //       try
@@ -307,10 +332,31 @@ namespace ERES
 
         }
 
+        private static void Test_PiecewiseLinerFunction()
+        {
+            var points = new List<Point>
+            {
+                new Point(0, 0),
+                new Point(2, 2),
+                new Point(5, 2),
+                new Point(9, 0)
+            };
+
+            var heap = new PiecewiseLinearFunction(points);
+            for (var x = 0.0; x < 10; x += 0.25)
+                Console.WriteLine($"{x:F2} --> | {heap[x]} |");
+        }
+
+        private static void Test_ModeControlRepo()
+        {
+            var motorType = MotorTypeRepository.GetInstance().GetByName("");
+            var controls = ModeControlRepository.GetInstance().GetModeControlsForMotorType(motorType);
+        }
+
         private static void PrintToFile<T>(IEnumerable<T> collection, String name)
         {
-            var filename = $"{DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss.ffffff")}.log";
-            PrintToFile<T>(filename, collection, name);
+            var filename = $"{DateTime.Now:yyyy-MM-dd hh-mm-ss.ffffff}.log";
+            PrintToFile(filename, collection, name);
         }
 
         private static void PrintToFile<T>(String filename, IEnumerable<T> collection, String name)
@@ -342,17 +388,15 @@ namespace ERES
                 Console.WriteLine($"{item.Key}, {item.Value}");
         }
 
-        private static void WriteFile<T>(IEnumerable<T> collection, String nameFile)
+        private static void WriteFile<T>(IEnumerable<T> collection, String filename)
         {
-            string pathToFile = @"C:\Users\Людмила\Desktop";
-            string path = Path.Combine(pathToFile, nameFile) + ".txt";
-            StreamWriter file = new StreamWriter(path, true);
-
-            foreach (var item in collection)
-            {
-                file.WriteLine(Convert.ToString(item).Replace(",", "."));
-            }
-            file.Close();
+            const String pathToFile = @"C:\Users\Людмила\Desktop";
+            var path = Path.Combine(pathToFile, filename);
+            if (!Path.HasExtension(path))
+                path += ".txt";
+            using (var file = new StreamWriter(path, true))
+                foreach (var item in collection)
+                    file.WriteLine(Convert.ToString(item).Replace(",", "."));
         }
     }
 

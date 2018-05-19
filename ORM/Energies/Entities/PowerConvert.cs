@@ -1,18 +1,13 @@
 ﻿using System;
 using ORM.Base;
 
-namespace ORM.Energy.Entities
+namespace ORM.Energies.Entities
 {
     /// <summary>
     /// Справочник трансформаторов
     /// </summary>
-    public class PowerConvert : Entity<PowerConvert>
+    public class PowerConvert : NamedEntity<PowerConvert>
     {
-        /// <summary>
-        /// Наименование
-        /// </summary>
-        public virtual String Name { get; set; }
-
         /// <summary>
         /// Напряжение вентильной обмотки, В
         /// </summary>

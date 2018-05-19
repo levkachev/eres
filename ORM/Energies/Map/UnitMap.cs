@@ -1,7 +1,7 @@
 ﻿using FluentNHibernate.Mapping;
-using ORM.Energy.Entities;
+using ORM.Energies.Entities;
 
-namespace ORM.Energy.Map
+namespace ORM.Energies.Map
 {
     public class UnitMap : ClassMap<Unit>
     {
@@ -13,7 +13,7 @@ namespace ORM.Energy.Map
             Map(x => x.UnitCount).Not.Nullable();
             Map(x => x.DiodCount).Not.Nullable();
            
-            References(x => x.Unit_Name);
+            References(x => x.NamedUnit);
             References(x => x.PowerSupplyStation);
             HasMany(x => x.Diods);
             HasMany(x => x.PowerConverts);

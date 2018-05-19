@@ -1,6 +1,6 @@
 ﻿using System;
 using ORM.Base;
-using ORM.Energy.Entities;
+using ORM.Energies.Entities;
 using ORM.Lines.Repository;
 
 namespace ORM.Energies.Repository
@@ -10,26 +10,22 @@ namespace ORM.Energies.Repository
     /// </summary>
     public class EnergyRepository : Repository<PowerSupplyStation>
     {
-        internal static EnergyRepository GetInstance()
-        {
-            return GetInstance<EnergyRepository>((SessionWrapper.GetInstance().Factory));
-        }
+        internal static EnergyRepository GetInstance() => GetInstance<EnergyRepository>(SessionWrapper.GetInstance().Factory);
 
-        public static EnergyEnergy GetPST(String lineName)
+        public static Entities.Energy GetPST(String lineName)
         {
            
             var repository = EnergyRepository.GetInstance();
-            var linelineRepository = LineRepository.GetInstance();
-            var line = linelineRepository.GetIDByName(lineName);
+            var line = LineRepository.GetInstance().GetIdByName(lineName);
             // var speedLimitRepository = SpeedLimitRepository.GetInstance();
             // var speedLimit = speedLimitRepository.GetAll(stageName);
             var powerSupplyStationRepository = PowerSupplyStationRepository.GetInstance();
             var psr = powerSupplyStationRepository.GetAllPST(line, "90");
             //tmpStage.SpeedLimit = speedLimit;
-            var tmpEnergy = new EnergyEnergy();
+            var tmpEnergy = new Energies.Entities.Energy();
             tmpEnergy.NameLine = lineName;
             //  tmpEnergy.PowerSupplyStation = "88";
-            tmpEnergy.Piketag = psr;
+            tmpEnergy.Piketage = psr;
 
             var psList = powerSupplyStationRepository.GetPowerStations(line);
 
@@ -37,6 +33,11 @@ namespace ORM.Energies.Repository
 
             
 
+        }
+
+        public override PowerSupplyStation GetByName(String name)
+        {
+            throw new NotImplementedException();
         }
     }
 

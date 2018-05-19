@@ -5,39 +5,31 @@ using ORM.Trains.Interpolation.Entities;
     
 namespace ORM.Trains.Entities
 {
+    /// <inheritdoc />
     /// <summary>
-    /// поезд
+    /// Вид подвижного состава (тип --> { AC | DC }, вид --> { "Яуза" | "Русич" | "Ока" | "Москва" })
     /// </summary>
-    public class TrainName : Entity<TrainName>
+    public class TrainName : NamedEntity<TrainName>
     {
+        /// <inheritdoc />
         /// <summary>
-        /// наименование поезда 
+        /// Наименование поезда.
         /// </summary>
-        public virtual String Name { get; set; }
-        /// <summary>
-        /// тип двигателя
-        /// </summary>
-        public virtual MotorTypes MotorType { get; set; }
+        public override String Name { get; protected set; }
 
         /// <summary>
-        /// 
+        /// Тип двигателя (AC или DC)
         /// </summary>
-        public virtual IEnumerable<AdditionalParameter> АdditionalParameters { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual IEnumerable<VFI> VFIs { get; set; }
+        public virtual MotorType MotorType { get; protected set; }
 
         /// <summary>
-        /// 
+        /// Дополнительные параметры
         /// </summary>
-        public TrainName()
-        {
-            АdditionalParameters = new List<AdditionalParameter>();
-            VFIs= new List<VFI>();
+        public virtual IEnumerable<AdditionalParameter> AdditionalParameters { get; protected set; } = new List<AdditionalParameter>();
 
-
-        }
-    }
-    
+        /// <summary>
+        /// Тяговые и скоростные характеристики для текущего вида подвижного состава.
+        /// </summary>
+        public virtual IEnumerable<ElectricTractionCharacteristics> Characteristics { get; protected set; } = new List<ElectricTractionCharacteristics>();
+    } 
 }

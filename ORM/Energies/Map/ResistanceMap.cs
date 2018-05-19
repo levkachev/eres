@@ -1,7 +1,7 @@
 ﻿using FluentNHibernate.Mapping;
-using ORM.Energy.Entities;
+using ORM.Energies.Entities;
 
-namespace ORM.Energy.Map
+namespace ORM.Energies.Map
 {
     /// <summary>
     /// Сопротивление фидера
@@ -14,10 +14,8 @@ namespace ORM.Energy.Map
             Id(x => x.ID);
             Map(x => x.Length).Not.Nullable();
             Map(x => x.Square).Not.Nullable();
-            Map(x => x.Count).Not.Nullable();
-            
-            References(x => x.Type_Resistance);
-
+            Map(x => x.Count).Not.Nullable();         
+            References(x => x.ResistanceType).Column(@"Type_Resistance");
             References(x => x.Feeder);
         }
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ORM.Base;
-using ORM.Energy.Entities;
+using ORM.Energies.Entities;
 
 namespace ORM.Energies.Repository
 {
@@ -16,57 +16,28 @@ namespace ORM.Energies.Repository
         /// </summary>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
-        public static PowerSupplyStationRepository GetInstance()
-        {
-            return GetInstance<PowerSupplyStationRepository>(SessionWrapper.GetInstance().Factory);
-        }
+        public static PowerSupplyStationRepository GetInstance() => GetInstance<PowerSupplyStationRepository>(SessionWrapper.GetInstance().Factory);
 
 
+        /// <inheritdoc />
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
-        public PowerSupplyStation GetPowerSupplyStation(String aPowerSupplyStationName)
-        {
-            return GetAll()
-                .SingleOrDefault(s => s.Name == aPowerSupplyStationName);
-        }
+        /// <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
+        public override PowerSupplyStation GetByName(String powerSupplyStationName) => GetAll().SingleOrDefault(s => s.Name == powerSupplyStationName);
 
         /// <summary>
         /// </summary>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Параметр <paramref name="source" /> имеет значение null.</exception>
-        public IList<String> GetPowerSupplyStationNames()
-        {
-            return GetAll()
-                .Select(s => s.Name)
-                .ToList();
-        }
+        public IList<String> GetPowerSupplyStationNames() => GetAll().Select(s => s.Name).ToList();
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public PowerSupplyStation GetPowerSupplyStationId(Guid id)
-        {
-            return GetById(id);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
-        public Guid GetIDByName(String name)
-        {
-            var tmp = GetAll()
-                .SingleOrDefault(tr => tr.Name == name);
-            if (tmp == null)
-                throw new ArgumentOutOfRangeException(paramName: nameof(name));
-            return tmp.ID;
-        }
+        public PowerSupplyStation GetPowerSupplyStationId(Guid id) => GetById(id);
 
         /// <summary>
         /// Подстанция для выбранной линии по наименованию подстанции

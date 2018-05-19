@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TrainMovement.Interpolation.Rusi4.BaseModeControl">
+    <Position X="5.75" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAgECgAAAAAABAhAAgIAgAAAAgCAgAA=</HashCode>
+      <FileName>Interpolation\Rusi4\BaseModeControl.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TrainMovement.Interpolation.Rusi4.Break1">
+    <Position X="2" Y="7.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Interpolation\Rusi4\Break1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TrainMovement.Interpolation.Rusi4.Break2">
+    <Position X="4" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interpolation\Rusi4\Break2.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TrainMovement.Interpolation.Rusi4.Break3">
+    <Position X="5.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interpolation\Rusi4\Break3.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TrainMovement.Interpolation.Rusi4.BreakAverage">
+    <Position X="7.5" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAABAAAAgAAAAAAAgAAAAA=</HashCode>
+      <FileName>Interpolation\Rusi4\BreakAverage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TrainMovement.Interpolation.Rusi4.Inert">
+    <Position X="9.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAgAAAAAABAgAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Interpolation\Rusi4\Inert.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TrainMovement.Interpolation.Rusi4.Pull1">
+    <Position X="10.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interpolation\Rusi4\Pull1.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TrainMovement.Interpolation.Rusi4.Pull2">
+    <Position X="12.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interpolation\Rusi4\Pull2.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TrainMovement.Interpolation.Rusi4.Pull3">
+    <Position X="14.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interpolation\Rusi4\Pull3.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TrainMovement.Interpolation.Rusi4.Pull4">
+    <Position X="16" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interpolation\Rusi4\Pull4.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TrainMovement.Interpolation.Rusi4.BasePull">
+    <Position X="11.25" Y="4.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAgAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Interpolation\Rusi4\BasePull.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TrainMovement.Interpolation.Rusi4.BaseBreak">
+    <Position X="5.75" Y="5.5" Width="1.5" />
+    <InheritanceLine Type="TrainMovement.Interpolation.Rusi4.BaseModeControl" ManuallyRouted="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.125" Y="4.814" />
+        <Point X="7.125" Y="5.5" />
+        <Point X="7.25" Y="5.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAgAAAAAAAAgAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Interpolation\Rusi4\BaseBreak.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="TrainMovement.ModeControl.IModeControl" Collapsed="true">
+    <Position X="2.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAgAAAAAAAAgAAgAAAAAAAgAAgAA=</HashCode>
+      <FileName>ModeControl\IModeControl.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TrainMovement.ModeControl.IRecuperationBreak" Collapsed="true">
+    <Position X="7.75" Y="14.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModeControl\IRecuperationBreak.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TrainMovement.ModeControl.IAverageBreak" Collapsed="true">
+    <Position X="5.5" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModeControl\IAverageBreak.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TrainMovement.ModeControl.IBreak" Collapsed="true">
+    <Position X="2.5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModeControl\IBreak.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TrainMovement.ModeControl.IInert" Collapsed="true">
+    <Position X="4.75" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModeControl\IInert.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TrainMovement.ModeControl.IPull" Collapsed="true">
+    <Position X="0.5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModeControl\IPull.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

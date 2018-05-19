@@ -1,10 +1,7 @@
 ﻿namespace TrainMovement.ModeControl
 {
     /// <summary>
-    /// Тяга
+    /// Marker interface — "Тяга".
     /// </summary>
-    public interface IPull
-    {
-        
-    }
+    public interface IPull { }
 }

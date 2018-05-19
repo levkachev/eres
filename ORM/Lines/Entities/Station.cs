@@ -10,12 +10,13 @@ namespace ORM.Lines.Entities
     /// <summary>
     /// Станция
     /// </summary>
-    public class Station : Entity<Station>
+    public class Station : NamedEntity<Station>
     {
+        /// <inheritdoc />
         /// <summary>
-        /// наименование
+        /// Название станции
         /// </summary>
-        public virtual String Name { get; set; }
+        public override String Name { get; protected set; }
 
         /// <summary>
         /// пикетаж 
@@ -30,15 +31,12 @@ namespace ORM.Lines.Entities
         /// <summary>
         /// линия
         /// </summary>
-        public virtual Line Line{ get; set; }
+        public virtual Line Line { get; set; }
 
-        //  public virtual Stage Departure { get; set; }
-        //   public virtual Stage Arrival { get; set; }
-
-        public override String ToString()
-        {
-            return $" {Name} {Piketage}";
-//{Departure} {Arrival}";
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override String ToString() => $" {Name} {Piketage}";
     }
 }

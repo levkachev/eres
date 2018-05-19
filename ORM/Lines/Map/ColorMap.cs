@@ -10,10 +10,10 @@ namespace ORM.Lines.Map
     {
         public ColorMap()
         {
-            Table("Line.Color");
+            Table(@"Line.Color");
             Id(x => x.ID);
-            Map(x => x.Colors).Length(45).Not.Nullable();
-            Map(x => x.RGBvalue);
+            Map(x => x.Name).Column(@"Colors").Length(45).Not.Nullable();
+            Map(x => x.RGB).Column(@"RGBvalue");
             References(x => x.Line);
         }
     }

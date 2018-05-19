@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using ORM.Helpers;
+using ORM.OldHelpers;
 using ORM.Lines.Entities;
 using ORM.Stageis.Repository;
 using ORM.Stageis.Repository.Limits;
@@ -18,7 +17,7 @@ namespace TrainMovement.Stage
         /// <summary>
         /// Ссылка на брокер событий
         /// </summary>
-        private EventBroker broker;
+        private readonly EventBroker broker;
 
         /// <summary>
         /// Список всех ограничений
@@ -46,26 +45,16 @@ namespace TrainMovement.Stage
         /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
         internal IEnumerable<ILimits> Limits
         {
-            get { return limits; }
-            private set
-            {
-                if (value == null)
-                    throw new ArgumentNullException(nameof(value));
-
-                limits = new List<ILimits>(value);
-            }
+            get => limits;
+            private set => limits = new List<ILimits>(value);
         }
 
         /// <summary>
+        /// Перегон
         /// </summary>
-        /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
         public Guid CurrentStage {
-            get { return current; }
-            private set
-            {
-                if (value == null) throw new ArgumentNullException(nameof(value));
-                current = value;
-            }
+            get => current;
+            private set => current = value;
         }
 
         /// <summary>
@@ -74,12 +63,9 @@ namespace TrainMovement.Stage
         /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
         public Track TrackNumber
         {
-            get { return trackNumber; }
-            private set
-            {
-                if (value == null) throw new ArgumentNullException(nameof(value));
-                trackNumber = value;
-            }
+            // УГРИ НЕГОДУЭ!!!
+            get => trackNumber;
+            private set => trackNumber = value ?? throw new ArgumentNullException(nameof(TrackNumber));
         }
 
         ///<summary>
@@ -88,10 +74,11 @@ namespace TrainMovement.Stage
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">Condition.</exception>
         public Double StageLength
         {
-            get { return stageLength; }
+            get => stageLength;
             private set
             {
-                if (value < 0) throw new ArgumentOutOfRangeException(nameof(value));
+                if (value < 0)
+                    throw new ArgumentOutOfRangeException(nameof(StageLength));
                 stageLength = value;
             }
         }
@@ -116,7 +103,7 @@ namespace TrainMovement.Stage
         {
             var stageRepository = StageRepository.GetInstance();
             var track = stageRepository.GetTrack(stage);
-            var length = stageRepository.GetStageLenght(stage);
+            var length = stageRepository.GetStageLength(stage);
             
 
             var limits = stageRepository.GetAllLimitsForStage(stage);
@@ -134,9 +121,9 @@ namespace TrainMovement.Stage
         {
             var stageRepository = StageRepository.GetInstance();
             var track = stageRepository.GetTrack(stage);
-            var length = stageRepository.GetStageLenght(stage);
-            var departer = stageRepository.GetDepartureByIDStage(stage);
-            var arrival = stageRepository.GetArrivalByIdStage(stage);
+            var length = stageRepository.GetStageLength(stage);
+            var departer = stageRepository.GetDepartureByStageId(stage);
+            var arrival = stageRepository.GetArrivalByStageId(stage);
 
             var limits = stageRepository.GetLimitsWithoutASRStage(stage);
             return new StationToStationBlock(limits, stage, track, length, broker);
@@ -150,33 +137,25 @@ namespace TrainMovement.Stage
         /// <exception cref="ArgumentNullException">value is <see langword="null"/></exception>
         /// <exception cref="InvalidOperationException">Исходная последовательность пуста.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
-        public Double GetMaxVelocity(Double space)
-        {
-            return Limits.OfType<AllVelocityLimits>().First().GetLimit(space);
-        }
+        public Double GetMaxVelocity(Double space) => Limits.OfType<AllVelocityLimits>().First().GetLimit(space);
 
         /// <summary>
         /// По заданной координате головы  и хвоста возвращает ограничения от уклонов и кривых
         /// </summary>
-        /// <param name="space"></param>
+        /// <param name="head"></param>
+        /// <param name="tail"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Параметр <paramref name="source" /> имеет значение null.</exception>
         /// <exception cref="NotImplementedException">Condition.</exception>
         /// <exception cref="InvalidOperationException">Исходная последовательность пуста.</exception>
-        private IEnumerable<Limit> GetAdditionalLimits(Double head, Double tail)
-        {
-            return Limits.OfType<ReliefLimits>().First().GetReliefLimitsIn(head, tail);
-        }
+        private IEnumerable<Limit> GetAdditionalLimits(Double head, Double tail) => Limits.OfType<ReliefLimits>().First().GetReliefLimitsIn(head, tail);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="head"></param>
         /// <returns></returns>
-        private Limit GetFirstAdditionalLimits(Double head)
-        {
-            return Limits.OfType<ReliefLimits>().First().GetFirstLimit(head);
-        }
+        private Limit GetFirstAdditionalLimits(Double head) => Limits.OfType<ReliefLimits>().First().GetFirstLimit(head);
 
 
         /// <summary>
@@ -187,10 +166,7 @@ namespace TrainMovement.Stage
         /// <exception cref="InvalidOperationException">Исходная последовательность пуста.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
         /// <exception cref="ArgumentNullException">Параметр <paramref name="source" /> имеет значение null.</exception>
-        public Double GetAerodynamicFactor(Double space)
-        {
-            return Limits.OfType<OpenLimits>().First().GetLimit(space);
-        }
+        public Double GetAerodynamicFactor(Double space) => Limits.OfType<OpenLimits>().First().GetLimit(space);
 
         /// <summary>
         /// Возвращает возможность ехать в тяге (тормозе). Ехать можно в тяге, если поезд не на токоразделе. Метод возвращает true(1). Когда координата совпадает с токоразделом, метод возвращает false(0).
@@ -200,27 +176,17 @@ namespace TrainMovement.Stage
         /// <exception cref="ArgumentNullException">value is <see langword="null"/></exception>
         /// <exception cref="InvalidOperationException">Исходная последовательность пуста.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
-        public Boolean CanPull(Double space)
-        {
-            var tmp = Limits.OfType<CurrentBlockLimits>().First().GetLimit(space);
-            return MathHelper.IsEqual(1, tmp);
-        }
+        public Boolean CanPull(Double space) => Limits.OfType<CurrentBlockLimits>().First().GetLimit(space).IsEqual(1);
 
         /// <exception cref="ArgumentNullException">Параметр <paramref name="source" /> имеет значение null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
         /// <exception cref="InvalidOperationException">Исходная последовательность пуста.</exception>
-        public Double GetPiketage(Double space)
-        {
-            return Limits.OfType<NMLimits>().First().GetLimit(space);
-        }
+        public Double GetPiketage(Double space) => Limits.OfType<NMLimits>().First().GetLimit(space);
 
         /// <summary>
         /// Подписка на брокер событий
         /// </summary>
-        public void Listen()
-        {
-            broker.Subscribe(new EventHandler(OnTrainChangingSpace));
-        }
+        public void Listen() => broker.Subscribe(new EventHandler(OnTrainChangingSpace));
 
         /// <summary>
         /// 
@@ -229,14 +195,14 @@ namespace TrainMovement.Stage
         /// <param name="e"></param>
         private void OnTrainChangingSpace(Object sender, EventArgs e)
         {
-            var train = sender as BaseTrain;
-            if (train == null || train.CurrentStage != CurrentStage)
+            if (!(sender is BaseTrain train) || train.CurrentStage != CurrentStage)
                 return;
+
             var space = train.Space;
             train.SpacePiketage = GetPiketage(space);
             train.CanPullOrBreak = CanPull(space);
             
-            var trainLength = train.CarLength*train.NumberCars;
+            var trainLength = train.CarLength * train.NumberCars;
             train.ForceAdditionalResistance = GetAdditionalResistance(space, trainLength);
             train.FactorOfOpenStage = GetAerodynamicFactor(space);
             train.MaxVelocity = GetMaxVelocity(space);
@@ -250,7 +216,6 @@ namespace TrainMovement.Stage
             var releifLimits = GetAdditionalLimits(head, tail).ToList();
             if (releifLimits.Any())
             {
-                
                 firstLimit = releifLimits.First();
                 foreach (var limit in releifLimits)
                 {

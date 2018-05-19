@@ -28,17 +28,15 @@ namespace ORM.Trains.Repository.Machine
         private Double disassemblyPowerCircuitTime;
 
         /// <summary>
+        /// Название модели подвижного состава.
         /// </summary>
-        /// <exception cref="ArgumentNullException" accessor="set"><paramref name="value"/> is <see langword="null"/></exception>
-        /// <exception cref="ArgumentOutOfRangeException" accessor="set"><paramref name="value"/> length is zero.</exception>
+        /// <exception cref="ArgumentOutOfRangeException" accessor="set"><paramref name="value"/> is <see langword="null"/>, empty string or string full of whitespaces.</exception>
         public String Name
         {
-            get { return name; }
+            get => name;
             protected set
             {
-                if (value == null)
-                    throw new ArgumentNullException(paramName: nameof(value));
-                if (value.Trim().Length == 0)
+                if (String.IsNullOrEmpty(value) || String.IsNullOrWhiteSpace(value))
                     throw new ArgumentOutOfRangeException(paramName: nameof(value));
                 name = value;
             }
@@ -50,8 +48,8 @@ namespace ORM.Trains.Repository.Machine
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
         public Double AssemblyPullTime
         {
-            get { return assemblyPullTime; }
-            protected set
+            get => assemblyPullTime;
+            set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -65,8 +63,8 @@ namespace ORM.Trains.Repository.Machine
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
         public Double AssemblyBreakTime
         {
-            get { return assemblyBreakTime; }
-            private set
+            get => assemblyBreakTime;
+            set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -80,8 +78,8 @@ namespace ORM.Trains.Repository.Machine
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
         public Double DisassemblyPowerCircuitTime
         {
-            get { return disassemblyPowerCircuitTime; }
-            private set
+            get => disassemblyPowerCircuitTime;
+            set
             {
                 if (value < 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
@@ -108,6 +106,6 @@ namespace ORM.Trains.Repository.Machine
         /// <summary>
         /// 
         /// </summary>
-        public BaseMachine() { }
+        protected BaseMachine() { }
     }
 }

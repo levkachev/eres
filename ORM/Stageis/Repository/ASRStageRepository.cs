@@ -6,8 +6,8 @@ using ORM.Stageis.Entities;
 
 namespace ORM.Stageis.Repository
 {
+    /// <inheritdoc />
     /// <summary>
-    /// 
     /// </summary>
     public class ASRStageRepository : Repository<ASRStage>
     {
@@ -15,19 +15,23 @@ namespace ORM.Stageis.Repository
         /// </summary>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
-        public static ASRStageRepository GetInstance()
-        {
-            return GetInstance<ASRStageRepository>(SessionWrapper.GetInstance().Factory);
-        }
+        public static ASRStageRepository GetInstance() => GetInstance<ASRStageRepository>(SessionWrapper.GetInstance().Factory);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="stage"></param>
+        /// <param name="stageId"></param>
         /// <returns></returns>
-        public IEnumerable<ASRStage> GetLimits(Guid stage)
+        public IEnumerable<ASRStage> GetLimits(Guid stageId) => GetAll().Where(st => st.Stage.ID == stageId);
+
+        /// <inheritdoc />
+        /// <summary>
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public override ASRStage GetByName(String name)
         {
-            return GetAll().Where(st => st.Stage.ID == stage);
+            throw new NotImplementedException();
         }
     }
 }

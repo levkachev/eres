@@ -9,7 +9,7 @@ namespace TrainMovement.ModeControl
     public interface IResistance
     {
         /// <summary>
-        /// Расчет дополнительного сопотивления
+        /// Расчёт дополнительного сопотивления
         /// </summary>
         /// <param name="train"></param>
         /// <returns></returns>

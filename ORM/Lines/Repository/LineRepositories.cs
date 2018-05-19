@@ -2,98 +2,82 @@
 using System.Collections.Generic;
 using System.Linq;
 using ORM.Base;
-using ORM.Energy.Entities;
+using ORM.Energies.Entities;
 using ORM.Lines.Entities;
-using ORM.Stageis.Entities;
 
 namespace ORM.Lines.Repository
 {
+    /// <inheritdoc />
     /// <summary>
-    /// 
+    /// Хранилище линий.
     /// </summary>
     public class LineRepository : Repository<Line>
-
     {
         /// <summary>
+        /// Метод получения объекта хранилища для взаимодействия с ним.
         /// </summary>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
-        public static LineRepository GetInstance()
+        public static LineRepository GetInstance() => GetInstance<LineRepository>(SessionWrapper.GetInstance().Factory);
+
+        /// <summary>
+        /// Метод, извлекающий из хранилища коллекцию названий всех хранимых линий.
+        /// </summary>
+        /// <returns></returns>
+        public IList<String> GetAllLineNames() => GetAll().Select(s => s.Name).ToList();
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Метод, извлекающий из хранилища линию по её уникальному названию.
+        /// </summary>
+        /// <param name="lineName">Уникальное название линии.</param>
+        /// <returns>Линия с названием <paramref name="lineName" /> или <see langword="null" />.</returns>
+        public override Line GetByName(String lineName) => GetAll().SingleOrDefault(line => line.Name == lineName);
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Метод, извлекающий из хранилища код (<see cref="Guid"/>) объекта по его (объекта) наименованию.
+        /// </summary>
+        /// <param name="lineName">Уникальное название линии.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"/>
+        public override Guid GetIdByName(String lineName)
         {
-            return GetInstance<LineRepository>(SessionWrapper.GetInstance().Factory);
+            try
+            {
+                return base.GetIdByName(lineName);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                throw new ArgumentException($"Линия с именем \"{lineName}\" не найдена!", nameof(lineName));
+            }
         }
 
         /// <summary>
-        /// 
+        /// Метод, извлекающий коллекцию всех тяговых подстанций, обслуживающих линию с именем <paramref name="lineName"/>.
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="lineName">Уникальное название линии.</param>
         /// <returns></returns>
-       public ORM.Lines.Entities.Line GetLineId(Guid Id)
-       {
-           return GetById(Id);
-       }
+        /// <exception cref="ArgumentException"/>
+        public IEnumerable<PowerSupplyStation> GetAllPowerSupplyStations(String lineName) => 
+            GetByName(lineName)?.PowerSupplyStations ?? throw new ArgumentException($"Линия с именем \"{lineName}\" не найдена!", nameof(lineName));
 
         /// <summary>
+        /// Метод, извлекающий коллекцию всех путей, принадлежащих линии с именем <paramref name="lineName"/>.
         /// </summary>
+        /// <param name="lineName">Уникальное название линии.</param>
         /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="selector" /> — null.</exception>
-        public IList<String> GetLineByName()
-        {
-            return GetAll()
-                .Select(s => s.Name)
-                .ToList();
-        }
+        /// <exception cref="ArgumentException"/>
+        public IEnumerable<Track> GetAllTrack(String lineName) => 
+            GetByName(lineName)?.Tracks ?? throw new ArgumentException($"Линия с именем \"{lineName}\" не найдена!", nameof(lineName));
 
         /// <summary>
+        /// Метод, извлекающий коллекцию всех станций, принадлежащих линии с именем <paramref name="lineName"/>.
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="lineName">Уникальное название линии.</param>
         /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
-        public Guid GetIDByName(String name)
-        {
-            var tmp = GetAll()
-                .SingleOrDefault(tr => tr.Name == name);
-            if (tmp == null)
-                throw new ArgumentOutOfRangeException(paramName: nameof(name));
-            return tmp.ID;
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="lineName"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
-        public IEnumerable<PowerSupplyStation> GetAllPowerSupplyStations(String lineName)
-        {
-            var tmp = GetAll()
-                .SingleOrDefault(line => line.Name.Equals(lineName));
-            return tmp.PowerSupplyStations;
-        }
-
-        public IEnumerable<Track> GetAllTrack(String lineName)
-        {
-            var tmp = GetAll()
-               .SingleOrDefault(line => line.Name.Equals(lineName));
-            return tmp.Tracks;
-        }
-
-        /// <summary>
-        /// показать для станции имя и пикетаж
-        /// </summary>
-        /// <param name="lineName"></param>
-        /// <returns></returns>
-        public IEnumerable<Station> GetAllStation(String lineName)
-        {
-            var tmp = GetAll()
-               .SingleOrDefault(line => line.Name.Equals(lineName));
-            return tmp.Stations;
-        }
-
-     
-
-
-
-    }
-    
+        /// <exception cref="ArgumentException"/>
+        public IEnumerable<Station> GetAllStation(String lineName) => 
+            GetByName(lineName)?.Stations ?? throw new ArgumentException($"Линия с именем \"{lineName}\" не найдена!", nameof(lineName));
+    } 
 }

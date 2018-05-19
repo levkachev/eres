@@ -13,22 +13,20 @@ namespace ORM.Stageis.Entities
         /// </summary>
         public virtual Double Start { get; set; }
 
-
         /// <summary>
         /// Конец
         /// </summary>
         public virtual Double Finish { get; set; }
-
 
         /// <summary>
         /// 
         /// </summary>
         public virtual Stage Stage { get; set; }
 
-        public override String ToString()
-        {
-            return $" {Start} {Finish} ";
-
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override String ToString() => $" {Start} {Finish} ";
     }
 }

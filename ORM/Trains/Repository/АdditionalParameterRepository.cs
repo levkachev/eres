@@ -18,10 +18,7 @@ namespace ORM.Trains.Repository
         /// </summary>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
-        internal static АdditionalParameterRepository GetInstance()
-        {
-            return GetInstance<АdditionalParameterRepository>(SessionWrapper.GetInstance().Factory);
-        }
+        internal static АdditionalParameterRepository GetInstance() => GetInstance<АdditionalParameterRepository>(SessionWrapper.GetInstance().Factory);
 
         /// <summary>
         /// Достает из БД все записи из таблицы Дополнительные параметры
@@ -39,8 +36,8 @@ namespace ORM.Trains.Repository
         public static ACParameters GetACTrainParametres(String trainName)
         {
             var repository = GetInstance();
-            var baseTrainParameters = repository.GetTrainBaseParametres(trainName);
-            var nbAuto = repository.GetAdditionalParametresByTrainName(trainName).nbAuto;
+            var baseTrainParameters = repository.GetTrainBaseParameters(trainName);
+            var nbAuto = repository.GetAdditionalParametersByTrainName(trainName).nbAuto;
             var acTrainParameters = new ACParameters(baseTrainParameters, nbAuto);
             return acTrainParameters;
         }
@@ -49,15 +46,7 @@ namespace ORM.Trains.Repository
         /// </summary>
         /// <param name="trainName"></param>
         /// <returns></returns>
-        public static DCParametres GetDCTrainParametres(String trainName)
-        {
-            var repository = GetInstance();
-
-            var baseTrainParametres = repository.GetTrainBaseParametres(trainName);
-            var dcTrainParametres = (DCParametres)baseTrainParametres;
-
-            return dcTrainParametres;
-        }
+        public static DCParameters GetDCTrainParameters(String trainName) => GetInstance().GetTrainBaseParameters(trainName) as DCParameters;
 
 
         /// <summary>
@@ -71,19 +60,19 @@ namespace ORM.Trains.Repository
             #region Old code
             //var repository = GetInstance();
 
-            //var baseMachine = repository.GetBaseMachineParametres(trainName);
+            //var baseMachine = repository.GetBaseMachineParameters(trainName);
 
             //var acMachine = baseMachine as ACMachine;
             //if (acMachine == null)
             //    throw new InvalidCastException();
 
-            //acMachine.Umax = repository.GetAdditionalParametresByTrainName(trainName).Umax;
-            //acMachine.Unominal = repository.GetAdditionalParametresByTrainName(trainName).Unom;
+            //acMachine.Umax = repository.GetAdditionalParametersByTrainName(trainName).Umax;
+            //acMachine.Unominal = repository.GetAdditionalParametersByTrainName(trainName).Unom;
 
             // return acMachine;
             #endregion
 
-            return new ACMachine(GetInstance().GetAdditionalParametresByTrainName(trainName));
+            return new ACMachine(GetInstance().GetAdditionalParametersByTrainName(trainName));
         }
 
 
@@ -99,50 +88,50 @@ namespace ORM.Trains.Repository
         {
             var repository = АdditionalParameterRepository.GetInstance();
 
-            var baseMachine = repository.GetBaseMachineParametres(trainName);
+            var baseMachine = repository.GetBaseMachineParameters(trainName);
 
             var dcMachine = (DCMachine)baseMachine;
-            dcMachine.WeakPull2 = repository.GetAdditionalParametresByTrainName(trainName).WeakPull2;
+            dcMachine.WeakPull2 = repository.GetAdditionalParametersByTrainName(trainName).WeakPull2;
 
-            dcMachine.PositionPull2 = repository.GetAdditionalParametresByTrainName(trainName).PositionPull2;
+            dcMachine.PositionPull2 = repository.GetAdditionalParametersByTrainName(trainName).PositionPull2;
 
-            dcMachine.ConnectionPull2 = repository.GetAdditionalParametresByTrainName(trainName).ConnectionPull2;
+            dcMachine.ConnectionPull2 = repository.GetAdditionalParametersByTrainName(trainName).ConnectionPull2;
 
-            dcMachine.AssemblyPowerCircuitTime = repository.GetAdditionalParametresByTrainName(trainName).AssemblyPowerCircuitTime;
+            dcMachine.AssemblyPowerCircuitTime = repository.GetAdditionalParametersByTrainName(trainName).AssemblyPowerCircuitTime;
 
-            dcMachine.DisassemblyPowerCircuitTime = repository.GetAdditionalParametresByTrainName(trainName).DisassemblyPowerCircuitTime;
+            dcMachine.DisassemblyPowerCircuitTime = repository.GetAdditionalParametersByTrainName(trainName).DisassemblyPowerCircuitTime;
 
-            dcMachine.AssemblyPullTime = repository.GetAdditionalParametresByTrainName(trainName).AssemblyPullTime;
+            dcMachine.AssemblyPullTime = repository.GetAdditionalParametersByTrainName(trainName).AssemblyPullTime;
 
-            dcMachine.AssemblyPullResistance = repository.GetAdditionalParametresByTrainName(trainName).AssemblyPullResistance;
+            dcMachine.AssemblyPullResistance = repository.GetAdditionalParametersByTrainName(trainName).AssemblyPullResistance;
 
-            dcMachine.AssemblyBreakTime = repository.GetAdditionalParametresByTrainName(trainName).AssemblyBreakTime;
+            dcMachine.AssemblyBreakTime = repository.GetAdditionalParametersByTrainName(trainName).AssemblyBreakTime;
 
-            dcMachine.AssemblyBreakResistance = repository.GetAdditionalParametresByTrainName(trainName).AssemblyBreakResistance;
+            dcMachine.AssemblyBreakResistance = repository.GetAdditionalParametersByTrainName(trainName).AssemblyBreakResistance;
 
-            dcMachine.AnchorResistance = repository.GetAdditionalParametresByTrainName(trainName).AnchorResistance;
+            dcMachine.AnchorResistance = repository.GetAdditionalParametersByTrainName(trainName).AnchorResistance;
 
-            dcMachine.MainPoleResistance = repository.GetAdditionalParametresByTrainName(trainName).MainPoleResistance;
+            dcMachine.MainPoleResistance = repository.GetAdditionalParametersByTrainName(trainName).MainPoleResistance;
 
-            dcMachine.ComPolesResistance = repository.GetAdditionalParametresByTrainName(trainName).CompolesResistance;
+            dcMachine.ComPolesResistance = repository.GetAdditionalParametersByTrainName(trainName).CompolesResistance;
 
-            dcMachine.AutoModeFactor1 = repository.GetAdditionalParametresByTrainName(trainName).AutomodeFactor1;
+            dcMachine.AutoModeFactor1 = repository.GetAdditionalParametersByTrainName(trainName).AutoModeFactor1;
 
-            dcMachine.AutoModeFactor2 = repository.GetAdditionalParametresByTrainName(trainName).AutomodeFactor2;
+            dcMachine.AutoModeFactor2 = repository.GetAdditionalParametersByTrainName(trainName).AutoModeFactor2;
 
-            dcMachine.ExcitationTimeFactor1 = repository.GetAdditionalParametresByTrainName(trainName).ExcitationTimeFactor1;
+            dcMachine.ExcitationTimeFactor1 = repository.GetAdditionalParametersByTrainName(trainName).ExcitationTimeFactor1;
 
-            dcMachine.ExcitationTimeFactor2 = repository.GetAdditionalParametresByTrainName(trainName).ExcitationTimeFactor2;
+            dcMachine.ExcitationTimeFactor2 = repository.GetAdditionalParametersByTrainName(trainName).ExcitationTimeFactor2;
 
-            dcMachine.ExcitationTimeFactor3 = repository.GetAdditionalParametresByTrainName(trainName).ExcitationTimeFactor3;
+            dcMachine.ExcitationTimeFactor3 = repository.GetAdditionalParametersByTrainName(trainName).ExcitationTimeFactor3;
 
-            dcMachine.MaxExcitationTime = repository.GetAdditionalParametresByTrainName(trainName).MaxExcitationTime;
+            dcMachine.MaxExcitationTime = repository.GetAdditionalParametersByTrainName(trainName).MaxExcitationTime;
 
-            dcMachine.LowAutoModeRange = repository.GetAdditionalParametresByTrainName(trainName).LowAutoModeRange;
+            dcMachine.LowAutoModeRange = repository.GetAdditionalParametersByTrainName(trainName).LowAutoModeRange;
 
-            dcMachine.HighAutoModeRange = repository.GetAdditionalParametresByTrainName(trainName).HighAutoModeRange;
+            dcMachine.HighAutoModeRange = repository.GetAdditionalParametersByTrainName(trainName).HighAutoModeRange;
 
-            dcMachine.LinearGrowCurrentTime = repository.GetAdditionalParametresByTrainName(trainName).LinearGrowCurrentTime;
+            dcMachine.LinearGrowCurrentTime = repository.GetAdditionalParametersByTrainName(trainName).LinearGrowCurrentTime;
 
             return dcMachine;
         }
@@ -152,11 +141,11 @@ namespace ORM.Trains.Repository
         /// </summary>
         /// <param name="trainName"></param>
         /// <returns></returns>
-        private BaseMachine GetBaseMachineParametres(String trainName)
+        private BaseMachine GetBaseMachineParameters(String trainName)
         {
-            var assemblyPullTime = GetAdditionalParametresByTrainName(trainName).AssemblyPullTime;
-            var disassemblyPowerCircuitTime = GetAdditionalParametresByTrainName(trainName).AssemblyBreakResistance;
-            var assemblyBreakTime = GetAdditionalParametresByTrainName(trainName).AssemblyBreakTime;
+            var assemblyPullTime = GetAdditionalParametersByTrainName(trainName).AssemblyPullTime;
+            var disassemblyPowerCircuitTime = GetAdditionalParametersByTrainName(trainName).AssemblyBreakResistance;
+            var assemblyBreakTime = GetAdditionalParametersByTrainName(trainName).AssemblyBreakTime;
 
             return new BaseMachine(disassemblyPowerCircuitTime, assemblyBreakTime, assemblyPullTime, trainName);
         }
@@ -166,33 +155,33 @@ namespace ORM.Trains.Repository
         /// </summary>
         /// <param name="trainName"></param>
         /// <returns></returns>
-        private BaseTrainParametres GetTrainBaseParametres(String trainName)
+        private BaseTrainParameters GetTrainBaseParameters(String trainName)
         {
-            var carLength = GetAdditionalParametresByTrainName(trainName).CarLength;
+            var carLength = GetAdditionalParametersByTrainName(trainName).CarLength;
 
-            var unladenWeight = GetAdditionalParametresByTrainName(trainName).UnladenWeight;
+            var unladenWeight = GetAdditionalParametersByTrainName(trainName).UnladenWeight;
 
-            var numberCars = GetAdditionalParametresByTrainName(trainName).NumberCars;
+            var numberCars = GetAdditionalParametersByTrainName(trainName).NumberCars;
 
-            var breakAverage = GetAdditionalParametresByTrainName(trainName).BAverage;
+            var breakAverage = GetAdditionalParametersByTrainName(trainName).BAverage;
 
-            var netResistencePullFactor = GetAdditionalParametresByTrainName(trainName).NetResistencePullFactor;
+            var netResistencePullFactor = GetAdditionalParametersByTrainName(trainName).NetResistencePullFactor;
 
-            var aerodynamicDragFactor = GetAdditionalParametresByTrainName(trainName).AerodynamicDragFactor;
+            var aerodynamicDragFactor = GetAdditionalParametersByTrainName(trainName).AerodynamicDragFactor;
 
-            var netResistenceCoastingFactor1 = GetAdditionalParametresByTrainName(trainName).NetResistenceCoastingFactor1;
+            var netResistenceCoastingFactor1 = GetAdditionalParametersByTrainName(trainName).NetResistanceCoastingFactor1;
 
-            var netResistenceCoastingFactor2 = GetAdditionalParametresByTrainName(trainName).NetResistenceCoastingFactor2;
+            var netResistenceCoastingFactor2 = GetAdditionalParametersByTrainName(trainName).NetResistanceCoastingFactor2;
 
-            var netResistenceCoastingFactor3 = GetAdditionalParametresByTrainName(trainName).NetResistenceCoastingFactor3;
+            var netResistenceCoastingFactor3 = GetAdditionalParametersByTrainName(trainName).NetResistanceCoastingFactor3;
 
-            var trainEqvivalentSurface = GetAdditionalParametresByTrainName(trainName).TrainEqvivalentSurface;
+            var trainEqvivalentSurface = GetAdditionalParametersByTrainName(trainName).TrainEquivalentSurface;
 
-            var inertiaRotationFactor = GetAdditionalParametresByTrainName(trainName).InertiaRotationFactor;
+            var inertiaRotationFactor = GetAdditionalParametersByTrainName(trainName).InertiaRotationFactor;
 
-            var ownNeedsElectricPower = GetAdditionalParametresByTrainName(trainName).OwnNeedsElectricPower;
+            var ownNeedsElectricPower = GetAdditionalParametersByTrainName(trainName).OwnNeedsElectricPower;
 
-            return new BaseTrainParametres (numberCars, carLength, unladenWeight, breakAverage, netResistencePullFactor, aerodynamicDragFactor, netResistenceCoastingFactor1, netResistenceCoastingFactor2, netResistenceCoastingFactor3, trainEqvivalentSurface, inertiaRotationFactor, ownNeedsElectricPower, trainName);
+            return new BaseTrainParameters (numberCars, carLength, unladenWeight, breakAverage, netResistencePullFactor, aerodynamicDragFactor, netResistenceCoastingFactor1, netResistenceCoastingFactor2, netResistenceCoastingFactor3, trainEqvivalentSurface, inertiaRotationFactor, ownNeedsElectricPower, trainName);
 
         }
 
@@ -201,9 +190,17 @@ namespace ORM.Trains.Repository
         /// </summary>
         /// <param name="trainName"></param>
         /// <returns></returns>
-        private AdditionalParameter GetAdditionalParametresByTrainName(String trainName)
+        private AdditionalParameter GetAdditionalParametersByTrainName(String trainName) => 
+            GetAll().SingleOrDefault(baseTrain => baseTrain.TrainName.Name == trainName);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public override AdditionalParameter GetByName(String name)
         {
-            return GetAll().SingleOrDefault(baseTrain => baseTrain.TrainName.Name == trainName);
+            throw new NotImplementedException();
         }
     }
 }

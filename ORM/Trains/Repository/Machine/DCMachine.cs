@@ -99,63 +99,10 @@ namespace ORM.Trains.Repository.Machine
         private Int32 weakPull2;
 
         /// <summary>
-        /// 
         /// </summary>
-        private Double disassemblyPowerCircuitTime;
-        /// <summary>
-        /// 
-        /// </summary>
-        private Double assemblyPullTime;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private Double assemblyBreakTime;
-
-
-        /// <summary>
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
-        public Double DisassemblyPowerCircuitTime
-        {
-            get { return disassemblyPowerCircuitTime; }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException(nameof(value));
-                disassemblyPowerCircuitTime = value;
-            }
-        }
-
-        /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
-        public Double AssemblyPullTime
-        {
-            get { return assemblyPullTime; }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException(nameof(value));
-                assemblyPullTime = value;
-            }
-        }
-
-        /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
-        public Double AssemblyBreakTime
-        {
-            get { return assemblyBreakTime; }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException(nameof(value));
-                assemblyBreakTime = value;
-            }
-        }
-
-
-        /// <summary>
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException" accessor="set">value 
-        /// < zero.</exception>
+        /// <exception cref="ArgumentOutOfRangeException" accessor="set">
+        /// value < zero.
+        /// </exception>
         public Double AssemblyPowerCircuitTime
         {
             get { return assemblyPowerCircuitTime; }

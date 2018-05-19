@@ -1,8 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-
-using System.Collections.Generic;
 
 namespace TrainMovement.Stuff
 {
@@ -28,12 +27,12 @@ namespace TrainMovement.Stuff
         /// <exception cref="ArgumentException">Элемент с таким ключом уже существует в <see cref="T:System.Collections.Generic.SortedList`2" />.</exception>
         public static SortedList<TKey, TValue> ToSortedList<TKey, TValue>(this IEnumerable<TValue> collection, Func<TValue, TKey> keyExtractor)
         {
+            if (collection is null)
+                throw new ArgumentNullException(nameof(collection));
+
             var result = new SortedList<TKey, TValue>();
             foreach (var item in collection)
-            {
-                var current = item;
-                result.Add(keyExtractor(current), current);
-            }
+                result.Add(keyExtractor(item), item);
             return result;
         }
     }

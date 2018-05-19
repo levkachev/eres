@@ -1,44 +1,34 @@
 ﻿using System;
-using ORM.Helpers;
+using Helpers.Math;
 
 namespace ORM.Stageis.Repository.Limits
 {
+    /// <inheritdoc cref="IComparable{T}" />
     /// <summary>
     /// У перегона имеется несколько типов ограничений, таких как ограничения скорости, профиль, план и т.д
     /// Все эти ограничения вида: координата по пути от начала перегона и значение ограничения.
     /// </summary>
-    public class Limit : IComparable<Limit>
+    public class Limit : IComparable<Limit>, IEquatable<Limit>
     {
         /// <summary>
         /// координата по пути от начала перегона
         /// </summary>
-        private readonly Double space;
+        public Double Space { get; }
 
         /// <summary>
         /// значение ограничения
         /// </summary>
-        private readonly Double value;
-
-        /// <summary>
-        /// координата по пути от начала перегона
-        /// </summary>
-        public Double Space => space;
-
-        /// <summary>
-        /// значение ограничения
-        /// </summary>
-        public Double Value => value;
-
+        public Double Value { get; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="space"></param>
-        /// <param name="aValue"></param>
-        internal Limit(Double space, Double aValue)
+        /// <param name="value"></param>
+        internal Limit(Double space, Double value)
         {
-            this.space = space;
-            value = aValue;
+            Space = space;
+            Value = value;
         }
 
         /// <summary>
@@ -51,10 +41,10 @@ namespace ORM.Stageis.Repository.Limits
             if (ReferenceEquals(lha, rha))
                 return true;
 
-            if (ReferenceEquals(lha, null) || ReferenceEquals(rha, null))
+            if (lha is null || rha is null)
                 return false;
 
-            return Math.Abs(lha.Space - rha.Space) < Double.Epsilon;
+            return lha.Equals(rha);
         }
 
         /// <summary>
@@ -62,10 +52,7 @@ namespace ORM.Stageis.Repository.Limits
         /// <param name="lha"></param>
         /// <param name="rha"></param>
         /// <returns></returns>
-        public static Boolean operator !=(Limit lha, Limit rha)
-        {
-            return !(lha == rha);
-        }
+        public static Boolean operator !=(Limit lha, Limit rha) => !(lha == rha);
 
         /// <summary>
         /// Сравнение двух ограничений одного типа происходит по пути
@@ -73,10 +60,7 @@ namespace ORM.Stageis.Repository.Limits
         /// <param name="lha"></param>
         /// <param name="rha"></param>
         /// <returns></returns>
-        public static Boolean operator >(Limit lha, Limit rha)
-        {
-            return lha.Space > rha.Space;
-        }
+        public static Boolean operator >(Limit lha, Limit rha) => lha.Space > rha.Space;
 
         /// <summary>
         /// Сравнение двух ограничений одного типа происходит по пути
@@ -84,31 +68,23 @@ namespace ORM.Stageis.Repository.Limits
         /// <param name="lha"></param>
         /// <param name="rha"></param>
         /// <returns></returns>
-        public static Boolean operator <(Limit lha, Limit rha)
-        {
-            return lha.Space < rha.Space;
-        }
+        public static Boolean operator <(Limit lha, Limit rha) => lha.Space < rha.Space;
 
         /// <summary>
         /// </summary>
         /// <param name="lha"></param>
         /// <param name="rha"></param>
         /// <returns></returns>
-        public static Boolean operator >=(Limit lha, Limit rha)
-        {
-            return !(lha < rha);
-        }
+        public static Boolean operator >=(Limit lha, Limit rha) => !(lha < rha);
 
         /// <summary>
         /// </summary>
         /// <param name="lha"></param>
         /// <param name="rha"></param>
         /// <returns></returns>
-        public static Boolean operator <=(Limit lha, Limit rha)
-        {
-            return !(lha > rha);
-        }
+        public static Boolean operator <=(Limit lha, Limit rha) => !(lha > rha);
 
+        /// <inheritdoc />
         /// <summary>
         /// Сравнение двух ограничений одного типа происходит по пути
         /// </summary>
@@ -123,15 +99,12 @@ namespace ORM.Stageis.Repository.Limits
             return 0;
         }
 
-        /// <summary>
-        /// Сравнение ограничения с числом с плавающей точкой
-        /// </summary>
-        /// <param name="lha"></param>
-        /// <param name="rha"></param>
-        /// <returns></returns>
-        public static Boolean operator >(Limit lha, Double rha)
+        public Boolean Equals(Limit other)
         {
-            return lha.Space > rha;
+            if (other is null)
+                return false;
+
+            return ReferenceEquals(this, other) || Space.IsEqual(other.Space);
         }
 
         /// <summary>
@@ -140,27 +113,22 @@ namespace ORM.Stageis.Repository.Limits
         /// <param name="lha"></param>
         /// <param name="rha"></param>
         /// <returns></returns>
-        public static Boolean operator <(Limit lha, Double rha)
-        {
-            return lha.Space < rha;
-        }
+        public static Boolean operator >(Limit lha, Double rha) => lha.Space > rha;
+
+        /// <summary>
+        /// Сравнение ограничения с числом с плавающей точкой
+        /// </summary>
+        /// <param name="lha"></param>
+        /// <param name="rha"></param>
+        /// <returns></returns>
+        public static Boolean operator <(Limit lha, Double rha) => lha.Space < rha;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public override Boolean Equals(Object obj)
-        {
-            var tmp = obj as Limit;
-            if (tmp == null)
-                return false;
-
-            if (ReferenceEquals(this, tmp))
-                return true;
-
-            return MathHelper.IsEqual(Space, tmp.Space);
-        }
+        public override Boolean Equals(Object obj) => obj is Limit tmp && Equals(tmp);
 
         /// <summary>
         /// 
@@ -168,12 +136,16 @@ namespace ORM.Stageis.Repository.Limits
         /// <returns></returns>
         public override Int32 GetHashCode()
         {
-            return base.GetHashCode();
+            unchecked
+            {
+                return (Space.GetHashCode() * 397) ^ Value.GetHashCode();
+            }
         }
 
-        public override String ToString()
-        {
-            return $"<space = {Space}; value = {Value}>";
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override String ToString() => $"<space = {Space}; value = {Value}>";
     }
 }

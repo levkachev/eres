@@ -6,7 +6,7 @@ using ORM.Stageis.Entities;
 using ORM.Lines.Entities;
 using ORM.Lines.Repository;
 using ORM.Stageis.Repository.Limits;
-using ORM.Helpers;
+using ORM.OldHelpers;
 
 namespace ORM.Stageis.Repository
 {
@@ -14,135 +14,94 @@ namespace ORM.Stageis.Repository
     /// 
     /// </summary>
     public class StageRepository : Repository<Stage>
-
     {
         /// <summary>
         /// </summary>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
-        public static StageRepository GetInstance()
-        {
-            return GetInstance<StageRepository>(SessionWrapper.GetInstance().Factory);
-        }
+        public static StageRepository GetInstance() => GetInstance<StageRepository>(SessionWrapper.GetInstance().Factory);
 
         /// <summary>
         /// ID перегона по станции отправления и назначения
         /// </summary>
-        /// <param name="arrival"></param>
-        /// <param name="department"></param>
+        /// <param name="arrivalId"></param>
+        /// <param name="departmentId"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">Condition.</exception>
         /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
-        public Guid GetStageByNameStation(Guid arrival, Guid department)
-        {
-            var tmp = GetAll()
-                .Where(st => st.Arrival.ID == arrival)
-                .SingleOrDefault(st => st.Departure.ID == department);
-            if (tmp == null)
-                throw new ArgumentOutOfRangeException(paramName: nameof(arrival));
-            return tmp.ID;
-        }
+        public Guid GetStageByNameStation(Guid arrivalId, Guid departmentId) => 
+            GetAll().SingleOrDefault(st => st.Arrival.ID == arrivalId && st.Departure.ID == departmentId)?.ID 
+            ?? throw new ArgumentOutOfRangeException(paramName: nameof(arrivalId));
 
         /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
-        public Station GetDepartureByIDStage(Guid stage)
-        {
-            return GetAll()
-                .SingleOrDefault(st => st.ID == stage)
-                .Departure;
-        }
+        public Station GetDepartureByStageId(Guid stageId) => GetAll().SingleOrDefault(stage => stage.ID == stageId)?.Departure;
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="stage"></param>
+        /// <param name="stageId"></param>
         /// <returns></returns>
-        public Station GetArrivalByIdStage(Guid stage)
-        {
-            return GetAll()
-                .SingleOrDefault(st => st.ID == stage)
-                .Arrival;
-        }
+        public Station GetArrivalByStageId(Guid stageId) => GetAll().SingleOrDefault(stage => stage.ID == stageId)?.Arrival;
 
         /// <summary>
         /// длина перегона
         /// </summary>
-        /// <param name="stage"></param>
+        /// <param name="stageId"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
-        public Double GetStageLenght(Guid stage)
-        {
-            var tmp = GetAll()
-                .SingleOrDefault(st => st.ID == stage);
-            return tmp.Length;
-        }
+        public Double GetStageLength(Guid stageId) => 
+            GetAll().SingleOrDefault(stage => stage.ID == stageId)?.Length 
+            ?? throw new ArgumentOutOfRangeException($"Illegal stage code ({stageId}).", nameof(stageId));
 
         /// <summary>
         /// показать номер пути для перегона
         /// </summary>
-        /// <param name="stage"></param>
+        /// <param name="stageId"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Значение параметра <paramref name="source" /> или <paramref name="predicate" /> — null.</exception>
-        public Int32 GetStageTrack(Guid stage)
-        {
-            var tmp = GetAll()
-                .SingleOrDefault(st => st.ID == stage);
-            return tmp.Track.Tracks;
-        }
+        public Int32 GetStageTrack(Guid stageId) => 
+            GetAll().SingleOrDefault(stage => stage.ID == stageId)?.Track.Number 
+            ?? throw new ArgumentOutOfRangeException($"Illegal stage code ({stageId}).", nameof(stageId));
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="stage"></param>
+        /// <param name="stageId"></param>
         /// <returns></returns>
-        public Track GetTrack(Guid stage)
-        {
-            return GetAll()
-                .SingleOrDefault(st => st.ID == stage)
-                .Track;
-        }
+        public Track GetTrack(Guid stageId) => GetAll().SingleOrDefault(stage => stage.ID == stageId)?.Track;
 
         /// <summary>
         /// </summary>
-        /// <param name="stage"></param>
+        /// <param name="stageId"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
         /// <exception cref="ArgumentException">Элемент с таким ключом уже существует в <see cref="T:System.Collections.Generic.SortedList`2" />.</exception>
-        public IEnumerable<NMLine> GetNMForStage(Guid stage)
+        public IEnumerable<NMLine> GetNMForStage(Guid stageId)
         {
-            var track = GetTrack(stage);
+            var track = GetTrack(stageId);
             var trackRepository = TrackRepository.GetInstance();
             var nmLines = trackRepository.GetNMForTrack(track);
-            var departer = GetDepartureByIDStage(stage);
-            var arrival = GetArrivalByIdStage(stage);
-            
-            var result = new SortedList<Double, NMLine>();
+            var departure = GetDepartureByStageId(stageId);
+            var arrival = GetArrivalByStageId(stageId);
 
-            result.Add(departer.Piketage, new NMLine
+            var result = new SortedList<Double, NMLine>
             {
-                Length = 100,
-                Piketage = departer.Piketage,
-                Track = track
-            });
+                {
+                    departure.Piketage, new NMLine
+                    {
+                        Length = 100,
+                        Piketage = departure.Piketage,
+                        Track = track
+                    }
+                }
+            };
+
 
             //едем от меньшего к большему
-            var ascDirection = departer.Piketage < arrival.Piketage;
-
-            var predicate = ascDirection
-                ? new Func<NMLine, Boolean>(nm =>
-                    nm.Piketage >= departer.Piketage &&
-                    nm.Piketage <= arrival.Piketage)
-                : new Func<NMLine, Boolean>(nm =>
-                    nm.Piketage <= departer.Piketage &&
-                    nm.Piketage >= arrival.Piketage);
-
-            var tmp = nmLines.Where(predicate).ToList();
-
-            if (!tmp.IsEmpty())
-            {
-                foreach (var nm in tmp)
-                    result.Add(nm.Piketage, nm);
-            }
-            
+            var tmp = GetAllPiketagesBetweenStations(nmLines, departure, arrival);
+            foreach (var nm in tmp)
+                result.Add(nm.Piketage, nm);
+      
             result.Add(arrival.Piketage, new NMLine
             {
                 Length = 100,
@@ -150,9 +109,19 @@ namespace ORM.Stageis.Repository
                 Track = track
             });
 
-            return arrival.Piketage < departer.Piketage 
-                ? result.OrderByDescending(item => item.Key).Select(item => item.Value) 
+            return arrival.Piketage < departure.Piketage
+                ? result.OrderByDescending(item => item.Key).Select(item => item.Value)
                 : result.Values;
+        }
+
+        private static IEnumerable<NMLine> GetAllPiketagesBetweenStations(IEnumerable<NMLine> nmLines, Station departure, Station arrival)
+        {
+            var ascDirection = departure.Piketage < arrival.Piketage;
+            var predicate = ascDirection
+                ? new Func<NMLine, Boolean>(nm => nm.Piketage.IsIntoRange(departure.Piketage, arrival.Piketage))
+                : new Func<NMLine, Boolean>(nm => nm.Piketage.IsIntoRange(arrival.Piketage, departure.Piketage));
+
+            return nmLines.Where(predicate).ToList();
         }
 
         /// <exception cref="ArgumentNullException">factory is <see langword="null"/></exception>
@@ -265,6 +234,13 @@ namespace ORM.Stageis.Repository
             };
 
             return tmpList;
+        }
+
+
+
+        public override Stage GetByName(String name)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -65,30 +65,30 @@
     <Compile Include="Base\SessionWrapper.cs" />
     <Compile Include="Conventions\MyForeignKeyConvention.cs" />
     <Compile Include="Conventions\MyIdConvention.cs" />
-    <Compile Include="Energies\Entities\Diod.cs" />
-    <Compile Include="Energies\Entities\EnergyEnergy.cs" />
+    <Compile Include="Energies\Entities\Diode.cs" />
+    <Compile Include="Energies\Entities\Energy.cs" />
     <Compile Include="Energies\Entities\Feeder.cs" />
     <Compile Include="Energies\Entities\PowerConvert.cs" />
     <Compile Include="Energies\Entities\PowerSupplyStation.cs" />
     <Compile Include="Energies\Entities\Resistance.cs" />
-    <Compile Include="Energies\Entities\Type_Resistance.cs" />
+    <Compile Include="Energies\Entities\ResistanceType.cs" />
     <Compile Include="Energies\Entities\Unit.cs" />
-    <Compile Include="Energies\Entities\Unit_Name.cs" />
-    <Compile Include="Energies\Map\DiodMap.cs" />
+    <Compile Include="Energies\Entities\NamedUnit.cs" />
+    <Compile Include="Energies\Map\DiodeMap.cs" />
     <Compile Include="Energies\Map\FeederMap.cs" />
     <Compile Include="Energies\Map\PowerConvertMap.cs" />
     <Compile Include="Energies\Map\PowerSupplyStationMap.cs" />
     <Compile Include="Energies\Map\ResistanceMap.cs" />
-    <Compile Include="Energies\Map\Type_ResistanceMap.cs" />
+    <Compile Include="Energies\Map\ResistanceTypeMap.cs" />
     <Compile Include="Energies\Map\UnitMap.cs" />
-    <Compile Include="Energies\Map\Unit_NameMap.cs" />
+    <Compile Include="Energies\Map\NamedUnitMap.cs" />
     <Compile Include="Energies\Repository\EnergyRepository.cs" />
     <Compile Include="Energies\Repository\FeederRepository.cs" />
     <Compile Include="Energies\Repository\PowerSupplyStationRepository.cs" />
     <Compile Include="Energies\Repository\ResistanceRepository.cs" />
     <Compile Include="Energies\Repository\UnitRepository.cs" />
-    <Compile Include="Energies\Repository\Unit_NameRepository.cs" />
-    <Compile Include="Helpers\ExtensionMethods.cs" />
+    <Compile Include="Energies\Repository\NamedUnitRepository.cs" />
+    <Compile Include="OldHelpers\ExtensionMethods.cs" />
     <Compile Include="Lines\Entities\ASRLine.cs" />
     <Compile Include="Lines\Entities\Color.cs" />
     <Compile Include="Lines\Entities\CurrentSectionLine.cs" />
@@ -114,7 +114,7 @@
     <Compile Include="Lines\Map\StationMap.cs" />
     <Compile Include="Lines\Map\TrackMap.cs" />
     <Compile Include="Lines\Repository\LineRepositories.cs" />
-    <Compile Include="Helpers\MathHelper.cs" />
+    <Compile Include="OldHelpers\MathHelper.cs" />
     <Compile Include="Lines\Repository\StationRepository.cs" />
     <Compile Include="Lines\Repository\TrackRepositories.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -156,34 +156,41 @@
     <Compile Include="Stageis\Repository\PlanStageRepository.cs" />
     <Compile Include="Stageis\Repository\ProfileStageRepository.cs" />
     <Compile Include="Stageis\Repository\StageRepository.cs" />
-    <Compile Include="Trains\Entities\MassMass.cs" />
-    <Compile Include="Trains\Entities\ModeControls.cs" />
-    <Compile Include="Trains\Entities\MotorTypes.cs" />
+    <Compile Include="Trains\Entities\Mass.cs" />
+    <Compile Include="Trains\Entities\ModeControl.cs" />
+    <Compile Include="Trains\Entities\MotorType.cs" />
     <Compile Include="Trains\Entities\TrainName.cs" />
     <Compile Include="Trains\Entities\AdditionalParameter.cs" />
-    <Compile Include="Trains\Interpolation\Entities\VFI.cs" />
-    <Compile Include="Trains\Interpolation\Map\VFIMap.cs" />
-    <Compile Include="Trains\Map\MassMassMap.cs" />
-    <Compile Include="Trains\Map\ModeControlsMap.cs" />
-    <Compile Include="Trains\Map\MotorTypesMap.cs" />
+    <Compile Include="Trains\Interpolation\Entities\ElectricTractionCharacteristics.cs" />
+    <Compile Include="Trains\Interpolation\Map\ElectricTractionCharacteristicsMap.cs" />
+    <Compile Include="Trains\Map\MassMap.cs" />
+    <Compile Include="Trains\Map\ModeControlMap.cs" />
+    <Compile Include="Trains\Map\MotorTypeMap.cs" />
     <Compile Include="Trains\Map\TrainNameMap.cs" />
-    <Compile Include="Trains\Map\АdditionalParameterMap.cs" />
-    <Compile Include="Trains\Repository\Interpolation\VFIRepository.cs" />
+    <Compile Include="Trains\Map\AdditionalParameterMap.cs" />
+    <Compile Include="Trains\Repository\Interpolation\ElectricTractionCharacteristicsRepository.cs" />
     <Compile Include="Trains\Repository\Machine\ACMachine.cs" />
     <Compile Include="Trains\Repository\Machine\BaseMachine.cs" />
     <Compile Include="Trains\Repository\Machine\DCMachine.cs" />
     <Compile Include="Trains\Repository\MassRepository.cs" />
     <Compile Include="Trains\Repository\Trains\ACParameters.cs" />
-    <Compile Include="Trains\Repository\Trains\BaseTrainParametres.cs" />
-    <Compile Include="Trains\Repository\Trains\DCParametres.cs" />
-    <Compile Include="Trains\Repository\Trains\ModeControlsRepository.cs" />
-    <Compile Include="Trains\Repository\Trains\MotorTypesRepository.cs" />
+    <Compile Include="Trains\Repository\Trains\BaseTrainParameters.cs" />
+    <Compile Include="Trains\Repository\Trains\DCParameters.cs" />
+    <Compile Include="Trains\Repository\Trains\ModeControlRepository.cs" />
+    <Compile Include="Trains\Repository\Trains\MotorTypeRepository.cs" />
     <Compile Include="Trains\Repository\Trains\TrainNameRepository.cs" />
     <Compile Include="Trains\Repository\АdditionalParameterRepository.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <None Include="app.config" />
+    <ProjectReference Include="..\Helpers\Helpers.csproj">
+      <Project>{1f94cf55-9f79-44e8-a423-5b6d54a219d1}</Project>
+      <Name>Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Energies\Repository\ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>

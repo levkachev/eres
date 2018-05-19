@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using ORM.Base;
 
-namespace ORM.Energy.Entities
+namespace ORM.Energies.Entities
 {
     /// <summary>
     /// Преобразовательный агрегат
@@ -28,7 +28,7 @@ namespace ORM.Energy.Entities
         /// <summary>
         /// Наименование преобразовательного агрегата
         /// </summary>
-        public virtual Unit_Name Unit_Name { get; set; }
+        public virtual NamedUnit NamedUnit { get; set; }
 
         /// <summary>
         /// Тяговая подстанция
@@ -38,7 +38,7 @@ namespace ORM.Energy.Entities
         /// <summary>
         /// Выпрямители
         /// </summary>
-        public virtual IEnumerable<Diod> Diods { get; set; }
+        public virtual IEnumerable<Diode> Diods { get; set; }
 
         /// <summary>
         /// Трансформаторы
@@ -50,7 +50,7 @@ namespace ORM.Energy.Entities
         /// </summary>
         public Unit()
         {
-            Diods = new List<Diod>();
+            Diods = new List<Diode>();
             PowerConverts = new List<PowerConvert>();
 
         }

@@ -7,13 +7,12 @@ namespace ORM.Trains.Map
     {
         public TrainNameMap()
         {
-            Table("Train.TrainName");
+            Table(@"Train.TrainName");
             Id(x => x.ID);
             Map(x => x.Name).Length(25).Not.Nullable();
             References(x => x.MotorType);
-            HasMany(x => x.VFIs);
-            HasMany(x => x.АdditionalParameters);
-
+            HasMany(x => x.Characteristics).KeyColumn(@"VFIs");
+            HasMany(x => x.AdditionalParameters);
         }
     }
 }

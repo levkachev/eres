@@ -10,14 +10,12 @@ namespace ORM.Lines.Map
     {
         public DirectionMap()
         {
-            Table("Line.Direction");
+            Table(@"Line.Direction");
             Id(x => x.ID);
-            Map(x => x.Directions).Column("Direction");
-            Map(x => x.PiketageStart).Column("PiketagStart").Not.Nullable();
-            Map(x => x.PiketageFinish).Column("PiketagFinish").Not.Nullable();
-            References(x => x.Line).ForeignKey("ID_Line");
-           
+            Map(x => x.Value).Column(@"Direction");
+            Map(x => x.PiketageStart).Column(@"PiketagStart").Not.Nullable();
+            Map(x => x.PiketageFinish).Column(@"PiketagFinish").Not.Nullable();
+            References(x => x.Line).ForeignKey(@"ID_Line");         
         }
-
     }
 }

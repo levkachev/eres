@@ -3,6 +3,7 @@ using ORM.Lines.Entities;
 
 namespace ORM.Lines.Map
 {
+    /// <inheritdoc />
     /// <summary>
     /// Ограничения линий
     /// </summary>
@@ -10,13 +11,11 @@ namespace ORM.Lines.Map
     {
         public LimitLineMap()
         {
-            Table("Line.LimitLine");
+            Table(@"Line.LimitLine");
             Id(x => x.ID);
-            Map(x => x.Piketage).Column("Piketag").Not.Nullable(); 
+            Map(x => x.Piketage).Column(@"Piketag").Not.Nullable(); 
             Map(x => x.Limit).Not.Nullable(); 
-            References(x => x.Track).ForeignKey("ID_Track");
-
+            References(x => x.Track).ForeignKey(@"ID_Track");
         }
-
     }
 }

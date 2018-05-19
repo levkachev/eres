@@ -1,9 +1,8 @@
 ﻿namespace TrainMovement.ModeControl
 {
+    /// <inheritdoc />
     /// <summary>
-    /// Торможение со средним замедлением
+    /// Marker interface — "Торможение со средним замедлением".
     /// </summary>
-    public interface IAverageBreak : IBreak
-    {
-    }
+    public interface IAverageBreak : IBreak { }
 }

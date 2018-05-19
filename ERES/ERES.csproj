@@ -74,6 +74,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Helpers\Helpers.csproj">
+      <Project>{1f94cf55-9f79-44e8-a423-5b6d54a219d1}</Project>
+      <Name>Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OptimalTrajectory\OptimalTrajectory.csproj">
+      <Project>{ec2bbdcf-d746-44f5-b215-5ba32538a7a0}</Project>
+      <Name>OptimalTrajectory</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ORM\ORM.csproj">
       <Project>{f38cf343-031f-4df6-a3d9-24ee55b2c065}</Project>
       <Name>ORM</Name>

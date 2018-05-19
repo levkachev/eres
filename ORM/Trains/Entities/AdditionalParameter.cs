@@ -51,22 +51,22 @@ namespace ORM.Trains.Entities
         /// <summary>
         /// 1-коэффициент основного сопротивления для выбега
         /// </summary>
-        public virtual Double NetResistenceCoastingFactor1 { get; set; }
+        public virtual Double NetResistanceCoastingFactor1 { get; set; }
 
         /// <summary>
         /// 2-коэффициент основного сопротивления для выбега
         /// </summary>
-        public virtual Double NetResistenceCoastingFactor2 { get; set; }
+        public virtual Double NetResistanceCoastingFactor2 { get; set; }
 
         /// <summary>
         /// 3-коэффициент основного сопротивления для выбега
         /// </summary>
-        public virtual Double NetResistenceCoastingFactor3 { get; set; }
+        public virtual Double NetResistanceCoastingFactor3 { get; set; }
 
         /// <summary>
         /// эквивалентная поверхность состава
         /// </summary>
-        public virtual Double TrainEqvivalentSurface { get; set; }
+        public virtual Double TrainEquivalentSurface { get; set; }
 
         /// <summary>
         /// Коэффициент инерции вращающихся масс
@@ -121,12 +121,12 @@ namespace ORM.Trains.Entities
         /// <summary>
         /// 1-ый Коэффициент авторежима
         /// </summary>
-        public virtual Double AutomodeFactor1 { get; set; }
+        public virtual Double AutoModeFactor1 { get; set; }
 
         /// <summary>
         /// 2-ой Коэффициент авторежима
         /// </summary>
-        public virtual Double AutomodeFactor2 { get; set; }
+        public virtual Double AutoModeFactor2 { get; set; }
 
         /// <summary>
         /// 1-ый Коэффициент расчета времени возбуждения

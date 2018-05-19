@@ -2,51 +2,37 @@
 using System.Collections.Generic;
 using ORM.Base;
 
-
-namespace ORM.Energy.Entities
+namespace ORM.Energies.Entities
 {
     /// <summary>
     /// Тяговые подстанции
     /// </summary>
-    public class PowerSupplyStation : Entity<PowerSupplyStation>
+    public class PowerSupplyStation : NamedEntity<PowerSupplyStation>
     {
-        /// <summary>
-        /// Наименование
-        /// </summary>
-        public virtual String Name { get; set; }
-
         /// <summary>
         /// Пикетаж
         /// </summary>
-        public virtual Double Piketage { get; set; }
+        public virtual Double Piketage { get; protected set; }
 
         /// <summary>
         /// Линия
         /// </summary>
-        public virtual Lines.Entities.Line Line { get; set; }
+        public virtual Lines.Entities.Line Line { get; protected set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IEnumerable<Unit> Units { get; set; }
+        public virtual IEnumerable<Unit> Units { get; protected set; } = new List<Unit>();
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IEnumerable<Feeder> Feeders { get; set; }
+        public virtual IEnumerable<Feeder> Feeders { get; protected set; } = new List<Feeder>();
 
         /// <summary>
         /// 
         /// </summary>
-        public PowerSupplyStation()
-        {
-            Units = new List<Unit>();
-            Feeders = new List<Feeder>();
-        }
-
-        public override String ToString()
-        {
-            return $"For {Name} [{Piketage}]{Environment.NewLine}Units: {String.Join("; ", Units)}{Environment.NewLine}Feeders: {String.Join("; ", Feeders)}{Environment.NewLine}";
-        }
+        /// <returns></returns>
+        public override String ToString() => $"For {Name} [{Piketage}]{Environment.NewLine}{MakeReport(Units, nameof(Units))}{MakeReport(Feeders, nameof(Feeders))}";
     }
 }

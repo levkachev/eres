@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ORM.Helpers;
+using ORM.OldHelpers;
 
 namespace TrainMovement.Energy
 {
@@ -76,7 +76,7 @@ namespace TrainMovement.Energy
             //return voltages.Single(item => MathHelper.IsEqual(item.Piketage, piketage, 0.5)).Voltage;
             var min = voltages.Min(vop => Math.Abs(vop.Piketage - piketage));
             return voltages
-                .First(vop => MathHelper.IsEqual(Math.Abs(vop.Piketage - piketage), min))
+                .First(vop => Math.Abs(vop.Piketage - piketage).IsEqual(min))
                 .Voltage;
         }
 
@@ -89,7 +89,7 @@ namespace TrainMovement.Energy
         {
             var min = voltages.Min(vop => Math.Abs(vop.Piketage - piketage));
             return voltages
-                .Where(vop => MathHelper.IsEqual(Math.Abs(vop.Piketage - piketage), min))
+                .Where(vop => Math.Abs(vop.Piketage - piketage).IsEqual(min))
                 .Select(vop => vop.Voltage);
         }
     }

@@ -13,22 +13,20 @@ namespace ORM.Stageis.Entities
         /// </summary>
         public virtual Double Velocity { get; set; }
 
-
         /// <summary>
         /// Граница скорости
         /// </summary>
         public virtual Double EndVelocity { get; set; }
-
 
         /// <summary>
         /// 
         /// </summary>
         public virtual Stage Stage { get; set; }
 
-        public override String ToString()
-        {
-            return $" {Velocity} {EndVelocity}";
-
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override String ToString() => $" {Velocity} {EndVelocity}";
     }
 }

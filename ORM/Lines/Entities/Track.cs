@@ -1,82 +1,71 @@
-﻿using System;
-using ORM.Base;
-using System.Collections.Generic;
+﻿using ORM.Base;
 using ORM.Stageis.Entities;
+using System;
+using System.Collections.Generic;
 
 namespace ORM.Lines.Entities
 {
+    /// <inheritdoc />
     /// <summary>
     /// Путь
     /// </summary>
     public class Track : Entity<Track>
     {
         /// <summary>
-        /// номер пути
+        /// Номер пути
         /// </summary>
-        public virtual Int32 Tracks { get; set; }
+        public virtual Int32 Number { get; protected set; }
 
-             /// <summary>
-        /// 
-        /// </summary>
-        public virtual Line Line { get; set; }
-
-
-        public virtual IEnumerable<ASRLine> ASRLines { get; set; }
-       
         /// <summary>
-        /// 
+        /// Линия
         /// </summary>
-        public virtual IEnumerable<NMLine> NMLines { get; set; }
+        public virtual Line Line { get; protected set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IEnumerable<OpenLine> OpenLines { get; set; }
+        public virtual IEnumerable<ASRLine> ASRLines { get; protected set; } = new List<ASRLine>();
+
+        /// <summary>
+        /// Немереные пикеты
+        /// </summary>
+        public virtual IEnumerable<NMLine> NMLines { get; protected set; } = new List<NMLine>();
+
+        /// <summary>
+        /// Открытые участки линии
+        /// </summary>
+        public virtual IEnumerable<OpenLine> OpenLines { get; protected set; } = new List<OpenLine>();
+
+        /// <summary>
+        /// План
+        /// </summary>
+        public virtual IEnumerable<PlanLine> PlanLines { get; protected set; } = new List<PlanLine>();
+
+        /// <summary>
+        /// Профиль
+        /// </summary>
+        public virtual IEnumerable<ProfileLine> ProfileLines { get; protected set; } = new List<ProfileLine>();
+
+        /// <summary>
+        /// Неперекрываемые токоразделы
+        /// </summary>
+        public virtual IEnumerable<CurrentSectionLine> CurrentSectionLines { get; protected set; } = new List<CurrentSectionLine>();
+
+        /// <summary>
+        /// Ограничения скорости на линии
+        /// </summary>
+        public virtual IEnumerable<LimitLine> LimitLines { get; protected set; } = new List<LimitLine>();
+
+        /// <summary>
+        /// Перегоны
+        /// </summary>
+        public virtual IEnumerable<Stage> Stages{ get; protected set; } = new List<Stage>();
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual IEnumerable<PlanLine> PlanLines { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual IEnumerable<ProfileLine> ProfileLines { get; set; }
-
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual IEnumerable<CurrentSectionLine> CurrentSectionLines { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual IEnumerable<LimitLine> LimitLines { get; set; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual IEnumerable<Stage> Stages{ get; set; }
-        public Track()
-        {
-            
-            NMLines = new List<NMLine>();
-            PlanLines = new List<PlanLine>();
-            ProfileLines = new List<ProfileLine>();
-            CurrentSectionLines = new List<CurrentSectionLine>();
-            LimitLines = new List<LimitLine>();
-            Stages = new List<Stage>();
-            OpenLines = new List<OpenLine>();
-            ASRLines = new List<ASRLine>();
-        }
-       
-           public override String ToString()
-           {
-            return $"For {Tracks} ASRLines: {String.Join("; ", ASRLines)}{Environment.NewLine}NMLines: {String.Join("; ", NMLines)}{Environment.NewLine}PlanLines: {String.Join("; ", PlanLines)}{Environment.NewLine}ProfileLines: {String.Join("; ", ProfileLines)}{Environment.NewLine}CurrentSectionLines: {String.Join("; ", CurrentSectionLines)}{Environment.NewLine}LimitLines: {String.Join("; ", LimitLines)}{Environment.NewLine}";
-        }
+        /// <returns></returns>
+        public override String ToString() => 
+            $"For {Number} {MakeReport(ASRLines, nameof(ASRLines))}{MakeReport(NMLines, nameof(NMLines))}{MakeReport(PlanLines, nameof(PlanLines))}{MakeReport(ProfileLines, nameof(ProfileLines))}{MakeReport(CurrentSectionLines, nameof(CurrentSectionLines))}{MakeReport(LimitLines, nameof(LimitLines))}";
     }
-   
 }

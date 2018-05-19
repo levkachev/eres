@@ -10,10 +10,10 @@ namespace ORM.Lines.Map
     {
         public TrackMap()
         {
-            Table("Line.Track");
+            Table(@"Line.Track");
             Id(x => x.ID);
-            Map(x => x.Tracks).Column("Track");
-            References(x => x.Line).ForeignKey("ID_Line");
+            Map(x => x.Number).Column(@"Track");
+            References(x => x.Line).ForeignKey(@"ID_Line");
             HasMany(x => x.NMLines);
             HasMany(x => x.OpenLines);
             HasMany(x => x.PlanLines);
@@ -23,6 +23,5 @@ namespace ORM.Lines.Map
             HasMany(x => x.ASRLines);
             HasMany(x => x.Stages);
         }
-
     }
 }

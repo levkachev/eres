@@ -1,11 +1,7 @@
-﻿using ORM.Trains.Entities;
-
-namespace TrainMovement.ModeControl
+﻿namespace TrainMovement.ModeControl
 {
     /// <summary>
-    /// Торможение
+    /// Marker interface — "Торможение".
     /// </summary>
-    public interface IBreak
-    {
-    }
+    public interface IBreak { }
 }

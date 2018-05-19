@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ORM.Stageis.Entities;
-using ORM.Helpers;
+using ORM.OldHelpers;
 
 namespace ORM.Stageis.Repository.Limits
 {
@@ -39,7 +39,7 @@ namespace ORM.Stageis.Repository.Limits
             for (var i = 0; i < sortedLimits.Count; ++i)
             {
                 var current = tmpVector[i];
-                if (MathHelper.IsEqual(0,current.Value))
+                if (current.Value.IsZero())
                     resultSet.Add(current);
                 else
                 {

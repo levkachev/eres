@@ -8,12 +8,12 @@ namespace ORM.Lines.Entities
     /// <summary>
     /// Автоматическое регулирование скорости. Данные по Линии
     /// </summary>
-    public class ASRLine : Entity<ASRLine>
+    public class ASRLine : NamedEntity<ASRLine>
     {
         /// <summary>
         /// Наименование линии
         /// </summary>
-        public virtual String Name { get; set; }
+        public override String Name { get; protected set; }
 
         /// <summary>
         /// Ограничения 
@@ -30,11 +30,11 @@ namespace ORM.Lines.Entities
         /// </summary>
         public virtual Track Track { get; set; }
 
-        public override String ToString()
-        {
-            return $" {Name} {Limit} {Piketage}";
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override String ToString() => $" {Name} {Limit} {Piketage}";
     }
 }
 

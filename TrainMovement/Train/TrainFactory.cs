@@ -29,7 +29,9 @@ namespace TrainMovement.Train
         /// <exception cref="ArgumentOutOfRangeException">less zero.</exception>
         public static BaseTrain GetDCTrain(String trainName, EventBroker broker)
         {
-            return new DCTrain(АdditionalParameterRepository.GetDCMachineParametres(trainName), АdditionalParameterRepository.GetDCTrainParametres(trainName), trainName, broker);
+            return new DCTrain(
+                АdditionalParameterRepository.GetDCMachineParametres(trainName), 
+                АdditionalParameterRepository.GetDCTrainParameters(trainName), trainName, broker);
         }
 
     }

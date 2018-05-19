@@ -1,56 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using ORM.Base;
-using ORM.Energy.Entities;
-
+using ORM.Energies.Entities;
 
 namespace ORM.Lines.Entities
 {
     /// <summary>
     /// Линия
     /// </summary>
-    public class Line : Entity<Line>
+    public class Line : NamedEntity<Line>
     {
-        /// <summary>
-        /// Наименование линии
-        /// </summary>
-        public virtual String Name { get; set; }
-
         /// <summary>
         /// Цвет линии 
         /// </summary>
         public virtual Color Color { get; set; }
 
         /// <summary>
-        /// 
+        /// Тяговые подстанции
         /// </summary>
-        public virtual IEnumerable<PowerSupplyStation> PowerSupplyStations { get; set; }
+        public virtual IEnumerable<PowerSupplyStation> PowerSupplyStations { get; set; } = new List<PowerSupplyStation>();
 
         /// <summary>
-        /// 
+        /// Пути линии
         /// </summary>
-        public virtual IEnumerable<Track> Tracks { get; set; }
+        public virtual IEnumerable<Track> Tracks { get; set; } = new List<Track>();
 
         /// <summary>
-        /// 
+        /// Направления
         /// </summary>
-        public virtual IEnumerable<Direction> Directions { get; set; }
-
+        public virtual IEnumerable<Direction> Directions { get; set; } = new List<Direction>();
 
         /// <summary>
-        /// 
+        /// Станции
         /// </summary>
-        public virtual IEnumerable<Station> Stations { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public Line()
-        {
-            PowerSupplyStations = new List<PowerSupplyStation>();
-            Tracks = new List<Track>();
-            Directions = new List<Direction>();
-            Stations = new List<Station>();
-            
-        }
+        public virtual IEnumerable<Station> Stations { get; set; } = new List<Station>();
     }
 }

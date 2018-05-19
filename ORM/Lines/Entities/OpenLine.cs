@@ -2,8 +2,6 @@
 using ORM.Base;
 using System.Collections.Generic;
 
-
-
 namespace ORM.Lines.Entities
 {
     /// <summary>
@@ -26,22 +24,15 @@ namespace ORM.Lines.Entities
         /// </summary>
         public virtual Double PiketageFinish { get; set; }
 
-
         /// <summary>
         /// номер пути
         /// </summary>
-        public virtual IEnumerable<Track> Tracks { get; set; }
+        public virtual IEnumerable<Track> Tracks { get; set; } = new List<Track>();
 
-        public OpenLine()
-        {
-            
-            Tracks = new List<Track>();
-            
-        }
-        public override String ToString()
-        {
-            return $" {KWosn} {PiketageStart} {PiketageFinish}";
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override String ToString() => $" {KWosn} {PiketageStart} {PiketageFinish}";
     }
 }

@@ -1,10 +1,7 @@
 ﻿namespace TrainMovement.ModeControl
 {
     /// <summary>
-    /// Выбег
+    /// Marker interface — "Выбег".
     /// </summary>
-    public interface IInert
-    {
-        
-    }
+    public interface IInert { }
 }
