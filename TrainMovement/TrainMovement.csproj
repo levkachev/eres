@@ -68,6 +68,7 @@
     <Compile Include="Interpolation\Rusi4\Break3.cs" />
     <Compile Include="Interpolation\Rusi4\BreakAverage.cs" />
     <Compile Include="Interpolation\Rusi4\Inert.cs" />
+    <Compile Include="Interpolation\Rusi4\ModeControlFactory.cs" />
     <Compile Include="Interpolation\Rusi4\Pull1.cs" />
     <Compile Include="Interpolation\Rusi4\Pull2.cs" />
     <Compile Include="Interpolation\Rusi4\Pull3.cs" />

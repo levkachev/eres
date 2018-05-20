@@ -43,9 +43,7 @@ namespace TrainMovement.Interpolation.Rusi4
         /// <inheritdoc />
         /// <summary>
         /// </summary>
-        private Inert(Mass mass)
-        {
-        }
+        private Inert(Mass mass) { }
 
         /// <inheritdoc />
         /// <summary>

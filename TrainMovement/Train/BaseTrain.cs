@@ -9,6 +9,7 @@ using TrainMovement.ModeControl;
 
 using Helpers.Math;
 using Helpers.Physical;
+using TrainMovement.Interpolation.Rusi4;
 
 namespace TrainMovement.Train
 {
@@ -679,8 +680,14 @@ namespace TrainMovement.Train
             OwnNeedsElectricPower = commonProperties.OwnNeedsElectricPower;
 
             Machine = machine;
-            Broker = broker;    
+            Broker = broker;
+
+
+            var dummyModeControl = ORM.Trains.Repository.Trains.ModeControlRepository.GetInstance().GetByName("Inert");
+            var inteligentMass = ORM.Trains.Repository.MassRepository.GetInstance().GetByMass(Mass);
+            ModeControls.Add(ModeControlFactory.GetModeControl(dummyModeControl, inteligentMass));
         }
+
 
         /// <summary>
         /// Изменение кординаты поезда на перегоне приводит к событию
@@ -816,5 +823,7 @@ namespace TrainMovement.Train
             if (distance - space >= dS)
                 Space += dS;
         }
+
+        private List<IModeControl> ModeControlsTest = new List<IModeControl>();
     }
 }

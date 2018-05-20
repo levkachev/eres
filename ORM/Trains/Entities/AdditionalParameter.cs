@@ -3,6 +3,7 @@ using ORM.Base;
 
 namespace ORM.Trains.Entities
 {
+    /// <inheritdoc />
     /// <summary>
     /// Параметры поезда
     /// </summary>
@@ -192,5 +193,18 @@ namespace ORM.Trains.Entities
         /// Наименование поезда
         /// </summary>
         public virtual TrainName TrainName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="additionalParameters"></param>
+        public static implicit operator BaseTrainParameters(AdditionalParameter additionalParameters) =>
+            new BaseTrainParameters(additionalParameters.NumberCars, additionalParameters.CarLength,
+                additionalParameters.UnladenWeight, additionalParameters.BAverage,
+                additionalParameters.NetResistencePullFactor, additionalParameters.AerodynamicDragFactor,
+                additionalParameters.NetResistanceCoastingFactor1, additionalParameters.NetResistanceCoastingFactor2,
+                additionalParameters.NetResistanceCoastingFactor3, additionalParameters.TrainEquivalentSurface,
+                additionalParameters.InertiaRotationFactor, additionalParameters.OwnNeedsElectricPower,
+                additionalParameters.TrainName.Name);
     }
 }

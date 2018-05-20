@@ -7,6 +7,7 @@ namespace ORM.Trains.Repository.Machine
     /// </summary>
     public class DCMachine : BaseMachine
     {
+        #region Fields
 
         /// <summary>
         /// 
@@ -98,6 +99,8 @@ namespace ORM.Trains.Repository.Machine
         /// </summary>
         private Int32 weakPull2;
 
+#endregion
+
         /// <summary>
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">
@@ -105,7 +108,7 @@ namespace ORM.Trains.Repository.Machine
         /// </exception>
         public Double AssemblyPowerCircuitTime
         {
-            get { return assemblyPowerCircuitTime; }
+            get => assemblyPowerCircuitTime;
             set
             {
                 if (value < 0)
@@ -120,7 +123,7 @@ namespace ORM.Trains.Repository.Machine
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
         public Double AssemblyPullResistance
         {
-            get { return assemblyPullResistance; }
+            get => assemblyPullResistance;
             set
             {
                 if (value < 0)
@@ -135,7 +138,7 @@ namespace ORM.Trains.Repository.Machine
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
         public Double AssemblyBreakResistance
         {
-            get { return assemblyBreakResistance; }
+            get => assemblyBreakResistance;
             set
             {
                 if (value < 0)
@@ -150,7 +153,7 @@ namespace ORM.Trains.Repository.Machine
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
         public Double AnchorResistance
         {
-            get { return anchorResistance; }
+            get => anchorResistance;
             set
             {
                 if (value < 0)
@@ -165,7 +168,7 @@ namespace ORM.Trains.Repository.Machine
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
         public Double MainPoleResistance
         {
-            get { return mainPoleResistance; }
+            get => mainPoleResistance;
             set
             {
                 if (value < 0)
@@ -180,7 +183,7 @@ namespace ORM.Trains.Repository.Machine
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
         public Double ComPolesResistance
         {
-            get { return comPolesResistance; }
+            get => comPolesResistance;
             set
             {
                 if (value < 0)
@@ -195,7 +198,7 @@ namespace ORM.Trains.Repository.Machine
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
         public Double AutoModeFactor1
         {
-            get { return autoModeFactor1; }
+            get => autoModeFactor1;
             set
             {
                 if (value < 0)
@@ -210,7 +213,7 @@ namespace ORM.Trains.Repository.Machine
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
         public Double AutoModeFactor2
         {
-            get { return autoModeFactor2; }
+            get => autoModeFactor2;
             set
             {
                 if (value < 0)
@@ -225,7 +228,7 @@ namespace ORM.Trains.Repository.Machine
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
         public Double ExcitationTimeFactor1
         {
-            get { return excitationTimeFactor1; }
+            get => excitationTimeFactor1;
             set
             {
                 if (value < 0)
@@ -240,7 +243,7 @@ namespace ORM.Trains.Repository.Machine
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
         public Double ExcitationTimeFactor2
         {
-            get { return excitationTimeFactor2; }
+            get => excitationTimeFactor2;
             set
             {
                 if (value < 0)
@@ -255,7 +258,7 @@ namespace ORM.Trains.Repository.Machine
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
         public Double ExcitationTimeFactor3
         {
-            get { return excitationTimeFactor3; }
+            get => excitationTimeFactor3;
             set
             {
                 if (value < 0)
@@ -270,7 +273,7 @@ namespace ORM.Trains.Repository.Machine
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
         public Double MaxExcitationTime
         {
-            get { return maxExcitationTime; }
+            get => maxExcitationTime;
             set
             {
                 if (value < 0)
@@ -285,7 +288,7 @@ namespace ORM.Trains.Repository.Machine
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
         public Double LowAutoModeRange
         {
-            get { return lowAutoModeRange; }
+            get => lowAutoModeRange;
             set
             {
                 if (value < 0)
@@ -300,7 +303,7 @@ namespace ORM.Trains.Repository.Machine
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
         public Double HighAutoModeRange
         {
-            get { return highAutoModeRange; }
+            get => highAutoModeRange;
             set
             {
                 if (value < 0)
@@ -315,7 +318,7 @@ namespace ORM.Trains.Repository.Machine
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
         public Double LinearGrowCurrentTime
         {
-            get { return linearGrowCurrentTime; }
+            get => linearGrowCurrentTime;
             set
             {
                 if (value < 0)
@@ -330,7 +333,7 @@ namespace ORM.Trains.Repository.Machine
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
         public Int32 ConnectionPull2
         {
-            get { return connectionPull2; }
+            get => connectionPull2;
             set
             {
                 if (value < 0)
@@ -345,7 +348,7 @@ namespace ORM.Trains.Repository.Machine
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
         public Int32 PositionPull2
         {
-            get { return positionPull2; }
+            get => positionPull2;
             set
             {
                 if (value < 0)
@@ -361,7 +364,7 @@ namespace ORM.Trains.Repository.Machine
         /// <exception cref="ArgumentOutOfRangeException" accessor="set">less zero.</exception>
         public Int32 WeakPull2
         {
-            get { return weakPull2; }
+            get => weakPull2;
             set
             {
                 if (value < 0)
@@ -369,12 +372,14 @@ namespace ORM.Trains.Repository.Machine
                 weakPull2 = value;
             }
         }
+
+        /// <inheritdoc />
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="disassemblyPowerCircuitTime"></param>
         /// <param name="positionPull2"></param>
         /// <param name="weakPull2"></param>
+        /// <param name="assemblyBreakTime"></param>
         /// <param name="assemblyPullTime"></param>
         /// <param name="trainName"></param>
         /// <param name="assemblyPowerCircuitTime"></param>

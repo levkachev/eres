@@ -113,10 +113,10 @@
     <Compile Include="Lines\Map\ProfileLineMap.cs" />
     <Compile Include="Lines\Map\StationMap.cs" />
     <Compile Include="Lines\Map\TrackMap.cs" />
-    <Compile Include="Lines\Repository\LineRepositories.cs" />
+    <Compile Include="Lines\Repository\LineRepository.cs" />
     <Compile Include="OldHelpers\MathHelper.cs" />
     <Compile Include="Lines\Repository\StationRepository.cs" />
-    <Compile Include="Lines\Repository\TrackRepositories.cs" />
+    <Compile Include="Lines\Repository\TrackRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stageis\Entities\ASRStage.cs" />
     <Compile Include="Stageis\Entities\CurrentSectionStage.cs" />
@@ -179,7 +179,7 @@
     <Compile Include="Trains\Repository\Trains\ModeControlRepository.cs" />
     <Compile Include="Trains\Repository\Trains\MotorTypeRepository.cs" />
     <Compile Include="Trains\Repository\Trains\TrainNameRepository.cs" />
-    <Compile Include="Trains\Repository\АdditionalParameterRepository.cs" />
+    <Compile Include="Trains\Repository\AdditionalParameterRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Helpers\Helpers.csproj">

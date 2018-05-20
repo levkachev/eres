@@ -30,7 +30,7 @@ namespace ORM.Trains.Repository.Trains
         /// Метод получения коллекции допустимых режимов управления для заданного типа двигателя.
         /// </summary>
         /// <param name="motorType">Тип двигателя.</param>
-        /// <returns>Коллекция допустимых режимов управления.</returns>
+        /// <returns>Перечисление (<see cref="IEnumerable{T}"/>) допустимых режимов управления.</returns>
         public IEnumerable<ModeControl> GetModeControlsForMotorType(MotorType motorType) => GetAll().Where(modeControl => modeControl.MotorType == motorType);
     }
 }

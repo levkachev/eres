@@ -1,8 +1,5 @@
 ﻿using System;
 using ORM.Base;
-using System.Collections.Generic;
-using ORM.Stageis.Entities;
-
 
 
 namespace ORM.Lines.Entities

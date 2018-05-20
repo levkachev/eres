@@ -88,6 +88,11 @@ namespace ORM.Trains.Repository.Machine
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        protected BaseMachine() { }
+
+        /// <summary>
         /// </summary>
         /// <param name="assemblyBreakTime"></param>
         /// <param name="assemblyPullTime"></param>
@@ -102,10 +107,5 @@ namespace ORM.Trains.Repository.Machine
             AssemblyPullTime = assemblyPullTime;
             Name = trainName;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected BaseMachine() { }
     }
 }

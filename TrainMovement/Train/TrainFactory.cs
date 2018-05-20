@@ -1,5 +1,4 @@
 ﻿using System;
-using ORM.Stageis.Repository;
 using ORM.Trains.Repository;
 
 namespace TrainMovement.Train
@@ -16,10 +15,9 @@ namespace TrainMovement.Train
         /// <exception cref="ArgumentOutOfRangeException">less zero.</exception>
         public static BaseTrain GetACTrain(String trainName, EventBroker broker)
         {
-            var machine = АdditionalParameterRepository.GetACMachineParametres(trainName);
-            var train = АdditionalParameterRepository.GetACTrainParametres(trainName);
-            var result = new ACTrain(machine, train, trainName, broker);
-            return result;
+            var machine = AdditionalParameterRepository.GetACMachineParametres(trainName);
+            var train = AdditionalParameterRepository.GetACTrainParametres(trainName);
+            return new ACTrain(machine, train, trainName, broker);
         }
 
         /// <summary>
@@ -29,10 +27,9 @@ namespace TrainMovement.Train
         /// <exception cref="ArgumentOutOfRangeException">less zero.</exception>
         public static BaseTrain GetDCTrain(String trainName, EventBroker broker)
         {
-            return new DCTrain(
-                АdditionalParameterRepository.GetDCMachineParametres(trainName), 
-                АdditionalParameterRepository.GetDCTrainParameters(trainName), trainName, broker);
+            var machine = AdditionalParameterRepository.GetDCMachineParametres(trainName);
+            var train = AdditionalParameterRepository.GetDCTrainParameters(trainName);
+            return new DCTrain(machine, train, trainName, broker);
         }
-
     }
 }
