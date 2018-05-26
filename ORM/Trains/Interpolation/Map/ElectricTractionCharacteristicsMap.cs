@@ -10,11 +10,11 @@ namespace ORM.Trains.Interpolation.Map
             Table(@"Train.VFI");
             Id(x => x.ID);
             Map(x => x.Velocity).Not.Nullable();
-           // Map(x => x.CurrentMax).Not.Nullable();
-           // Map(x => x.CurrentMin).Not.Nullable();
+           Map(x => x.CurrentMax).Not.Nullable();
+           Map(x => x.CurrentMin).Not.Nullable();
 
-            Map(x => x.Current.From).Column(@"CurrentMin").Not.Nullable();
-            Map(x => x.Current.To).Column(@"CurrentMax").Not.Nullable();
+//            Map(x => x.Current.From).Column(@"CurrentMin").Not.Nullable();
+//            Map(x => x.Current.To).Column(@"CurrentMax").Not.Nullable();
 
             Map(x => x.ForceMax).Not.Nullable();
             Map(x => x.ForceMin).Not.Nullable();
