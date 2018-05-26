@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/Library/Caches/Rider2018.1/resharper-host/local/Transient/ReSharperHost/v12/SolutionCaches/_ERES.1268036639.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="ERES" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="ERES.csproj" t="IncludeRecursive" />
+        <e p="MySerializer.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="SerializableObject.cs" t="Include" />
+      </e>
+      <e p="ERES.sln" t="IncludeFlat" />
+      <e p="Helpers" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Domain" t="Include">
+          <e p="ConstraintsChecker.cs" t="Include" />
+          <e p="StageChecker.cs" t="Include" />
+          <e p="TrainChecker.cs" t="Include" />
+        </e>
+        <e p="Helpers.csproj" t="IncludeRecursive" />
+        <e p="IO" t="Include">
+          <e p="Filters.cs" t="Include" />
+        </e>
+        <e p="Math" t="Include">
+          <e p="FunctionSegment.cs" t="Include" />
+          <e p="LinearFunction.cs" t="Include" />
+          <e p="MathHelper.cs" t="Include" />
+          <e p="PiecewiseFunction.cs" t="Include" />
+          <e p="PiecewiseLinearFunction.cs" t="Include" />
+          <e p="Point.cs" t="Include" />
+          <e p="Range.cs" t="Include" />
+          <e p="SortedLinkedList.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Physical" t="Include">
+          <e p="Converter.cs" t="Include" />
+          <e p="TrainHelper.cs" t="Include" />
+        </e>
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+      </e>
+      <e p="OptimalDistribution" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Class1.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="OptimalDistribution.csproj" t="IncludeRecursive" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+      </e>
+      <e p="OptimalTrajectory" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="BranchesAndTreesMethod.cs" t="Include" />
+        <e p="IMethod.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="OptimalTrajectory.csproj" t="IncludeRecursive" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="Segment.cs" t="Include" />
+        <e p="Solver.cs" t="Include" />
+        <e p="Step.cs" t="Include" />
+        <e p="Trajectory.cs" t="Include" />
+      </e>
+      <e p="ORM" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="Base" t="Include">
+          <e p="Entity.cs" t="Include" />
+          <e p="IRepository.cs" t="Include" />
+          <e p="Repository.cs" t="Include" />
+          <e p="SessionFactory.cs" t="Include" />
+          <e p="SessionWrapper.cs" t="Include" />
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Conventions" t="Include">
+          <e p="MyForeignKeyConvention.cs" t="Include" />
+          <e p="MyIdConvention.cs" t="Include" />
+        </e>
+        <e p="Energies" t="Include">
+          <e p="Entities" t="Include">
+            <e p="Diode.cs" t="Include" />
+            <e p="Energy.cs" t="Include" />
+            <e p="Feeder.cs" t="Include" />
+            <e p="NamedUnit.cs" t="Include" />
+            <e p="PowerConvert.cs" t="Include" />
+            <e p="PowerSupplyStation.cs" t="Include" />
+            <e p="Resistance.cs" t="Include" />
+            <e p="ResistanceType.cs" t="Include" />
+            <e p="Unit.cs" t="Include" />
+          </e>
+          <e p="Map" t="Include">
+            <e p="DiodeMap.cs" t="Include" />
+            <e p="FeederMap.cs" t="Include" />
+            <e p="NamedUnitMap.cs" t="Include" />
+            <e p="PowerConvertMap.cs" t="Include" />
+            <e p="PowerSupplyStationMap.cs" t="Include" />
+            <e p="ResistanceMap.cs" t="Include" />
+            <e p="ResistanceTypeMap.cs" t="Include" />
+            <e p="UnitMap.cs" t="Include" />
+          </e>
+          <e p="Repository" t="Include">
+            <e p="ClassDiagram1.cd" t="Include" />
+            <e p="EnergyRepository.cs" t="Include" />
+            <e p="FeederRepository.cs" t="Include" />
+            <e p="NamedUnitRepository.cs" t="Include" />
+            <e p="PowerSupplyStationRepository.cs" t="Include" />
+            <e p="ResistanceRepository.cs" t="Include" />
+            <e p="UnitRepository.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Lines" t="Include">
+          <e p="Entities" t="Include">
+            <e p="ASRLine.cs" t="Include" />
+            <e p="Color.cs" t="Include" />
+            <e p="CurrentSectionLine.cs" t="Include" />
+            <e p="Direction.cs" t="Include" />
+            <e p="LimitLine.cs" t="Include" />
+            <e p="Line.cs" t="Include" />
+            <e p="NMLine.cs" t="Include" />
+            <e p="OpenLine.cs" t="Include" />
+            <e p="PlanLine.cs" t="Include" />
+            <e p="ProfileLine.cs" t="Include" />
+            <e p="Station.cs" t="Include" />
+            <e p="Track.cs" t="Include" />
+          </e>
+          <e p="Map" t="Include">
+            <e p="ASRLineMap.cs" t="Include" />
+            <e p="ColorMap.cs" t="Include" />
+            <e p="CurrentSectionLineMap.cs" t="Include" />
+            <e p="DirectionMap.cs" t="Include" />
+            <e p="LimitLineMap.cs" t="Include" />
+            <e p="LineMap.cs" t="Include" />
+            <e p="NMLineMap.cs" t="Include" />
+            <e p="OpenLineMap.cs" t="Include" />
+            <e p="PlanLineMap.cs" t="Include" />
+            <e p="ProfileLineMap.cs" t="Include" />
+            <e p="StationMap.cs" t="Include" />
+            <e p="TrackMap.cs" t="Include" />
+          </e>
+          <e p="Repository" t="Include">
+            <e p="LineRepository.cs" t="Include" />
+            <e p="StationRepository.cs" t="Include" />
+            <e p="TrackRepository.cs" t="Include" />
+          </e>
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="OldHelpers" t="Include">
+          <e p="ExtensionMethods.cs" t="Include" />
+          <e p="MathHelper.cs" t="Include" />
+        </e>
+        <e p="ORM.csproj" t="IncludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="Stageis" t="Include">
+          <e p="Entities" t="Include">
+            <e p="ASRStage.cs" t="Include" />
+            <e p="CurrentSectionStage.cs" t="Include" />
+            <e p="LimitStage.cs" t="Include" />
+            <e p="OpenStage.cs" t="Include" />
+            <e p="PlanStage.cs" t="Include" />
+            <e p="ProfileStage.cs" t="Include" />
+            <e p="Stage.cs" t="Include" />
+          </e>
+          <e p="Map" t="Include">
+            <e p="ASRStageMap.cs" t="Include" />
+            <e p="CurrentSectionStageMap.cs" t="Include" />
+            <e p="LimitStageMap.cs" t="Include" />
+            <e p="OpenStageMap.cs" t="Include" />
+            <e p="PlanStageMap.cs" t="Include" />
+            <e p="ProfileStageMap.cs" t="Include" />
+            <e p="StageMap.cs" t="Include" />
+          </e>
+          <e p="Repository" t="Include">
+            <e p="ASRStageRepository.cs" t="Include" />
+            <e p="CurrentSectionStageRepository.cs" t="Include" />
+            <e p="Limits" t="Include">
+              <e p="AllVelocityLimits.cs" t="Include" />
+              <e p="ASRConvertLimitStage.cs" t="Include" />
+              <e p="BaseConvertLimit.cs" t="Include" />
+              <e p="BaseLimits.cs" t="Include" />
+              <e p="CurrentBlockLimits.cs" t="Include" />
+              <e p="CurrentConvertLimits.cs" t="Include" />
+              <e p="ILimits.cs" t="Include" />
+              <e p="ISortedSetLimits.cs" t="Include" />
+              <e p="Limit.cs" t="Include" />
+              <e p="NMConvertLimitStage.cs" t="Include" />
+              <e p="NMLimits.cs" t="Include" />
+              <e p="OpenConvertLimitStage.cs" t="Include" />
+              <e p="OpenLimits.cs" t="Include" />
+              <e p="PlanConvertedLimitStage.cs" t="Include" />
+              <e p="ProfileConvertLimitStage.cs" t="Include" />
+              <e p="ReliefLimits.cs" t="Include" />
+              <e p="VelocityConvertLimitStage.cs" t="Include" />
+            </e>
+            <e p="LimitStageRepository.cs" t="Include" />
+            <e p="OpenStageRepository.cs" t="Include" />
+            <e p="PlanStageRepository.cs" t="Include" />
+            <e p="ProfileStageRepository.cs" t="Include" />
+            <e p="StageRepository.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Trains" t="Include">
+          <e p="Entities" t="Include">
+            <e p="ACParameters.cs" t="Include" />
+            <e p="AdditionalParameter.cs" t="Include" />
+            <e p="BaseTrainParameters.cs" t="Include" />
+            <e p="DCParameters.cs" t="Include" />
+            <e p="Mass.cs" t="Include" />
+            <e p="ModeControl.cs" t="Include" />
+            <e p="MotorType.cs" t="Include" />
+            <e p="TrainName.cs" t="Include" />
+          </e>
+          <e p="Interpolation" t="Include">
+            <e p="Entities" t="Include">
+              <e p="ElectricTractionCharacteristics.cs" t="Include" />
+            </e>
+            <e p="Map" t="Include">
+              <e p="ElectricTractionCharacteristicsMap.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Map" t="Include">
+            <e p="AdditionalParameterMap.cs" t="Include" />
+            <e p="MassMap.cs" t="Include" />
+            <e p="ModeControlMap.cs" t="Include" />
+            <e p="MotorTypeMap.cs" t="Include" />
+            <e p="TrainNameMap.cs" t="Include" />
+          </e>
+          <e p="Repository" t="Include">
+            <e p="AdditionalParameterRepository.cs" t="Include" />
+            <e p="Interpolation" t="Include">
+              <e p="ElectricTractionCharacteristicsRepository.cs" t="Include" />
+            </e>
+            <e p="Machine" t="Include">
+              <e p="ACMachine.cs" t="Include" />
+              <e p="BaseMachine.cs" t="Include" />
+              <e p="DCMachine.cs" t="Include" />
+            </e>
+            <e p="MassRepository.cs" t="Include" />
+            <e p="Trains" t="Include">
+              <e p="ModeControlRepository.cs" t="Include" />
+              <e p="MotorTypeRepository.cs" t="Include" />
+              <e p="TrainNameRepository.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="TrainMovement" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Energy" t="Include">
+          <e p="BaseVoltageProvider.cs" t="Include" />
+          <e p="ConstantVoltageProvider.cs" t="Include" />
+          <e p="FileVoltageProvider.cs" t="Include" />
+          <e p="ICountVoltage.cs" t="Include" />
+          <e p="VoltageOnPiketage.cs" t="Include" />
+          <e p="VoltageProviderFactory.cs" t="Include" />
+          <e p="VoltageProvidersHierarhy.cd" t="Include" />
+        </e>
+        <e p="EventBroker.cs" t="Include" />
+        <e p="Interpolation" t="Include">
+          <e p="Rusi4" t="Include">
+            <e p="BaseBreak.cs" t="Include" />
+            <e p="BaseModeControl.cs" t="Include" />
+            <e p="BasePull.cs" t="Include" />
+            <e p="Break1.cs" t="Include" />
+            <e p="Break2.cs" t="Include" />
+            <e p="Break3.cs" t="Include" />
+            <e p="BreakAverage.cs" t="Include" />
+            <e p="Inert.cs" t="Include" />
+            <e p="ModeControlFactory.cs" t="Include" />
+            <e p="ModeControls.cd" t="Include" />
+            <e p="Pull1.cs" t="Include" />
+            <e p="Pull2.cs" t="Include" />
+            <e p="Pull3.cs" t="Include" />
+            <e p="Pull4.cs" t="Include" />
+          </e>
+        </e>
+        <e p="ModeControl" t="Include">
+          <e p="IAverageBreak.cs" t="Include" />
+          <e p="IBreak.cs" t="Include" />
+          <e p="IInert.cs" t="Include" />
+          <e p="IModeControl.cs" t="Include" />
+          <e p="IPull.cs" t="Include" />
+          <e p="IRecuperationBreak.cs" t="Include" />
+          <e p="IResistance.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="Stage" t="Include">
+          <e p="StationToStationBlock.cs" t="Include" />
+        </e>
+        <e p="Stuff" t="Include">
+          <e p="ExtensionMethods.cs" t="Include" />
+        </e>
+        <e p="Train" t="Include">
+          <e p="ACTrain.cs" t="Include" />
+          <e p="BaseTrain.cs" t="Include" />
+          <e p="DCTrain.cs" t="Include" />
+          <e p="Graph1.dgml" t="Include" />
+          <e p="OutTrainParametres.cs" t="Include" />
+          <e p="TrainFactory.cs" t="Include" />
+        </e>
+        <e p="TrainMovement.csproj" t="IncludeRecursive" />
+      </e>
+    </e>
+  </component>
+</project>
