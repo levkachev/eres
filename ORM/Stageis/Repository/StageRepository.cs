@@ -235,7 +235,8 @@ namespace ORM.Stageis.Repository
             var planStageRepository = PlanStageRepository.GetInstance();
             var planStage = planStageRepository.GetLimits(stage);
             var planSortedStage = new PlanConvertedLimitStage(planStage);
-            var planLimits = planSortedStage.Limits;
+            //var planLimits = planSortedStage.Limits;
+            var planLimits = planSortedStage.ConvertedPlan();
 
             var profileStageRepository = ProfileStageRepository.GetInstance();
             var profileStage = profileStageRepository.GetLimits(stage);

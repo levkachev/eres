@@ -24,6 +24,12 @@ namespace TrainMovement.Train
         private Double kF;
 
         /// <summary>
+        /// расход энергии
+        /// </summary>
+        private Double a;
+
+
+        /// <summary>
         /// 
         /// </summary>
         private const Double dF = 7.2;
@@ -38,6 +44,10 @@ namespace TrainMovement.Train
         /// </summary>
         private Double ForceKGC;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private Double Ip;
 
         /// <summary>
         /// 
@@ -617,6 +627,20 @@ namespace TrainMovement.Train
             }
         }
 
+        /// <summary>
+        /// расход энергии
+        /// </summary>
+        public Double A
+        {
+            get { return a; }
+            set
+            {
+                if (value <0)
+                    throw new ArgumentOutOfRangeException(nameof(value));
+                a = value;
+            }
+        }
+
         #endregion
 
         /// <summary>
@@ -674,7 +698,7 @@ namespace TrainMovement.Train
             
             while (Space <= distance && (Time > 1 && Converter.GetVelocityKmPerHour(Velocity) > 0.1) || (Time <= 1))
             {
-                if (Converter.GetVelocityKmPerHour(Velocity) >= MaxVelocity && ModeControl is IPull)
+                if (Velocity >= MaxVelocity && ModeControl is IPull)
                 {
                     ModeControl = ModeControl.Low(ByMass);
                     TimeInModeControl = 0;
@@ -691,7 +715,7 @@ namespace TrainMovement.Train
                 }
 
                 Step(IntegrStep);
-                var step = new OutTrainParameters(ModeControl, Current, Space, Time, SpacePiketage, Converter.GetVelocityKmPerHour(Velocity), ForceAdditionalResistance, ForceBaseResistance, Force);
+                var step = new OutTrainParameters(ModeControl, Current, Space, Time, SpacePiketage, Velocity, ForceAdditionalResistance, ForceBaseResistance, Force);
                 result.Add(step);
             }
 
@@ -708,7 +732,7 @@ namespace TrainMovement.Train
             Velocity = 0.0;
             Space = 0.0;
             Mass = massa;
-            factor = Converter.GetFactor() * InertiaRotationFactor * UnladenWeight / (UnladenWeight + Mass);
+            factor = Converter.GetFactor() /(1+InertiaRotationFactor * UnladenWeight / (UnladenWeight + Mass));
             if (Mass < 20)
                 kF = (1 + Mass / UnladenWeight * 0.93);
             else
@@ -720,38 +744,50 @@ namespace TrainMovement.Train
         /// </summary>
         /// <returns></returns>
         private void Step(Double IntegrStep)
-        {            
+        {
+            TimeInModeControl += IntegrStep;
             var lastForce = ForceKGC;
-            var lastCurrent = Current;
-            Current = ModeControl.GetCurrent(Converter.GetVelocityKmPerHour(Velocity),this) *NumberCars;
+            var lastCurrent = Ip;
+            Current = ModeControl.GetCurrent(Velocity, this);
             if (Voltage > 750)
                 Current = Current * VoltageNominal / Voltage;
-            ForceKGC = ModeControl.GetForce(Converter.GetVelocityKmPerHour(Velocity), this);
-           
+            ForceKGC = ModeControl.GetForce(Velocity, this);
             if (Math.Abs(ForceKGC - lastForce) > IntegrStep*dF)
             {
                 ForceKGC = lastForce + Math.Sign(ForceKGC - lastForce)*IntegrStep*dF;
-                var kpd = ModeControl.GetKPD(Velocity);
-                if (kpd > 0)
-                    Current = Converter.GetVelocityMeterPerSec(Velocity) * Converter.GetForceInK(ForceKGC)/kpd/Voltage*motorCount;
-                else Current = 0.0;
             }
             if (Math.Abs(Math.Abs(Current)- Math.Abs(lastCurrent)) > (dIc*IntegrStep))
             {
                 Current = lastCurrent + Math.Sign(Current - lastCurrent)* dIc * IntegrStep;
             }
+            Ip = Current;
+            
+            var dA = Voltage*Current;
+           var dAeown = Converter.GetInKilo(OwnNeedsElectricPower)*IntegrStep;
+            A += dAeown;
+            Current = Current + dAeown/Voltage;
+            Current *= NumberCars;
             Force = Converter.GetForceInKNewton(ForceKGC) * motorCount / (UnladenWeight + Mass);
+       
             ForceBaseResistance = ModeControl.GetBaseResistance(this);
-            var a = Force - ForceAdditionalResistance - ForceBaseResistance;
-            var dV = factor * a;
+            var acc = Force - ForceAdditionalResistance - ForceBaseResistance;
+            var dV = factor * IntegrStep * acc;
+            if (ModeControl is IBreak)
+            {
+                Current *= -1 * 2.5 * kF;
+                Force *= -1;
+                dV = -BreakAverage*IntegrStep*3.6;
+            }
             if (ModeControl is IAverageBreak)
                 Acceleration = BreakAverage;
             else Acceleration = Converter.GetVelocityMeterPerSec(dV)/IntegrStep;
             Velocity += dV;
             Space += Converter.GetVelocityMeterPerSec(Velocity)*IntegrStep;
             Time += IntegrStep;
-            TimeInModeControl+= IntegrStep;
-            if (Converter.GetVelocityKmPerHour(Velocity) >= MaxVelocity && ModeControl is IInert && dV > 0)
+            
+            A += dA*IntegrStep;
+
+            if (Velocity >= MaxVelocity && ModeControl is IInert && dV > 0)
             {
                 ModeControl = ModeControl.Low(ByMass);
                 TimeInModeControl = 0;
